@@ -1,9 +1,12 @@
 package ar.fiuba.taller.loadTestConsole;
 
-public class ConstantUserPattern extends UserPattern {
+import java.util.List;
 
-	public ConstantUserPattern(Integer numberOfUseres, Integer upperBound) {
-		super(numberOfUseres, upperBound);
+public class ConstantUserPattern extends UserPattern {
+	
+	public ConstantUserPattern(List<Integer> paramList) {
+		
+		super(paramList.get(0), paramList.get(0));
 	}
 
 	@Override

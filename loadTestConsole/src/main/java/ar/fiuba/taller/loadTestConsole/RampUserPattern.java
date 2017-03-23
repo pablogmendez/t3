@@ -1,9 +1,11 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import java.util.List;
+
 public class RampUserPattern extends UserPattern {
 
-	public RampUserPattern(Integer numberOfUseres, Integer upperBound) {
-		super(numberOfUseres, upperBound);
+	public RampUserPattern(List<Integer> paramList) {
+		super(paramList.get(0), paramList.get(0));
 	}
 
 	@Override

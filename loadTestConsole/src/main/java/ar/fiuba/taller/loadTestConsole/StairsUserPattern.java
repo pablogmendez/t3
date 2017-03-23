@@ -1,5 +1,7 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import java.util.List;
+
 public class StairsUserPattern extends UserPattern {
 	
 	private Integer stepLength;
@@ -8,10 +10,10 @@ public class StairsUserPattern extends UserPattern {
 	
 	private Integer heightOfStep;
 	
-	public StairsUserPattern(Integer numberOfUseres, Integer upperBound, Integer stepLength) {
-		super(numberOfUseres, upperBound);
-		this.setStepLength(stepLength);
-		this.setTicksLeft(stepLength);
+	public StairsUserPattern(List<Integer> paramList) {
+		super(paramList.get(0), paramList.get(0));
+		this.setStepLength(paramList.get(1));
+		this.setTicksLeft(paramList.get(1));
 		this.setHeightOfStep(1);
 	}
 

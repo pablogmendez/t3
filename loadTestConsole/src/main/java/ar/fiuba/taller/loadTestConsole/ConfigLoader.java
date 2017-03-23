@@ -12,6 +12,10 @@ public class ConfigLoader {
 	private Integer simulationTime;
 	private Integer userLoginTimeInterval;
 	private String function;
+	private Integer usersQueueSize;
+	private Integer maxsizeUserPoolThread;
+	private Integer maxSizeDownloadersPoolThread;
+	private Integer tasksQueuesListSize;
 	// Array para guardar los parametros de la funcion 
 	private ArrayList<Integer> functionPatternParam;
 
@@ -30,14 +34,11 @@ public class ConfigLoader {
 		return instance;
 	}
 	
-	public void init(String configFile) {
-		
-		logger.info("Cargando configuracion del sistema");
-		
-		functionPatternParam = new ArrayList<Integer>();
-		
+	public void init(String configFile) {		
 		 try {
-			 Properties properties = null;
+			 logger.info("Cargando configuracion del sistema");	
+			 functionPatternParam = new ArrayList<Integer>();
+			 Properties properties = new Properties();
 			 FileInputStream input = new FileInputStream(Constants.PROPERTIES_FILE);
 		
 		    // cargamos el archivo de propiedades
@@ -47,8 +48,12 @@ public class ConfigLoader {
 			simulationTime = Integer.parseInt(properties.getProperty(Constants.SIMULATION_TIME_PROPERTY));
 			userLoginTimeInterval = Integer.parseInt(properties.getProperty(Constants.USER_LOGIN_TIME_INTERVAL_PROPERTY));
 			function = properties.getProperty(Constants.FUNCTION_PROPERTY);
-			
+			usersQueueSize = Integer.parseInt(properties.getProperty(Constants.USERES_QUEUE_SIZE));
+			maxsizeUserPoolThread = Integer.parseInt(properties.getProperty(Constants.MAX_SIZE_USER_POOL_THREAD));
+			maxSizeDownloadersPoolThread = Integer.parseInt(properties.getProperty(Constants.MAX_SIZE_DOWNLOADERS_POOL_THREAD));
+			tasksQueuesListSize = Integer.parseInt(properties.getProperty(Constants.TASKS_QUEUES_LIST_SIZE));
 			functionPatternParam.add(Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_USERS_PROPERTY)));
+			
 			
 			if(function.equals("stairs")) {
 				functionPatternParam.add(Integer.parseInt(properties.getProperty(Constants.STEP_LENGTH_PROPERTY)));
@@ -95,6 +100,38 @@ public class ConfigLoader {
 	
 	public ArrayList<Integer> getFunctionPatternParam() {
 		return functionPatternParam;
+	}
+
+	public Integer getUsersQueueSize() {
+		return usersQueueSize;
+	}
+
+	public void setUsersQueueSize(Integer usersQueueSize) {
+		this.usersQueueSize = usersQueueSize;
+	}
+
+	public Integer getMaxsizeUserPoolThread() {
+		return maxsizeUserPoolThread;
+	}
+
+	public void setMaxsizeUserPoolThread(Integer maxsizeUserPoolThread) {
+		this.maxsizeUserPoolThread = maxsizeUserPoolThread;
+	}
+
+	public Integer getMaxSizeDownloadersPoolThread() {
+		return maxSizeDownloadersPoolThread;
+	}
+
+	public void setMaxSizeDownloadersPoolThread(Integer maxSizeDownloadersPoolThread) {
+		this.maxSizeDownloadersPoolThread = maxSizeDownloadersPoolThread;
+	}
+
+	public Integer getTasksQueuesListSize() {
+		return tasksQueuesListSize;
+	}
+
+	public void setTasksQueuesListSize(Integer tasksQueuesListSize) {
+		this.tasksQueuesListSize = tasksQueuesListSize;
 	}
 
 }

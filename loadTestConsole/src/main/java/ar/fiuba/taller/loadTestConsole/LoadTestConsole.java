@@ -70,7 +70,19 @@ public class LoadTestConsole implements Runnable {
 			downloadersThreadPoolList.add(Executors.newFixedThreadPool(maxSizeUserPoolThread));
 		}
 		
-		Integer aomuntOfUsers = userPattern.getUsers(counter);
+		Integer aomuntOfUsers;
+		while(true) {
+			aomuntOfUsers = userPattern.getUsers(counter);
+			for(int i = 0; i < aomuntOfUsers; i++) {
+				// Creo los usuarios y les paso las colas para que puedan insertar tareas
+				user				
+			}
+
+			
+			// Creo el pool de downloaders y les paso las colas para que puedan tomar tareas 
+			
+		}
+		
 		
 		
 		

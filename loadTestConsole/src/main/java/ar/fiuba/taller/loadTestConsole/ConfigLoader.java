@@ -15,7 +15,7 @@ public class ConfigLoader {
 	private Integer usersQueueSize;
 	private Integer maxsizeUserPoolThread;
 	private Integer maxSizeDownloadersPoolThread;
-	private Integer tasksQueuesListSize;
+	private Integer tasksQueueSize;
 	// Array para guardar los parametros de la funcion 
 	private ArrayList<Integer> functionPatternParam;
 
@@ -51,7 +51,7 @@ public class ConfigLoader {
 			usersQueueSize = Integer.parseInt(properties.getProperty(Constants.USERES_QUEUE_SIZE));
 			maxsizeUserPoolThread = Integer.parseInt(properties.getProperty(Constants.MAX_SIZE_USER_POOL_THREAD));
 			maxSizeDownloadersPoolThread = Integer.parseInt(properties.getProperty(Constants.MAX_SIZE_DOWNLOADERS_POOL_THREAD));
-			tasksQueuesListSize = Integer.parseInt(properties.getProperty(Constants.TASKS_QUEUES_LIST_SIZE));
+			tasksQueueSize = Integer.parseInt(properties.getProperty(Constants.TASKS_QUEUE_SIZE));
 			functionPatternParam.add(Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_USERS_PROPERTY)));
 			
 			
@@ -126,12 +126,12 @@ public class ConfigLoader {
 		this.maxSizeDownloadersPoolThread = maxSizeDownloadersPoolThread;
 	}
 
-	public Integer getTasksQueuesListSize() {
-		return tasksQueuesListSize;
+	public Integer getTasksQueueSize() {
+		return tasksQueueSize;
 	}
 
-	public void setTasksQueuesListSize(Integer tasksQueuesListSize) {
-		this.tasksQueuesListSize = tasksQueuesListSize;
+	public void setTasksQueueSize(Integer tasksQueuesListSize) {
+		this.tasksQueueSize = tasksQueuesListSize;
 	}
 
 }

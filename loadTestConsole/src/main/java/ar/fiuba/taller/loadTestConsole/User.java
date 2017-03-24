@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -29,76 +30,120 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.apache.log4j.Logger;
 
-public class User implements Runnable {
+import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 
-	private ArrayBlockingQueue<Task> tasksQueueList;
-	
+public class User implements Runnable {
+	private ArrayBlockingQueue<UserTask> userTaskPendingQueue;
+	private ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public User(ArrayBlockingQueue<Task> tasksQueueList) {
-		this.tasksQueueList = tasksQueueList;
+	public User(ArrayBlockingQueue<UserTask> userTaskPendingQueue, ArrayBlockingQueue<UserTask> userTaskFinishedQueue) {
+		this.userTaskPendingQueue = userTaskPendingQueue;
+		this.userTaskFinishedQueue = userTaskFinishedQueue;
 	}
 	
 	public void run() {
 		logger.info("Iniciando el usuario: " + Thread.currentThread().getId());
-
-		String html;
-		List<String> uriQueue;
+		String method, uri, html;
+		List<String> requestList;
 		Integer downloaders = ConfigLoader.getInstance().getMaxSizeDownloadersPoolThread();
+		Integer taskId;
+		DownloaderTask finishedTask;
+		Boolean gracefullQuit = false;
+		UserTask userTask;
+		DownloaderTask downloaderTask;
 		
-		// Lanzo los downloaders
+		logger.info("Creo la cola de tareas");
+		ArrayBlockingQueue<DownloaderTask> downloaderTaskPendingQueue = new ArrayBlockingQueue<DownloaderTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		
+		logger.info("Creo la cola para recibir los mensajes de terminado de los downloaders");
+		ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue = new ArrayBlockingQueue<DownloaderTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		
+		logger.info("Creo el pool de threads de downloaders");
 		ExecutorService downloadersThreadPool = Executors.newFixedThreadPool(downloaders);
 		
+		logger.info("Lanzo los downloaders y les paso las dos colas");
 		for(int i = 0; i < downloaders; i++) {
-			downloadersThreadPool.submit(new Downloader(tasksQueueList));
+			logger.info("Lanzando el downloader: " + i);
+			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue));
 		}
 		
-		// Leo el script
-		try {
-			FileInputStream fstream = new FileInputStream(Constants.SCRIPT_FILE);
-			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-			String strLine;
-			StringTokenizer defaultTokenizer;
-			// Leo la siguiente url
-			while ((strLine = br.readLine()) != null)   {
-				// Parseo la linea
-				defaultTokenizer = new StringTokenizer(strLine);
-				
-				// Obtengo la url
-				html = getPage(defaultTokenizer.nextToken(), defaultTokenizer.nextToken()).toLowerCase();
-				
-				// Parseo la pagina
-				// Rescato los LINK e inserto las tasks en la cola
-				uriQueue = getLinks(html, Constants.LINK_TAG);
-				for(String uri : uriQueue) {
-					tasksQueueList.put(new Task(Constants.NORMAL_TASK, Constants.GET_METHOD, uri));					
-				}				
-				
-				// Rescato los IMG e inserto las tasks en la cola
-				uriQueue = getLinks(html, Constants.IMG_TAG);
-				for(String uri : uriQueue) {
-					tasksQueueList.put(new Task(Constants.NORMAL_TASK, Constants.GET_METHOD, uri));					
+		while(!gracefullQuit) {			
+			try {
+				userTask = userTaskPendingQueue.take();
+				if(userTask.getId() == Constants.DISCONNECT_ID) {
+					logger.info("Se ha recibido un mensaje de desconexion. Se envía mensaje de desconexion a los downloaders");
+					for(int i = 0; i < downloaders; ++i) {
+						downloaderTaskPendingQueue.put(new DownloaderTask(Constants.DISCONNECT_ID, null, null, null));
+					}
+					logger.info("Esperando a que los downloaders finalicen");
+					while(downloaders > 0) {
+						downloaderTask = downloaderTaskFinishedQueue.take();
+						if(downloaderTask.getId() == Constants.DISCONNECT_ID) {
+							downloaders--;
+						}
+					}
+					logger.info("Downloaders finalizados");
+					logger.info("Finalizando usuario");
+					logger.info("Avisando al Control principal que el usuario termino");
+					userTaskFinishedQueue.put(userTask);
+					gracefullQuit = true;
+					logger.info("Usuario finalizado");
 				}
-				
-				// Rescato los SCRIPT e inserto las tasks en la cola
-				uriQueue = getLinks(html, Constants.SCRIPT_TAG);
-				for(String uri : uriQueue) {
-					tasksQueueList.put(new Task(Constants.NORMAL_TASK, Constants.GET_METHOD, uri));					
-				}
+				else {
+					logger.info("Se inicia un nuevo pulso de usuario");
+					logger.info("Leo el script");
+					try {
+						FileInputStream fstream = new FileInputStream(Constants.SCRIPT_FILE);
+						BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+						String strLine;
+						StringTokenizer defaultTokenizer;
+						taskId = 1;
+						logger.info("Leo el script");
+						while ((strLine = br.readLine()) != null)   {
+							// Parseo la linea
+							defaultTokenizer = new StringTokenizer(strLine);
+									
+							// Obtengo la url
+							method = defaultTokenizer.nextToken();
+							uri = defaultTokenizer.nextToken();
+							
+							logger.info("Siguiente paso a realizar: " + method + " " + uri);
+							logger.info("Obteniendo recurso ...");
+							html = getPage(method, uri).toLowerCase();
+							logger.info("Recurso obtenido:\n" + html);
+							
+							logger.info("Rescato los tags LINK, IMG y SCRIPT e inserto las tasks en la cola");
+							for(String tag: Arrays.asList(Constants.IMG_TAG, Constants.SCRIPT_TAG, Constants.LINK_TAG)) {
+								requestList = getLinks(html, tag);
+								for(String request : requestList) {
+									logger.info("Enviando una nueva task con los siguiente parametros:\nTaskId: " + taskId
+											+ "\nMetodo: " + Constants.GET_METHOD + "\nRequest: " + request + "\nEstado: " + Constants.TASK_STATUS.SUBMITTED);
+									downloaderTaskPendingQueue.put(new DownloaderTask(taskId, Constants.GET_METHOD, request, Constants.TASK_STATUS.SUBMITTED));
+									++taskId;
+								}									
+							}
+							logger.info("Esperando a que terminen los downloaders");
+							// 
+							while(taskId > 0) {
+								finishedTask = downloaderTaskFinishedQueue.take();
+								taskId--;
+								logger.info("Task finalizada:\nTaskId: " + finishedTask.getId() + "\nStatus: " + finishedTask.getStatus());
+							}
+						}
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 
-				// Espero a que todos los threads terminen
-				
+				}
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			br.close();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		
-		
 	}
 
 
@@ -117,7 +162,7 @@ public class User implements Runnable {
 	   }
 	   
 	   private List<String> getLinks(String page, String tag) throws URISyntaxException, IOException, BadLocationException {
-			List<String> uriQueue = new ArrayList<String>(); 
+			List<String> requestsList = new ArrayList<String>(); 
 			HTML.Tag currentTag = null;
 			HTML.Attribute currentAttribute = null;
 			Reader rd = new StringReader(tag);
@@ -131,12 +176,12 @@ public class User implements Runnable {
 				currentAttribute = HTML.Attribute.HREF;				
 			}
 			else if (tag.equals(Constants.SCRIPT_TAG)) {
-				currentTag = HTML.Tag.LINK;
-				currentAttribute = HTML.Attribute.HREF;				
+				currentTag = HTML.Tag.SCRIPT;
+				currentAttribute = HTML.Attribute.SRC;				
 			}
 			else if (tag.equals(Constants.IMG_TAG)) {
-				currentTag = HTML.Tag.LINK;
-				currentAttribute = HTML.Attribute.HREF;
+				currentTag = HTML.Tag.IMG;
+				currentAttribute = HTML.Attribute.SRC;
 			}
 
 			HTMLDocument.Iterator it = doc.getIterator(currentTag);
@@ -145,10 +190,10 @@ public class User implements Runnable {
 			
 			  String link = (String) s.getAttribute(currentAttribute);
 			  if (link != null) {
-			    uriQueue.add(link);
+				  requestsList.add(link);
 			  }
 			  it.next();
 			}
-			return uriQueue;
+			return requestsList;
 	   }
 }

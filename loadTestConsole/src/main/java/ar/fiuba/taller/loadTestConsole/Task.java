@@ -1,35 +1,29 @@
 package ar.fiuba.taller.loadTestConsole;
 
-public class Task {
+public abstract class Task {
 	
-	private Integer type;
-	private String method;
-	private String uri;
-	
-	
-	public Task(Integer type, String method, String uri) {
-		this.type = type;
-		this.method = method;
-		this.uri = uri;
+	private Integer id;
+	private Constants.TASK_STATUS status;
+
+	public Task(Integer id, Constants.TASK_STATUS status) {
+		this.id = id;
+		this.status = status;
 	}
 	
-	public Integer getType() {
-		return type;
-	}
-	public void setType(Integer type) {
-		this.type = type;
-	}
-	public String getMethod() {
-		return method;
-	}
-	public void setMethod(String method) {
-		this.method = method;
-	}
-	public String getUri() {
-		return uri;
-	}
-	public void setUri(String uri) {
-		this.uri = uri;
+	public Integer getId() {
+		return id;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Constants.TASK_STATUS getStatus() {
+		return status;
+	}
+
+	public void setStatus(Constants.TASK_STATUS status) {
+		this.status = status;
+	}
+	
 }

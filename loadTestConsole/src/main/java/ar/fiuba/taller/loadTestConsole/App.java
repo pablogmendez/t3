@@ -14,25 +14,17 @@ public class App
 	
     public static void main( String[] args ) throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
+    	TerminateSignal terminateSignal = new TerminateSignal();
+    	Thread loadTestConsoleThread = new Thread(new LoadTestConsole(terminateSignal));
+
+    	logger.info("[*] Se inicia una nueva instancia de LoadTestConsole");
+		Runtime.getRuntime().addShutdownHook(new Terminator(loadTestConsoleThread, terminateSignal));
     	
-//    	logger.info("[*] Se inicia una nueva instancia de LoadTestConsole");
-//    	
-//    	Thread userControlThread = new Thread(new LoadTestConsole());
-//    	
-//    	userControlThread.start();
-//    	try {
-//			userControlThread.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	 
-//    	    
-//        logger.info("[*] Finaliza la instancia de LoadTestConsole");
-    	Date date = new Date();
-        Package pack = date.getClass().getPackage();
-        String packageName = pack.getName();
-        System.out.println("Package Name = " + packageName);
+		loadTestConsoleThread.start();
+    	
+		System.out.println("Presione ^c para terminar.");
+    	    
+        logger.info("[*] Finaliza la instancia de LoadTestConsole");
 
     }
 }

@@ -1,5 +1,6 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import ar.fiuba.taller.utils.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,8 +13,6 @@ import org.apache.log4j.Logger;
 
 public class LoadTestConsole implements Runnable {
 	
-	//private BlockingQueue<Task> useresQueue;
-	private Integer simulationTime;
 	private Integer maxSizeUserPoolThread;
 	private Integer tasksQueuesListSize;
 	private String function;
@@ -21,24 +20,24 @@ public class LoadTestConsole implements Runnable {
 	private UserPattern userPattern;
 	
 	private List<ExecutorService> downloadersThreadPoolList;
-	private List<BlockingQueue<Task>> tasksQueuesList;
 	
 	private BlockingQueue<Result> resultQueue;
 	private BlockingQueue<Stat> statsQueue;
 	
-	
+	private List<Pair<BlockingQueue<UserTask>,BlockingQueue<UserTask>>> usersQueuesList;
+	private TerminateSignal terminateSignal;
 	
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	
-	public LoadTestConsole() {
+	public LoadTestConsole(TerminateSignal terminateSignal) {
+		this.terminateSignal = terminateSignal;
 		ConfigLoader.getInstance().init(Constants.PROPERTIES_FILE);
-		simulationTime = ConfigLoader.getInstance().getSimulationTime();
+		usersQueuesList = new ArrayList<Pair<BlockingQueue<UserTask>,BlockingQueue<UserTask>>>();
+		
 		//useresQueue = new ArrayBlockingQueue(ConfigLoader.getInstance().getUsersQueueSize());
 		function = ConfigLoader.getInstance().getFunction();
 		functionParamList = ConfigLoader.getInstance().getFunctionPatternParam();
 		maxSizeUserPoolThread = ConfigLoader.getInstance().getMaxsizeUserPoolThread();
-		tasksQueuesListSize = ConfigLoader.getInstance().getTasksQueuesListSize();
 		
 		// TODO: Arreglar esto
 		if (function.equals("constant")) {
@@ -52,75 +51,87 @@ public class LoadTestConsole implements Runnable {
 	}
 
 	public void run() {
-
-		Integer counter = 0;
+		ArrayBlockingQueue<UserTask> userTaskPendingQueue;
+		ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
+		Integer currentUsers = 0, deltaUseres = 0, tick = 0, userNumber = 0;
+		UserTask userTask;
 		
-		// Creo las colas de tareas para cada usuario
-		for(int i = 0; i < maxSizeUserPoolThread; ++i) {
-			tasksQueuesList.add(new ArrayBlockingQueue<Task>(tasksQueuesListSize));
-		}
-		
-		// Creo el pool de threads de usuarios
+		logger.info("Se inicia una nueva instancia de LoadTestConsole");		
+		logger.info("Creando el pool de threads de usuarios");
 		ExecutorService usersThreadPool = Executors.newFixedThreadPool(maxSizeUserPoolThread);
-		
-		// Inicializo la lista de pool de threads de downloaders
-		downloadersThreadPoolList = new ArrayList<ExecutorService>();
-		// Creo los pools de threads de los downloaders
-		for(int i = 0; i < maxSizeUserPoolThread; ++i) {
-			downloadersThreadPoolList.add(Executors.newFixedThreadPool(maxSizeUserPoolThread));
-		}
-		
-		Integer aomuntOfUsers;
-		while(true) {
-			aomuntOfUsers = userPattern.getUsers(counter);
-			for(int i = 0; i < aomuntOfUsers; i++) {
-				// Creo los usuarios y les paso las colas para que puedan insertar tareas
-				user				
-			}
-
-			
-			// Creo el pool de downloaders y les paso las colas para que puedan tomar tareas 
-			
-		}
-		
-		
-		
-		
-		List<Future<User>> futures = new ArrayList<Future<User>>();
-		futures.add(usersThreadPool.submit(myRunnable));
-		for (Future<?> future:futures) {
-		    future.get();
-		}
-		
-		usersThreadPool.submit(new User());
-		usersThreadPool.shutdown();
-		// Wait for everything to finish.
 		try {
-			while (!usersThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
-			  logger.info("Awaiting completion of threads.");
+				while(!terminateSignal.hasTerminate()) {
+					deltaUseres = userPattern.getUsers(tick) - currentUsers;
+					logger.info("Se inicia el pulso: " + tick);
+					logger.info("Cantidad de usuarios actualmente corriendo: " + currentUsers);
+					logger.info("Cantidad de usuarios que deben correr en este pulso: " + userPattern.getUsers(tick));
+					logger.info("Cantidad de usuarios que deben ingresar: " + deltaUseres);
+					for(int i = 0; i < deltaUseres; i++) {
+						currentUsers++;
+						logger.info("Creando el usuario: " + currentUsers);
+						// Creo las colas para el nuevo usuario
+						userTaskPendingQueue = new ArrayBlockingQueue<UserTask>(ConfigLoader.getInstance().getTasksQueueSize());
+						userTaskFinishedQueue = new ArrayBlockingQueue<UserTask>(ConfigLoader.getInstance().getTasksQueueSize());
+						
+						// Me guardo las dos colas en la lista de colas de usuarios
+						usersQueuesList.add(new Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>>(userTaskPendingQueue, userTaskFinishedQueue));
+						
+						// Creo el usuario y les paso las colas para que puedan insertar tareas
+						usersThreadPool.submit(new User(userTaskPendingQueue, userTaskFinishedQueue));
+						logger.info("Usuario creado");
+					}
+					logger.info("Usuarios creados");
+					
+					userNumber = 0;
+					
+					// Despierto a los users enviandoles un mensaje para que se pongan a trabajar
+					logger.info("Despertando los usuarios para un nuevo pulso");
+					for(Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>> pair : usersQueuesList) {
+						logger.info("Despertando al usuario: " + userNumber);
+							pair.getFirst().put(new UserTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED));
+		
+						++userNumber;
+					}
+					
+					userNumber = 0;
+					
+					logger.info("Me quedo esperando a que los usuarios terminen sus tareas");
+					for(Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>> pair : usersQueuesList) {
+						logger.info("Esperando al usuario: " + userNumber);
+						userTask = pair.getSecond().take();
+						logger.info("Usuario: " + userNumber + " finalizado");
+						++userNumber;
+					}
+		
+				}
+				// Termino la simulacion. Tengo que parar a los usuarios
+				
+				userNumber = 0;
+				// Despierto a los users enviandoles un mensaje de desconeccion
+				logger.info("Despertando los usuarios para desconectar");
+				for(Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>> pair : usersQueuesList) {
+					logger.info("Desconectando al usuario: " + userNumber);
+					pair.getFirst().put(new UserTask(Constants.DISCONNECT_ID, Constants.TASK_STATUS.SUBMITTED));
+					++userNumber;
+				}
+				
+				userNumber = 0;
+				logger.info("Me quedo esperando a que los usuarios se desconecten");
+				for(Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>> pair : usersQueuesList) {
+					logger.info("Esperando al usuario: " + userNumber);
+					do {
+						userTask = pair.getSecond().take();
+					}while(userTask.getId() != Constants.DISCONNECT_ID);
+					logger.info("Usuario: " + userNumber + " desconectado");
+					++userNumber;
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
-	}
-
-	public Integer getSimulationTime() {
-		return simulationTime;
-	}
-
-	public void setSimulationTime(Integer simulationTime) {
-		this.simulationTime = simulationTime;
-	}
-
-//	public BlockingQueue getUseresQueue() {
-//		return useresQueue;
-//	}
-//
-//	public void setUseresQueue(BlockingQueue useresQueue) {
-//		this.useresQueue = useresQueue;
-//	}
 
 	public String getFunction() {
 		return function;

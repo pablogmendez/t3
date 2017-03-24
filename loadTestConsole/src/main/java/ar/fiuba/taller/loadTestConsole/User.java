@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -41,6 +44,14 @@ public class User implements Runnable {
 
 		String html;
 		List<String> uriQueue;
+		Integer downloaders = ConfigLoader.getInstance().getMaxSizeDownloadersPoolThread();
+		
+		// Lanzo los downloaders
+		ExecutorService downloadersThreadPool = Executors.newFixedThreadPool(downloaders);
+		
+		for(int i = 0; i < downloaders; i++) {
+			downloadersThreadPool.submit(new Downloader(tasksQueueList));
+		}
 		
 		// Leo el script
 		try {
@@ -74,10 +85,9 @@ public class User implements Runnable {
 				for(String uri : uriQueue) {
 					tasksQueueList.put(new Task(Constants.NORMAL_TASK, Constants.GET_METHOD, uri));					
 				}
-				
-
 
 				// Espero a que todos los threads terminen
+				
 			}
 			br.close();
 			

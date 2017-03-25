@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -23,12 +24,16 @@ import java.util.concurrent.Executors;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.text.EditorKit;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 
@@ -48,7 +53,7 @@ public class User implements Runnable {
 	}
 	
 	public void run() {
-		logger.info("Iniciando el usuario: " + Thread.currentThread().getId());
+		logger.info("Iniciando el usuario");
 		String method, uri, html;
 		List<String> requestList;
 		Integer downloaders = ConfigLoader.getInstance().getMaxSizeDownloadersPoolThread();
@@ -69,7 +74,7 @@ public class User implements Runnable {
 		logger.info("Creo el pool de threads de downloaders");
 		ExecutorService downloadersThreadPool = Executors.newFixedThreadPool(downloaders);
 		
-		logger.info("Lanzo los downloaders y les paso las dos colas");
+		logger.info("Lanzo " + downloaders + " downloaders y les paso las dos colas");
 		for(int i = 0; i < downloaders; i++) {
 			logger.info("Lanzando el downloader: " + i);
 			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, summaryQueue, reportQueue));
@@ -107,7 +112,7 @@ public class User implements Runnable {
 						BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 						String strLine;
 						StringTokenizer defaultTokenizer;
-						taskId = 1;
+						taskId = 0;
 						logger.info("Leo el script");
 						while ((strLine = br.readLine()) != null)   {
 							// Parseo la linea
@@ -136,7 +141,9 @@ public class User implements Runnable {
 							
 							logger.info("Rescato los tags LINK, IMG y SCRIPT e inserto las tasks en la cola");
 							for(String tag: Arrays.asList(Constants.IMG_TAG, Constants.SCRIPT_TAG, Constants.LINK_TAG)) {
+								logger.debug("Analizando el tag " + tag + "sobre el documento: " + html);
 								requestList = getLinks(html, tag);
+								logger.debug("Recursos encontrados en la pagina analizada: " + requestList.size());
 								for(String request : requestList) {
 									logger.info("Enviando una nueva task con los siguiente parametros:\nTaskId: " + taskId
 											+ "\nMetodo: " + Constants.GET_METHOD + "\nRequest: " + request + "\nEstado: " + Constants.TASK_STATUS.SUBMITTED);
@@ -193,38 +200,49 @@ public class User implements Runnable {
 	   }
 	   
 	   private List<String> getLinks(String page, String tag) throws URISyntaxException, IOException, BadLocationException {
-			List<String> requestsList = new ArrayList<String>(); 
-			HTML.Tag currentTag = null;
-			HTML.Attribute currentAttribute = null;
-			Reader rd = new StringReader(tag);
-			
-			EditorKit kit = new HTMLEditorKit();
-			HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
-			kit.read(rd, doc, 0);
-			
+			List<String> requestsList = new ArrayList<String>();
+			String currentAttribute = null, currentTag;
+//			HTML.Tag currentTag = null;
+//			HTML.Attribute currentAttribute = null;
+//			Reader rd = new StringReader(tag);
+//			
+//			EditorKit kit = new HTMLEditorKit();
+//			HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
+//			kit.read(rd, doc, 0);
+//			
 			if (tag.equals(Constants.LINK_TAG)) {
-				currentTag = HTML.Tag.LINK;
-				currentAttribute = HTML.Attribute.HREF;				
+				currentTag = "link";
+				currentAttribute = "href";				
 			}
 			else if (tag.equals(Constants.SCRIPT_TAG)) {
-				currentTag = HTML.Tag.SCRIPT;
-				currentAttribute = HTML.Attribute.SRC;				
+				currentTag = "script";
+				currentAttribute = "src";				
 			}
 			else if (tag.equals(Constants.IMG_TAG)) {
-				currentTag = HTML.Tag.IMG;
-				currentAttribute = HTML.Attribute.SRC;
+				currentTag = "img";
+				currentAttribute = "src";
 			}
-
-			HTMLDocument.Iterator it = doc.getIterator(currentTag);
-			while (it.isValid()) {
-			  AttributeSet s = it.getAttributes();
+//
+//			
+//			HTMLDocument.Iterator it = doc.getIterator(currentTag);
+//			while (it.isValid()) {
+//			  AttributeSet s = it.getAttributes();
+//			
+//			  String link = (String) s.getAttribute(currentAttribute);
+//			  if (link != null) {
+//				  requestsList.add(link);
+//			  }
+//			  it.next();
+//			}
 			
-			  String link = (String) s.getAttribute(currentAttribute);
-			  if (link != null) {
-				  requestsList.add(link);
-			  }
-			  it.next();
+			org.jsoup.nodes.Document doc = Jsoup.parse(page);
+			Elements resource = doc.select(tag);
+			Iterator<Element> it = resource.iterator();
+			
+			while(it.hasNext()) {
+				requestsList.add(it.next().attr(currentAttribute));
 			}
+			
 			return requestsList;
 	   }
 }

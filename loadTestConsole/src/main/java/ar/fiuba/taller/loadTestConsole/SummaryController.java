@@ -46,7 +46,7 @@ public class SummaryController implements Runnable {
 					summary.addTime(summaryTask.getTimeElapsed());
 					logger.info("Estadisticas actualizadas");
 				}
-			} while(summaryTask.getId() == Constants.DISCONNECT_ID);
+			} while(summaryTask.getId() != Constants.DISCONNECT_ID);
 			logger.info("Finalizando el monitor. Enviando mensje de finalizacion al control principal.");
 			finishedSummaryQueue.put(summaryTask);
 		} catch (InterruptedException e) {

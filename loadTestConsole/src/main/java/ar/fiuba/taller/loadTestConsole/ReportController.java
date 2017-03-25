@@ -61,7 +61,7 @@ public class ReportController implements Runnable {
 					}
 					logger.info("Reporte actualizado");
 				}
-			} while(reportTask.getId() == Constants.DISCONNECT_ID);
+			} while(reportTask.getId() != Constants.DISCONNECT_ID);
 			logger.info("Finalizando el controller. Enviando mensje de finalizacion al control principal.");
 			finishedReportQueue.put(reportTask);
 		} catch (InterruptedException e) {

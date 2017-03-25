@@ -75,7 +75,6 @@ public class LoadTestConsole implements Runnable {
 		
 		try {
 				while(!terminateSignal.hasTerminate()) {
-					logger.info("asd " + userPattern.getUsers(tick));
 					deltaUseres = userPattern.getUsers(tick) - currentUsers;
 					logger.info("Se inicia el pulso: " + tick);
 					logger.info("Cantidad de usuarios actualmente corriendo: " + currentUsers);

@@ -4,10 +4,6 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
 	final static Logger logger = Logger.getLogger(App.class);

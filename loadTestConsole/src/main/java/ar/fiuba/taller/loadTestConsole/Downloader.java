@@ -12,17 +12,23 @@ public class Downloader implements Runnable {
 
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue;
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue;
+	private ArrayBlockingQueue<StatTask> statsQueue;
 	
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public Downloader(ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue, ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue) {
+	public Downloader(ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue, 
+			ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue,
+			ArrayBlockingQueue<StatTask> statsQueue) {
 		this.downloaderTaskPendigQueue = downloaderTaskPendigQueue;
 		this.downloaderTaskFinishedQueue = downloaderTaskFinishedQueue;
+		this.statsQueue = statsQueue;
 	}
 	
 	public void run() {
 		DownloaderTask task = null;
 		Boolean gracefullQuit = false;
+		Integer bytesDownloaded;
+		long time_start, time_end, time_elapsed;
 		
 		logger.info("Iniciando un nuevo downloader");
 		logger.info("Obteniendo una nueva task");
@@ -43,10 +49,19 @@ public class Downloader implements Runnable {
 					logger.info("Descargando recurso...");
 					task.setStatus(Constants.TASK_STATUS.EXECUTING);
 					try {
-						download(task.getMethod(), task.getUri());
+						time_start = System.currentTimeMillis();
+						bytesDownloaded = download(task.getMethod(), task.getUri());
+						time_end = System.currentTimeMillis();
+						time_elapsed = time_end - time_start;
+						logger.info("Bytes descargados: " + bytesDownloaded);
+						logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
+						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+								0, true, time_elapsed));
 						task.setStatus(Constants.TASK_STATUS.FINISHED);
 					} catch (Exception e) {
 						task.setStatus(Constants.TASK_STATUS.FAILED);
+						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+								0, false, 0));
 					} finally {
 						downloaderTaskFinishedQueue.put(task);
 					}
@@ -58,7 +73,7 @@ public class Downloader implements Runnable {
 		}		
 	}
 
-	   private void download(String urlToRead, String method) throws Exception {
+	   private Integer download(String urlToRead, String method) throws Exception {
 		      StringBuilder result = new StringBuilder();
 		      URL url = new URL(urlToRead);
 		      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -69,6 +84,7 @@ public class Downloader implements Runnable {
 		         result.append(line);
 		      }
 		      rd.close();
+		      return result.length();
 		   }
 	
 }

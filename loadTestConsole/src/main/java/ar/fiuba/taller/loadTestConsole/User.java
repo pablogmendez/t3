@@ -35,11 +35,14 @@ import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 public class User implements Runnable {
 	private ArrayBlockingQueue<UserTask> userTaskPendingQueue;
 	private ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
+	private ArrayBlockingQueue<StatTask> statsQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public User(ArrayBlockingQueue<UserTask> userTaskPendingQueue, ArrayBlockingQueue<UserTask> userTaskFinishedQueue) {
+	public User(ArrayBlockingQueue<UserTask> userTaskPendingQueue, ArrayBlockingQueue<UserTask> userTaskFinishedQueue, 
+			ArrayBlockingQueue<StatTask> statsQueue) {
 		this.userTaskPendingQueue = userTaskPendingQueue;
 		this.userTaskFinishedQueue = userTaskFinishedQueue;
+		this.statsQueue = statsQueue;
 	}
 	
 	public void run() {
@@ -52,6 +55,8 @@ public class User implements Runnable {
 		Boolean gracefullQuit = false;
 		UserTask userTask;
 		DownloaderTask downloaderTask;
+		long time_elapsed, time_end, time_start;
+		Integer bytesDownloaded;
 		
 		logger.info("Creo la cola de tareas");
 		ArrayBlockingQueue<DownloaderTask> downloaderTaskPendingQueue = new ArrayBlockingQueue<DownloaderTask>(ConfigLoader.getInstance().getTasksQueueSize());
@@ -65,7 +70,7 @@ public class User implements Runnable {
 		logger.info("Lanzo los downloaders y les paso las dos colas");
 		for(int i = 0; i < downloaders; i++) {
 			logger.info("Lanzando el downloader: " + i);
-			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue));
+			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, statsQueue));
 		}
 		
 		while(!gracefullQuit) {			
@@ -111,7 +116,19 @@ public class User implements Runnable {
 							logger.info("Siguiente paso a realizar: " + method + " " + uri);
 							logger.info("Obteniendo recurso ...");
 							html = getPage(method, uri).toLowerCase();
+							time_start = System.currentTimeMillis();
+							bytesDownloaded = html.length();
+							time_end = System.currentTimeMillis();
+							time_elapsed = time_end - time_start;
 							logger.info("Recurso obtenido:\n" + html);
+							
+
+							logger.info("Bytes descargados: " + bytesDownloaded);
+							logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
+							
+							// Enviando estadistica de descarga a la cola de estadisticas
+							statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+									0, true, time_elapsed));
 							
 							logger.info("Rescato los tags LINK, IMG y SCRIPT e inserto las tasks en la cola");
 							for(String tag: Arrays.asList(Constants.IMG_TAG, Constants.SCRIPT_TAG, Constants.LINK_TAG)) {
@@ -135,6 +152,8 @@ public class User implements Runnable {
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (Exception e) {
+						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+								0, false, 0));
 						e.printStackTrace();
 					}
 

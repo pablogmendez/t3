@@ -1,8 +1,8 @@
 package ar.fiuba.taller.loadTestConsole;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
+
+import ar.fiuba.taller.utils.TerminateSignal;
 
 public class App 
 {

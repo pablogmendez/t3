@@ -14,16 +14,9 @@ import org.apache.log4j.Logger;
 public class LoadTestConsole implements Runnable {
 	
 	private Integer maxSizeUserPoolThread;
-	private Integer tasksQueuesListSize;
 	private String function;
 	private List<Integer> functionParamList;
 	private UserPattern userPattern;
-	
-	private List<ExecutorService> downloadersThreadPoolList;
-	
-	private BlockingQueue<Result> resultQueue;
-	private BlockingQueue<Stat> statsQueue;
-	
 	private List<Pair<BlockingQueue<UserTask>,BlockingQueue<UserTask>>> usersQueuesList;
 	private TerminateSignal terminateSignal;
 	
@@ -33,8 +26,6 @@ public class LoadTestConsole implements Runnable {
 		this.terminateSignal = terminateSignal;
 		ConfigLoader.getInstance().init(Constants.PROPERTIES_FILE);
 		usersQueuesList = new ArrayList<Pair<BlockingQueue<UserTask>,BlockingQueue<UserTask>>>();
-		
-		//useresQueue = new ArrayBlockingQueue(ConfigLoader.getInstance().getUsersQueueSize());
 		function = ConfigLoader.getInstance().getFunction();
 		functionParamList = ConfigLoader.getInstance().getFunctionPatternParam();
 		maxSizeUserPoolThread = ConfigLoader.getInstance().getMaxsizeUserPoolThread();

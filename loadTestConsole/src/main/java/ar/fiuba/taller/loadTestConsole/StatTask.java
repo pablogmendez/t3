@@ -4,7 +4,7 @@ import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 
 public class StatTask extends Task {
 	private Integer usersAmount;
-	private Boolean sucessfullRequest;
+	private Boolean successfullRequest;
 	private long timeElapsed;
 	
 	
@@ -17,17 +17,6 @@ public class StatTask extends Task {
 		this.usersAmount = usersAmount;
 	}
 
-
-	public Boolean getSucessfullRequest() {
-		return sucessfullRequest;
-	}
-
-
-	public void setSucessfullRequest(Boolean sucessfullRequest) {
-		this.sucessfullRequest = sucessfullRequest;
-	}
-
-
 	public long getTimeElapsed() {
 		return timeElapsed;
 	}
@@ -39,11 +28,21 @@ public class StatTask extends Task {
 
 
 	public StatTask(Integer id, TASK_STATUS status, Integer usersAmount, 
-			Boolean sucessfullRequest, long timeElapsed) {
+			Boolean successfullRequest, long timeElapsed) {
 		super(id, status);
 		this.usersAmount = usersAmount;
-		this.sucessfullRequest = sucessfullRequest;
+		this.successfullRequest = successfullRequest;
 		this.timeElapsed = timeElapsed;
+	}
+
+
+	public Boolean getSuccessfullRequest() {
+		return successfullRequest;
+	}
+
+
+	public void setSuccessfullRequest(Boolean successfullRequest) {
+		this.successfullRequest = successfullRequest;
 	}
 
 }

@@ -1,4 +1,4 @@
-package ar.fiuba.taller.loadTestConsole;
+package ar.fiuba.taller.utils;
 
 public class TerminateSignal {
 

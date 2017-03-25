@@ -2,6 +2,8 @@ package ar.fiuba.taller.loadTestConsole;
 
 import org.apache.log4j.Logger;
 
+import ar.fiuba.taller.utils.TerminateSignal;
+
 public class Terminator extends  Thread {
 	private Thread loadTestConsoleThread;
 	private TerminateSignal terminateSignal;

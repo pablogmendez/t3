@@ -13,50 +13,75 @@ public class Report {
 		return analyzedUrl;
 	}
 
-	public synchronized void setAnalyzedUrl(Integer analyzedUrl) {
-		this.analyzedUrl = analyzedUrl;
+	public synchronized void incAnalyzedUrl() {
+		analyzedUrl++;
+	}
+	
+	public synchronized void decAnalyzedUrl() {
+		analyzedUrl--;
 	}
 
 	public synchronized Integer getDownloadedScripts() {
 		return downloadedScripts;
 	}
 
-	public synchronized void setDownloadedScripts(Integer downloadedScripts) {
-		this.downloadedScripts = downloadedScripts;
+	public synchronized void incDownloadedScripts() {
+		downloadedScripts++;
 	}
 
+	public synchronized void decDownloadedScripts() {
+		downloadedScripts--;
+	}
+	
 	public synchronized Integer getDownloadedLinks() {
 		return downloadedLinks;
 	}
 
-	public synchronized void setDownloadedLinks(Integer downloadedLinks) {
-		this.downloadedLinks = downloadedLinks;
+	public synchronized void incDownloadedLinks() {
+		downloadedLinks++;
 	}
 
+	public synchronized void decDownloadedLinks() {
+		downloadedLinks--;
+	}
+	
 	public synchronized Integer getDownloadedImages() {
 		return downloadedImages;
 	}
 
-	public synchronized void setDownloadedImages(Integer downloadedImages) {
-		this.downloadedImages = downloadedImages;
+	public synchronized void incDownloadedImages() {
+		downloadedImages++;
 	}
 
+	public synchronized void decDownloadedImages() {
+		downloadedImages--;
+	}
+	
 	public synchronized Integer getExecutionScriptThreads() {
 		return executionScriptThreads;
 	}
 
-	public synchronized void setExecutionScriptThreads(Integer executionScriptThreads) {
-		this.executionScriptThreads = executionScriptThreads;
+	public synchronized void incExecutionScriptThreads() {
+		executionScriptThreads++;
 	}
 
+
+	public synchronized void decExecutionScriptThreads() {
+		executionScriptThreads--;
+	}
+	
 	public synchronized Integer getDownloadResourceThreads() {
 		return downloadResourceThreads;
 	}
 
-	public synchronized void setDownloadResourceThreads(Integer downloadResourceThreads) {
-		this.downloadResourceThreads = downloadResourceThreads;
+	public synchronized void incDownloadResourceThreads() {
+		downloadResourceThreads++;
 	}
 
+	public synchronized void decDownloadResourceThreads() {
+		downloadResourceThreads--;
+	}
+	
 	public Report() {
 		super();
 		analyzedUrl = 0;

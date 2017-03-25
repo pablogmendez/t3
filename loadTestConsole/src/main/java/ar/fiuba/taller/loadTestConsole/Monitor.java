@@ -1,6 +1,7 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
 
@@ -22,14 +23,22 @@ public class Monitor implements Runnable {
 	public void run() {
 		logger.info("Iniciando Monitor");
 		while(!terminateSignal.hasTerminate()) {
-			System.out.println("Load Test Console: Monitor de reportes");
-			System.out.println("--------------------------------------");
-			System.out.println("URLs analizadas....................: " + report.getAnalyzedUrl());
-			System.out.println("SCRIPTS descargados................: " + report.getDownloadedScripts());
-			System.out.println("LINKS descargados..................: " + report.getDownloadedLinks());
-			System.out.println("IMGs descargadas...................: " + report.getDownloadedImages());
-			System.out.println("Hilos ejecutando script............: " + report.getExecutionScriptThreads());
-			System.out.println("Hilos descargando recurso..........: " + report.getDownloadResourceThreads());
+			
+			try{
+			    PrintWriter writer = new PrintWriter(Constants.REPORT_FILE, "UTF-8");
+			    writer.println("Load Test Console: Monitor de reportes");
+			    writer.println("--------------------------------------");
+			    writer.println("URLs analizadas....................: " + report.getAnalyzedUrl());
+			    writer.println("SCRIPTS descargados................: " + report.getDownloadedScripts());
+			    writer.println("LINKS descargados..................: " + report.getDownloadedLinks());
+			    writer.println("IMGs descargadas...................: " + report.getDownloadedImages());
+			    writer.println("Hilos ejecutando script............: " + report.getExecutionScriptThreads());
+			    writer.println("Hilos descargando recurso..........: " + report.getDownloadResourceThreads());
+			    writer.close();
+			} catch (IOException e) {
+			   // do something
+			}
+			
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {

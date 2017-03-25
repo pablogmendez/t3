@@ -44,13 +44,35 @@ public class LoadTestConsole implements Runnable {
 	public void run() {
 		ArrayBlockingQueue<UserTask> userTaskPendingQueue;
 		ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
-		ArrayBlockingQueue<SummaryTask> summaryQueue = new ArrayBlockingQueue<SummaryTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		ArrayBlockingQueue<SummaryTask> summaryPendingQueue = new ArrayBlockingQueue<SummaryTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		ArrayBlockingQueue<SummaryTask> summaryFinishedQueue = new ArrayBlockingQueue<SummaryTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		ArrayBlockingQueue<ReportTask> reportPendingQueue = new ArrayBlockingQueue<ReportTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		ArrayBlockingQueue<ReportTask> reportFinishedQueue = new ArrayBlockingQueue<ReportTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		
+		Summary summary = new Summary();
+		Report report = new Report();
+		TerminateSignal summaryTerminateSignal = new TerminateSignal();
+		TerminateSignal reportTerminateSignal = new TerminateSignal();
+		Thread summaryControllerThread = new Thread(new SummaryController(summaryPendingQueue, summaryFinishedQueue, summary));
+		Thread summaryPrinterThread = new Thread(new SummaryPrinter(summary, reportTerminateSignal));
+		Thread reportControllerThread = new Thread(new ReportController(reportPendingQueue, reportFinishedQueue, report));
+		Thread monitorThread = new Thread(new Monitor(report, reportTerminateSignal));
+		
 		Integer currentUsers = 0, deltaUseres = 0, tick = 0, userNumber = 0;
 		UserTask userTask;
+		SummaryTask summaryTask;
+		ReportTask reportTask;
 		
 		logger.info("Se inicia una nueva instancia de LoadTestConsole");		
 		logger.info("Creando el pool de threads de usuarios");
 		ExecutorService usersThreadPool = Executors.newFixedThreadPool(maxSizeUserPoolThread);
+		
+		// Reportes
+		summaryControllerThread.start();
+		summaryPrinterThread.start();
+		reportControllerThread.start();
+		monitorThread.start();
+		
 		try {
 				while(!terminateSignal.hasTerminate()) {
 					deltaUseres = userPattern.getUsers(tick) - currentUsers;
@@ -70,13 +92,13 @@ public class LoadTestConsole implements Runnable {
 						usersQueuesList.add(new Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>>(userTaskPendingQueue, userTaskFinishedQueue));
 						
 						// Creo el usuario y les paso las colas para que puedan insertar tareas
-						usersThreadPool.submit(new User(userTaskPendingQueue, userTaskFinishedQueue, summaryQueue));
+						usersThreadPool.submit(new User(userTaskPendingQueue, userTaskFinishedQueue, summaryPendingQueue, reportPendingQueue));
 						logger.info("Usuario creado");
 					}
 					logger.info("Usuarios creados");
 					
-					// Actualizo la cola de estadisticas
-					summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+					// Actualizo la cola de estadisticas con la cantidad de usuarios actuales
+					summaryPendingQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 							currentUsers, null, 0));
 					
 					userNumber = 0;
@@ -122,6 +144,31 @@ public class LoadTestConsole implements Runnable {
 					logger.info("Usuario: " + userNumber + " desconectado");
 					++userNumber;
 				}
+				
+				// Reportes
+				
+				logger.info("Parando el Controlador de reportes");
+				reportPendingQueue.put(new ReportTask(Constants.DISCONNECT_ID, Constants.TASK_STATUS.SUBMITTED, null, null));
+				reportTask = reportFinishedQueue.take();
+				reportControllerThread.join();
+				logger.info("Controlador de reportes finalizado");
+				
+				logger.info("Parando el Controlador de resumen");
+				summaryPendingQueue.put(new SummaryTask(Constants.DISCONNECT_ID, Constants.TASK_STATUS.SUBMITTED, 0, false, 0));
+				summaryTask = summaryFinishedQueue.take();
+				summaryControllerThread.join();
+				logger.info("Controlador de resumen finalizado");
+				
+				logger.info("Parando el monitor");
+				reportTerminateSignal.terminate();
+				monitorThread.join();
+				logger.info("Monitor finalizado");
+				
+				logger.info("Parando el summary printer");
+				summaryTerminateSignal.terminate();
+				summaryPrinterThread.join();
+				logger.info("Summary printer finalizado");
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

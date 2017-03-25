@@ -36,13 +36,15 @@ public class User implements Runnable {
 	private ArrayBlockingQueue<UserTask> userTaskPendingQueue;
 	private ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
 	private ArrayBlockingQueue<SummaryTask> summaryQueue;
+	private ArrayBlockingQueue<ReportTask> reportQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
 	public User(ArrayBlockingQueue<UserTask> userTaskPendingQueue, ArrayBlockingQueue<UserTask> userTaskFinishedQueue, 
-			ArrayBlockingQueue<SummaryTask> summaryQueue) {
+			ArrayBlockingQueue<SummaryTask> summaryQueue, ArrayBlockingQueue<ReportTask> reportQueue) {
 		this.userTaskPendingQueue = userTaskPendingQueue;
 		this.userTaskFinishedQueue = userTaskFinishedQueue;
 		this.summaryQueue = summaryQueue;
+		this.reportQueue = reportQueue;
 	}
 	
 	public void run() {
@@ -70,16 +72,18 @@ public class User implements Runnable {
 		logger.info("Lanzo los downloaders y les paso las dos colas");
 		for(int i = 0; i < downloaders; i++) {
 			logger.info("Lanzando el downloader: " + i);
-			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, summaryQueue));
+			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, summaryQueue, reportQueue));
 		}
 		
 		while(!gracefullQuit) {			
 			try {
 				userTask = userTaskPendingQueue.take();
+				// Informo al monitor que arranco el usuario
+				reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, true, null));
 				if(userTask.getId() == Constants.DISCONNECT_ID) {
 					logger.info("Se ha recibido un mensaje de desconexion. Se envía mensaje de desconexion a los downloaders");
 					for(int i = 0; i < downloaders; ++i) {
-						downloaderTaskPendingQueue.put(new DownloaderTask(Constants.DISCONNECT_ID, null, null, null));
+						downloaderTaskPendingQueue.put(new DownloaderTask(Constants.DISCONNECT_ID, null, null, null, null));
 					}
 					logger.info("Esperando a que los downloaders finalicen");
 					while(downloaders > 0) {
@@ -136,10 +140,13 @@ public class User implements Runnable {
 								for(String request : requestList) {
 									logger.info("Enviando una nueva task con los siguiente parametros:\nTaskId: " + taskId
 											+ "\nMetodo: " + Constants.GET_METHOD + "\nRequest: " + request + "\nEstado: " + Constants.TASK_STATUS.SUBMITTED);
-									downloaderTaskPendingQueue.put(new DownloaderTask(taskId, Constants.GET_METHOD, request, Constants.TASK_STATUS.SUBMITTED));
+									downloaderTaskPendingQueue.put(new DownloaderTask(taskId, Constants.GET_METHOD, request, Constants.TASK_STATUS.SUBMITTED, tag));
 									++taskId;
 								}									
 							}
+							// Informo al monitor que analice una url
+							reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.EXECUTING, true, null));
+							
 							logger.info("Esperando a que terminen los downloaders");
 							// 
 							while(taskId > 0) {
@@ -147,13 +154,18 @@ public class User implements Runnable {
 								taskId--;
 								logger.info("Task finalizada:\nTaskId: " + finishedTask.getId() + "\nStatus: " + finishedTask.getStatus());
 							}
+							// Informo que el user termino
+							reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FINISHED, true, null));
 						}
 						br.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (Exception e) {
+						// Informo al summary que fallo la descarga
 						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, false, 0));
+						// Informo al monitor que fallo la descarga
+						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FAILED, true, null));
 						e.printStackTrace();
 					}
 

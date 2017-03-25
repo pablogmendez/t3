@@ -10,10 +10,10 @@ public class SummaryController implements Runnable {
 	Summary summary;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public SummaryController(ArrayBlockingQueue<SummaryTask> pendingStatsQueue, ArrayBlockingQueue<SummaryTask> finishedStatsQueue, Summary summary) {
+	public SummaryController(ArrayBlockingQueue<SummaryTask> pendingSummaryQueue, ArrayBlockingQueue<SummaryTask> finishedSummaryQueue, Summary summary) {
 		super();
-		this.pendingSummaryQueue = pendingStatsQueue;
-		this.finishedSummaryQueue = finishedStatsQueue;
+		this.pendingSummaryQueue = pendingSummaryQueue;
+		this.finishedSummaryQueue = finishedSummaryQueue;
 		this.summary = summary;
 	}
 	

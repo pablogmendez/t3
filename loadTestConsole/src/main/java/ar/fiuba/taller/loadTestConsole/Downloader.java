@@ -13,15 +13,18 @@ public class Downloader implements Runnable {
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue;
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue;
 	private ArrayBlockingQueue<SummaryTask> summaryQueue;
+	private ArrayBlockingQueue<ReportTask> reportQueue;
 	
 	final static Logger logger = Logger.getLogger(App.class);
 	
 	public Downloader(ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue, 
 			ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue,
-			ArrayBlockingQueue<SummaryTask> summaryQueue) {
+			ArrayBlockingQueue<SummaryTask> summaryQueue,
+			ArrayBlockingQueue<ReportTask> reportQueue) {
 		this.downloaderTaskPendigQueue = downloaderTaskPendigQueue;
 		this.downloaderTaskFinishedQueue = downloaderTaskFinishedQueue;
 		this.summaryQueue = summaryQueue;
+		this.reportQueue = reportQueue;
 	}
 	
 	public void run() {
@@ -35,6 +38,8 @@ public class Downloader implements Runnable {
 		try {
 			while(!gracefullQuit) {
 				task = downloaderTaskPendigQueue.take();
+				// Informo al monitor que arranco el downloader
+				reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, false, null));
 				logger.info("Task obtenida con los siguientes parametros:\n" + "Id: " + task.getId() + "\nStatus: " + task.getStatus()
 				+ "\nMethod: " + task.getMethod() + "\nUri: " + task.getUri() );
 				if(task.getId() == Constants.DISCONNECT_ID) {
@@ -49,6 +54,7 @@ public class Downloader implements Runnable {
 					logger.info("Descargando recurso...");
 					task.setStatus(Constants.TASK_STATUS.EXECUTING);
 					try {
+						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.EXECUTING, false, task.getResourceType()));
 						time_start = System.currentTimeMillis();
 						bytesDownloaded = download(task.getMethod(), task.getUri());
 						time_end = System.currentTimeMillis();
@@ -57,9 +63,12 @@ public class Downloader implements Runnable {
 						logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
 						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, true, time_elapsed));
+						// Informo al monitor que arranco el usuario
+						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FINISHED, false, null));
 						task.setStatus(Constants.TASK_STATUS.FINISHED);
 					} catch (Exception e) {
 						task.setStatus(Constants.TASK_STATUS.FAILED);
+						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FAILED, false, null));
 						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, false, 0));
 					} finally {

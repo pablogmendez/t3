@@ -29,13 +29,13 @@ public class LoadTestConsole implements Runnable {
 		function = ConfigLoader.getInstance().getFunction();
 		functionParamList = ConfigLoader.getInstance().getFunctionPatternParam();
 		maxSizeUserPoolThread = ConfigLoader.getInstance().getMaxsizeUserPoolThread();
-		
+
 		// TODO: Arreglar esto
-		if (function.equals("constant")) {
+		if (function.equals("ConstantUserPattern")) {
 			userPattern = new ConstantUserPattern(functionParamList);
-		} else if (function.equals("stairs")) {
+		} else if (function.equals("StairsUserPattern")) {
 			userPattern = new StairsUserPattern(functionParamList);
-		} else if (function.equals("ramp")) {
+		} else if (function.equals("RampUserPattern")) {
 			userPattern = new RampUserPattern(functionParamList);
 		}
 		
@@ -75,6 +75,7 @@ public class LoadTestConsole implements Runnable {
 		
 		try {
 				while(!terminateSignal.hasTerminate()) {
+					logger.info("asd " + userPattern.getUsers(tick));
 					deltaUseres = userPattern.getUsers(tick) - currentUsers;
 					logger.info("Se inicia el pulso: " + tick);
 					logger.info("Cantidad de usuarios actualmente corriendo: " + currentUsers);

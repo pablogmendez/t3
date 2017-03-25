@@ -45,8 +45,6 @@ public class ConfigLoader {
 			 properties.load(input);
 			 
 		    // obtenemos las propiedades
-			simulationTime = Integer.parseInt(properties.getProperty(Constants.SIMULATION_TIME_PROPERTY));
-			userLoginTimeInterval = Integer.parseInt(properties.getProperty(Constants.USER_LOGIN_TIME_INTERVAL_PROPERTY));
 			function = properties.getProperty(Constants.FUNCTION_PROPERTY);
 			usersQueueSize = Integer.parseInt(properties.getProperty(Constants.USERES_QUEUE_SIZE));
 			maxsizeUserPoolThread = Integer.parseInt(properties.getProperty(Constants.MAX_SIZE_USER_POOL_THREAD));

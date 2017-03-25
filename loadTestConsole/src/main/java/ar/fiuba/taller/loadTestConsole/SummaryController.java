@@ -34,11 +34,13 @@ public class SummaryController implements Runnable {
 						summary.setUsers(summaryTask.getUsersAmount());						
 					}
 					// Actualizo los requests
-					if(summaryTask.getSuccessfullRequest()) {
-						summary.setSuccessfullrequest(summary.getSuccessfullrequest() + 1);						
-					}
-					else {
-						summary.setFailedrequest(summary.getFailedrequest() + 1);
+					if(summaryTask.getSuccessfullRequest() != null) {
+						if(summaryTask.getSuccessfullRequest()) {
+							summary.setSuccessfullrequest(summary.getSuccessfullrequest() + 1);						
+						}
+						else {
+							summary.setFailedrequest(summary.getFailedrequest() + 1);
+						}
 					}
 					// Actualizo el tiempo promedio
 					summary.addTime(summaryTask.getTimeElapsed());

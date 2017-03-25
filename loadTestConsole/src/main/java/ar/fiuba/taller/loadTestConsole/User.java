@@ -119,7 +119,7 @@ public class User implements Runnable {
 							
 							logger.info("Siguiente paso a realizar: " + method + " " + uri);
 							logger.info("Obteniendo recurso ...");
-							html = getPage(method, uri).toLowerCase();
+							html = getPage(uri, method).toLowerCase();
 							time_start = System.currentTimeMillis();
 							bytesDownloaded = html.length();
 							time_end = System.currentTimeMillis();

@@ -35,14 +35,14 @@ import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 public class User implements Runnable {
 	private ArrayBlockingQueue<UserTask> userTaskPendingQueue;
 	private ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
-	private ArrayBlockingQueue<StatTask> statsQueue;
+	private ArrayBlockingQueue<SummaryTask> summaryQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
 	public User(ArrayBlockingQueue<UserTask> userTaskPendingQueue, ArrayBlockingQueue<UserTask> userTaskFinishedQueue, 
-			ArrayBlockingQueue<StatTask> statsQueue) {
+			ArrayBlockingQueue<SummaryTask> summaryQueue) {
 		this.userTaskPendingQueue = userTaskPendingQueue;
 		this.userTaskFinishedQueue = userTaskFinishedQueue;
-		this.statsQueue = statsQueue;
+		this.summaryQueue = summaryQueue;
 	}
 	
 	public void run() {
@@ -70,7 +70,7 @@ public class User implements Runnable {
 		logger.info("Lanzo los downloaders y les paso las dos colas");
 		for(int i = 0; i < downloaders; i++) {
 			logger.info("Lanzando el downloader: " + i);
-			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, statsQueue));
+			downloadersThreadPool.submit(new Downloader(downloaderTaskPendingQueue, downloaderTaskFinishedQueue, summaryQueue));
 		}
 		
 		while(!gracefullQuit) {			
@@ -127,7 +127,7 @@ public class User implements Runnable {
 							logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
 							
 							// Enviando estadistica de descarga a la cola de estadisticas
-							statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+							summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 									0, true, time_elapsed));
 							
 							logger.info("Rescato los tags LINK, IMG y SCRIPT e inserto las tasks en la cola");
@@ -152,7 +152,7 @@ public class User implements Runnable {
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (Exception e) {
-						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, false, 0));
 						e.printStackTrace();
 					}

@@ -12,16 +12,16 @@ public class Downloader implements Runnable {
 
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue;
 	private ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue;
-	private ArrayBlockingQueue<StatTask> statsQueue;
+	private ArrayBlockingQueue<SummaryTask> summaryQueue;
 	
 	final static Logger logger = Logger.getLogger(App.class);
 	
 	public Downloader(ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue, 
 			ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue,
-			ArrayBlockingQueue<StatTask> statsQueue) {
+			ArrayBlockingQueue<SummaryTask> summaryQueue) {
 		this.downloaderTaskPendigQueue = downloaderTaskPendigQueue;
 		this.downloaderTaskFinishedQueue = downloaderTaskFinishedQueue;
-		this.statsQueue = statsQueue;
+		this.summaryQueue = summaryQueue;
 	}
 	
 	public void run() {
@@ -55,12 +55,12 @@ public class Downloader implements Runnable {
 						time_elapsed = time_end - time_start;
 						logger.info("Bytes descargados: " + bytesDownloaded);
 						logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
-						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, true, time_elapsed));
 						task.setStatus(Constants.TASK_STATUS.FINISHED);
 					} catch (Exception e) {
 						task.setStatus(Constants.TASK_STATUS.FAILED);
-						statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, false, 0));
 					} finally {
 						downloaderTaskFinishedQueue.put(task);

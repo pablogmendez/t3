@@ -2,7 +2,7 @@ package ar.fiuba.taller.loadTestConsole;
 
 import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
 
-public class StatTask extends Task {
+public class SummaryTask extends Task {
 	private Integer usersAmount;
 	private Boolean successfullRequest;
 	private long timeElapsed;
@@ -27,7 +27,7 @@ public class StatTask extends Task {
 	}
 
 
-	public StatTask(Integer id, TASK_STATUS status, Integer usersAmount, 
+	public SummaryTask(Integer id, TASK_STATUS status, Integer usersAmount, 
 			Boolean successfullRequest, long timeElapsed) {
 		super(id, status);
 		this.usersAmount = usersAmount;

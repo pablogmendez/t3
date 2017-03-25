@@ -5,48 +5,48 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.apache.log4j.Logger;
 
 public class SummaryController implements Runnable {
-	ArrayBlockingQueue<StatTask> pendingStatsQueue;
-	ArrayBlockingQueue<StatTask> finishedStatsQueue;
+	ArrayBlockingQueue<SummaryTask> pendingSummaryQueue;
+	ArrayBlockingQueue<SummaryTask> finishedSummaryQueue;
 	Summary summary;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public SummaryController(ArrayBlockingQueue<StatTask> pendingStatsQueue, ArrayBlockingQueue<StatTask> finishedStatsQueue, Summary summary) {
+	public SummaryController(ArrayBlockingQueue<SummaryTask> pendingStatsQueue, ArrayBlockingQueue<SummaryTask> finishedStatsQueue, Summary summary) {
 		super();
-		this.pendingStatsQueue = pendingStatsQueue;
-		this.finishedStatsQueue = finishedStatsQueue;
+		this.pendingSummaryQueue = pendingStatsQueue;
+		this.finishedSummaryQueue = finishedStatsQueue;
 		this.summary = summary;
 	}
 	
 	public void run() {
 		logger.info("Se inicia el monitor");
-		StatTask statTask = null;
+		SummaryTask summaryTask = null;
 		// 
 		try {
 			do {
-				statTask = pendingStatsQueue.take();
-				logger.info("Estadistica recibida:\n" + "Id: " + statTask.getId() + "\nStatus: " + statTask.getStatus() + 
-						"\nTime elapsed: " + statTask.getTimeElapsed() + "\nAmount of users: " + statTask.getUsersAmount() + 
-						"\nSuccessfull request: " + statTask.getSuccessfullRequest());
-				if(statTask.getId() != Constants.DISCONNECT_ID) {
+				summaryTask = pendingSummaryQueue.take();
+				logger.info("Estadistica recibida:\n" + "Id: " + summaryTask.getId() + "\nStatus: " + summaryTask.getStatus() + 
+						"\nTime elapsed: " + summaryTask.getTimeElapsed() + "\nAmount of users: " + summaryTask.getUsersAmount() + 
+						"\nSuccessfull request: " + summaryTask.getSuccessfullRequest());
+				if(summaryTask.getId() != Constants.DISCONNECT_ID) {
 					// Actualizo las estadisticas
 					// Actualizo la cantidad de usuarios
-					if(statTask.getUsersAmount() != 0) {
-						summary.setUsers(statTask.getUsersAmount());						
+					if(summaryTask.getUsersAmount() != 0) {
+						summary.setUsers(summaryTask.getUsersAmount());						
 					}
 					// Actualizo los requests
-					if(statTask.getSuccessfullRequest()) {
+					if(summaryTask.getSuccessfullRequest()) {
 						summary.setSuccessfullrequest(summary.getSuccessfullrequest() + 1);						
 					}
 					else {
 						summary.setFailedrequest(summary.getFailedrequest() + 1);
 					}
 					// Actualizo el tiempo promedio
-					summary.addTime(statTask.getTimeElapsed());
+					summary.addTime(summaryTask.getTimeElapsed());
 					logger.info("Estadisticas actualizadas");
 				}
-			} while(statTask.getId() == Constants.DISCONNECT_ID);
+			} while(summaryTask.getId() == Constants.DISCONNECT_ID);
 			logger.info("Finalizando el monitor. Enviando mensje de finalizacion al control principal.");
-			finishedStatsQueue.put(statTask);
+			finishedSummaryQueue.put(summaryTask);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

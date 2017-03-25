@@ -44,7 +44,7 @@ public class LoadTestConsole implements Runnable {
 	public void run() {
 		ArrayBlockingQueue<UserTask> userTaskPendingQueue;
 		ArrayBlockingQueue<UserTask> userTaskFinishedQueue;
-		ArrayBlockingQueue<StatTask> statsQueue = new ArrayBlockingQueue<StatTask>(ConfigLoader.getInstance().getTasksQueueSize());
+		ArrayBlockingQueue<SummaryTask> summaryQueue = new ArrayBlockingQueue<SummaryTask>(ConfigLoader.getInstance().getTasksQueueSize());
 		Integer currentUsers = 0, deltaUseres = 0, tick = 0, userNumber = 0;
 		UserTask userTask;
 		
@@ -70,13 +70,13 @@ public class LoadTestConsole implements Runnable {
 						usersQueuesList.add(new Pair<BlockingQueue<UserTask>, BlockingQueue<UserTask>>(userTaskPendingQueue, userTaskFinishedQueue));
 						
 						// Creo el usuario y les paso las colas para que puedan insertar tareas
-						usersThreadPool.submit(new User(userTaskPendingQueue, userTaskFinishedQueue, statsQueue));
+						usersThreadPool.submit(new User(userTaskPendingQueue, userTaskFinishedQueue, summaryQueue));
 						logger.info("Usuario creado");
 					}
 					logger.info("Usuarios creados");
 					
 					// Actualizo la cola de estadisticas
-					statsQueue.put(new StatTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
+					summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 							currentUsers, null, 0));
 					
 					userNumber = 0;

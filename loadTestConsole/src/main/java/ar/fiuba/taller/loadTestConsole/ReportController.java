@@ -42,7 +42,10 @@ public class ReportController implements Runnable {
 					}
 					else { // Es una task enviada por un downloader
 						if(reportTask.getStatus() == Constants.TASK_STATUS.SUBMITTED) {
+							logger.debug("ENTRO POR ACA");
+							logger.debug(report.getDownloadResourceThreads());
 							report.incDownloadResourceThreads();
+							logger.debug(report.getDownloadResourceThreads());
 						}						
 						else if(reportTask.getStatus() == Constants.TASK_STATUS.EXECUTING) {
 							if(reportTask.getResource().equals(Constants.SCRIPT_TAG)) {

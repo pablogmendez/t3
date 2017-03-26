@@ -1,7 +1,7 @@
 Load Test Console: Monitor de reportes
 --------------------------------------
 URLs analizadas....................: 10
-SCRIPTS descargados................: 124
+SCRIPTS descargados................: 123
 LINKS descargados..................: 60
 IMGs descargadas...................: 68
 Hilos ejecutando script............: -8

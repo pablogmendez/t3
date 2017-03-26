@@ -83,6 +83,7 @@ public class Downloader implements Runnable {
 	}
 
 	   private Integer download(String urlToRead, String method) throws Exception {
+		   Thread.sleep(5000);
 		      StringBuilder result = new StringBuilder();
 		      URL url = new URL(urlToRead);
 		      HttpURLConnection conn = (HttpURLConnection) url.openConnection();

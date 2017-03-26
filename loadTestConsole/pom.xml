@@ -39,60 +39,70 @@
   
   	<build>
  		<plugins> 
+
+		      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+			    <source>1.7</source>
+			    <target>1.7</target>
+			</configuration>
+		    </plugin>
+
 			<plugin>
   	 			<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-jar-plugin</artifactId>
+	        		<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-        			<archive>
-            			<manifest>
-                			<addClasspath>true</addClasspath>
-                    		<classpathPrefix>lib/</classpathPrefix>
-                    		<mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
-                		</manifest>
-            		</archive>
-        		</configuration>
+	        			<archive>
+		            			<manifest>
+		                			<addClasspath>true</addClasspath>
+			                    		<classpathPrefix>lib/</classpathPrefix>
+			                    		<mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
+		                		</manifest>
+		            		</archive>
+	        		</configuration>
 			</plugin>
 	
-	        <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                              ${project.build.directory}/lib
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>2.1</version>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                    <configuration>
-                        <transformers>
-                            <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
-                            </transformer>
-                        </transformers>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+			<plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+	        	        <artifactId>maven-dependency-plugin</artifactId>
+	        	        <executions>
+	        	            <execution>
+	        	                <id>copy</id>
+	        	                <phase>install</phase>
+	        	                <goals>
+	        	                    <goal>copy-dependencies</goal>
+	        	                </goals>
+	        	                <configuration>
+	        	                    <outputDirectory>
+	        	                      ${project.build.directory}/lib
+	        	                    </outputDirectory>
+	        	                </configuration>
+	        	            </execution>
+	        	        </executions>
+		            </plugin>
+        	    
+		            <plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-shade-plugin</artifactId>
+			            <version>2.1</version>
+			            <executions>
+			                <execution>
+			                    <phase>package</phase>
+			                    <goals>
+			                        <goal>shade</goal>
+			                    </goals>
+			                    <configuration>
+			                            <transformers>
+                		    			        <transformer
+                		    			            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                			    		                <mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
+		    		                                </transformer>
+                		   	            </transformers>
+		    	                   </configuration>
+			                </execution>
+			            </executions>
+		           </plugin>
             
 		</plugins>
  	</build> 

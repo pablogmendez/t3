@@ -112,9 +112,9 @@ public class User implements Runnable {
 						BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 						String strLine;
 						StringTokenizer defaultTokenizer;
-						taskId = 0;
 						logger.info("Leo el script");
 						while ((strLine = br.readLine()) != null)   {
+							taskId = 0;
 							// Parseo la linea
 							defaultTokenizer = new StringTokenizer(strLine);
 									
@@ -129,7 +129,7 @@ public class User implements Runnable {
 							bytesDownloaded = html.length();
 							time_end = System.currentTimeMillis();
 							time_elapsed = time_end - time_start;
-							logger.info("Recurso obtenido:\n" + html);
+							//logger.info("Recurso obtenido:\n" + html);
 							
 
 							logger.info("Bytes descargados: " + bytesDownloaded);
@@ -141,7 +141,7 @@ public class User implements Runnable {
 							
 							logger.info("Rescato los tags LINK, IMG y SCRIPT e inserto las tasks en la cola");
 							for(String tag: Arrays.asList(Constants.IMG_TAG, Constants.SCRIPT_TAG, Constants.LINK_TAG)) {
-								logger.debug("Analizando el tag " + tag + "sobre el documento: " + html);
+								logger.debug("Analizando el tag " + tag + "sobre el documento: html");
 								requestList = getLinks(html, tag);
 								logger.debug("Recursos encontrados en la pagina analizada: " + requestList.size());
 								for(String request : requestList) {
@@ -161,8 +161,6 @@ public class User implements Runnable {
 								taskId--;
 								logger.info("Task finalizada:\nTaskId: " + finishedTask.getId() + "\nStatus: " + finishedTask.getStatus());
 							}
-							// Informo que el user termino
-							reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FINISHED, true, null));
 						}
 						br.close();
 					} catch (IOException e) {
@@ -177,6 +175,12 @@ public class User implements Runnable {
 					}
 
 				}
+				// Informo que el user termino
+				logger.info("Informando al monitor que el usuario termino");
+				reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FINISHED, true, null));
+				logger.info("Informando al loadtestconsolo que el usuario termino de ejecutar el script");
+				userTaskFinishedQueue.put(new UserTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.FINISHED));
+				
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -201,40 +205,17 @@ public class User implements Runnable {
 	   
 	   private List<String> getLinks(String page, String tag) throws URISyntaxException, IOException, BadLocationException {
 			List<String> requestsList = new ArrayList<String>();
-			String currentAttribute = null, currentTag;
-//			HTML.Tag currentTag = null;
-//			HTML.Attribute currentAttribute = null;
-//			Reader rd = new StringReader(tag);
-//			
-//			EditorKit kit = new HTMLEditorKit();
-//			HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
-//			kit.read(rd, doc, 0);
-//			
+			String currentAttribute = null;
+
 			if (tag.equals(Constants.LINK_TAG)) {
-				currentTag = "link";
 				currentAttribute = "href";				
 			}
 			else if (tag.equals(Constants.SCRIPT_TAG)) {
-				currentTag = "script";
 				currentAttribute = "src";				
 			}
 			else if (tag.equals(Constants.IMG_TAG)) {
-				currentTag = "img";
 				currentAttribute = "src";
 			}
-//
-//			
-//			HTMLDocument.Iterator it = doc.getIterator(currentTag);
-//			while (it.isValid()) {
-//			  AttributeSet s = it.getAttributes();
-//			
-//			  String link = (String) s.getAttribute(currentAttribute);
-//			  if (link != null) {
-//				  requestsList.add(link);
-//			  }
-//			  it.next();
-//			}
-			
 			org.jsoup.nodes.Document doc = Jsoup.parse(page);
 			Elements resource = doc.select(tag);
 			Iterator<Element> it = resource.iterator();

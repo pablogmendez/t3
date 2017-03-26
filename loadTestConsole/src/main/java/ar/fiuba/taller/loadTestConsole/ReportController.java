@@ -30,22 +30,23 @@ public class ReportController implements Runnable {
 				if(reportTask.getId() != Constants.DISCONNECT_ID) {
 					// Actualizo el reporte
 					if(reportTask.getAnalyzer()) { // Es una task enviada por un user
+						logger.debug("VINE POR ACA");
 						if(reportTask.getStatus() == Constants.TASK_STATUS.SUBMITTED) {
+							logger.debug("INCREMENTO THREAD");
 							report.incExecutionScriptThreads();
 						}
 						else if(reportTask.getStatus() == Constants.TASK_STATUS.EXECUTING) {
+							logger.debug("INCREMENTO URL");
 							report.incAnalyzedUrl();
 						}
 						else {
+							logger.debug("DECREMENTO THREAD");
 							report.decExecutionScriptThreads();
 						}
 					}
 					else { // Es una task enviada por un downloader
 						if(reportTask.getStatus() == Constants.TASK_STATUS.SUBMITTED) {
-							logger.debug("ENTRO POR ACA");
-							logger.debug(report.getDownloadResourceThreads());
 							report.incDownloadResourceThreads();
-							logger.debug(report.getDownloadResourceThreads());
 						}						
 						else if(reportTask.getStatus() == Constants.TASK_STATUS.EXECUTING) {
 							if(reportTask.getResource().equals(Constants.SCRIPT_TAG)) {

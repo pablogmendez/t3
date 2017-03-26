@@ -54,7 +54,7 @@ public class LoadTestConsole implements Runnable {
 		TerminateSignal summaryTerminateSignal = new TerminateSignal();
 		TerminateSignal reportTerminateSignal = new TerminateSignal();
 		Thread summaryControllerThread = new Thread(new SummaryController(summaryPendingQueue, summaryFinishedQueue, summary));
-		Thread summaryPrinterThread = new Thread(new SummaryPrinter(summary, reportTerminateSignal));
+		Thread summaryPrinterThread = new Thread(new SummaryPrinter(summary, summaryTerminateSignal, terminateSignal));
 		Thread reportControllerThread = new Thread(new ReportController(reportPendingQueue, reportFinishedQueue, report));
 		Thread monitorThread = new Thread(new Monitor(report, reportTerminateSignal));
 		
@@ -146,6 +146,16 @@ public class LoadTestConsole implements Runnable {
 				}
 				
 				// Reportes
+				logger.info("Parando el summary printer");
+				summaryTerminateSignal.terminate();
+				summaryPrinterThread.join();
+				logger.info("Summary printer finalizado");
+
+				logger.info("Parando el monitor");
+				reportTerminateSignal.terminate();
+				monitorThread.join();
+				logger.info("Monitor finalizado");
+				
 				
 				logger.info("Parando el Controlador de reportes");
 				reportPendingQueue.put(new ReportTask(Constants.DISCONNECT_ID, Constants.TASK_STATUS.SUBMITTED, null, null));
@@ -159,15 +169,6 @@ public class LoadTestConsole implements Runnable {
 				summaryControllerThread.join();
 				logger.info("Controlador de resumen finalizado");
 				
-				logger.info("Parando el monitor");
-				reportTerminateSignal.terminate();
-				monitorThread.join();
-				logger.info("Monitor finalizado");
-				
-				logger.info("Parando el summary printer");
-				summaryTerminateSignal.terminate();
-				summaryPrinterThread.join();
-				logger.info("Summary printer finalizado");
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -16,11 +16,17 @@ public class Terminator extends  Thread {
 	
 	public void run() {
 		try {
+			TerminateSignal dotSignal = new TerminateSignal();
+			Thread dotPrinterThread = new Thread(new DotPrinter(dotSignal));
 			logger.info("Finalizando la simulacion...");
-			System.out.println("Finalizando la simulacion...");
+			System.out.print("Finalizando la simulacion");
+			dotPrinterThread.start();
     		terminateSignal.terminate();
 			loadTestConsoleThread.join();
+			dotSignal.terminate();
+			dotPrinterThread.join();
 			logger.info("Simulacion Finalizada");
+			System.out.println("");
 			System.out.println("Simulacion Finalizada");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

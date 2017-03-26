@@ -15,7 +15,7 @@ Realizar un monitoreo constante en un archivo de texto con cantidades de:
 ■ Descargando recurso
 
 TODO:
-* Conectar el monitor y el summary al loadtestconsole
-* Imprimir monitor a archivo
+* conectar el control c para terminar el programa
 * agregar put y post
-* completar monitor
+* probar otro tipo de funciones
+* Revisar tiempo

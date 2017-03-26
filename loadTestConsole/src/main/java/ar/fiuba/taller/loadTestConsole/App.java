@@ -14,11 +14,11 @@ public class App
     	Thread loadTestConsoleThread = new Thread(new LoadTestConsole(terminateSignal));
 
     	logger.info("[*] Se inicia una nueva instancia de LoadTestConsole");
-//		Runtime.getRuntime().addShutdownHook(new Terminator(loadTestConsoleThread, terminateSignal));
+		Runtime.getRuntime().addShutdownHook(new Terminator(loadTestConsoleThread, terminateSignal));
 //    	
 		loadTestConsoleThread.start();
-		Thread.sleep(1200000);
-		terminateSignal.terminate();
+//		Thread.sleep(1200000);
+//		terminateSignal.terminate();
 //    	
 //		System.out.println("Presione ^c para terminar.");
     	    

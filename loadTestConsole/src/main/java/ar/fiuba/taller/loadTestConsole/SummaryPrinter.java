@@ -1,6 +1,7 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
@@ -21,19 +22,23 @@ public class SummaryPrinter implements Runnable {
 
 	public void run() {
 		logger.info("Iniciando SummaryPrinter");
+		final String ANSI_CLS = "\u001b[2J";
+		final String ANSI_HOME = "\u001b[H";
 		while(!terminateSignal.hasTerminate()) {
-			try {
-				Runtime.getRuntime().exec("clear");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			// Limpio la pantalla	       
+	        System.out.print(ANSI_CLS + ANSI_HOME);
+	        System.out.flush();
+			
+			// Imprimo el resumen
 			System.out.println("Load Test Console: Resumen de ejecucion");
 			System.out.println("---------------------------------------");
 			System.out.println("Tiempo de descarga promedio...: " + summary.getAverageTime());
 			System.out.println("Requests exitosos.............: " + summary.getSuccessfullrequest() + "/" + summary.getTotalRequests());
 			System.out.println("Requests fallidos.............: " + summary.getFailedrequest() + "/" + summary.getTotalRequests());
 			System.out.println("Cantidad de usuarios..........: " + summary.getUsers());
+			System.out.println("");
+			System.out.println("Presione ^c para terminar...");
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {

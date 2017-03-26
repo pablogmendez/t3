@@ -55,12 +55,14 @@ public class Downloader implements Runnable {
 					task.setStatus(Constants.TASK_STATUS.EXECUTING);
 					try {
 						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.EXECUTING, false, task.getResourceType()));
-						time_start = System.currentTimeMillis();
+						time_start = System.nanoTime();
 						bytesDownloaded = download(task.getMethod(), task.getUri());
-						time_end = System.currentTimeMillis();
+						time_end = System.nanoTime();
 						time_elapsed = time_end - time_start;
 						logger.info("Bytes descargados: " + bytesDownloaded);
-						logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
+						logger.info("Tiempo inicial: " + time_start + " nanosgundos");
+						logger.info("Tiempo final: " + time_end + " nanosgundos");
+						logger.info("Tiempo transcurrido: " + time_elapsed + " nanosegundos");
 						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 
 								0, true, time_elapsed));
 						// Informo al monitor que arranco el usuario
@@ -83,7 +85,6 @@ public class Downloader implements Runnable {
 	}
 
 	   private Integer download(String urlToRead, String method) throws Exception {
-		   Thread.sleep(5000);
 		      StringBuilder result = new StringBuilder();
 		      URL url = new URL(urlToRead);
 		      HttpURLConnection conn = (HttpURLConnection) url.openConnection();

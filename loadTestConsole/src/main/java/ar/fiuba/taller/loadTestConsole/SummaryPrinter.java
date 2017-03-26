@@ -35,7 +35,7 @@ public class SummaryPrinter implements Runnable {
 				// Imprimo el resumen
 				System.out.println("Load Test Console: Resumen de ejecucion");
 				System.out.println("---------------------------------------");
-				System.out.println("Tiempo de descarga promedio...: " + summary.getAverageTime());
+				System.out.println("Tiempo de descarga promedio...: " + summary.getAverageTime() + " ns");
 				System.out.println("Requests exitosos.............: " + summary.getSuccessfullrequest() + "/" + summary.getTotalRequests());
 				System.out.println("Requests fallidos.............: " + summary.getFailedrequest() + "/" + summary.getTotalRequests());
 				System.out.println("Cantidad de usuarios..........: " + summary.getUsers());

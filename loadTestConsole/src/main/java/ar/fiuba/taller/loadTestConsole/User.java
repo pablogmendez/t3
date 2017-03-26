@@ -125,15 +125,16 @@ public class User implements Runnable {
 							logger.info("Siguiente paso a realizar: " + method + " " + uri);
 							logger.info("Obteniendo recurso ...");
 							html = getPage(uri, method).toLowerCase();
-							time_start = System.currentTimeMillis();
+							time_start = System.nanoTime();
 							bytesDownloaded = html.length();
-							time_end = System.currentTimeMillis();
+							time_end = System.nanoTime();
 							time_elapsed = time_end - time_start;
-							//logger.info("Recurso obtenido:\n" + html);
 							
 
 							logger.info("Bytes descargados: " + bytesDownloaded);
-							logger.info("Tiempo transcurrido: " + time_elapsed + " milisegundos");
+							logger.info("Tiempo inicial: " + time_start + " nanosgundos");
+							logger.info("Tiempo final: " + time_end + " nanosgundos");
+							logger.info("Tiempo transcurrido: " + time_elapsed + " nanosgundos");
 							
 							// Enviando estadistica de descarga a la cola de estadisticas
 							summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.SUBMITTED, 

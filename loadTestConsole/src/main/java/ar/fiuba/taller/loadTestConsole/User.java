@@ -1,41 +1,37 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.EditorKit;
-import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import ar.fiuba.taller.loadTestConsole.Constants.TASK_STATUS;
+import ar.fiuba.taller.utils.HttpRequester;
 
 public class User implements Runnable {
 	private ArrayBlockingQueue<UserTask> userTaskPendingQueue;
@@ -54,7 +50,7 @@ public class User implements Runnable {
 	
 	public void run() {
 		logger.info("Iniciando el usuario");
-		String method, uri, html;
+		String html;
 		List<String> requestList;
 		Integer downloaders = ConfigLoader.getInstance().getMaxSizeDownloadersPoolThread();
 		Integer taskId;
@@ -64,6 +60,35 @@ public class User implements Runnable {
 		DownloaderTask downloaderTask;
 		long time_elapsed, time_end, time_start;
 		Integer bytesDownloaded;
+		
+		// Script
+		Map<String, String> map;
+		HttpRequester httpRequester = new HttpRequester();
+		String method = "", url = "", data = "";
+		File inputFile = new File(Constants.SCRIPT_FILE);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder dBuilder = null;
+	    logger.info("1111");
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+	    org.w3c.dom.Document doc = null;
+	    logger.info("44444");
+		try {
+			doc = dBuilder.parse(inputFile);
+		} catch (SAXException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		logger.info("2222");
+		doc.getDocumentElement().normalize();
+	    NodeList nList = doc.getElementsByTagName("request");
 		
 		logger.info("Creo la cola de tareas");
 		ArrayBlockingQueue<DownloaderTask> downloaderTaskPendingQueue = new ArrayBlockingQueue<DownloaderTask>(ConfigLoader.getInstance().getTasksQueueSize());
@@ -108,26 +133,40 @@ public class User implements Runnable {
 					logger.info("Se inicia un nuevo pulso de usuario");
 					logger.info("Leo el script");
 					try {
-						FileInputStream fstream = new FileInputStream(Constants.SCRIPT_FILE);
-						BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-						String strLine;
-						StringTokenizer defaultTokenizer;
+						
 						logger.info("Leo el script");
-						while ((strLine = br.readLine()) != null)   {
+				        for (int temp = 0; temp < nList.getLength(); temp++) {
+				        	map = new HashMap<String, String>();
+				        	method = "";
+				        	url = "";
+				        	data = "";
 							taskId = 0;
-							// Parseo la linea
-							defaultTokenizer = new StringTokenizer(strLine);
+
 									
-							// Obtengo la url
-							method = defaultTokenizer.nextToken();
-							uri = defaultTokenizer.nextToken();
+						   // Obtengo la url
+						   org.w3c.dom.Node nNode = nList.item(temp);
+						   org.w3c.dom.Element eElement = (org.w3c.dom.Element) nNode;
+				           method = eElement.getElementsByTagName("method").item(0).getTextContent();
+				           url = eElement.getElementsByTagName("url").item(0).getTextContent();
+				           data = eElement.getElementsByTagName("data").item(0).getTextContent();
+				           org.w3c.dom.Element e2 = (org.w3c.dom.Element) eElement.getElementsByTagName("headers").item(0);
+				           org.w3c.dom.NodeList n2 = e2.getChildNodes();
+				           for(int i = 0; i < n2.getLength(); i++) {
+				        	   Node n =  n2.item(i);
+				        	   org.w3c.dom.NodeList n3 = n.getChildNodes();
+				               if(n3.getLength() > 0) {
+				            	   if(!(n3.item(1).getTextContent().trim().equals(""))) {
+				            		   map.put(n3.item(1).getTextContent(), n3.item(3).getTextContent());            		   
+				            	   }
+				               }
+				           }
 							
-							logger.info("Siguiente paso a realizar: " + method + " " + uri);
+							logger.info("Siguiente paso a realizar: " + method + " " + url);
 							logger.info("Obteniendo recurso ...");
-							html = getPage(uri, method).toLowerCase();
-							time_start = System.nanoTime();
+							html = httpRequester.doHttpRequest(method, url, map, data).toLowerCase();
+							time_start = System.currentTimeMillis();
 							bytesDownloaded = html.length();
-							time_end = System.nanoTime();
+							time_end = System.currentTimeMillis();
 							time_elapsed = time_end - time_start;
 							
 
@@ -163,7 +202,6 @@ public class User implements Runnable {
 								logger.info("Task finalizada:\nTaskId: " + finishedTask.getId() + "\nStatus: " + finishedTask.getStatus());
 							}
 						}
-						br.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (Exception e) {

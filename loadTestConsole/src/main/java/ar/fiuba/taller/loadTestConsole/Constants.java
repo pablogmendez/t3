@@ -2,7 +2,7 @@ package ar.fiuba.taller.loadTestConsole;
 
 public final class Constants {
 	public static final String PROPERTIES_FILE = "src/main/resources/configuration.properties";
-	public static final String SCRIPT_FILE = "src/main/resources/script.txt";
+	public static final String SCRIPT_FILE = "src/main/resources/script.xml";
 	public static final String REPORT_FILE = "log/Report.txt";
 	public static final String SIMULATION_TIME_PROPERTY = "simulationTime";
 	public static final String USER_LOGIN_TIME_INTERVAL_PROPERTY = "userLoginTimeInterval";

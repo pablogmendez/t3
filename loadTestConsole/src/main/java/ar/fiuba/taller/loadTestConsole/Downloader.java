@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import org.apache.log4j.Logger;
+
+import ar.fiuba.taller.utils.HttpRequester;
 
 public class Downloader implements Runnable {
 
@@ -32,6 +35,7 @@ public class Downloader implements Runnable {
 		Boolean gracefullQuit = false;
 		Integer bytesDownloaded;
 		long time_start, time_end, time_elapsed;
+		HttpRequester httpRequester = new HttpRequester();
 		
 		logger.info("Iniciando un nuevo downloader");
 		logger.info("Obteniendo una nueva task");
@@ -55,9 +59,9 @@ public class Downloader implements Runnable {
 					task.setStatus(Constants.TASK_STATUS.EXECUTING);
 					try {
 						reportQueue.put(new ReportTask(Constants.DEFAULT_ID, Constants.TASK_STATUS.EXECUTING, false, task.getResourceType()));
-						time_start = System.nanoTime();
-						bytesDownloaded = download(task.getMethod(), task.getUri());
-						time_end = System.nanoTime();
+						time_start = System.currentTimeMillis();
+						bytesDownloaded = httpRequester.doHttpRequest(task.getMethod(), task.getUri(), new HashMap<String, String>(), "").length();//download(task.getMethod(), task.getUri());
+						time_end = System.currentTimeMillis();
 						time_elapsed = time_end - time_start;
 						logger.info("Bytes descargados: " + bytesDownloaded);
 						logger.info("Tiempo inicial: " + time_start + " nanosgundos");

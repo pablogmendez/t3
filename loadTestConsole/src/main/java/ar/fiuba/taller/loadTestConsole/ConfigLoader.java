@@ -53,7 +53,7 @@ public class ConfigLoader {
 			functionPatternParam.add(Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_USERS_PROPERTY)));
 			
 			
-			if(function.equals("stairs")) {
+			if(function.equals("StairsUserPattern")) {
 				functionPatternParam.add(Integer.parseInt(properties.getProperty(Constants.STEP_LENGTH_PROPERTY)));
 			}
 		} catch (IOException ex) {

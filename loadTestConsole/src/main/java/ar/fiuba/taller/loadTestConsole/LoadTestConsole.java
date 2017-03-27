@@ -34,9 +34,9 @@ public class LoadTestConsole implements Runnable {
 		if (function.equals("ConstantUserPattern")) {
 			userPattern = new ConstantUserPattern(functionParamList);
 		} else if (function.equals("StairsUserPattern")) {
-			userPattern = new StairsUserPattern(functionParamList);
+			userPattern = new StairsUserPattern(functionParamList, ConfigLoader.getInstance().getMaxsizeUserPoolThread());
 		} else if (function.equals("RampUserPattern")) {
-			userPattern = new RampUserPattern(functionParamList);
+			userPattern = new RampUserPattern(functionParamList, ConfigLoader.getInstance().getMaxsizeUserPoolThread());
 		}
 		
 	}
@@ -75,6 +75,7 @@ public class LoadTestConsole implements Runnable {
 		
 		try {
 				while(!terminateSignal.hasTerminate()) {
+					tick++;
 					deltaUseres = userPattern.getUsers(tick) - currentUsers;
 					logger.info("Se inicia el pulso: " + tick);
 					logger.info("Cantidad de usuarios actualmente corriendo: " + currentUsers);

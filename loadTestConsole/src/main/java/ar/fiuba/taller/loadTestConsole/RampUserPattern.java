@@ -4,8 +4,8 @@ import java.util.List;
 
 public class RampUserPattern extends UserPattern {
 
-	public RampUserPattern(List<Integer> paramList) {
-		super(paramList.get(0), paramList.get(0));
+	public RampUserPattern(List<Integer> paramList, Integer upperBound) {
+		super(paramList.get(0), upperBound);
 	}
 
 	@Override

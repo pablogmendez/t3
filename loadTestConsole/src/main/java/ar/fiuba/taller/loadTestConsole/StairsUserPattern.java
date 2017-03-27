@@ -10,21 +10,21 @@ public class StairsUserPattern extends UserPattern {
 	
 	private Integer heightOfStep;
 	
-	public StairsUserPattern(List<Integer> paramList) {
-		super(paramList.get(0), paramList.get(0));
+	public StairsUserPattern(List<Integer> paramList, Integer upperBound) {
+		super(paramList.get(0), upperBound);
 		this.setStepLength(paramList.get(1));
 		this.setTicksLeft(paramList.get(1));
-		this.setHeightOfStep(1);
+		this.setHeightOfStep(paramList.get(0));
 	}
 
 	@Override
 	public Integer getUsers(Integer tick) {
 		if(getTicksLeft() == 0) {
 			setTicksLeft(stepLength);
-			setHeightOfStep(getHeightOfStep() + 1);
+			setNumberOfUsers(getNumberOfUsers() + getHeightOfStep());
 		}
 		setTicksLeft(getTicksLeft() - 1);
-		return getNumberOfUsers()*getHeightOfStep() <= getUpperBound() ? getNumberOfUsers()*tick : getUpperBound();
+		return getNumberOfUsers() <= getUpperBound() ? getNumberOfUsers() : getUpperBound();
 	}
 
 	public Integer getStepLength() {

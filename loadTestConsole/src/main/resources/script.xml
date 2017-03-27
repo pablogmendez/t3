@@ -37,26 +37,4 @@
 		</headers>
 		<data></data>
 	</request>
-	<request>
-		<method>POST</method>
-		<url>http://putsreq.com/yjmbaDSz2QU4y4wFx4DQ</url>
-		<headers>
-			<header>
-				<key></key>
-				<value></value>
-			</header>
-		</headers>
-		<data>name=Pablo</data>
-	</request>
-	<request>
-		<method>PUT</method>
-		<url>http://putsreq.com/cTsVi2dfiMeujtwuv7Q6</url>
-		<headers>
-			<header>
-				<key></key>
-				<value></value>
-			</header>
-		</headers>
-		<data>term=1</data>
-	</request>
 </requests>

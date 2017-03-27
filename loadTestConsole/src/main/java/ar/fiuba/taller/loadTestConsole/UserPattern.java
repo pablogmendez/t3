@@ -4,7 +4,7 @@ public abstract class UserPattern {
 
 	private Integer numberOfUsers;
 	private Integer upperBound;
-	
+
 	public UserPattern(Integer numberOfUseres, Integer upperBound) {
 		this.setNumberOfUsers(numberOfUseres);
 		this.setUpperBound(upperBound);
@@ -27,5 +27,5 @@ public abstract class UserPattern {
 	public void setUpperBound(Integer upperBound) {
 		this.upperBound = upperBound;
 	}
-	
+
 }

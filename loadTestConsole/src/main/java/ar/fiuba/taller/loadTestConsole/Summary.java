@@ -39,16 +39,16 @@ public class Summary {
 	}
 
 	public synchronized long getAverageTime() {
-		if(successfullrequest > 0) {
-			return totalTime/successfullrequest;			
+		if (successfullrequest > 0) {
+			return totalTime / successfullrequest;
 		}
 		return 0;
 	}
-	
+
 	public synchronized void addTime(long time) {
 		totalTime += time;
 	}
-	
+
 	public synchronized Integer getTotalRequests() {
 		return successfullrequest + failedrequest;
 	}

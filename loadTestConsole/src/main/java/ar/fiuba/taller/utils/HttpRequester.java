@@ -14,45 +14,46 @@ public class HttpRequester {
 	public HttpRequester() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public String doHttpRequest(String method, String url, Map<String, String> headers, String data) throws Exception {
+
+	public String doHttpRequest(String method, String url,
+			Map<String, String> headers, String data) throws Exception {
 		String result = null;
-		if(method.toLowerCase().equals("get")) {
+		if (method.toLowerCase().equals("get")) {
 			result = doGet(url, headers, data);
-		}
-		else if(method.toLowerCase().equals("post")) {
+		} else if (method.toLowerCase().equals("post")) {
 			result = doPost(url, headers, data);
-		}
-		else if(method.toLowerCase().equals("put")) {
+		} else if (method.toLowerCase().equals("put")) {
 			result = doPut(url, headers, data);
 		}
 		return result;
-		
+
 	}
 
 	// HTTP GET request
-	private String doGet(String url, Map<String, String> headers, String data) throws Exception {
+	private String doGet(String url, Map<String, String> headers, String data)
+			throws Exception {
 		// Armo la conexion
-		if(data.length() > 0) url += "?" + data;
+		if (data.length() > 0)
+			url += "?" + data;
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// optional default is GET
 		con.setRequestMethod("GET");
 
-		//add request header
-		if(!headers.isEmpty()) {
+		// add request header
+		if (!headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
 				con.setRequestProperty(entry.getKey(), entry.getValue());
 			}
 		}
 
 		int responseCode = con.getResponseCode();
-//		System.out.println("\nSending 'GET' request to URL : " + url);
-//		System.out.println("Response Code : " + responseCode);
+		// System.out.println("\nSending 'GET' request to URL : " + url);
+		// System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+				new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 
@@ -61,20 +62,21 @@ public class HttpRequester {
 		}
 		in.close();
 
-		//print result
+		// print result
 		return response.toString();
 	}
 
 	// HTTP POST request
-	private String doPost(String url, Map<String, String> headers, String data) throws Exception {
+	private String doPost(String url, Map<String, String> headers, String data)
+			throws Exception {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		//add reuqest method
+		// add reuqest method
 		con.setRequestMethod("POST");
-		
-		//add reuqest header
-		if(!headers.isEmpty()) {
+
+		// add reuqest header
+		if (!headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
 				con.setRequestProperty(entry.getKey(), entry.getValue());
 			}
@@ -88,12 +90,12 @@ public class HttpRequester {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-//		System.out.println("\nSending 'POST' request to URL : " + url);
-//		System.out.println("Post parameters : " + data);
-//		System.out.println("Response Code : " + responseCode);
+		// System.out.println("\nSending 'POST' request to URL : " + url);
+		// System.out.println("Post parameters : " + data);
+		// System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+				new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 
@@ -102,21 +104,22 @@ public class HttpRequester {
 		}
 		in.close();
 
-		//print result
+		// print result
 		return response.toString();
 
 	}
 
 	// HTTP PUT request
-	private String doPut(String url, Map<String, String> headers, String data) throws Exception {
+	private String doPut(String url, Map<String, String> headers, String data)
+			throws Exception {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		//add reuqest method
+		// add reuqest method
 		con.setRequestMethod("PUT");
-		
-		//add reuqest header
-		if(!headers.isEmpty()) {
+
+		// add reuqest header
+		if (!headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
 				con.setRequestProperty(entry.getKey(), entry.getValue());
 			}
@@ -130,12 +133,12 @@ public class HttpRequester {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-//		System.out.println("\nSending 'PUT' request to URL : " + url);
-//		System.out.println("Post parameters : " + data);
-//		System.out.println("Response Code : " + responseCode);
+		// System.out.println("\nSending 'PUT' request to URL : " + url);
+		// System.out.println("Post parameters : " + data);
+		// System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+				new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 
@@ -144,8 +147,8 @@ public class HttpRequester {
 		}
 		in.close();
 
-		//print result
-		return response.toString();			
+		// print result
+		return response.toString();
 	}
-	
+
 }

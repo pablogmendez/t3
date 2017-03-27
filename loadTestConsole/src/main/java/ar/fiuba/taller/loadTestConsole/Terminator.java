@@ -4,16 +4,17 @@ import org.apache.log4j.Logger;
 
 import ar.fiuba.taller.utils.TerminateSignal;
 
-public class Terminator extends  Thread {
+public class Terminator extends Thread {
 	private Thread loadTestConsoleThread;
 	private TerminateSignal terminateSignal;
 	final static Logger logger = Logger.getLogger(App.class);
-	
-	public Terminator(Thread loadTestConsoleThread, TerminateSignal terminateSignal) {
+
+	public Terminator(Thread loadTestConsoleThread,
+			TerminateSignal terminateSignal) {
 		this.loadTestConsoleThread = loadTestConsoleThread;
 		this.terminateSignal = terminateSignal;
 	}
-	
+
 	public void run() {
 		try {
 			TerminateSignal dotSignal = new TerminateSignal();
@@ -21,7 +22,7 @@ public class Terminator extends  Thread {
 			logger.info("Finalizando la simulacion...");
 			System.out.print("Finalizando la simulacion");
 			dotPrinterThread.start();
-    		terminateSignal.terminate();
+			terminateSignal.terminate();
 			loadTestConsoleThread.join();
 			dotSignal.terminate();
 			dotPrinterThread.join();

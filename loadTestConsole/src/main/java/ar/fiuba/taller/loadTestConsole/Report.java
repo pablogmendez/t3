@@ -8,7 +8,7 @@ public class Report {
 	private Integer downloadedImages;
 	private Integer executionScriptThreads;
 	private Integer downloadResourceThreads;
-	
+
 	public synchronized Integer getAnalyzedUrl() {
 		return analyzedUrl;
 	}
@@ -16,7 +16,7 @@ public class Report {
 	public synchronized void incAnalyzedUrl() {
 		analyzedUrl++;
 	}
-	
+
 	public synchronized void decAnalyzedUrl() {
 		analyzedUrl--;
 	}
@@ -32,7 +32,7 @@ public class Report {
 	public synchronized void decDownloadedScripts() {
 		downloadedScripts--;
 	}
-	
+
 	public synchronized Integer getDownloadedLinks() {
 		return downloadedLinks;
 	}
@@ -44,7 +44,7 @@ public class Report {
 	public synchronized void decDownloadedLinks() {
 		downloadedLinks--;
 	}
-	
+
 	public synchronized Integer getDownloadedImages() {
 		return downloadedImages;
 	}
@@ -56,7 +56,7 @@ public class Report {
 	public synchronized void decDownloadedImages() {
 		downloadedImages--;
 	}
-	
+
 	public synchronized Integer getExecutionScriptThreads() {
 		return executionScriptThreads;
 	}
@@ -65,11 +65,10 @@ public class Report {
 		executionScriptThreads++;
 	}
 
-
 	public synchronized void decExecutionScriptThreads() {
 		executionScriptThreads--;
 	}
-	
+
 	public synchronized Integer getDownloadResourceThreads() {
 		return downloadResourceThreads;
 	}
@@ -81,7 +80,7 @@ public class Report {
 	public synchronized void decDownloadResourceThreads() {
 		downloadResourceThreads--;
 	}
-	
+
 	public Report() {
 		super();
 		analyzedUrl = 0;
@@ -91,7 +90,5 @@ public class Report {
 		executionScriptThreads = 0;
 		downloadResourceThreads = 0;
 	}
-	
-
 
 }

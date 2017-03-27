@@ -1,7 +1,7 @@
 package ar.fiuba.taller.loadTestConsole;
 
 public abstract class Task {
-	
+
 	private Integer id;
 	private Constants.TASK_STATUS status;
 
@@ -9,7 +9,7 @@ public abstract class Task {
 		this.id = id;
 		this.status = status;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -25,5 +25,5 @@ public abstract class Task {
 	public void setStatus(Constants.TASK_STATUS status) {
 		this.status = status;
 	}
-	
+
 }

@@ -5,13 +5,12 @@ import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
 
 public class UsersControl implements Runnable {
-	
+
 	private BlockingQueue useresQueue;
 	private Integer simulationTime;
 	final static Logger logger = Logger.getLogger(App.class);
-	
-	
-	public UsersControl (Integer simulationTime) {
+
+	public UsersControl(Integer simulationTime) {
 		this.setSimulationTime(simulationTime);
 	}
 

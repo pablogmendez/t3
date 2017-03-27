@@ -10,7 +10,8 @@ public class RampUserPattern extends UserPattern {
 
 	@Override
 	public Integer getUsers(Integer tick) {
-		return getNumberOfUsers()*tick <= getUpperBound() ? getNumberOfUsers()*tick : getUpperBound();
+		return getNumberOfUsers() * tick <= getUpperBound()
+				? getNumberOfUsers() * tick : getUpperBound();
 	}
 
 }

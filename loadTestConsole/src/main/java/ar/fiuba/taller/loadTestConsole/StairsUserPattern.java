@@ -3,13 +3,13 @@ package ar.fiuba.taller.loadTestConsole;
 import java.util.List;
 
 public class StairsUserPattern extends UserPattern {
-	
+
 	private Integer stepLength;
-	
+
 	private Integer ticksLeft;
-	
+
 	private Integer heightOfStep;
-	
+
 	public StairsUserPattern(List<Integer> paramList, Integer upperBound) {
 		super(paramList.get(0), upperBound);
 		this.setStepLength(paramList.get(1));
@@ -19,12 +19,13 @@ public class StairsUserPattern extends UserPattern {
 
 	@Override
 	public Integer getUsers(Integer tick) {
-		if(getTicksLeft() == 0) {
+		if (getTicksLeft() == 0) {
 			setTicksLeft(stepLength);
 			setNumberOfUsers(getNumberOfUsers() + getHeightOfStep());
 		}
 		setTicksLeft(getTicksLeft() - 1);
-		return getNumberOfUsers() <= getUpperBound() ? getNumberOfUsers() : getUpperBound();
+		return getNumberOfUsers() <= getUpperBound() ? getNumberOfUsers()
+				: getUpperBound();
 	}
 
 	public Integer getStepLength() {

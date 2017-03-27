@@ -21,5 +21,8 @@ public final class Constants {
 	public static final String IMG_TAG = "img";
 	public static final Integer DISCONNECT_ID = -1;
 	public static final Integer DEFAULT_ID = 0;
-	public static enum TASK_STATUS {SUBMITTED, EXECUTING, FINISHED, FAILED};
+
+	public static enum TASK_STATUS {
+		SUBMITTED, EXECUTING, FINISHED, FAILED
+	};
 }

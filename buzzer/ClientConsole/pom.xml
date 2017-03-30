@@ -7,7 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>loadTestConsole</name>
+  <name>ClientConsole</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -38,7 +38,25 @@
     <dependency>
     	<groupId>org.json</groupId>
     	<artifactId>json</artifactId>
-    <version>20090211</version>
+    	<version>20090211</version>
+	</dependency>
+
+    <dependency>
+    	<groupId>com.rabbitmq</groupId>
+    	<artifactId>amqp-client</artifactId>
+    	<version>4.1.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.7.25</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-simple</artifactId>
+		<version>1.7.25</version>
 	</dependency>
 	
   </dependencies>

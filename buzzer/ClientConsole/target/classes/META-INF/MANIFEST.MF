@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Built-By: pablo
-Class-Path: lib/log4j-1.2.17.jar lib/jsoup-1.10.2.jar lib/json-2009021
- 1.jar
-Build-Jdk: 1.8.0_121
-Created-By: Maven Integration for Eclipse
-Main-Class: ar.fiuba.taller.ClientConsole.App
-

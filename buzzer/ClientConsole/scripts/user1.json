@@ -2,7 +2,6 @@
 	"commands": [
 		{
 			"command": "PUBLISH",
-			"user": "User1",
 			"message": "Mensjaje 1"
 		}
 		

@@ -6,6 +6,8 @@ import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
+import ar.fiuba.taller.common.Command;
+
 public class CommandController implements Runnable {
 	BlockingQueue<Command> commandQueue;
 	

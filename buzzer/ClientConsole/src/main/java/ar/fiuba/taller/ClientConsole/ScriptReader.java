@@ -6,6 +6,9 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.json.*;
 
+import ar.fiuba.taller.common.Command;
+import ar.fiuba.taller.common.Constants;
+
 public class ScriptReader implements Runnable {
 
 	final static Logger logger = Logger.getLogger(App.class);

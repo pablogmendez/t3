@@ -6,6 +6,9 @@ import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
+import ar.fiuba.taller.common.Command;
+import ar.fiuba.taller.common.Constants;
+
 public class UserConsole implements Runnable {
 	private String username;
 	final static Logger logger = Logger.getLogger(App.class);

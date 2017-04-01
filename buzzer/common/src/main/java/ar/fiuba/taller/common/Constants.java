@@ -1,4 +1,4 @@
-package ar.fiuba.taller.ClientConsole;
+package ar.fiuba.taller.common;
 
 import java.util.HashMap;
 import java.util.Map;

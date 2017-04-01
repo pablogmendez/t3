@@ -35,7 +35,8 @@ public class CommandController implements Runnable {
 				logger.info("Enviando el mensaje al broker");
 				// Mandar al broker
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				logger.error("Error al sacar un comando de la cola commandQueue");
+				logger.info(e.toString());
 				e.printStackTrace();
 			}	
 		}	

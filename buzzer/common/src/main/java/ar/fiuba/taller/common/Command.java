@@ -7,11 +7,12 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.UUID;
 
 import ar.fiuba.taller.common.Constants.COMMAND;
 
-public class Command {
+public class Command implements Serializable {
 
 	private UUID uuid;
 	private COMMAND command;
@@ -45,7 +46,7 @@ public class Command {
         is.close();
         uuid = tmp.getUuid();
         command = tmp.getCommand();
-         user = tmp.getUser();
+        user = tmp.getUser();
         message = tmp.getMessage();
 	}
 	

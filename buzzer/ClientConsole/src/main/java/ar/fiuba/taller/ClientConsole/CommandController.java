@@ -29,33 +29,15 @@ public class CommandController implements Runnable {
 				command = commandQueue.take();
 				logger.info("Comando obtenido");
 				logger.info("Comando recibido: " + command.getCommand());
-				switch(command.getCommand()) {
-					case PUBLISH: {
-						logger.info("Generando UUID");
-						command.setUuid(UUID.randomUUID());
-						logger.info("UUID generado: " + command.getUuid());
-						logger.info("Enviando el mensaje al broker");
-						break;
-					}
-					case QUERY:   {
-						break;						
-					}
-					case DELETE:  {
-						break;						
-					}
-					case FOLLOW:  {
-						break;						
-					}
-					default:
-						break;
-					}				
+				logger.info("Generando UUID");
+				command.setUuid(UUID.randomUUID());
+				logger.info("UUID generado: " + command.getUuid());
+				logger.info("Enviando el mensaje al broker");
+				// Mandar al broker
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-		}
-		
+			}	
+		}	
 	}
-
 }

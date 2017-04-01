@@ -11,6 +11,7 @@ public class Constants {
 	public static final String COMMAND_ARRAY 			= "commands";
 	public static final String COMMAND_KEY 				= "command";
 	public static final String USER_KEY 				= "user";
+	public static final String NAME_KEY 				= "name";
 	public static final String USERS_KEY 				= "users";
 	public static final String MESSAGE_KEY 				= "message";
 	public static final String USERS_FILE 				= "conf/users.json";

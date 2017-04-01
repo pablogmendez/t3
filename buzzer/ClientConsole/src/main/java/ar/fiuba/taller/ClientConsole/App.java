@@ -22,39 +22,37 @@ public class App
     	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
     	List<Thread> usersList = new ArrayList<Thread>();
     	
-//    	logger.info("Se inicia una nueva instancia de ClientConsole");
-//    	
-//		try {
-//			// Obtengo los usuarios y los pongo a ejecutar el script
-//			JSONObject obj = new JSONObject(Constants.USERS_FILE);
-//			JSONArray arr = obj.getJSONArray(Constants.USERS_KEY);
-//			Thread userConsoleThread;
-//			logger.info("Leyendo el archivo de usuarios a simular");
-//			for (int i = 0; i < arr.length(); i++) {
-//					logger.info("Siguiente usuario a crear: " + arr.getJSONObject(i).getString(Constants.USER_KEY));
-//				 	userConsoleThread = new Thread(new UserConsole(arr.getJSONObject(i).getString(Constants.USER_KEY)));
-//				 	userConsoleThread.start();
-//				 	usersList.add(userConsoleThread);
-//				 	logger.info("Usuario " + userConsoleThread.getId() + " creado!");
-//			}
-//
-//			// Espero a que los usuarios hayan terminado de ejecutar
-//			logger.info("Esperando a que los usuarios terminen");
-//			for(Thread userThread : usersList ) {
-//				userThread.join();
-//				logger.info("Usuario " + userThread.getId() + " finalizado!");
-//			}
-//			
-//		} catch (JSONException e1) {
-//			logger.error("Error al parsear el JSON con la lista de usuarios");
-//			logger.info(e1.toString());
-//			e1.printStackTrace();
-//		} catch (InterruptedException e) {
-//			logger.error("Error al joinear los threads de usuarios");
-//			logger.info(e.toString());
-//			e.printStackTrace();
-//		}
-    	System.out.println("HOLA");
-    	Command cmd = new Command("aaa", "juan", "perez", UUID.randomUUID());
+    	logger.info("Se inicia una nueva instancia de ClientConsole");
+    	
+		try {
+			// Obtengo los usuarios y los pongo a ejecutar el script
+			JSONObject obj = new JSONObject(Constants.USERS_FILE);
+			JSONArray arr = obj.getJSONArray(Constants.USERS_KEY);
+			Thread userConsoleThread;
+			logger.info("Leyendo el archivo de usuarios a simular");
+			for (int i = 0; i < arr.length(); i++) {
+					logger.info("Siguiente usuario a crear: " + arr.getJSONObject(i).getString(Constants.NAME_KEY));
+				 	userConsoleThread = new Thread(new UserConsole(arr.getJSONObject(i).getString(Constants.NAME_KEY)));
+				 	userConsoleThread.start();
+				 	usersList.add(userConsoleThread);
+				 	logger.info("Usuario " + userConsoleThread.getId() + " creado!");
+			}
+
+			// Espero a que los usuarios hayan terminado de ejecutar
+			logger.info("Esperando a que los usuarios terminen");
+			for(Thread userThread : usersList ) {
+				userThread.join();
+				logger.info("Usuario " + userThread.getId() + " finalizado!");
+			}
+			
+		} catch (JSONException e1) {
+			logger.error("Error al parsear el JSON con la lista de usuarios");
+			logger.info(e1.toString());
+			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			logger.error("Error al joinear los threads de usuarios");
+			logger.info(e.toString());
+			e.printStackTrace();
+		}
 	}
 }

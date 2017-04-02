@@ -33,6 +33,7 @@ public class Constants {
 	public static final String STORAGE_RESPONSE_QUEUE_NAME		= "storageResponseQueueName";
 	public static final String ANALYZER_QUEUE_HOST				= "analyzerQueueHost";
 	public static final String ANALYZER_QUEUE_NAME				= "analyzerQueueName";
+	public static final String AUDIT_LOG_FILE					= "log/audit.log";
 	
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW

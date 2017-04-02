@@ -44,11 +44,11 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 		super.handleDelivery(consumerTag, envelope, properties, body);
 		Command command = new Command();
 		try {
+			command.deserialize(body);
 			logger.info("Comando recibido con los siguientes parametros: " 
 					+ "\nUsuario: " + command.getUser()
 					+ "\nComando: " + command.getCommand()
 					+ "\nMensaje: " + command.getMessage());
-			command.deserialize(body);
 			logger.info("Enviando mensaje a la cola del storage");
 			storageCommandQueue.put(command);
 			logger.info("Enviando mensaje a la cola del analyzer");

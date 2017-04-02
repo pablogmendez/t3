@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/pablo/Escritorio/t3/buzzer/libs/amqp-client-4.1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

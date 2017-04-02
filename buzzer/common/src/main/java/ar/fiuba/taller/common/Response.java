@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import ar.fiuba.taller.common.Constants.RESPONSE_STATUS;
 
-public class Response implements Serializable {
+public class Response implements Serializable, ISerialize {
 
 	private UUID uuid;
 	private RESPONSE_STATUS response_status;

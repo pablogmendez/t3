@@ -21,6 +21,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <dependency>
+    	<groupId>com.rabbitmq</groupId>
+    	<artifactId>amqp-client</artifactId>
+    	<version>4.1.0</version>
+    	<scope>system</scope>
+      	<systemPath>${project.basedir}/../libs/amqp-client-4.1.0.jar</systemPath>
+	</dependency>
   </dependencies>
   
     	<build>

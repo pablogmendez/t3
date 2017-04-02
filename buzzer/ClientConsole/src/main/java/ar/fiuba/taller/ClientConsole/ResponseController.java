@@ -10,6 +10,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
+import ar.fiuba.taller.common.RemoteQueue;
 import ar.fiuba.taller.common.Response;
 
 public class ResponseController extends DefaultConsumer implements Runnable {
@@ -17,8 +18,8 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 	BlockingQueue<Response> responseQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public ResponseController(BlockingQueue<Response> responseQueue, Channel channel) {
-		super(channel);
+	public ResponseController(BlockingQueue<Response> responseQueue, RemoteQueue remoteResponseQueue) {
+		super(remoteResponseQueue.getChannel());
 		this.responseQueue = responseQueue;
 	}
 
@@ -53,7 +54,6 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el response controller");
-		// Leo el array del broker
 	}
 
 }

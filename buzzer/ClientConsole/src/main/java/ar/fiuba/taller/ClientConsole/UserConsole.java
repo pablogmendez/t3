@@ -30,7 +30,7 @@ public class UserConsole implements Runnable {
     	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
         
         try {
-	        logger.info("Iniciando usuario");
+	        logger.info("Iniciando usuario.");
 	        logger.info("Cargando la configuracion");
 	        configLoader.init(Constants.CONF_FILE);
 	        initUser();

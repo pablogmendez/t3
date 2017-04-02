@@ -18,5 +18,6 @@
 		<module>../common</module>
 		<module>../ClientConsole</module>
 		<module>../dispatcher</module>
+		<module>../auditLogger</module>
 	</modules>
 </project>

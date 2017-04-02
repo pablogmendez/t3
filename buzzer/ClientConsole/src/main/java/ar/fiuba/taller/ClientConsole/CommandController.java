@@ -33,6 +33,7 @@ public class CommandController implements Runnable {
 				command = commandQueue.take();
 				logger.info("Comando obtenido");
 				logger.info("Comando recibido: " + command.getCommand());
+				logger.info("Mensaje: " + command.getMessage());
 				logger.info("Generando UUID");
 				command.setUuid(UUID.randomUUID());
 				logger.info("UUID generado: " + command.getUuid());

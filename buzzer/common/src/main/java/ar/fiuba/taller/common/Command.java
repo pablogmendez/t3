@@ -20,6 +20,13 @@ public class Command implements Serializable, ISerialize {
 	private String user;
 	private String message;
 	
+	public Command() {
+		this.command = null;
+		this.user = null;
+		this.message = null;
+		this.uuid = null;
+	}
+	
 	public Command(String command, String user, String message, UUID uuid) {
 		this.command = Constants.COMMAND_MAP.get(command);
 		this.user = user;

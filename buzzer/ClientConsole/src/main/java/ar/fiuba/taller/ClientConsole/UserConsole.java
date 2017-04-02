@@ -34,14 +34,14 @@ public class UserConsole implements Runnable {
         responseQueue = new ArrayBlockingQueue<Response>(Constants.RESPONSE_QUEUE_SIZE);
         logger.info("Creando lector de scripts");
         commandReaderThread = new Thread(new ScriptReader(commandQueue, 
-        		Constants.COMMAND_SCRIPT_FOLDER + username + Constants.COMMAND_SCRIPT_EXTENSION,
+        		Constants.COMMAND_SCRIPT_FOLDER + "/" + username + Constants.COMMAND_SCRIPT_EXTENSION,
         		username));
         logger.info("Creando controlador de comandos");
         commandControllerThread = new Thread(new CommandController(commandQueue));
         logger.info("Creando el controlador de respuestas");
         responseControllerThread = new Thread(new ResponseController(responseQueue));
         eventViewerThread = new Thread(new EventViewer(responseQueue, username, Constants.LOGS_DIR + "/" + 
-                Constants.EVENT_VIEWER_FILE + username + Constants.EVENT_VIEWER_FILE_EXTENSION));
+                username + Constants.EVENT_VIEWER_FILE_EXTENSION));
         logger.info("Creando el visor de eventos");
         
         logger.info("Iniciando el lector de scripts");

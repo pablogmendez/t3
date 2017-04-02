@@ -1,10 +1,19 @@
 package ar.fiuba.taller.ClientConsole;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.json.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import ar.fiuba.taller.common.Command;
 import ar.fiuba.taller.common.Constants;
@@ -27,30 +36,42 @@ public class ScriptReader implements Runnable {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el script reader");
 		try {
-			JSONObject obj = new JSONObject(commandScript);
-			JSONArray arr = obj.getJSONArray(Constants.COMMAND_ARRAY);
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(new FileReader(commandScript));
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray commandArray = (JSONArray) jsonObject.get(Constants.COMMAND_ARRAY);
+            Iterator<JSONObject> iterator = commandArray.iterator();
+            JSONObject commandObject;
 			Command command;
 			
 			logger.info("Leyendo el command script: " + commandScript);
-			for (int i = 0; i < arr.length(); i++) {
-				command = new Command(arr.getJSONObject(i).getString(
+			 while (iterator.hasNext()) {
+				commandObject = iterator.next();
+				command = new Command((String)commandObject.get(
 						Constants.COMMAND_KEY), 
 						username, 
-						arr.getJSONObject(i).getString(Constants.MESSAGE_KEY),
+						(String)commandObject.get(Constants.MESSAGE_KEY),
 						null);
-				commandQueue.put(command);
 				logger.info("Se inserto comando con los siguientes parametros: " 
 						+ "\nUsuario: " + command.getUser()
 						+ "\nComando: " + command.getCommand()
 						+ "\nMensaje: " + command.getMessage());
+				commandQueue.put(command);
 			}
-		
-		} catch (JSONException e1) {
-			logger.error("Error al parsear el JSON con la lista de usuarios");
-			logger.info(e1.toString());
-			e1.printStackTrace();
 		} catch (InterruptedException e) {
 			logger.error("Error al pushear comandos en la cola");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			logger.error("No se encontro el archivo de comandos");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Error al leer el archivo de comandos");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			logger.error("Error al parsear el archivo de comandos");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}

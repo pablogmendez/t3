@@ -1,16 +1,20 @@
 package ar.fiuba.taller.ClientConsole;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import ar.fiuba.taller.common.Command;
 import ar.fiuba.taller.common.Constants;
 
 public class App 
@@ -21,21 +25,26 @@ public class App
     {
     	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
     	List<Thread> usersList = new ArrayList<Thread>();
+    	String username;
     	
     	logger.info("Se inicia una nueva instancia de ClientConsole");
     	
 		try {
 			// Obtengo los usuarios y los pongo a ejecutar el script
-			JSONObject obj = new JSONObject(Constants.USERS_FILE);
-			JSONArray arr = obj.getJSONArray(Constants.USERS_KEY);
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(new FileReader(Constants.USERS_FILE));
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray arr = (JSONArray) jsonObject.get(Constants.USERS_KEY);
 			Thread userConsoleThread;
 			logger.info("Leyendo el archivo de usuarios a simular");
-			for (int i = 0; i < arr.length(); i++) {
-					logger.info("Siguiente usuario a crear: " + arr.getJSONObject(i).getString(Constants.NAME_KEY));
-				 	userConsoleThread = new Thread(new UserConsole(arr.getJSONObject(i).getString(Constants.NAME_KEY)));
-				 	userConsoleThread.start();
-				 	usersList.add(userConsoleThread);
-				 	logger.info("Usuario " + userConsoleThread.getId() + " creado!");
+			Iterator<String> iterator = arr.iterator();
+			while (iterator.hasNext()) {
+				username = iterator.next();
+				logger.info("Siguiente usuario a crear: " + username);
+			 	userConsoleThread = new Thread(new UserConsole(username));
+			 	userConsoleThread.start();
+			 	usersList.add(userConsoleThread);
+			 	logger.info("Usuario " + userConsoleThread.getId() + " creado!");
 			}
 
 			// Espero a que los usuarios hayan terminado de ejecutar
@@ -44,13 +53,20 @@ public class App
 				userThread.join();
 				logger.info("Usuario " + userThread.getId() + " finalizado!");
 			}
-			
-		} catch (JSONException e1) {
-			logger.error("Error al parsear el JSON con la lista de usuarios");
-			logger.info(e1.toString());
-			e1.printStackTrace();
 		} catch (InterruptedException e) {
 			logger.error("Error al joinear los threads de usuarios");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			logger.error("No se encontro el archivo de usuarios");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Error al leer el archivo de usuarios");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			logger.error("Error al parsear el archivo de usuarios");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}

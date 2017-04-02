@@ -1,11 +1,7 @@
 package ar.fiuba.taller.dispatcher;
 
-import java.io.IOException;
-import java.util.concurrent.BlockingQueue;
-
 import org.apache.log4j.Logger;
-
-import ar.fiuba.taller.common.*;
+import org.apache.log4j.MDC;
 
 public class App 
 {
@@ -13,45 +9,14 @@ public class App
     
 	public static void main( String[] args )
     {
-		Thread analyzerControllerThread;
-		Thread dispatcherControllerThread;
-		Thread storageControllerThread;
-		Thread loggerControllerThread;
-        RemoteQueue dispatcherQueue;
-        RemoteQueue storageQueue;
-        RemoteQueue analyzerQueue;
-        RemoteQueue loggerQueue;
-        BlockingQueue<Command> storageCommandQueue;
-        BlockingQueue<Command> analyzerCommandQueue;
-        BlockingQueue<Command> loggerCommandQueue;
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        
-        logger.info("Iniciando el dispatcher");
-        
-        try {
-        	configLoader.init(Constants.CONF_FILE);
-        	
-        	
-	        analyzerControllerThread = new Thread(new AnalyzerController(analyzerCommandQueue, analyzerQueue));
-	    	dispatcherControllerThread = new Thread(new DispatcherController(dispatcherQueue, storageCommandQueue, analyzerCommandQueue, loggerCommandQueue));
-	    	storageControllerThread = new Thread(new StorageController(storageCommandQueue, storageQueue));
-	    	loggerControllerThread = new Thread(new LoggerController(loggerCommandQueue, loggerQueue));
-	    	
-	    	analyzerControllerThread.start();
-	    	dispatcherControllerThread.start();
-	    	storageControllerThread.start();
-	    	loggerControllerThread.start();
-	    	
-			analyzerControllerThread.join();
-	    	dispatcherControllerThread.join();
-	    	storageControllerThread.join();
-	    	loggerControllerThread.join();
-        } catch (InterruptedException e) {
-			logger.error("Error al joinear los threads");
-			logger.info(e.toString());
-        	e.printStackTrace();
-        } catch (IOException e) {
-			logger.error("Error al cargar el archivo de configuracion");
+    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+    	logger.info("Disparando el dispatcher");
+		Thread dispatcherThread = new Thread(new Dispatcher());
+		dispatcherThread.start();
+		try {
+			dispatcherThread.join();
+		} catch (InterruptedException e) {
+			logger.error("Error al joinear el dispatcher");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}

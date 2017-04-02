@@ -16,20 +16,20 @@ public class Response implements Serializable {
 
 	private UUID uuid;
 	private RESPONSE_STATUS response_status;
-	private String user;
+	private String message;
 	
-	public Response(UUID uuid, RESPONSE_STATUS response_status, String user) {
+	public Response(UUID uuid, RESPONSE_STATUS response_status, String message) {
 		super();
 		this.uuid = uuid;
 		this.response_status = response_status;
-		this.user = user;
+		this.message = message;
 	}
 
 	public Response() {
 		super();
 		this.uuid = null;
 		this.response_status = null;
-		this.user = null;
+		this.message = null;
 	}
 	
 	public byte[] serialize() throws IOException {
@@ -52,7 +52,7 @@ public class Response implements Serializable {
         is.close();
         uuid = tmp.getUuid();
         response_status = tmp.getResponse_status();
-        user = tmp.getUser();
+        message = tmp.getMessage();
 	}
 	
 	public UUID getUuid() {
@@ -71,11 +71,11 @@ public class Response implements Serializable {
 		this.response_status = response_status;
 	}
 
-	public String getUser() {
-		return user;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

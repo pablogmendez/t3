@@ -4,43 +4,56 @@ import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
+
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
+
 import ar.fiuba.taller.common.Response;
 
-public class ResponseController implements Runnable {
+public class ResponseController extends DefaultConsumer implements Runnable {
 	
 	BlockingQueue<Response> responseQueue;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public ResponseController(BlockingQueue<Response> responseQueue) {
+	public ResponseController(BlockingQueue<Response> responseQueue, Channel channel) {
+		super(channel);
 		this.responseQueue = responseQueue;
+	}
+
+	@Override
+	public void handleDelivery(String consumerTag, Envelope envelope,
+			BasicProperties properties, byte[] body) throws IOException {
+		super.handleDelivery(consumerTag, envelope, properties, body);
+		Response response = new Response();
+		try {
+			logger.info("Respuesta recibida con los siguientes valores: "
+			+ "\nUUID:" + response.getUuid() 
+			+ "\nStatus:" + response.getResponse_status() 
+			+ "\nMensaje:" + response.getMessage());
+			response.deserialize(body);
+			responseQueue.put(response);
+			logger.error("Respuesta pusheada en la cola responseQueue");
+		} catch (ClassNotFoundException e) {
+			logger.error("Error al deserializar la respuesta");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Error al deserializar la respuesta");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			logger.error("Error al insertar la respuesta en la cola responseQueue");
+			logger.info(e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		byte responseArray[] = null;
-		Response response;
 		logger.info("Iniciando el response controller");
-		while(true) {
-			// Leo el array del broker
-			response = new Response();
-			try {
-				response.deserialize(responseArray);
-				responseQueue.put(response);
-			} catch (ClassNotFoundException e) {
-				logger.error("Error al deserializar la respuesta");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				logger.error("Error al deserializar la respuesta");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				logger.error("Error al insertar la respuesta en la cola responseQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
-			}
-			
-		}
+		// Leo el array del broker
 	}
 
 }

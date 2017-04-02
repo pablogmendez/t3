@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import ar.fiuba.taller.common.Constants.COMMAND;
 
+@SuppressWarnings("serial")
 public class Command implements Serializable {
 
 	private UUID uuid;

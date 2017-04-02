@@ -1,5 +1,6 @@
 package ar.fiuba.taller.common;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,19 +19,20 @@ public class Constants {
 	public static final String USERS_FILE 						= "conf/users.json";
 	public static final String LOGS_DIR 						= "log";
 	public static final String EVENT_VIEWER_FILE				= "user_";
-	public static final String EVENT_VIEWER_FILE_EXTENSION		= ".txt";
+	public static final String EVENT_VIEWER_FILE_EXTENSION		= ".events";
 	
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW
 	};
 	
 	public static Map<String, COMMAND> COMMAND_MAP;
-    {
-        COMMAND_MAP = new HashMap<String, Constants.COMMAND>();
-        COMMAND_MAP.put("PUBLISH", COMMAND.PUBLISH);
-        COMMAND_MAP.put("QUERY",   COMMAND.QUERY  );
-        COMMAND_MAP.put("DELETE",  COMMAND.DELETE );
-        COMMAND_MAP.put("FOLLOW",  COMMAND.FOLLOW );
+    static {
+    	Map<String, COMMAND> tmpMap = new HashMap<String, Constants.COMMAND>();
+        tmpMap.put("PUBLISH", COMMAND.PUBLISH);
+        tmpMap.put("QUERY",   COMMAND.QUERY  );
+        tmpMap.put("DELETE",  COMMAND.DELETE );
+        tmpMap.put("FOLLOW",  COMMAND.FOLLOW );
+        COMMAND_MAP = Collections.unmodifiableMap(tmpMap);
     }
     
 	public static enum RESPONSE_STATUS {
@@ -38,9 +40,11 @@ public class Constants {
 	}
 	
 	public static Map<String, RESPONSE_STATUS> RESPONSE_STATUS_MAP;
-    {
-    	RESPONSE_STATUS_MAP = new HashMap<String, Constants.RESPONSE_STATUS>();
-    	RESPONSE_STATUS_MAP.put("OK",      RESPONSE_STATUS.OK   );
-    	RESPONSE_STATUS_MAP.put("ERROR",   RESPONSE_STATUS.ERROR);
+    static {
+    	Map<String, RESPONSE_STATUS> tmpMap1 = new HashMap<String, RESPONSE_STATUS>();
+    	tmpMap1 = new HashMap<String, Constants.RESPONSE_STATUS>();
+    	tmpMap1.put("OK",      RESPONSE_STATUS.OK   );
+    	tmpMap1.put("ERROR",   RESPONSE_STATUS.ERROR);
+    	RESPONSE_STATUS_MAP = Collections.unmodifiableMap(tmpMap1);
     }
 }

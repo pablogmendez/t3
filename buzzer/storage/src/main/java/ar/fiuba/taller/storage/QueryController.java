@@ -5,13 +5,15 @@ import java.util.concurrent.BlockingQueue;
 import ar.fiuba.taller.common.Command;
 
 public class QueryController implements Runnable {
-	BlockingQueue<Command> queryQueue;
-	int shardingFactor;
+	private BlockingQueue<Command> queryQueue;
+	private UserIndex userIndex;
+	private HashtagIndex hashtagIndex;
 
-	public QueryController(BlockingQueue<Command> queryQueue, int shardingFactor) {
+	public QueryController(BlockingQueue<Command> queryQueue, UserIndex userIndex, HashtagIndex hashtagIndex) {
 		super();
-		this.queryQueue = queryQueue;
-		this.shardingFactor = shardingFactor;
+		this.queryQueue		= queryQueue;
+		this.userIndex 		= userIndex;
+		this.hashtagIndex 	= hashtagIndex;
 	}
 
 	public void run() {

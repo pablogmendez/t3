@@ -19,19 +19,22 @@ public class Command implements Serializable, ISerialize {
 	private COMMAND command;
 	private String user;
 	private String message;
+	private String timestamp;
 	
 	public Command() {
 		this.command = null;
 		this.user = null;
 		this.message = null;
 		this.uuid = null;
+		this.timestamp = null;
 	}
 	
-	public Command(String command, String user, String message, UUID uuid) {
+	public Command(String command, String user, String message, UUID uuid, String timestamp) {
 		this.command = Constants.COMMAND_MAP.get(command);
 		this.user = user;
 		this.message = message;
 		this.uuid = uuid;
+		this.timestamp = timestamp;
 	}
 
 	public byte[] serialize() throws IOException {
@@ -90,4 +93,24 @@ public class Command implements Serializable, ISerialize {
 		this.uuid = uuid;
 	}
 
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String toJson() {
+		String tmp;
+		
+		tmp = "{\"command\":\"" + command.toString() +
+				"\",\"user\":\"" + user +  "\",\"message\":\"" + message + "\",\"timestamp\":\"" +
+				timestamp + "\"}";
+		return tmp;
+	}
+	
+	public void fromJson(String jsonString) {
+		
+	}
 }

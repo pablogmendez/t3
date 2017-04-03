@@ -1,6 +1,8 @@
 package ar.fiuba.taller.ClientConsole;
 
 import java.io.IOException;
+import java.lang.invoke.ConstantCallSite;
+import java.sql.Timestamp;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 
@@ -8,11 +10,13 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.common.Command;
+import ar.fiuba.taller.common.Constants;
 import ar.fiuba.taller.common.RemoteQueue;
 
 public class CommandController implements Runnable {
 	private BlockingQueue<Command> commandQueue;
 	private RemoteQueue dispatcherQueue;
+	Timestamp timestamp;
 	
 	final static Logger logger = Logger.getLogger(App.class);
 	
@@ -36,6 +40,9 @@ public class CommandController implements Runnable {
 				logger.info("Mensaje: " + command.getMessage());
 				logger.info("Generando UUID");
 				command.setUuid(UUID.randomUUID());
+				logger.info("Generando timestamp");
+				timestamp = new Timestamp(System.currentTimeMillis());
+				command.setTimestamp(Constants.SDF.format(timestamp));
 				logger.info("UUID generado: " + command.getUuid());
 				logger.info("Enviando el mensaje al dispatcher");
 				dispatcherQueue.put(command);

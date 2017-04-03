@@ -2,7 +2,9 @@ package ar.fiuba.taller.auditLogger;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 
@@ -17,7 +19,7 @@ import ar.fiuba.taller.common.*;
 
 public class AuditLogger extends DefaultConsumer implements Runnable {
 
-	private DateFormat dateFormat;
+	Timestamp timestamp;
 	private PrintWriter pw;
 	final static Logger logger = Logger.getLogger(App.class);
 	
@@ -66,8 +68,8 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 	}
 	
 	private String getAuditLogEntry(Command command) {
-		Date date = new Date();
-        return dateFormat.format(date) + " - " + "UUID: " + command.getUuid()
+		timestamp = new Timestamp(System.currentTimeMillis());
+        return Constants.SDF.format(timestamp) + " - " + "UUID: " + command.getUuid()
         + " - Comando: " + command.getUser()
 		+ " - Comando: " + command.getCommand()
 		+ " - Mensaje: " + command.getMessage();

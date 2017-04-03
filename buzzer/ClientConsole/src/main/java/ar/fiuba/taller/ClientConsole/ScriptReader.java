@@ -4,12 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.json.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -51,7 +49,7 @@ public class ScriptReader implements Runnable {
 						Constants.COMMAND_KEY), 
 						username, 
 						(String)commandObject.get(Constants.MESSAGE_KEY),
-						null);
+						null, null);
 				logger.info("Se inserto comando con los siguientes parametros: " 
 						+ "\nUsuario: " + command.getUser()
 						+ "\nComando: " + command.getCommand()

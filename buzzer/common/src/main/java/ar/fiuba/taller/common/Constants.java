@@ -1,5 +1,6 @@
 package ar.fiuba.taller.common;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,13 @@ public class Constants {
 	public static final String ANALYZER_QUEUE_NAME				= "analyzerQueueName";
 	public static final String SHARDING_FACTOR					= "shardingFactor";
 	public static final String AUDIT_LOG_FILE					= "log/audit.log";
+	public static final String DB_DIR							= "db";
+	public static final String DB_INDEX_DIR						= "idx";
+	public static final String DB_USER_INDEX					= "user.json";
+	public static final String DB_HASHTAG_INDEX					= "hashtag.json";
+	public static final SimpleDateFormat SDF 					= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	public static final String QUERY_COUNT_SHOW_POSTS			= "queryCountShowPosts";
+	public static final String TT_COUNT_SHOW_POST				= "ttCountShowPosts";
 	
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW

@@ -19,7 +19,16 @@ public class ConfigLoader {
 	private String storageResponseQueueName;
 	private String analyzerQueueHost;
 	private String analyzerQueueName;
+	private int shardingFactor;
 			
+	public int getShardingFactor() {
+		return shardingFactor;
+	}
+
+	public void setShardingFactor(int shardingFactor) {
+		this.shardingFactor = shardingFactor;
+	}
+
 	protected ConfigLoader() {
 		// TODO Auto-generated constructor stub
 	}
@@ -51,6 +60,7 @@ public class ConfigLoader {
 			storageResponseQueueName	= properties.getProperty(Constants.STORAGE_RESPONSE_QUEUE_NAME);
 			analyzerQueueHost			= properties.getProperty(Constants.ANALYZER_QUEUE_HOST);
 			analyzerQueueName			= properties.getProperty(Constants.ANALYZER_QUEUE_NAME);
+			shardingFactor				= Integer.parseInt(properties.getProperty(Constants.SHARDING_FACTOR));
 	}
 
 	public String getResponseQueueHost() {

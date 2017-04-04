@@ -15,6 +15,7 @@ import ar.fiuba.taller.common.Constants.RESPONSE_STATUS;
 public class Response implements Serializable, ISerialize {
 
 	private UUID uuid;
+	private String user;
 	private RESPONSE_STATUS response_status;
 	private String message;
 	
@@ -77,5 +78,13 @@ public class Response implements Serializable, ISerialize {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 }

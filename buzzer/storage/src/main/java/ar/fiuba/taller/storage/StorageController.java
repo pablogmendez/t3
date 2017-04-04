@@ -15,15 +15,18 @@ import ar.fiuba.taller.common.Command;
 import ar.fiuba.taller.common.ConfigLoader;
 import ar.fiuba.taller.common.Constants;
 import ar.fiuba.taller.common.RemoteQueue;
+import ar.fiuba.taller.common.Response;
 
 public class StorageController extends DefaultConsumer implements Runnable {
 
 	Thread createControllerThread;
 	Thread queryControllerThread;
 	Thread removeControllerThread;
+	Thread responseControllerThread;
 	BlockingQueue<Command> queryQueue;
 	BlockingQueue<Command> removeQueue;
 	BlockingQueue<Command> createQueue;
+	BlockingQueue<Response> responseQueue;
 	ConfigLoader configLoader;
 	Storage storage;
 	final static Logger logger = Logger.getLogger(StorageController.class);
@@ -44,23 +47,26 @@ public class StorageController extends DefaultConsumer implements Runnable {
         	logger.info("Cargando la configuracion");
         	configLoader.init(Constants.CONF_FILE);
         	
-        	logger.info("Creando las colas de consultas, removes y creates");
+        	logger.info("Creando las colas de consultas, removes, creates y response");
         	queryQueue 		= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
         	removeQueue		= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
         	createQueue 	= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
+        	responseQueue 	= new ArrayBlockingQueue<Response>(Constants.COMMAND_QUEUE_SIZE);
         	
         	logger.info("Instancio los indices de usuarios y hashtags");
         	
         	logger.info("Creando los threads de query, remove y create");
-        	queryControllerThread			= new Thread(new QueryController(queryQueue));
-        	removeControllerThread			= new Thread(new RemoveController(removeQueue));
-        	createControllerThread 			= new Thread(new CreateController(createQueue, 
-        			configLoader.getShardingFactor()));
+        	queryControllerThread			= new Thread(new QueryController(queryQueue, responseQueue, storage));
+        	removeControllerThread			= new Thread(new RemoveController(removeQueue, responseQueue, storage));
+        	createControllerThread 			= new Thread(new CreateController(createQueue, responseQueue,  
+        			configLoader.getShardingFactor(), storage));
+        	responseControllerThread			= new Thread(new ResponseController(responseQueue));
         	
         	logger.info("Lanzando los threads de query, remove y create");
         	queryControllerThread.start();
         	removeControllerThread.start();
         	createControllerThread.start();
+        	responseControllerThread.start();
 	    	
         } catch (IOException e) {
 			logger.error("Error al cargar el archivo de configuracion");

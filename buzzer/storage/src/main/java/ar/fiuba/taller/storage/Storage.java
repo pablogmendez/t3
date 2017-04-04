@@ -27,9 +27,9 @@ import ar.fiuba.taller.common.Constants;
 
 public class Storage {
 	
-	int shardingFactor;
-	int queryCountShowPosts;
-	int ttCountShowPosts;
+	private int shardingFactor;
+	private int queryCountShowPosts;
+	private int ttCountShowPosts;
 	final static Logger logger = Logger.getLogger(Storage.class);
 	
 	public Storage(int shardingFactor, 	int queryCountShowPosts, int ttCountShowPosts) {
@@ -64,7 +64,7 @@ public class Storage {
 		String hashtag;
 		while (m.find()) {
 			hashtag = m.group(1);
-			count = (int) jsonObject.get(hashtag);
+			count = Integer.parseInt((String) jsonObject.get(hashtag));
 			count ++;
 			jsonObject.put(hashtag, count);
 		}
@@ -82,7 +82,7 @@ public class Storage {
         }
 	}
 	
-	private void saveMessage(Command command) throws IOException, ParseException {
+	public void saveMessage(Command command) throws IOException, ParseException {
 		String fileName = Constants.DB_DIR + "/" + 
 		command.getUuid().toString().substring(0, shardingFactor - 1) + 
 		Constants.COMMAND_SCRIPT_EXTENSION;		
@@ -108,6 +108,9 @@ public class Storage {
             file.flush();
             file.close();
         }
+        // Una vez que pesisto el mensaje, actualizo los indices
+		updateUserIndex(command);
+		updateHashTagIndex(command);
 	}
 	
 	private void updateUserIndex(Command command) throws IOException, ParseException {
@@ -228,10 +231,23 @@ public class Storage {
 		return messageList;
 	}
 
-	private String queryTT(String hashTag) {
+	private List<String> queryTT(String hashTag) throws FileNotFoundException, IOException, ParseException {
 		Map<String, Integer> map = new HashMap<String, Integer>();
+		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
+		
 		// Levantar el json
+		JSONParser parser = new JSONParser();
+
+		Object obj = parser.parse(new FileReader(fileName));
+
+		JSONObject jsonObject = (JSONObject) obj;
+
 		// Crear un map
+		for(Iterator iterator = jsonObject.keySet().iterator(); iterator.hasNext();) {
+			String key = (String) iterator.next();
+			map.put(key, Integer.parseInt((String) jsonObject.get(key)));
+		}
+		
 		return sortHashMapByValues(map);
 	}
 	
@@ -301,13 +317,13 @@ public class Storage {
 	
 	private List<String> sortHashMapByValues(
 	        Map<String, Integer> map) {
-	    List<String> mapKeys = new ArrayList<>(map.keySet());
-	    List<Integer> mapValues = new ArrayList<>(map.values());
+	    List<String> mapKeys = new ArrayList<String>(map.keySet());
+	    List<Integer> mapValues = new ArrayList<Integer>(map.values());
 	    Collections.sort(mapValues);
 	    Collections.sort(mapKeys);
 
 	    LinkedHashMap<String, Integer> sortedMap =
-	        new LinkedHashMap<>();
+	        new LinkedHashMap<String, Integer>();
 
 	    java.util.Iterator<Integer> valueIt = mapValues.iterator();
 	    while (valueIt.hasNext()) {

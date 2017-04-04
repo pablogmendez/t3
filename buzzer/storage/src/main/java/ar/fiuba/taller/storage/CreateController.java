@@ -23,18 +23,13 @@ import ar.fiuba.taller.common.Constants;
 public class CreateController implements Runnable {
 	private BlockingQueue<Command> createQueue;
 	private int shardingFactor;
-	private UserIndex userIndex;
-	private HashtagIndex hashtagIndex;
 	private Command command;
 	final static Logger logger = Logger.getLogger(App.class);
 	
-	public CreateController(BlockingQueue<Command> createQueue, int shardingFactor, UserIndex userIndex,
-	HashtagIndex hashtagIndex) {
+	public CreateController(BlockingQueue<Command> createQueue, int shardingFactor) {
 		super();
 		this.createQueue 	= createQueue;
 		this.shardingFactor = shardingFactor;
-		this.userIndex 		= userIndex;
-		this.hashtagIndex 	= hashtagIndex;
 	}
 
 	public void run() {

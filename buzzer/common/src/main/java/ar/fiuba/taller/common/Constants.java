@@ -40,6 +40,7 @@ public class Constants {
 	public static final String DB_INDEX_DIR						= "idx";
 	public static final String DB_USER_INDEX					= "user.json";
 	public static final String DB_HASHTAG_INDEX					= "hashtag.json";
+	public static final String DB_TT							= "tt.json";
 	public static final SimpleDateFormat SDF 					= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final String QUERY_COUNT_SHOW_POSTS			= "queryCountShowPosts";
 	public static final String TT_COUNT_SHOW_POST				= "ttCountShowPosts";

@@ -6,14 +6,10 @@ import ar.fiuba.taller.common.Command;
 
 public class RemoveController implements Runnable {
 	private BlockingQueue<Command> removeQueue;
-	private UserIndex userIndex;
-	private HashtagIndex hashtagIndex;
 	
-	public RemoveController(BlockingQueue<Command> removeQueue, UserIndex userIndex, HashtagIndex hashtagIndex) {
+	public RemoveController(BlockingQueue<Command> removeQueue) {
 		super();
 		this.removeQueue 	= removeQueue;
-		this.userIndex 		= userIndex;
-		this.hashtagIndex 	= hashtagIndex;
 	}
 
 	public void run() {

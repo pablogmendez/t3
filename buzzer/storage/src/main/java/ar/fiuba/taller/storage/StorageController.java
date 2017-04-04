@@ -25,13 +25,14 @@ public class StorageController extends DefaultConsumer implements Runnable {
 	BlockingQueue<Command> removeQueue;
 	BlockingQueue<Command> createQueue;
 	ConfigLoader configLoader;
-	UserIndex userIndex;
-	HashtagIndex hashtagIndex;
-	final static Logger logger = Logger.getLogger(App.class);
+	Storage storage;
+	final static Logger logger = Logger.getLogger(StorageController.class);
 	
 	public StorageController(RemoteQueue storageQueue) {
 		super(storageQueue.getChannel());
 		configLoader = ConfigLoader.getInstance();
+		storage = new Storage(configLoader.getShardingFactor(), 
+				configLoader.getQueryCountShowPosts(), configLoader.getTtCountShowPosts());
 	}
 
 	public void run() {
@@ -49,14 +50,12 @@ public class StorageController extends DefaultConsumer implements Runnable {
         	createQueue 	= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
         	
         	logger.info("Instancio los indices de usuarios y hashtags");
-        	userIndex = new UserIndex();
-        	hashtagIndex = new HashtagIndex();
         	
         	logger.info("Creando los threads de query, remove y create");
-        	queryControllerThread			= new Thread(new QueryController(queryQueue, userIndex, hashtagIndex));
-        	removeControllerThread			= new Thread(new RemoveController(removeQueue, userIndex, hashtagIndex));
+        	queryControllerThread			= new Thread(new QueryController(queryQueue));
+        	removeControllerThread			= new Thread(new RemoveController(removeQueue));
         	createControllerThread 			= new Thread(new CreateController(createQueue, 
-        			configLoader.getShardingFactor(), userIndex, hashtagIndex));
+        			configLoader.getShardingFactor()));
         	
         	logger.info("Lanzando los threads de query, remove y create");
         	queryControllerThread.start();

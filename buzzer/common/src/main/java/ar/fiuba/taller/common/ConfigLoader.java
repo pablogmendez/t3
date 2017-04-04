@@ -19,8 +19,8 @@ public class ConfigLoader {
 	private String storageResponseQueueName;
 	private String analyzerQueueHost;
 	private String analyzerQueueName;
-	private String queryCountShowPosts;
-	private String ttCountShowPosts;
+	private int queryCountShowPosts;
+	private int ttCountShowPosts;
 	private int shardingFactor;
 			
 	public int getShardingFactor() {
@@ -63,8 +63,8 @@ public class ConfigLoader {
 			analyzerQueueHost			= properties.getProperty(Constants.ANALYZER_QUEUE_HOST);
 			analyzerQueueName			= properties.getProperty(Constants.ANALYZER_QUEUE_NAME);
 			shardingFactor				= Integer.parseInt(properties.getProperty(Constants.SHARDING_FACTOR));
-			queryCountShowPosts			= properties.getProperty(Constants.QUERY_COUNT_SHOW_POSTS);
-			ttCountShowPosts			= properties.getProperty(Constants.TT_COUNT_SHOW_POST);
+			queryCountShowPosts			= Integer.parseInt(properties.getProperty(Constants.QUERY_COUNT_SHOW_POSTS));
+			ttCountShowPosts			= Integer.parseInt(properties.getProperty(Constants.TT_COUNT_SHOW_POST));
 	}
 
 	public String getResponseQueueHost() {
@@ -115,19 +115,19 @@ public class ConfigLoader {
 		return analyzerQueueName;
 	}
 
-	public String getQueryCountShowPosts() {
+	public int getQueryCountShowPosts() {
 		return queryCountShowPosts;
 	}
 
-	public void setQueryCountShowPosts(String queryCountShowPosts) {
+	public void setQueryCountShowPosts(int queryCountShowPosts) {
 		this.queryCountShowPosts = queryCountShowPosts;
 	}
 
-	public String getTtCountShowPosts() {
+	public int getTtCountShowPosts() {
 		return ttCountShowPosts;
 	}
 
-	public void setTtCountShowPosts(String ttCountShowPosts) {
+	public void setTtCountShowPosts(int ttCountShowPosts) {
 		this.ttCountShowPosts = ttCountShowPosts;
 	}
 }

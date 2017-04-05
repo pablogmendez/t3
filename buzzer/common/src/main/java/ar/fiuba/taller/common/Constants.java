@@ -60,7 +60,7 @@ public class Constants {
     }
     
 	public static enum RESPONSE_STATUS {
-		OK, ERROR
+		OK, ERROR, RESITERED
 	}
 	
 	public static Map<String, RESPONSE_STATUS> RESPONSE_STATUS_MAP;
@@ -69,6 +69,7 @@ public class Constants {
     	tmpMap1 = new HashMap<String, Constants.RESPONSE_STATUS>();
     	tmpMap1.put("OK",      RESPONSE_STATUS.OK   );
     	tmpMap1.put("ERROR",   RESPONSE_STATUS.ERROR);
+    	tmpMap1.put("REGISTERED",   RESPONSE_STATUS.REGISTERED);
     	RESPONSE_STATUS_MAP = Collections.unmodifiableMap(tmpMap1);
     }
 }

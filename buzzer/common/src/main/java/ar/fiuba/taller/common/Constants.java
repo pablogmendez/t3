@@ -60,7 +60,7 @@ public class Constants {
     }
     
 	public static enum RESPONSE_STATUS {
-		OK, ERROR, RESITERED
+		OK, ERROR, REGISTERED
 	}
 	
 	public static Map<String, RESPONSE_STATUS> RESPONSE_STATUS_MAP;

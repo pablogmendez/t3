@@ -9,16 +9,18 @@ import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.common.ConfigLoader;
 import ar.fiuba.taller.common.Constants;
+import ar.fiuba.taller.common.RemoteQueue;
 import ar.fiuba.taller.common.Response;
 
 public class Analyzer implements Runnable {
 
-	Thread analyzerDispatcherThread;
-	Thread analyzerReciverThread;
-	Thread responseControllerThread;
-	BlockingQueue<Response> responseQueue;
-	UserRegistry userRegistry;
-	ConfigLoader configLoader;
+	private Thread analyzerDispatcherThread;
+	private Thread analyzerReciverThread;
+	private Thread responseControllerThread;
+	private BlockingQueue<Response> responseQueue;
+	private UserRegistry userRegistry;
+	private ConfigLoader configLoader;
+	private RemoteQueue analyzerQueue;
 	final static Logger logger = Logger.getLogger(Analyzer.class);
 
 	
@@ -33,13 +35,16 @@ public class Analyzer implements Runnable {
 			// Instancio la cola
 			responseQueue = new ArrayBlockingQueue<Response>(Constants.COMMAND_QUEUE_SIZE);
 			
+			// Creo la cola remota en donde el anayzer recibe los comandos
+			analyzerQueue = new RemoteQueue(Constants.ANALYZER_QUEUE_NAME, Constants.ANALYZER_QUEUE_HOST);
+			
 			// Instancio el registry
 			userRegistry = new UserRegistry();
 			
 			// Hago una carga inicial del user registry
 			
 			// Instancio los threads
-			analyzerReciverThread = new Thread(new AnalyzerReciver(responseQueue));
+			analyzerReciverThread = new Thread(new AnalyzerReciver(responseQueue, analyzerQueue, userRegistry));
 			analyzerDispatcherThread = new Thread(new AnalyzerDispatcher(responseQueue, userRegistry));
 			
 			// Inicio los threads

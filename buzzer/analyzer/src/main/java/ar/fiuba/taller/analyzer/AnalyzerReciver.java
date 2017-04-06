@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
+import org.json.simple.parser.ParseException;
 
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
@@ -83,6 +84,10 @@ public class AnalyzerReciver extends DefaultConsumer implements Runnable  {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			logger.error("Error al insertar el comando en alguna de las colas");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			logger.error("Error al actualizar la base de usuarios");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}

@@ -43,14 +43,12 @@ public class Analyzer implements Runnable {
 			analyzerDispatcherThread = new Thread(new AnalyzerDispatcher(responseQueue, userRegistry));
 			
 			// Inicio los threads
-			analyzerDispatcherThread.start();
+			analyzerReciverThread.start();
 			analyzerDispatcherThread.start();
 
-			// Duermo y recargo la base de registers
-			while(true) {
-				Thread.sleep(10000);
-				userRegistry.reloadDataBase();
-			}
+			// Me quedo esperando los threads
+			analyzerReciverThread.join();
+			analyzerDispatcherThread.join();
 			
 		} catch (IOException e) {
 			logger.error("Error al cargar el archivo de configuracion");

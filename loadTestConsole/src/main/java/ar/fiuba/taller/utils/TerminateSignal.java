@@ -4,11 +4,11 @@ public class TerminateSignal {
 
 	private boolean terminate = false;
 
-	public synchronized boolean hasTerminate() {
+	public boolean hasTerminate() {
 		return this.terminate;
 	}
 
-	public synchronized void terminate() {
+	public void terminate() {
 		this.terminate = true;
 	}
 }

@@ -60,7 +60,7 @@ public class SummaryController implements Runnable {
 					+ " al control principal.");
 			finishedSummaryQueue.put(summaryTask);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			logger.warn("No se ha podido tomar la tarea de la pendingSummaryQueue");
 			e.printStackTrace();
 		}
 		logger.info("Monitor finalizado.");

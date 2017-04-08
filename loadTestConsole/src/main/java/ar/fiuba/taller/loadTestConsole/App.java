@@ -1,5 +1,7 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
 
 import ar.fiuba.taller.utils.TerminateSignal;
@@ -9,20 +11,15 @@ public class App {
 
 	public static void main(String[] args)
 			throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, InterruptedException {
+			IllegalAccessException, InterruptedException, IOException {
 		TerminateSignal terminateSignal = new TerminateSignal();
-		Thread loadTestConsoleThread = new Thread(
-				new LoadTestConsole(terminateSignal));
+		LoadTestConsole loadTestConsole = new LoadTestConsole(terminateSignal);
 
 		logger.info("[*] Se inicia una nueva instancia de LoadTestConsole");
 		Runtime.getRuntime().addShutdownHook(
-				new Terminator(loadTestConsoleThread, terminateSignal));
-		//
-		loadTestConsoleThread.start();
-		// Thread.sleep(1200000);
-		// terminateSignal.terminate();
-		//
-		// System.out.println("Presione ^c para terminar.");
+				new Terminator(terminateSignal));
+
+		loadTestConsole.start();
 
 		logger.info("[*] Finaliza la instancia de LoadTestConsole");
 

@@ -47,10 +47,10 @@ public class Monitor implements Runnable {
 			}
 
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Constants.MONITOR_TIMEOUT);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("Fallo el sleep del monitor");
 			}
 		}
 		logger.info("Finalizando Monitor");

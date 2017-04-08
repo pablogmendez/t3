@@ -26,7 +26,7 @@ while getopts ":i :u :r" opt; do
       java -jar target/loadTestConsole-0.0.1-SNAPSHOT.jar
       [ $? -ne 0 ] && exit 1
       ;;
-    \?)
+    *)
       echo "Invalid option: -$OPTARG"
       DISPLAY_HELP=true
       ;;

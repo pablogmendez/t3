@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 public class ReportController implements Runnable {
 
-	ArrayBlockingQueue<ReportTask> pendingReportQueue;
-	ArrayBlockingQueue<ReportTask> finishedReportQueue;
-	Report report;
+	private ArrayBlockingQueue<ReportTask> pendingReportQueue;
+	private ArrayBlockingQueue<ReportTask> finishedReportQueue;
+	private Report report;
 	final static Logger logger = Logger.getLogger(App.class);
 
 	public ReportController(ArrayBlockingQueue<ReportTask> pendingReportQueue,

@@ -12,43 +12,19 @@ public class StairsUserPattern extends UserPattern {
 
 	public StairsUserPattern(List<Integer> paramList, Integer upperBound) {
 		super(paramList.get(0), upperBound);
-		this.setStepLength(paramList.get(1));
-		this.setTicksLeft(paramList.get(1));
-		this.setHeightOfStep(paramList.get(0));
+		this.stepLength = paramList.get(1);
+		this.ticksLeft = paramList.get(1);
+		this.heightOfStep = paramList.get(0);
 	}
 
 	@Override
 	public Integer getUsers(Integer tick) {
-		if (getTicksLeft() == 0) {
-			setTicksLeft(stepLength);
-			setNumberOfUsers(getNumberOfUsers() + getHeightOfStep());
+		if (ticksLeft == 0) {
+			ticksLeft = stepLength;
+			setNumberOfUsers(getNumberOfUsers() + heightOfStep);
 		}
-		setTicksLeft(getTicksLeft() - 1);
+		ticksLeft--;
 		return getNumberOfUsers() <= getUpperBound() ? getNumberOfUsers()
 				: getUpperBound();
-	}
-
-	public Integer getStepLength() {
-		return stepLength;
-	}
-
-	public void setStepLength(Integer stepLength) {
-		this.stepLength = stepLength;
-	}
-
-	public Integer getTicksLeft() {
-		return ticksLeft;
-	}
-
-	public void setTicksLeft(Integer ticksLeft) {
-		this.ticksLeft = ticksLeft;
-	}
-
-	public Integer getHeightOfStep() {
-		return heightOfStep;
-	}
-
-	public void setHeightOfStep(Integer heightOfStep) {
-		this.heightOfStep = heightOfStep;
 	}
 }

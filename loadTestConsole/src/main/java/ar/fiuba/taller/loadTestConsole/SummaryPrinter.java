@@ -1,8 +1,5 @@
 package ar.fiuba.taller.loadTestConsole;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 
 import ar.fiuba.taller.utils.TerminateSignal;
@@ -50,7 +47,7 @@ public class SummaryPrinter implements Runnable {
 				System.out.println("Presione ^C para terminar...");
 			}
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(Constants.SUMMARY_PRINTER_TIMEOUT);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

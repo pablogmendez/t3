@@ -19,16 +19,17 @@ import ar.fiuba.taller.common.Response;
 
 public class StorageController extends DefaultConsumer implements Runnable {
 
-	Thread createControllerThread;
-	Thread queryControllerThread;
-	Thread removeControllerThread;
-	Thread responseControllerThread;
-	BlockingQueue<Command> queryQueue;
-	BlockingQueue<Command> removeQueue;
-	BlockingQueue<Command> createQueue;
-	BlockingQueue<Response> responseQueue;
-	ConfigLoader configLoader;
-	Storage storage;
+	private Thread createControllerThread;
+	private Thread queryControllerThread;
+	private Thread removeControllerThread;
+	private Thread responseControllerThread;
+	private BlockingQueue<Command> queryQueue;
+	private BlockingQueue<Command> removeQueue;
+	private BlockingQueue<Command> createQueue;
+	private BlockingQueue<Response> responseQueue;
+	private ConfigLoader configLoader;
+	private Storage storage;
+	private RemoteQueue storageQueue;
 	final static Logger logger = Logger.getLogger(StorageController.class);
 	
 	public StorageController(RemoteQueue storageQueue) {
@@ -36,6 +37,7 @@ public class StorageController extends DefaultConsumer implements Runnable {
 		configLoader = ConfigLoader.getInstance();
 		storage = new Storage(configLoader.getShardingFactor(), 
 				configLoader.getQueryCountShowPosts(), configLoader.getTtCountShowPosts());
+		this.storageQueue = storageQueue;
 	}
 
 	public void run() {
@@ -68,6 +70,9 @@ public class StorageController extends DefaultConsumer implements Runnable {
         	createControllerThread.start();
         	responseControllerThread.start();
 	    	
+        	logger.info("Me pongo a comer de la cola: " + storageQueue.getHost() + " " + storageQueue.getQueueName());
+        	storageQueue.getChannel().basicConsume(storageQueue.getQueueName(), true, this);
+        	
         } catch (IOException e) {
 			logger.error("Error al cargar el archivo de configuracion");
 			logger.info(e.toString());

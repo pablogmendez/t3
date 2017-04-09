@@ -32,12 +32,13 @@ public class QueryController implements Runnable {
 		String queryResult;
 		// Este mensaje deberia ser configurable
 		String error_message = "Error al consultar";
+		logger.info("Iniciando el query controller");
 		while(true) {
 			try {
+				command = queryQueue.take();
 				response = new Response();
 				response.setUuid(UUID.randomUUID());
 				response.setUser(command.getUser());
-				command = queryQueue.take();
 				response.setMessage(storage.query(command));
 				response.setResponse_status(RESPONSE_STATUS.OK);
 			} catch (InterruptedException e) {

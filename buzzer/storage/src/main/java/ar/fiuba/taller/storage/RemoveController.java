@@ -30,12 +30,13 @@ public class RemoveController implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		String error_message = "Error al eliminar el mensaje";
+		logger.info("Iniciando el remove controller");
 		while(true) {
 			try {
+				command = removeQueue.take();
 				response = new Response();
 				response.setUuid(UUID.randomUUID());
 				response.setUser(command.getUser());
-				command = removeQueue.take();
 				storage.delete(command);
 				response.setMessage("Borrado exitoso");
 				response.setResponse_status(RESPONSE_STATUS.OK);

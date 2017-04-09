@@ -24,6 +24,7 @@ public class ResponseController implements Runnable {
 	}
 
 	public void run() {
+		logger.info("Iniciando el response controller");
 		while(true) {
 			try {
 				response = responseQueue.take();

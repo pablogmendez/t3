@@ -45,6 +45,8 @@ public class Constants {
 	public static final SimpleDateFormat SDF 					= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final String QUERY_COUNT_SHOW_POSTS			= "queryCountShowPosts";
 	public static final String TT_COUNT_SHOW_POST				= "ttCountShowPosts";
+	public static final String USER_READ_MODE					= "r";
+	public static final String USER_WRITE_MODE					= "w";
 	
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW

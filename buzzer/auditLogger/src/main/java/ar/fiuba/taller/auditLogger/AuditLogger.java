@@ -1,5 +1,7 @@
 package ar.fiuba.taller.auditLogger;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -20,7 +22,6 @@ import ar.fiuba.taller.common.*;
 public class AuditLogger extends DefaultConsumer implements Runnable {
 
 	private Timestamp timestamp;
-	private PrintWriter pw;
 	private RemoteQueue loggerQueue;
 	final static Logger logger = Logger.getLogger(AuditLogger.class);
 	
@@ -34,31 +35,22 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	        
 		logger.info("Iniciando el audit logger");
-
 		try {
-			logger.info("Cargando la configuracion");
-			pw = new PrintWriter(Constants.AUDIT_LOG_FILE, "UTF-8");
+			PrintWriter pw = new PrintWriter(Constants.AUDIT_LOG_FILE, "UTF-8");
+			pw.close();
+			loggerQueue.getChannel().basicConsume(loggerQueue.getQueueName(), true, this);
 		} catch (IOException e) {
-			logger.error("Error al cargar la configuracion");
+			logger.error("Error consumir de la cola remota");
 			logger.info(e.toString());
 			e.printStackTrace();
-		}
-//		while(true) {
-			try {
-				loggerQueue.getChannel().basicConsume(loggerQueue.getQueueName(), true, this);
-			} catch (IOException e) {
-				logger.error("Error consumir de la cola remota");
-				logger.info(e.toString());
-				e.printStackTrace();
-			}
-//		}
-		
+		}		
 	}
 	
 	@Override
 	public void handleDelivery(String consumerTag, Envelope envelope,
 			BasicProperties properties, byte[] body) throws IOException {
 		super.handleDelivery(consumerTag, envelope, properties, body);
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(Constants.AUDIT_LOG_FILE, true)));
 		Command command = new Command();
 		try {
 			command.deserialize(body);
@@ -66,8 +58,10 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 					+ "\nUsuario: " + command.getUser()
 					+ "\nComando: " + command.getCommand()
 					+ "\nMensaje: " + command.getMessage());
-			logger.info("Escribiendo el mensaje en el archivo de log");
+			logger.info("Escribiendo el mensaje en el archivo de log " + Constants.AUDIT_LOG_FILE);
+			logger.info(getAuditLogEntry(command));
 			pw.println(getAuditLogEntry(command));
+			pw.close();
 		} catch (ClassNotFoundException e) {
 			logger.error("Error al deserializar el comando");
 			logger.info(e.toString());
@@ -82,7 +76,7 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 	private String getAuditLogEntry(Command command) {
 		timestamp = new Timestamp(System.currentTimeMillis());
         return Constants.SDF.format(timestamp) + " - " + "UUID: " + command.getUuid()
-        + " - Comando: " + command.getUser()
+        + " - Usuario: " + command.getUser()
 		+ " - Comando: " + command.getCommand()
 		+ " - Mensaje: " + command.getMessage();
 	}

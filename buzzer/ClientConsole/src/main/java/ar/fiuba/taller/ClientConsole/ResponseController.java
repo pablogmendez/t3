@@ -56,14 +56,14 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el response controller");
-		while(true) {
+//		while(true) {
 			try {
 				remoteResponseQueue.getChannel().basicConsume(remoteResponseQueue.getQueueName(), true, this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+//		}
 	}
 
 }

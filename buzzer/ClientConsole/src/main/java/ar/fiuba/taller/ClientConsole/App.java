@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.log4j.PropertyConfigurator;
@@ -25,7 +27,7 @@ public class App
     	PropertyConfigurator.configure(Constants.LOGGER_CONF);
     	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
     	List<Thread> usersList = new ArrayList<Thread>();
-    	String username;
+    	String username, mode, reg;
     	
     	logger.info("Se inicia una nueva instancia de ClientConsole");
     	
@@ -38,8 +40,12 @@ public class App
 			Thread userConsoleThread;
 			logger.info("Leyendo el archivo de usuarios a simular");
 			Iterator<String> iterator = arr.iterator();
+			StringTokenizer st;
 			while (iterator.hasNext()) {
 				username = iterator.next();
+//				st = new StringTokenizer(reg, "#");
+//				username = st.nextToken();
+//				mode = st.nextToken();
 				logger.info("Siguiente usuario a crear: " + username);
 			 	userConsoleThread = new Thread(new UserConsole(username));
 			 	userConsoleThread.start();
@@ -48,7 +54,7 @@ public class App
 			}
 
 			// Espero a que los usuarios hayan terminado de ejecutar
-			logger.info("Esperando a que los usuarios terminen");
+			logger.info("Esperando a que los usuarios terminen: " + usersList.size());
 			for(Thread userThread : usersList ) {
 				userThread.join();
 				logger.info("Usuario " + userThread.getId() + " finalizado!");

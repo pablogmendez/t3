@@ -3,19 +3,25 @@
 # ----------- Funciones auxiliares ----------------
 function execClientConsole() {
       echo "Ejecutando clientConsole"
-      gnome-terminal -e "bash -c \"./clientConsole.sh;exec bash\""
+      gnome-terminal --title "clientConsole" -e "bash -c \"./clientConsole.sh;exec bash\""
       [ $? -ne 0 ] && exit 1
 }
 
 function execDispatcher() {
       echo "Ejecutando dispatcher"
-      gnome-terminal -e "bash -c \"./dispatcher.sh;exec bash\""
+      gnome-terminal --title "dispatcher" -e "bash -c \"./dispatcher.sh;exec bash\""
       [ $? -ne 0 ] && exit 1
 }
 
 function execAuditLogger() {
       echo "Ejecutando audit logger"
-      gnome-terminal -e "bash -c \"./auditLogger.sh;exec bash\""
+      gnome-terminal --title "auditLogger" -e "bash -c \"./auditLogger.sh;exec bash\""
+      [ $? -ne 0 ] && exit 1
+}
+
+function execStorage() {
+      echo "Ejecutando el storage"
+      gnome-terminal --title "storage" -e "bash -c \"./storage.sh;exec bash\""
       [ $? -ne 0 ] && exit 1
 }
 
@@ -37,7 +43,7 @@ DISPLAY_HELP=false
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-while getopts ":i :c :d :u :a" opt; do
+while getopts ":i :c :d :u :s :a" opt; do
   case $opt in
     i)
       echo "Instalando el programa"
@@ -55,6 +61,9 @@ while getopts ":i :c :d :u :a" opt; do
       ;;
     u)
       execAuditLogger
+      ;;
+    s)
+      execStorage
       ;;
     a)
       execAll
@@ -78,6 +87,7 @@ if [ $DISPLAY_HELP == true ]; then
 	echo "	-c	Ejecuta el ${bold}c${normal}liente"
 	echo "	-d	Ejecuta el ${bold}d${normal}ispatcher"
 	echo "	-u	Ejecuta el a${bold}u${normal}dit logger"
+	echo "	-s	Ejecuta el ${bold}s${normal}torage"
 	echo "	-a	Ejecuta todos los programas"
 	echo ""
 fi

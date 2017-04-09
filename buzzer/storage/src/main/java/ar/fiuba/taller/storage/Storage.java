@@ -1,7 +1,9 @@
 package ar.fiuba.taller.storage;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,11 +50,14 @@ public class Storage {
 		JSONParser parser = new JSONParser();
 		Object obj;
 		
-		logger.info("Actualizando el indice de hashtags");
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
-        obj= parser.parse(line);
+		logger.info("Actualizando los TT");
+		File tmpFile = new File(fileName);
+		if(tmpFile.createNewFile()) {
+			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
+			oFile.write("{}".getBytes());
+		}
+
+        obj= parser.parse(new FileReader(fileName));
         JSONObject jsonObject = (JSONObject) obj;
         int count = 0;
         String regexPattern = "(#\\w+)";
@@ -61,12 +66,19 @@ public class Storage {
 		String hashtag;
 		while (m.find()) {
 			hashtag = m.group(1);
-			count = Integer.parseInt((String) jsonObject.get(hashtag));
-			count ++;
-			jsonObject.put(hashtag, count);
+			hashtag = hashtag.substring(1,hashtag.length());
+			Long obj2 = (Long) jsonObject.get(hashtag);
+			if(obj2 == null) {
+				// La entrada no existe y hay que crearla
+				jsonObject.put(hashtag, 1);
+			} else {				
+				obj2 ++;
+				jsonObject.put(hashtag, obj2);
+			}
+			
 		}
-        br.close();
-        FileWriter file = new FileWriter(fileName, true);
+
+        FileWriter file = new FileWriter(fileName);
         try {
             file.write(jsonObject.toJSONString());
         } catch (Exception e) {
@@ -81,19 +93,24 @@ public class Storage {
 	
 	public void saveMessage(Command command) throws IOException, ParseException {
 		String fileName = Constants.DB_DIR + "/" + 
-		command.getUuid().toString().substring(0, shardingFactor - 1) + 
+		command.getUuid().toString().substring(0, shardingFactor) + 
 		Constants.COMMAND_SCRIPT_EXTENSION;		
 		JSONParser parser = new JSONParser();
 		Object obj;
 		
 		logger.info("Guardando el comando en la base de datos: " + fileName);
 		logger.info("Contenido del registro: " + command.toJson());
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
-        obj= parser.parse(line);
-        JSONObject jsonObject = (JSONObject) obj;
-        jsonObject.put(command.getUuid().toString(), command.toJson());
+		File tmpFile = new File(fileName);
+		if(tmpFile.createNewFile()) {
+			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
+		}
+        JSONObject obj2 = new JSONObject();
+        obj2.put("command", command.getCommand().toString());
+        obj2.put("user", command.getUser());
+        obj2.put("message", command.getMessage());
+        obj2.put("timestamp", command.getTimestamp());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(command.getUuid().toString(), obj2);
         FileWriter file = new FileWriter(fileName, true);
         try {
             file.write(jsonObject.toJSONString());
@@ -117,16 +134,24 @@ public class Storage {
 		Object obj;
 		
 		logger.info("Actualizando el inice de usuarios");
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
-        obj= parser.parse(line);
+		File tmpFile = new File(fileName);
+		if(tmpFile.createNewFile()) {
+			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
+			oFile.write("{}".getBytes());
+		}
+        obj= parser.parse(new FileReader(fileName));
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray array = (JSONArray) jsonObject.get(command.getUser());
-        array.add(command.getUuid().toString());
-        jsonObject.put(command.getUser(), array);
-        br.close();
-        FileWriter file = new FileWriter(fileName, true);
+        if(array == null) {
+        	// Hay que crear la entrada en el indice
+        	JSONArray ar2 = new JSONArray();
+        	ar2.add(command.getUuid().toString());
+        	jsonObject.put(command.getUser(), ar2);
+        } else {
+	        array.add(command.getUuid().toString());
+	        jsonObject.put(command.getUser(), array);
+        }
+        FileWriter file = new FileWriter(fileName);
         try {
             file.write(jsonObject.toJSONString());
         } catch (Exception e) {
@@ -146,24 +171,36 @@ public class Storage {
 		Object obj;
 		
 		logger.info("Actualizando el inice de hashtags");
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
-        obj= parser.parse(line);
+		File tmpFile = new File(fileName);
+		if(tmpFile.createNewFile()) {
+			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
+			oFile.write("{}".getBytes());
+		}
+        obj= parser.parse(new FileReader(fileName));
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray array;
         String regexPattern = "(#\\w+)";
 		Pattern p = Pattern.compile(regexPattern);
 		Matcher m = p.matcher(command.getMessage());
 		String hashtag;
-		while (m.find()) {
+		JSONArray ar2;
+		while (m.find()) {			
 			hashtag = m.group(1);
+			hashtag = hashtag.substring(1, hashtag.length());
 			array = (JSONArray) jsonObject.get(hashtag);
-			array.add(command.getUuid().toString());
-			jsonObject.put(hashtag, array);
+			if(array == null) {
+				// Hay que crear la entrada en el indice
+				ar2 = new JSONArray();
+				ar2.add(command.getUuid().toString());
+				jsonObject.put(hashtag, ar2);
+			} else {
+				array.add(command.getUuid().toString());
+				jsonObject.put(hashtag, array);
+			}
+//			array.add(command.getUuid().toString());
+//			jsonObject.put(hashtag, array);
 		}
-        br.close();
-        FileWriter file = new FileWriter(fileName, true);
+        FileWriter file = new FileWriter(fileName);
         try {
             file.write(jsonObject.toJSONString());
         } catch (Exception e) {

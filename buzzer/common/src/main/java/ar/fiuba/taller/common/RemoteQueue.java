@@ -38,15 +38,10 @@ public class RemoteQueue {
 	}
 
 	public void init() throws IOException, TimeoutException {
-		System.out.println("creando factory");
 		factory = new ConnectionFactory();
-		System.out.println("seteando host " + host);
 	    factory.setHost(host);
-	    System.out.println("seteando conexion");
 	    connection = factory.newConnection();
-	    System.out.println("seteando canal");
 	    channel = connection.createChannel();
-	    System.out.println("declarando cola " + queueName);
 	    channel.queueDeclareNoWait(queueName, false, false, false, null);
 	}
 	

@@ -12,15 +12,16 @@ import ar.fiuba.taller.common.*;
 
 public class UserConsole implements Runnable {
 	private String username;
-	BlockingQueue<Command> commandQueue;
-	BlockingQueue<Response> responseQueue;
-	Thread scriptReaderThread;
-	Thread commandControllerThread;
-	Thread eventViewerThread;
-	Thread responseControllerThread;
-	RemoteQueue remoteUserResponseQueue;
-	RemoteQueue dispatcherQueue;
-	ConfigLoader configLoader = ConfigLoader.getInstance();
+	private BlockingQueue<Command> commandQueue;
+	private BlockingQueue<Response> responseQueue;
+	private Thread scriptReaderThread;
+	private Thread commandControllerThread;
+	private Thread eventViewerThread;
+	private Thread responseControllerThread;
+	private RemoteQueue remoteUserResponseQueue;
+	private RemoteQueue dispatcherQueue;
+	private ConfigLoader configLoader = ConfigLoader.getInstance();
+	private String mode;
 	final static Logger logger = Logger.getLogger(UserConsole.class);
 	
 	public UserConsole(String username) {
@@ -52,56 +53,61 @@ public class UserConsole implements Runnable {
 	}
 	
 	private void initUser() throws IOException, TimeoutException {
-        logger.info("Creando cola de comandos leidos");
-        commandQueue = new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
-        logger.info("Creando cola de respuestas");
-        responseQueue = new ArrayBlockingQueue<Response>(Constants.RESPONSE_QUEUE_SIZE);
-        logger.info("Creando cola remota de respuestas");
-        remoteUserResponseQueue = new RemoteQueue(username, configLoader.getResponseQueueHost());
-        remoteUserResponseQueue.init();
-        logger.info("Creando cola del dispatcher");
-        dispatcherQueue = new RemoteQueue(configLoader.getDispatcherQueueName(), configLoader.getDispatcherQueueHost());
-        dispatcherQueue.init();
-        logger.info("Creando lector de scripts");
-        scriptReaderThread = new Thread(new ScriptReader(commandQueue, 
-        		Constants.COMMAND_SCRIPT_FOLDER + "/" + username + Constants.COMMAND_SCRIPT_EXTENSION,
-        		username));
-        logger.info("Creando controlador de comandos");
-        commandControllerThread = new Thread(new CommandController(commandQueue, dispatcherQueue));
-        logger.info("Creando el controlador de respuestas");
-        responseControllerThread = new Thread(new ResponseController(responseQueue, remoteUserResponseQueue));
-        logger.info("Creando el visor de eventos");
-        eventViewerThread = new Thread(new EventViewer(responseQueue, username, Constants.LOGS_DIR + "/" + 
-                username + Constants.EVENT_VIEWER_FILE_EXTENSION));
+		//if(mode.equals(Constants.USER_WRITE_MODE)) {
+			logger.info("Creando cola de comandos leidos");
+	        commandQueue = new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
+	        logger.info("Creando cola del dispatcher");
+	        dispatcherQueue = new RemoteQueue(configLoader.getDispatcherQueueName(), configLoader.getDispatcherQueueHost());
+	        dispatcherQueue.init();
+	        logger.info("Creando lector de scripts");
+	        scriptReaderThread = new Thread(new ScriptReader(commandQueue, 
+	        		Constants.COMMAND_SCRIPT_FOLDER + "/" + username + Constants.COMMAND_SCRIPT_EXTENSION,
+	        		username));
+	        logger.info("Creando controlador de comandos");
+	        commandControllerThread = new Thread(new CommandController(commandQueue, dispatcherQueue));
+		//} else if (mode.equals(Constants.USER_READ_MODE)) {
+			logger.info("Creando cola de respuestas");
+	        responseQueue = new ArrayBlockingQueue<Response>(Constants.RESPONSE_QUEUE_SIZE);
+	        logger.info("Creando cola remota de respuestas");
+	        remoteUserResponseQueue = new RemoteQueue(username, configLoader.getResponseQueueHost());
+	        remoteUserResponseQueue.init();
+	        logger.info("Creando el controlador de respuestas");
+	        responseControllerThread = new Thread(new ResponseController(responseQueue, remoteUserResponseQueue));
+	        logger.info("Creando el visor de eventos");
+	        eventViewerThread = new Thread(new EventViewer(responseQueue, username, Constants.LOGS_DIR + "/" + 
+	                username + Constants.EVENT_VIEWER_FILE_EXTENSION));
+		//}        
 	}
 	
 	private void startUser() {
-		logger.info("Iniciando el lector de scripts");
-        scriptReaderThread.start();
-        logger.info("Iniciando el controlador de comandos");
-        commandControllerThread.start();
-        logger.info("Iniciando el controlador de respuestas");
-        responseControllerThread.start();
-        logger.info("Iniciando el visor de eventos");
-        eventViewerThread.start(); 
+		//if(mode.equals(Constants.USER_WRITE_MODE)) {
+			logger.info("Iniciando el lector de scripts");
+			scriptReaderThread.start();
+			logger.info("Iniciando el controlador de comandos");
+			commandControllerThread.start();			
+		//} else if (mode.equals(Constants.USER_READ_MODE)) {
+			logger.info("Iniciando el controlador de respuestas");
+			responseControllerThread.start();
+			logger.info("Iniciando el visor de eventos");
+			eventViewerThread.start(); 			
+		//}
 	}
 	
 	private void terminateUser() throws InterruptedException, IOException, TimeoutException {
-		logger.info("Cerrando la conexion con la cola remoteUserResponseQueue");
-//		remoteUserResponseQueue.close();
-		logger.info("Cerrando la conexion con la cola dispatcherQueue");
-//		dispatcherQueue.close();
-    	logger.info("Esperando al reader");
-    	scriptReaderThread.join(1000);
-    	logger.info("Reader finalizado!");
-    	logger.info("Esperando al controlador de comandos");
-    	commandControllerThread.join(1000);
-		logger.info("controller finalizado!");
-		logger.info("Esperando al controlador de respuestas");
-    	responseControllerThread.join(1000);
-		logger.info("controller controlador de respuestas!");
-		logger.info("Esperando al visor de eventos");
-    	eventViewerThread.join(1000);
-		logger.info("visor de eventos finalizado!");		
+		//if(mode.equals(Constants.USER_WRITE_MODE)) {
+			logger.info("Esperando al controlador de comandos");
+			commandControllerThread.join();
+			logger.info("controller finalizado!");
+			logger.info("Esperando al reader");
+			scriptReaderThread.join();
+			logger.info("Reader finalizado!");		
+		//} else if (mode.equals(Constants.USER_READ_MODE)) {
+			logger.info("Esperando al controlador de respuestas");
+			responseControllerThread.join();
+			logger.info("controller controlador de respuestas!");
+			logger.info("Esperando al visor de eventos");
+			eventViewerThread.join();
+			logger.info("visor de eventos finalizado!");				 			
+		//}
 	}
 }

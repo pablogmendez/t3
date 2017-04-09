@@ -2,7 +2,7 @@
 	"commands": [
 		{
 			"command": "PUBLISH",
-			"message": "Mensaje 1"
+			"message": "Mensaje 1 #HOLAAA"
 		}
 		
 	]

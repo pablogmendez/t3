@@ -59,6 +59,7 @@ public class Command implements Serializable, ISerialize {
         command = tmp.getCommand();
         user = tmp.getUser();
         message = tmp.getMessage();
+        timestamp = tmp.getTimestamp();
 	}
 	
 	public COMMAND getCommand() {
@@ -104,9 +105,9 @@ public class Command implements Serializable, ISerialize {
 	public String toJson() {
 		String tmp;
 		
-		tmp = "{\"command\":\"" + command.toString() +
-				"\",\"user\":\"" + user +  "\",\"message\":\"" + message + "\",\"timestamp\":\"" +
-				timestamp + "\"}";
+		tmp = "{command:" + command.toString() +
+				",user:" + user +  ",message:" + message + ",timestamp:" +
+				timestamp + "}";
 		return tmp;
 	}
 	

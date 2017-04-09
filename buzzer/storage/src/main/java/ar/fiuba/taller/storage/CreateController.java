@@ -34,10 +34,10 @@ public class CreateController implements Runnable {
     	while(true) {
     		String error_message = "Error al crear el mensaje";
 	    	try {
+	    		command = createQueue.take();
 	    			response = new Response();
 					response.setUuid(UUID.randomUUID());
-					response.setUser(command.getUser());
-	    			command = createQueue.take();
+	    			response.setUser(command.getUser());
 	    			storage.saveMessage(command);    	
 	    			response.setMessage("Creacion exitosa");
 					response.setResponse_status(RESPONSE_STATUS.OK);

@@ -43,7 +43,7 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 			logger.info(e.toString());
 			e.printStackTrace();
 		}
-		while(true) {
+//		while(true) {
 			try {
 				loggerQueue.getChannel().basicConsume(loggerQueue.getQueueName(), true, this);
 			} catch (IOException e) {
@@ -51,7 +51,7 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 				logger.info(e.toString());
 				e.printStackTrace();
 			}
-		}
+//		}
 		
 	}
 	

@@ -37,12 +37,14 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el dispatcher controller");
-		try {
-			dispatcherQueue.getChannel().basicConsume(dispatcherQueue.getQueueName(), true, this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		while(true) {
+			try {
+				dispatcherQueue.getChannel().basicConsume(dispatcherQueue.getQueueName(), true, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//		}
 	}
 
 	@Override
@@ -60,14 +62,14 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 			storageCommandQueue.put(command);
 			logger.info("Enviando mensaje a la cola del analyzer");
 			analyzerCommandQueue.put(command);
-			logger.error("Enviando mensaje a la cola del logger");
+			logger.info("Enviando mensaje a la cola del logger");
 			loggerCommandQueue.put(command);
 		} catch (ClassNotFoundException e) {
-			logger.error("Error al deserializar el comando");
+			logger.info("Error al deserializar el comando");
 			logger.info(e.toString());
 			e.printStackTrace();
 		} catch (IOException e) {
-			logger.error("Error al deserializar el comando");
+			logger.info("Error al deserializar el comando");
 			logger.info(e.toString());
 			e.printStackTrace();
 		} catch (InterruptedException e) {

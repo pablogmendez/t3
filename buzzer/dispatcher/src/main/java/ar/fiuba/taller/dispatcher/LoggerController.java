@@ -35,7 +35,7 @@ public class LoggerController implements Runnable {
 						+ "\nComando: " + command.getCommand()
 						+ "\nMensaje: " + command.getMessage());
 				loggerQueue.put(command);
-				logger.error("Comando enviado al logger");
+				logger.info("Comando enviado al logger");
 			} catch (InterruptedException e) {
 				logger.error("Error al obtener el comando de la cola loggerCommandQueue");
 				logger.info(e.toString());

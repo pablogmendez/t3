@@ -47,7 +47,7 @@ public class RemoteQueue {
 	    System.out.println("seteando canal");
 	    channel = connection.createChannel();
 	    System.out.println("declarando cola " + queueName);
-	    channel.queueDeclareNoWait(queueName, true, false, false, null);
+	    channel.queueDeclareNoWait(queueName, false, false, false, null);
 	}
 	
 	public void close() throws IOException, TimeoutException {

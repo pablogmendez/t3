@@ -34,7 +34,7 @@ public class StorageController implements Runnable {
 						+ "\nComando: " + command.getCommand()
 						+ "\nMensaje: " + command.getMessage());
 				storageQueue.put(command);
-				logger.error("Comando enviado al storage");
+				logger.info("Comando enviado al storage");
 			} catch (InterruptedException e) {
 				logger.error("Error al obtener el comando de la cola storageCommandQueue");
 				logger.info(e.toString());

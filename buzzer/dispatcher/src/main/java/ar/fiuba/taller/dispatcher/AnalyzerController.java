@@ -34,7 +34,7 @@ public class AnalyzerController implements Runnable {
 						+ "\nComando: " + command.getCommand()
 						+ "\nMensaje: " + command.getMessage());
 				analyzerQueue.put(command);
-				logger.error("Comando enviado al analyzer");
+				logger.info("Comando enviado al analyzer");
 			} catch (InterruptedException e) {
 				logger.error("Error al obtener el comando de la cola analyzerCommandQueue");
 				logger.info(e.toString());

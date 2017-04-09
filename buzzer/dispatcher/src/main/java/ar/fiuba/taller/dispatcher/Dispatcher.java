@@ -69,12 +69,16 @@ public class Dispatcher implements Runnable {
     	loggerCommandQueue 		= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
     	
     	logger.info("Creando las conexiones a los brokers");
+    	logger.info("Creando la cola del dispatcher");
     	dispatcherQueue = new RemoteQueue(configLoader.getDispatcherQueueName(), configLoader.getDispatcherQueueHost());
     	dispatcherQueue.init();
+    	logger.info("Creando la cola hacia el analyzer");
     	analyzerQueue 	= new RemoteQueue(configLoader.getAnalyzerQueueName(), configLoader.getAnalyzerQueueHost());
     	analyzerQueue.init();
+    	logger.info("Creando la cola hacia el storage");
     	storageQueue 	= new RemoteQueue(configLoader.getStorageRequestQueueName(), configLoader.getStorageResquestQueueHost());
     	storageQueue.init();
+    	logger.info("Creando la cola hacia el logger");
     	loggerQueue 	= new RemoteQueue(configLoader.getAuditLoggerQueueName(), configLoader.getAuditLoggerQueueHost());
     	loggerQueue.init();
     	

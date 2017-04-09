@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +22,7 @@ public class App
 	
     public static void main( String[] args )
     {
+    	PropertyConfigurator.configure(Constants.LOGGER_CONF);
     	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
     	List<Thread> usersList = new ArrayList<Thread>();
     	String username;

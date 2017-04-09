@@ -18,7 +18,7 @@ public class CommandController implements Runnable {
 	private RemoteQueue dispatcherQueue;
 	Timestamp timestamp;
 	
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(CommandController.class);
 	
 	public CommandController(BlockingQueue<Command> commandQueue, RemoteQueue dispatcherQueue) {
 		this.commandQueue = commandQueue;
@@ -31,7 +31,7 @@ public class CommandController implements Runnable {
 		
 		logger.info("Iniciando el command controller");
 		
-		while(true) {
+//		while(true) {
 			try {
 				logger.info("Obteniendo comando de la cola");
 				command = commandQueue.take();
@@ -57,6 +57,6 @@ public class CommandController implements Runnable {
 				logger.info(e.toString());
 				e.printStackTrace();
 			}	
-		}	
+//		}	
 	}
 }

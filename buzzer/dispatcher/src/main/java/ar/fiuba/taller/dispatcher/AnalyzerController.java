@@ -13,7 +13,7 @@ public class AnalyzerController implements Runnable {
 	private BlockingQueue<Command> analyzerCommandQueue;
 	private RemoteQueue analyzerQueue;
 	
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(AnalyzerController.class);
 	
 	public AnalyzerController(BlockingQueue<Command> analyzerCommandQueue, 
 			RemoteQueue analyzerQueue) {

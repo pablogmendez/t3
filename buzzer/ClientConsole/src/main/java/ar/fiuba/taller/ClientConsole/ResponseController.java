@@ -16,7 +16,7 @@ import ar.fiuba.taller.common.Response;
 public class ResponseController extends DefaultConsumer implements Runnable {
 	
 	BlockingQueue<Response> responseQueue;
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(ResponseController.class);
 	
 	public ResponseController(BlockingQueue<Response> responseQueue, RemoteQueue remoteResponseQueue) {
 		super(remoteResponseQueue.getChannel());

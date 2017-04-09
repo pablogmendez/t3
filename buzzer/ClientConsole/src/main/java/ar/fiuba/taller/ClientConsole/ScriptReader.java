@@ -18,7 +18,7 @@ import ar.fiuba.taller.common.Constants;
 
 public class ScriptReader implements Runnable {
 
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(ScriptReader.class);
 	
 	BlockingQueue<Command> commandQueue;
 	String commandScript;

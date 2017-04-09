@@ -41,9 +41,6 @@ public class Storage {
 
 	public synchronized void create(Command command) throws IOException, ParseException {
 		saveMessage(command);
-        updateUserIndex(command);
-        updateHashTagIndex(command);
-        updateTT(command);
 	}
 	
 	private void updateTT(Command command) throws IOException, ParseException {
@@ -51,7 +48,7 @@ public class Storage {
 		JSONParser parser = new JSONParser();
 		Object obj;
 		
-		logger.info("Actualizando el inice de hashtags");
+		logger.info("Actualizando el indice de hashtags");
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line;
         line = br.readLine();
@@ -108,9 +105,10 @@ public class Storage {
             file.flush();
             file.close();
         }
-        // Una vez que pesisto el mensaje, actualizo los indices
+        // Una vez que persisto el mensaje, actualizo los indices y el TT
 		updateUserIndex(command);
-		updateHashTagIndex(command);
+		updateHashTagIndex(command);        
+		updateTT(command);
 	}
 	
 	private void updateUserIndex(Command command) throws IOException, ParseException {

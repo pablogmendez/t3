@@ -21,7 +21,7 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
     BlockingQueue<Command> storageCommandQueue;
     BlockingQueue<Command> analyzerCommandQueue;
     BlockingQueue<Command> loggerCommandQueue;
-    final static Logger logger = Logger.getLogger(App.class);
+    final static Logger logger = Logger.getLogger(DispatcherController.class);
     
 	public DispatcherController(RemoteQueue dispatcherQueue, 
 			BlockingQueue<Command> storageCommandQueue,
@@ -31,11 +31,18 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 		this.storageCommandQueue = storageCommandQueue;
 		this.analyzerCommandQueue = analyzerCommandQueue;
 		this.loggerCommandQueue = loggerCommandQueue;
+		this.dispatcherQueue = dispatcherQueue;
 	}
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el dispatcher controller");
+		try {
+			dispatcherQueue.getChannel().basicConsume(dispatcherQueue.getQueueName(), true, this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

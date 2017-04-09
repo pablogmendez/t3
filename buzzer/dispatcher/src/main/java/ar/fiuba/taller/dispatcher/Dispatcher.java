@@ -3,6 +3,7 @@ package ar.fiuba.taller.dispatcher;
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -26,7 +27,7 @@ public class Dispatcher implements Runnable {
 	BlockingQueue<Command> analyzerCommandQueue;
 	BlockingQueue<Command> loggerCommandQueue;
 	ConfigLoader configLoader;
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(Dispatcher.class);
 	
 	public Dispatcher() {
 		configLoader = ConfigLoader.getInstance();
@@ -53,10 +54,14 @@ public class Dispatcher implements Runnable {
 			logger.error("Error al cargar el archivo de configuracion");
 			logger.info(e.toString());
 			e.printStackTrace();
+		} catch (TimeoutException e) {
+			logger.error("Error al iniciar las colas remotas");
+			logger.info(e.toString());
+			e.printStackTrace();
 		}
 	}
 	
-	private void initDispatcher() {
+	private void initDispatcher() throws IOException, TimeoutException {
 
 		logger.info("Creando las colas internas");
     	analyzerCommandQueue 	= new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
@@ -65,9 +70,13 @@ public class Dispatcher implements Runnable {
     	
     	logger.info("Creando las conexiones a los brokers");
     	dispatcherQueue = new RemoteQueue(configLoader.getDispatcherQueueName(), configLoader.getDispatcherQueueHost());
+    	dispatcherQueue.init();
     	analyzerQueue 	= new RemoteQueue(configLoader.getAnalyzerQueueName(), configLoader.getAnalyzerQueueHost());
+    	analyzerQueue.init();
     	storageQueue 	= new RemoteQueue(configLoader.getStorageRequestQueueName(), configLoader.getStorageResquestQueueHost());
+    	storageQueue.init();
     	loggerQueue 	= new RemoteQueue(configLoader.getAuditLoggerQueueName(), configLoader.getAuditLoggerQueueHost());
+    	loggerQueue.init();
     	
     	logger.info("Creando los threads de los workers");
     	analyzerControllerThread 	= new Thread(new AnalyzerController(analyzerCommandQueue, analyzerQueue));

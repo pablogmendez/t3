@@ -13,7 +13,7 @@ public class StorageController implements Runnable {
 	private BlockingQueue<Command> storageCommandQueue;
 	private RemoteQueue storageQueue;
 	
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(StorageController.class);
 	
 	public StorageController(BlockingQueue<Command> storageCommandQueue, 
 			RemoteQueue storageQueue) {

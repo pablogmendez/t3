@@ -14,7 +14,7 @@ public class LoggerController implements Runnable {
 	private BlockingQueue<Command> loggerCommandQueue;
 	private RemoteQueue loggerQueue;
 	
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(LoggerController.class);
 	
 	public LoggerController(BlockingQueue<Command> loggerCommandQueue, 
 			RemoteQueue loggerQueue) {

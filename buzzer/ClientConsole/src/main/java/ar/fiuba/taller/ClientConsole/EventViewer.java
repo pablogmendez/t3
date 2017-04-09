@@ -14,7 +14,7 @@ public class EventViewer implements Runnable {
 	BlockingQueue<Response> responseQueue;
 	String username;
 	String eventFile;
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(EventViewer.class);
 	
 	public EventViewer(BlockingQueue<Response> responseQueue, String username, String eventFile) {
 		this.responseQueue = responseQueue;

@@ -9,6 +9,7 @@ public class Constants {
 
 	public static final int    COMMAND_QUEUE_SIZE 				= 100;
 	public static final int    RESPONSE_QUEUE_SIZE 				= 100;
+	public static final String LOGGER_CONF						= "conf/log4j.properties";
 	public static final String COMMAND_SCRIPT_FOLDER			= "scripts";
 	public static final String COMMAND_SCRIPT_EXTENSION			= ".json";
 	public static final String COMMAND_ARRAY 					= "commands";

@@ -15,12 +15,14 @@ import ar.fiuba.taller.common.Response;
 
 public class ResponseController extends DefaultConsumer implements Runnable {
 	
-	BlockingQueue<Response> responseQueue;
+	private BlockingQueue<Response> responseQueue;
+	private RemoteQueue remoteResponseQueue;
 	final static Logger logger = Logger.getLogger(ResponseController.class);
 	
 	public ResponseController(BlockingQueue<Response> responseQueue, RemoteQueue remoteResponseQueue) {
 		super(remoteResponseQueue.getChannel());
 		this.responseQueue = responseQueue;
+		this.remoteResponseQueue = remoteResponseQueue;
 	}
 
 	@Override
@@ -54,6 +56,14 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el response controller");
+		while(true) {
+			try {
+				remoteResponseQueue.getChannel().basicConsume(remoteResponseQueue.getQueueName(), true, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

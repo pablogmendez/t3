@@ -86,18 +86,22 @@ public class UserConsole implements Runnable {
         eventViewerThread.start(); 
 	}
 	
-	private void terminateUser() throws InterruptedException {
+	private void terminateUser() throws InterruptedException, IOException, TimeoutException {
+		logger.info("Cerrando la conexion con la cola remoteUserResponseQueue");
+//		remoteUserResponseQueue.close();
+		logger.info("Cerrando la conexion con la cola dispatcherQueue");
+//		dispatcherQueue.close();
     	logger.info("Esperando al reader");
-    	scriptReaderThread.join(5000);
+    	scriptReaderThread.join(1000);
     	logger.info("Reader finalizado!");
     	logger.info("Esperando al controlador de comandos");
-    	commandControllerThread.join(5000);
+    	commandControllerThread.join(1000);
 		logger.info("controller finalizado!");
 		logger.info("Esperando al controlador de respuestas");
-    	responseControllerThread.join(5000);
+    	responseControllerThread.join(1000);
 		logger.info("controller controlador de respuestas!");
 		logger.info("Esperando al visor de eventos");
-    	eventViewerThread.join(5000);
+    	eventViewerThread.join(1000);
 		logger.info("visor de eventos finalizado!");		
 	}
 }

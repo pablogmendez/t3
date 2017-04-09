@@ -19,13 +19,15 @@ import ar.fiuba.taller.common.*;
 
 public class AuditLogger extends DefaultConsumer implements Runnable {
 
-	Timestamp timestamp;
+	private Timestamp timestamp;
 	private PrintWriter pw;
-	final static Logger logger = Logger.getLogger(App.class);
+	private RemoteQueue loggerQueue;
+	final static Logger logger = Logger.getLogger(AuditLogger.class);
 	
 	public AuditLogger(RemoteQueue loggerQueue) {
 		super(loggerQueue.getChannel());
 		ConfigLoader.getInstance();
+		this.loggerQueue = loggerQueue;
 	}
 
 	public void run() {
@@ -41,6 +43,16 @@ public class AuditLogger extends DefaultConsumer implements Runnable {
 			logger.info(e.toString());
 			e.printStackTrace();
 		}
+		while(true) {
+			try {
+				loggerQueue.getChannel().basicConsume(loggerQueue.getQueueName(), true, this);
+			} catch (IOException e) {
+				logger.error("Error consumir de la cola remota");
+				logger.info(e.toString());
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	@Override

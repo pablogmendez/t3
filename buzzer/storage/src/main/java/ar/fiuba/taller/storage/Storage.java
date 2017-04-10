@@ -1,12 +1,14 @@
 package ar.fiuba.taller.storage;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -298,7 +300,7 @@ public class Storage {
 	            		Constants.COMMAND_SCRIPT_EXTENSION;
 	            System.out.println("file: " + file);
 	            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-	                while ((line = br.readLine()) != null) {
+	                while ((line = br.readLine()) != null && remainingPost > 0) {
 	                	System.out.println("line: " + line);
 	                	obj2= parser.parse(line);
 	                	jsonObject2 = (JSONObject) obj2;
@@ -313,33 +315,69 @@ public class Storage {
 	}
 	
 	public synchronized void delete(Command command) throws IOException, ParseException {
-		String fileName = Constants.DB_DIR + "/" + 
-		command.getMessage().substring(0, shardingFactor - 1) + 
+		String file = Constants.DB_DIR + "/" + 
+		command.getMessage().substring(0, shardingFactor) + 
 		Constants.COMMAND_SCRIPT_EXTENSION;			
+		String fileTmp = file + ".tmp";
 		JSONParser parser = new JSONParser();
-		Object obj;
+		Object obj2;
+		String line, key;
+		JSONObject jsonObject2;
+		
+		// Creo un archivo temporal
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileTmp)));
 		
 		logger.info("Eleiminando registro");
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
-        obj= parser.parse(line);
-        JSONObject jsonObject = (JSONObject) obj;
-        JSONArray array = (JSONArray) jsonObject.get(command.getUser());
-        array.add(command.getUuid().toString());
-        jsonObject.put(command.getUser(), array);
-        br.close();
-        FileWriter file = new FileWriter(fileName, true);
-        try {
-            file.write(jsonObject.toJSONString());
-        } catch (Exception e) {
-			logger.error("Error al guardar el archivo de mensajes");
-			logger.info(e.toString());
-            e.printStackTrace();
-        } finally {
-            file.flush();
-            file.close();
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            while ((line = br.readLine()) != null) {
+            	System.out.println("line: " + line);
+            	obj2= parser.parse(line);
+            	jsonObject2 = (JSONObject) obj2;
+            	key = (String) jsonObject2.keySet().iterator().next();
+            	if(!(key.equals(command.getMessage()))) {
+            		// Si no es la clave a borrar, guardo el registro en un archivo temporal
+            		pw.println(jsonObject2);
+            	}
+            }
         }
+		pw.close();
+		// Borro el archvio original y renombro el tmp
+		File fileToDelete = new File(file);
+		File newFile = new File(fileTmp);
+		if(fileToDelete.delete()) {
+			logger.info("Archivo original borrado");
+			logger.info("Renombrado el archivo temporal al original");
+			if(newFile.renameTo(fileToDelete)) {
+				logger.info("Archivo renombrado con exito");
+			} else {
+				logger.error("No se ha podido renombrar el archivo");
+				throw new IOException();
+			}
+		} else {
+			logger.error("No se ha podido borrar el registro. Se aborta la operacion");
+			throw new IOException();
+		}
+//        BufferedReader br = new BufferedReader(new FileReader(fileName));
+//        String line;
+//        line = br.readLine();
+//        obj= parser.parse(line);
+//        JSONObject jsonObject = (JSONObject) obj;
+//        JSONArray array = (JSONArray) jsonObject.get(command.getUser());
+//        array.add(command.getUuid().toString());
+//        jsonObject.put(command.getUser(), array);
+//        br.close();
+//        FileWriter file = new FileWriter(fileName, true);
+//        try {
+//            file.write(jsonObject.toJSONString());
+//        } catch (Exception e) {
+//			logger.error("Error al guardar el archivo de mensajes");
+//			logger.info(e.toString());
+//            e.printStackTrace();
+//        } finally {
+//            file.flush();
+//            file.close();
+//        }
 	}
 	
 	private List<String> sortHashMapByValues(

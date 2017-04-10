@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -214,31 +215,26 @@ public class Storage {
 	public String query(Command command) throws IOException, ParseException {
 		List<String> resultList;
 		String listString = "";
-		logger.debug("RRRRRRRRRRRRR");
-		logger.debug(String.valueOf(command.getMessage().charAt(0)));
 		if(String.valueOf(command.getMessage().charAt(0)).equals("#")) { // Es consulta por hashtag
-//			resultList = queryHashTag(command.getMessage().substring(1, command.getMessage().length()));
 			resultList = queryBy(command.getMessage().substring(1, command.getMessage().length()), "HASHTAG");
 		}
 		else if (command.getMessage().equals("TT")){ // Es consulta por TT
 			resultList = queryTT(command.getMessage());
 		}
 		else { // Es consulta por usuario
-			//resultList = queryUser(command.getMessage());
 			resultList = queryBy(command.getMessage(), "USER");
 		}
 		for(String element : resultList) {
 			listString += element + "\n";
 		}
-		if (command.getMessage().equals("TT")){
-			listString += "Total: " + resultList.size();
-		}
+		
 		return listString;
 	}
 
 	private List<String> queryTT(String hashTag) throws FileNotFoundException, IOException, ParseException {
 		Map<String, Long> map = new HashMap<String, Long>();
 		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
+		List<String> returnList = null;
 		
 		// Levantar el json
 		JSONParser parser = new JSONParser();
@@ -253,7 +249,9 @@ public class Storage {
 			map.put(key, (Long) jsonObject.get(key));
 		}
 		
-		return sortHashMapByValues(map);
+		returnList = sortHashMapByValues(map);
+		returnList.add("Total de topics: " + String.valueOf(map.keySet().size()));
+		return returnList;
 	}
 	
 	private List<String> queryBy(String key, String type) throws IOException, ParseException {
@@ -289,11 +287,12 @@ public class Storage {
         BufferedReader br2;
         String line, reg;
         JSONObject jsonObject2;
+        int remainingPost = queryCountShowPosts;
         // Abro archivo por archivo y recupero los mensajes
         if(array != null) {
-	        Iterator<String> iterator = array.iterator();
-	        while (iterator.hasNext()) {
-	            id = iterator.next();
+	        ListIterator<String> iterator = array.listIterator(array.size());
+	        while (iterator.hasPrevious() && remainingPost > 0) {
+	            id = iterator.previous();
 	            System.out.println("id: " + id);
 	            file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor) + 
 	            		Constants.COMMAND_SCRIPT_EXTENSION;
@@ -303,8 +302,8 @@ public class Storage {
 	                	System.out.println("line: " + line);
 	                	obj2= parser.parse(line);
 	                	jsonObject2 = (JSONObject) obj2;
-	                	
 	                	messageList.add(jsonObject2.get(id).toString());
+	                	remainingPost--;
 	                }
 	            }
 	        }

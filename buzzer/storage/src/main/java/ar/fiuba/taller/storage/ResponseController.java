@@ -5,6 +5,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 
+import ar.fiuba.taller.common.ConfigLoader;
 import ar.fiuba.taller.common.RemoteQueue;
 import ar.fiuba.taller.common.Response;
 
@@ -33,7 +34,7 @@ public class ResponseController implements Runnable {
 				remoteQueue = usersMap.get(response.getUser());
 				if(remoteQueue == null) {
 					// Creo la cola
-					remoteQueue = new RemoteQueue(response.getUser(), "localhost");
+					remoteQueue = new RemoteQueue(response.getUser(), ConfigLoader.getInstance().getUsersServer());
 					remoteQueue.init();
 					usersMap.put(response.getUser(), remoteQueue);
 				}

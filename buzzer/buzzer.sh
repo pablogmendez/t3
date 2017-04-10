@@ -25,6 +25,12 @@ function execStorage() {
       [ $? -ne 0 ] && exit 1
 }
 
+function execAnalyzer() {
+      echo "Ejecutando el analyzer"
+      gnome-terminal --title "analyzer" -e "bash -c \"./analyzer.sh;exec bash\""
+      [ $? -ne 0 ] && exit 1
+}
+
 function execAll() {
       echo "Ejecutando todos los programas"
       execClientConsole
@@ -43,7 +49,7 @@ DISPLAY_HELP=false
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-while getopts ":i :c :d :u :s :a" opt; do
+while getopts ":i :c :d :u :s :n :a" opt; do
   case $opt in
     i)
       echo "Instalando el programa"
@@ -64,6 +70,9 @@ while getopts ":i :c :d :u :s :a" opt; do
       ;;
     s)
       execStorage
+      ;;
+    n)
+      execAnalyzer
       ;;
     a)
       execAll
@@ -88,6 +97,7 @@ if [ $DISPLAY_HELP == true ]; then
 	echo "	-d	Ejecuta el ${bold}d${normal}ispatcher"
 	echo "	-u	Ejecuta el a${bold}u${normal}dit logger"
 	echo "	-s	Ejecuta el ${bold}s${normal}torage"
+	echo "	-n	Ejecuta el a${bold}n${normal}alyzer"
 	echo "	-a	Ejecuta todos los programas"
 	echo ""
 fi

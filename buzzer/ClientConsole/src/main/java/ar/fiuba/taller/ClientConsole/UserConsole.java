@@ -53,7 +53,6 @@ public class UserConsole implements Runnable {
 	}
 	
 	private void initUser() throws IOException, TimeoutException {
-		//if(mode.equals(Constants.USER_WRITE_MODE)) {
 			logger.info("Creando cola de comandos leidos");
 	        commandQueue = new ArrayBlockingQueue<Command>(Constants.COMMAND_QUEUE_SIZE);
 	        logger.info("Creando cola del dispatcher");
@@ -65,7 +64,6 @@ public class UserConsole implements Runnable {
 	        		username));
 	        logger.info("Creando controlador de comandos");
 	        commandControllerThread = new Thread(new CommandController(commandQueue, dispatcherQueue));
-		//} else if (mode.equals(Constants.USER_READ_MODE)) {
 			logger.info("Creando cola de respuestas");
 	        responseQueue = new ArrayBlockingQueue<Response>(Constants.RESPONSE_QUEUE_SIZE);
 	        logger.info("Creando cola remota de respuestas");
@@ -75,39 +73,32 @@ public class UserConsole implements Runnable {
 	        responseControllerThread = new Thread(new ResponseController(responseQueue, remoteUserResponseQueue));
 	        logger.info("Creando el visor de eventos");
 	        eventViewerThread = new Thread(new EventViewer(responseQueue, username, Constants.LOGS_DIR + "/" + 
-	                username + Constants.EVENT_VIEWER_FILE_EXTENSION));
-		//}        
+	                username + Constants.EVENT_VIEWER_FILE_EXTENSION));        
 	}
 	
 	private void startUser() {
-		//if(mode.equals(Constants.USER_WRITE_MODE)) {
 			logger.info("Iniciando el lector de scripts");
 			scriptReaderThread.start();
 			logger.info("Iniciando el controlador de comandos");
 			commandControllerThread.start();			
-		//} else if (mode.equals(Constants.USER_READ_MODE)) {
 			logger.info("Iniciando el controlador de respuestas");
 			responseControllerThread.start();
 			logger.info("Iniciando el visor de eventos");
 			eventViewerThread.start(); 			
-		//}
 	}
 	
 	private void terminateUser() throws InterruptedException, IOException, TimeoutException {
-		//if(mode.equals(Constants.USER_WRITE_MODE)) {
 			logger.info("Esperando al controlador de comandos");
 			commandControllerThread.join();
 			logger.info("controller finalizado!");
 			logger.info("Esperando al reader");
 			scriptReaderThread.join();
 			logger.info("Reader finalizado!");		
-		//} else if (mode.equals(Constants.USER_READ_MODE)) {
 			logger.info("Esperando al controlador de respuestas");
 			responseControllerThread.join();
 			logger.info("controller controlador de respuestas!");
 			logger.info("Esperando al visor de eventos");
 			eventViewerThread.join();
 			logger.info("visor de eventos finalizado!");				 			
-		//}
 	}
 }

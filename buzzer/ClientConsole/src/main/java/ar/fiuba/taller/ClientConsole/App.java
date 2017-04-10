@@ -43,9 +43,6 @@ public class App
 			StringTokenizer st;
 			while (iterator.hasNext()) {
 				username = iterator.next();
-//				st = new StringTokenizer(reg, "#");
-//				username = st.nextToken();
-//				mode = st.nextToken();
 				logger.info("Siguiente usuario a crear: " + username);
 			 	userConsoleThread = new Thread(new UserConsole(username));
 			 	userConsoleThread.start();

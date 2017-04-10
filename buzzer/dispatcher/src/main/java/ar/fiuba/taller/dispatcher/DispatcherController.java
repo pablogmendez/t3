@@ -58,12 +58,37 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 					+ "\nUsuario: " + command.getUser()
 					+ "\nComando: " + command.getCommand()
 					+ "\nMensaje: " + command.getMessage());
-			logger.info("Enviando mensaje a la cola del storage");
-			storageCommandQueue.put(command);
-			logger.info("Enviando mensaje a la cola del analyzer");
-			analyzerCommandQueue.put(command);
-			logger.info("Enviando mensaje a la cola del logger");
-			loggerCommandQueue.put(command);
+			switch(command.getCommand()) {
+			case PUBLISH: 
+				logger.info("Enviando mensaje a la cola del storage");
+				storageCommandQueue.put(command);
+				logger.info("Enviando mensaje a la cola del analyzer");
+				analyzerCommandQueue.put(command);
+				logger.info("Enviando mensaje a la cola del logger");
+				loggerCommandQueue.put(command);
+				break;
+			case QUERY: 
+				logger.info("Enviando mensaje a la cola del storage");
+				storageCommandQueue.put(command);
+				logger.info("Enviando mensaje a la cola del logger");
+				loggerCommandQueue.put(command);
+				break;
+			case DELETE:
+				logger.info("Enviando mensaje a la cola del storage");
+				storageCommandQueue.put(command);
+				logger.info("Enviando mensaje a la cola del logger");
+				loggerCommandQueue.put(command);
+				break;
+			case FOLLOW:
+				logger.info("Enviando mensaje a la cola del analyzer");
+				analyzerCommandQueue.put(command);
+				logger.info("Enviando mensaje a la cola del logger");
+				loggerCommandQueue.put(command);
+				break;
+			default:
+				logger.error("Comando invalido");
+				break;
+			}
 		} catch (ClassNotFoundException e) {
 			logger.info("Error al deserializar el comando");
 			logger.info(e.toString());

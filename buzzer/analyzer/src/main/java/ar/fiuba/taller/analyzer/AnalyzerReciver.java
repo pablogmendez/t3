@@ -22,18 +22,27 @@ public class AnalyzerReciver extends DefaultConsumer implements Runnable  {
 	Command command;
 	Response response;
 	UserRegistry userRegistry;
+	RemoteQueue analyzerQueue;
 	final static Logger logger = Logger.getLogger(AnalyzerReciver.class);
 	
 	public AnalyzerReciver(BlockingQueue<Response> responseQueue, RemoteQueue analyzerQueue, UserRegistry userRegistry) {
 		super(analyzerQueue.getChannel());
 		this.responseQueue = responseQueue;
 		this.userRegistry = userRegistry;
+		this.analyzerQueue  = analyzerQueue;
 	}
 
 	public void run() {
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-        
+    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));        
     	logger.info("Iniciando el analyzer reciver");
+    	logger.info("Me pongo a comer de la cola: " + analyzerQueue .getHost() + " " + analyzerQueue .getQueueName());
+    	try {
+			analyzerQueue .getChannel().basicConsume(analyzerQueue .getQueueName(), true, this);
+		} catch (IOException e) {
+			logger.error("Error al comer de la cola");
+			logger.info(e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -58,7 +67,7 @@ public class AnalyzerReciver extends DefaultConsumer implements Runnable  {
 					// Puede ser que de error en caso de hacer el update, entonces hay que
 					// mandarle error al usuario
 					response.setResponse_status(RESPONSE_STATUS.OK);
-					response.setMessage(command.getMessage());
+					response.setMessage(command.getTimestamp() + "\n" + command.getUser() + "\n" + command.getMessage());
 					responseQueue.put(response);
 					break;
 				case FOLLOW:

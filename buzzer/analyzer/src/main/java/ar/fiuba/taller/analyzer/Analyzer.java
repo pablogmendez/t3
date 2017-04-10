@@ -3,6 +3,7 @@ package ar.fiuba.taller.analyzer;
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -34,9 +35,11 @@ public class Analyzer implements Runnable {
 			configLoader.init(Constants.CONF_FILE);
 			// Instancio la cola
 			responseQueue = new ArrayBlockingQueue<Response>(Constants.COMMAND_QUEUE_SIZE);
-			
+			logger.debug(Constants.ANALYZER_QUEUE_NAME);
+			logger.debug(Constants.ANALYZER_QUEUE_HOST);
 			// Creo la cola remota en donde el anayzer recibe los comandos
-			analyzerQueue = new RemoteQueue(Constants.ANALYZER_QUEUE_NAME, Constants.ANALYZER_QUEUE_HOST);
+			analyzerQueue = new RemoteQueue(ConfigLoader.getInstance().getAnalyzerQueueName(), ConfigLoader.getInstance().getAnalyzerQueueHost());
+			analyzerQueue.init();
 			
 			// Instancio el registry
 			userRegistry = new UserRegistry();
@@ -61,6 +64,10 @@ public class Analyzer implements Runnable {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			logger.error("Error al dormir el thread");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			logger.error("Error al iniciar la cola remota");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}

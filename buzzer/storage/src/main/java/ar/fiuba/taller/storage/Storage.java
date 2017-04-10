@@ -358,26 +358,6 @@ public class Storage {
 			logger.error("No se ha podido borrar el registro. Se aborta la operacion");
 			throw new IOException();
 		}
-//        BufferedReader br = new BufferedReader(new FileReader(fileName));
-//        String line;
-//        line = br.readLine();
-//        obj= parser.parse(line);
-//        JSONObject jsonObject = (JSONObject) obj;
-//        JSONArray array = (JSONArray) jsonObject.get(command.getUser());
-//        array.add(command.getUuid().toString());
-//        jsonObject.put(command.getUser(), array);
-//        br.close();
-//        FileWriter file = new FileWriter(fileName, true);
-//        try {
-//            file.write(jsonObject.toJSONString());
-//        } catch (Exception e) {
-//			logger.error("Error al guardar el archivo de mensajes");
-//			logger.info(e.toString());
-//            e.printStackTrace();
-//        } finally {
-//            file.flush();
-//            file.close();
-//        }
 	}
 	
 	private List<String> sortHashMapByValues(

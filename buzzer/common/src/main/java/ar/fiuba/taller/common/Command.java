@@ -20,7 +20,7 @@ public class Command implements Serializable, ISerialize {
 	private String user;
 	private String message;
 	private String timestamp;
-	
+
 	public Command() {
 		this.command = null;
 		this.user = null;
@@ -28,8 +28,9 @@ public class Command implements Serializable, ISerialize {
 		this.uuid = null;
 		this.timestamp = null;
 	}
-	
-	public Command(String command, String user, String message, UUID uuid, String timestamp) {
+
+	public Command(String command, String user, String message, UUID uuid,
+			String timestamp) {
 		this.command = Constants.COMMAND_MAP.get(command);
 		this.user = user;
 		this.message = message;
@@ -47,25 +48,26 @@ public class Command implements Serializable, ISerialize {
 		os.close();
 		return byteForm;
 	}
-	
-	public void deserialize(byte[] byteForm) throws IOException, ClassNotFoundException {
+
+	public void deserialize(byte[] byteForm)
+			throws IOException, ClassNotFoundException {
 		ByteArrayInputStream is = new ByteArrayInputStream(byteForm);
 		ObjectInput objIn = new ObjectInputStream(is);
 		Command tmp;
 		tmp = (Command) objIn.readObject();
-        objIn.close();
-        is.close();
-        uuid = tmp.getUuid();
-        command = tmp.getCommand();
-        user = tmp.getUser();
-        message = tmp.getMessage();
-        timestamp = tmp.getTimestamp();
+		objIn.close();
+		is.close();
+		uuid = tmp.getUuid();
+		command = tmp.getCommand();
+		user = tmp.getUser();
+		message = tmp.getMessage();
+		timestamp = tmp.getTimestamp();
 	}
-	
+
 	public COMMAND getCommand() {
 		return command;
 	}
-	
+
 	public void setCommand(COMMAND command) {
 		this.command = command;
 	}
@@ -104,14 +106,13 @@ public class Command implements Serializable, ISerialize {
 
 	public String toJson() {
 		String tmp;
-		
-		tmp = "{command:" + command.toString() +
-				",user:" + user +  ",message:" + message + ",timestamp:" +
-				timestamp + "}";
+
+		tmp = "{command:" + command.toString() + ",user:" + user + ",message:"
+				+ message + ",timestamp:" + timestamp + "}";
 		return tmp;
 	}
-	
+
 	public void fromJson(String jsonString) {
-		
+
 	}
 }

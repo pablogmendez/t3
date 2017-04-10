@@ -17,13 +17,13 @@ import ar.fiuba.taller.common.Response;
 
 public class DispatcherController extends DefaultConsumer implements Runnable {
 
-    RemoteQueue dispatcherQueue;
-    BlockingQueue<Command> storageCommandQueue;
-    BlockingQueue<Command> analyzerCommandQueue;
-    BlockingQueue<Command> loggerCommandQueue;
-    final static Logger logger = Logger.getLogger(DispatcherController.class);
-    
-	public DispatcherController(RemoteQueue dispatcherQueue, 
+	RemoteQueue dispatcherQueue;
+	BlockingQueue<Command> storageCommandQueue;
+	BlockingQueue<Command> analyzerCommandQueue;
+	BlockingQueue<Command> loggerCommandQueue;
+	final static Logger logger = Logger.getLogger(DispatcherController.class);
+
+	public DispatcherController(RemoteQueue dispatcherQueue,
 			BlockingQueue<Command> storageCommandQueue,
 			BlockingQueue<Command> analyzerCommandQueue,
 			BlockingQueue<Command> loggerCommandQueue) {
@@ -37,14 +37,15 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el dispatcher controller");
-//		while(true) {
-			try {
-				dispatcherQueue.getChannel().basicConsume(dispatcherQueue.getQueueName(), true, this);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//		}
+		// while(true) {
+		try {
+			dispatcherQueue.getChannel()
+					.basicConsume(dispatcherQueue.getQueueName(), true, this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// }
 	}
 
 	@Override
@@ -54,12 +55,12 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 		Command command = new Command();
 		try {
 			command.deserialize(body);
-			logger.info("Comando recibido con los siguientes parametros: " 
-					+ "\nUsuario: " + command.getUser()
-					+ "\nComando: " + command.getCommand()
-					+ "\nMensaje: " + command.getMessage());
-			switch(command.getCommand()) {
-			case PUBLISH: 
+			logger.info("Comando recibido con los siguientes parametros: "
+					+ "\nUsuario: " + command.getUser() + "\nComando: "
+					+ command.getCommand() + "\nMensaje: "
+					+ command.getMessage());
+			switch (command.getCommand()) {
+			case PUBLISH:
 				logger.info("Enviando mensaje a la cola del storage");
 				storageCommandQueue.put(command);
 				logger.info("Enviando mensaje a la cola del analyzer");
@@ -67,7 +68,7 @@ public class DispatcherController extends DefaultConsumer implements Runnable {
 				logger.info("Enviando mensaje a la cola del logger");
 				loggerCommandQueue.put(command);
 				break;
-			case QUERY: 
+			case QUERY:
 				logger.info("Enviando mensaje a la cola del storage");
 				storageCommandQueue.put(command);
 				logger.info("Enviando mensaje a la cola del logger");

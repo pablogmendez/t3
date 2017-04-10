@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigLoader {
-	
+
 	private static ConfigLoader instance = null;
 	private String responseQueueHost;
 	private String responseQueueName;
@@ -23,7 +23,7 @@ public class ConfigLoader {
 	private int queryCountShowPosts;
 	private int ttCountShowPosts;
 	private int shardingFactor;
-			
+
 	public int getShardingFactor() {
 		return shardingFactor;
 	}
@@ -40,29 +40,44 @@ public class ConfigLoader {
 	}
 
 	public void init(String configFile) throws IOException {
-			Properties properties = new Properties();
-			FileInputStream input = new FileInputStream(configFile);
+		Properties properties = new Properties();
+		FileInputStream input = new FileInputStream(configFile);
 
-			// cargamos el archivo de propiedades
-			properties.load(input);
+		// cargamos el archivo de propiedades
+		properties.load(input);
 
-			// obtenemos las propiedades
-			responseQueueHost 			= properties.getProperty(Constants.RESPONSE_QUEUE_HOST);
-			responseQueueName			= properties.getProperty(Constants.RESPONSE_QUEUE_NAME);
-			dispatcherQueueHost			= properties.getProperty(Constants.DISPATCHER_QUEUE_HOST);
-			dispatcherQueueName			= properties.getProperty(Constants.DISPATCHER_QUEUE_NAME);
-			auditLoggerQueueHost		= properties.getProperty(Constants.AUDIT_LOGGER_QUEUE_HOST);
-			auditLoggerQueueName		= properties.getProperty(Constants.AUDIT_LOGGER_QUEUE_NAME);
-			storageResquestQueueHost	= properties.getProperty(Constants.STORAGE_REQUEST_QUEUE_HOST);
-			storageRequestQueueName		= properties.getProperty(Constants.STORAGE_REQUEST_QUEUE_NAME);
-			storageResponseQueueHost	= properties.getProperty(Constants.STORAGE_RESPONSE_QUEUE_HOST);
-			storageResponseQueueName	= properties.getProperty(Constants.STORAGE_RESPONSE_QUEUE_NAME);
-			analyzerQueueHost			= properties.getProperty(Constants.ANALYZER_QUEUE_HOST);
-			analyzerQueueName			= properties.getProperty(Constants.ANALYZER_QUEUE_NAME);
-			usersServer					= properties.getProperty(Constants.USERS_SERVER);
-			shardingFactor				= Integer.parseInt(properties.getProperty(Constants.SHARDING_FACTOR));
-			queryCountShowPosts			= Integer.parseInt(properties.getProperty(Constants.QUERY_COUNT_SHOW_POSTS));
-			ttCountShowPosts			= Integer.parseInt(properties.getProperty(Constants.TT_COUNT_SHOW_POST));
+		// obtenemos las propiedades
+		responseQueueHost = properties
+				.getProperty(Constants.RESPONSE_QUEUE_HOST);
+		responseQueueName = properties
+				.getProperty(Constants.RESPONSE_QUEUE_NAME);
+		dispatcherQueueHost = properties
+				.getProperty(Constants.DISPATCHER_QUEUE_HOST);
+		dispatcherQueueName = properties
+				.getProperty(Constants.DISPATCHER_QUEUE_NAME);
+		auditLoggerQueueHost = properties
+				.getProperty(Constants.AUDIT_LOGGER_QUEUE_HOST);
+		auditLoggerQueueName = properties
+				.getProperty(Constants.AUDIT_LOGGER_QUEUE_NAME);
+		storageResquestQueueHost = properties
+				.getProperty(Constants.STORAGE_REQUEST_QUEUE_HOST);
+		storageRequestQueueName = properties
+				.getProperty(Constants.STORAGE_REQUEST_QUEUE_NAME);
+		storageResponseQueueHost = properties
+				.getProperty(Constants.STORAGE_RESPONSE_QUEUE_HOST);
+		storageResponseQueueName = properties
+				.getProperty(Constants.STORAGE_RESPONSE_QUEUE_NAME);
+		analyzerQueueHost = properties
+				.getProperty(Constants.ANALYZER_QUEUE_HOST);
+		analyzerQueueName = properties
+				.getProperty(Constants.ANALYZER_QUEUE_NAME);
+		usersServer = properties.getProperty(Constants.USERS_SERVER);
+		shardingFactor = Integer
+				.parseInt(properties.getProperty(Constants.SHARDING_FACTOR));
+		queryCountShowPosts = Integer.parseInt(
+				properties.getProperty(Constants.QUERY_COUNT_SHOW_POSTS));
+		ttCountShowPosts = Integer
+				.parseInt(properties.getProperty(Constants.TT_COUNT_SHOW_POST));
 	}
 
 	public String getResponseQueueHost() {

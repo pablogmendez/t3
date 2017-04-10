@@ -11,24 +11,22 @@ import ar.fiuba.taller.common.ConfigLoader;
 import ar.fiuba.taller.common.Constants;
 import ar.fiuba.taller.common.RemoteQueue;
 
-public class App 
-{
+public class App {
 	final static Logger logger = Logger.getLogger(App.class);
-    
-	public static void main( String[] args ) throws Exception
-    {
+
+	public static void main(String[] args) throws Exception {
 		PropertyConfigurator.configure(Constants.LOGGER_CONF);
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-    	try {
-    		ConfigLoader.getInstance().init(Constants.CONF_FILE);
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+		try {
+			ConfigLoader.getInstance().init(Constants.CONF_FILE);
 			logger.info("Conectando a la cola remota loggerQueue");
-    		RemoteQueue loggerQueue = new RemoteQueue(
-    				ConfigLoader.getInstance().getAuditLoggerQueueName(),
-    				ConfigLoader.getInstance().getAuditLoggerQueueHost());
-    		loggerQueue.init();
-    		Thread auditLoggerThread = new Thread(new AuditLogger(loggerQueue));
-    		logger.info("Disparando el audit logger");
-    		auditLoggerThread.start();
+			RemoteQueue loggerQueue = new RemoteQueue(
+					ConfigLoader.getInstance().getAuditLoggerQueueName(),
+					ConfigLoader.getInstance().getAuditLoggerQueueHost());
+			loggerQueue.init();
+			Thread auditLoggerThread = new Thread(new AuditLogger(loggerQueue));
+			logger.info("Disparando el audit logger");
+			auditLoggerThread.start();
 			auditLoggerThread.join();
 		} catch (InterruptedException e) {
 			logger.error("Error al joinear el audit logger");
@@ -44,5 +42,5 @@ public class App
 			e.printStackTrace();
 			throw new Exception();
 		}
-    }
+	}
 }

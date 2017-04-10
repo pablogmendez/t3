@@ -18,8 +18,9 @@ public class Response implements Serializable, ISerialize {
 	private String user;
 	private RESPONSE_STATUS response_status;
 	private String message;
-	
-	public Response(UUID uuid, RESPONSE_STATUS response_status, String message) {
+
+	public Response(UUID uuid, RESPONSE_STATUS response_status,
+			String message) {
 		super();
 		this.uuid = uuid;
 		this.response_status = response_status;
@@ -32,7 +33,7 @@ public class Response implements Serializable, ISerialize {
 		this.response_status = null;
 		this.message = null;
 	}
-	
+
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		ObjectOutput objOut = new ObjectOutputStream(os);
@@ -43,19 +44,20 @@ public class Response implements Serializable, ISerialize {
 		os.close();
 		return responseArray;
 	}
-	
-	public void deserialize(byte[] responseArray) throws IOException, ClassNotFoundException {
+
+	public void deserialize(byte[] responseArray)
+			throws IOException, ClassNotFoundException {
 		ByteArrayInputStream is = new ByteArrayInputStream(responseArray);
 		ObjectInput objIn = new ObjectInputStream(is);
 		Response tmp;
 		tmp = (Response) objIn.readObject();
-        objIn.close();
-        is.close();
-        uuid = tmp.getUuid();
-        response_status = tmp.getResponse_status();
-        message = tmp.getMessage();
+		objIn.close();
+		is.close();
+		uuid = tmp.getUuid();
+		response_status = tmp.getResponse_status();
+		message = tmp.getMessage();
 	}
-	
+
 	public UUID getUuid() {
 		return uuid;
 	}

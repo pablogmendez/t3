@@ -19,28 +19,30 @@ public class CreateController implements Runnable {
 	private Storage storage;
 	private Response response;
 	final static Logger logger = Logger.getLogger(CreateController.class);
-	
-	public CreateController(BlockingQueue<Command> createQueue, BlockingQueue<Response> responseQueue, int shardingFactor, Storage storage) {
+
+	public CreateController(BlockingQueue<Command> createQueue,
+			BlockingQueue<Response> responseQueue, int shardingFactor,
+			Storage storage) {
 		super();
-		this.createQueue 	= createQueue;
-		this.responseQueue 	= responseQueue;
-		this.storage 		= storage; 
+		this.createQueue = createQueue;
+		this.responseQueue = responseQueue;
+		this.storage = storage;
 	}
 
 	public void run() {
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-    	logger.info("Iniciando el create controller");
-    	
-    	while(true) {
-    		String error_message = "Error al crear el mensaje";
-	    	try {
-	    		command = createQueue.take();
-	    			response = new Response();
-					response.setUuid(UUID.randomUUID());
-	    			response.setUser(command.getUser());
-	    			storage.saveMessage(command);    	
-	    			response.setMessage("Creacion exitosa");
-					response.setResponse_status(RESPONSE_STATUS.OK);
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+		logger.info("Iniciando el create controller");
+
+		while (true) {
+			String error_message = "Error al crear el mensaje";
+			try {
+				command = createQueue.take();
+				response = new Response();
+				response.setUuid(UUID.randomUUID());
+				response.setUser(command.getUser());
+				storage.saveMessage(command);
+				response.setMessage("Creacion exitosa");
+				response.setResponse_status(RESPONSE_STATUS.OK);
 			} catch (InterruptedException e) {
 				response.setResponse_status(RESPONSE_STATUS.ERROR);
 				response.setMessage(error_message);
@@ -68,6 +70,6 @@ public class CreateController implements Runnable {
 					e.printStackTrace();
 				}
 			}
-		}    	
+		}
 	}
 }

@@ -24,32 +24,36 @@ public class Analyzer implements Runnable {
 	private RemoteQueue analyzerQueue;
 	final static Logger logger = Logger.getLogger(Analyzer.class);
 
-	
 	public Analyzer() {
 		configLoader = ConfigLoader.getInstance();
 	}
 
 	public void run() {
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-    	try {
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+		try {
 			configLoader.init(Constants.CONF_FILE);
 			// Instancio la cola
-			responseQueue = new ArrayBlockingQueue<Response>(Constants.COMMAND_QUEUE_SIZE);
+			responseQueue = new ArrayBlockingQueue<Response>(
+					Constants.COMMAND_QUEUE_SIZE);
 			logger.debug(Constants.ANALYZER_QUEUE_NAME);
 			logger.debug(Constants.ANALYZER_QUEUE_HOST);
 			// Creo la cola remota en donde el anayzer recibe los comandos
-			analyzerQueue = new RemoteQueue(ConfigLoader.getInstance().getAnalyzerQueueName(), ConfigLoader.getInstance().getAnalyzerQueueHost());
+			analyzerQueue = new RemoteQueue(
+					ConfigLoader.getInstance().getAnalyzerQueueName(),
+					ConfigLoader.getInstance().getAnalyzerQueueHost());
 			analyzerQueue.init();
-			
+
 			// Instancio el registry
 			userRegistry = new UserRegistry();
-			
+
 			// Hago una carga inicial del user registry
-			
+
 			// Instancio los threads
-			analyzerReciverThread = new Thread(new AnalyzerReciver(responseQueue, analyzerQueue, userRegistry));
-			analyzerDispatcherThread = new Thread(new AnalyzerDispatcher(responseQueue, userRegistry));
-			
+			analyzerReciverThread = new Thread(new AnalyzerReciver(
+					responseQueue, analyzerQueue, userRegistry));
+			analyzerDispatcherThread = new Thread(
+					new AnalyzerDispatcher(responseQueue, userRegistry));
+
 			// Inicio los threads
 			analyzerReciverThread.start();
 			analyzerDispatcherThread.start();
@@ -57,7 +61,7 @@ public class Analyzer implements Runnable {
 			// Me quedo esperando los threads
 			analyzerReciverThread.join();
 			analyzerDispatcherThread.join();
-			
+
 		} catch (IOException e) {
 			logger.error("Error al cargar el archivo de configuracion");
 			logger.info(e.toString());

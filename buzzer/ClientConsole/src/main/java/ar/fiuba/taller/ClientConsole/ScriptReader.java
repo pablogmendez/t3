@@ -19,12 +19,13 @@ import ar.fiuba.taller.common.Constants;
 public class ScriptReader implements Runnable {
 
 	final static Logger logger = Logger.getLogger(ScriptReader.class);
-	
+
 	BlockingQueue<Command> commandQueue;
 	String commandScript;
 	String username;
-	
-	public ScriptReader(BlockingQueue<Command> commandQueue, String commandScript, String username) {
+
+	public ScriptReader(BlockingQueue<Command> commandQueue,
+			String commandScript, String username) {
 		this.commandQueue = commandQueue;
 		this.commandScript = commandScript;
 		this.username = username;
@@ -37,23 +38,24 @@ public class ScriptReader implements Runnable {
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(new FileReader(commandScript));
 			JSONObject jsonObject = (JSONObject) obj;
-			JSONArray commandArray = (JSONArray) jsonObject.get(Constants.COMMAND_ARRAY);
-            Iterator<JSONObject> iterator = commandArray.iterator();
-            JSONObject commandObject;
+			JSONArray commandArray = (JSONArray) jsonObject
+					.get(Constants.COMMAND_ARRAY);
+			Iterator<JSONObject> iterator = commandArray.iterator();
+			JSONObject commandObject;
 			Command command;
-			
+
 			logger.info("Leyendo el command script: " + commandScript);
-			 while (iterator.hasNext()) {
+			while (iterator.hasNext()) {
 				commandObject = iterator.next();
-				command = new Command((String)commandObject.get(
-						Constants.COMMAND_KEY), 
-						username, 
-						(String)commandObject.get(Constants.MESSAGE_KEY),
-						null, null);
-				logger.info("Se inserto comando con los siguientes parametros: " 
-						+ "\nUsuario: " + command.getUser()
-						+ "\nComando: " + command.getCommand()
-						+ "\nMensaje: " + command.getMessage());
+				command = new Command(
+						(String) commandObject.get(Constants.COMMAND_KEY),
+						username,
+						(String) commandObject.get(Constants.MESSAGE_KEY), null,
+						null);
+				logger.info("Se inserto comando con los siguientes parametros: "
+						+ "\nUsuario: " + command.getUser() + "\nComando: "
+						+ command.getCommand() + "\nMensaje: "
+						+ command.getMessage());
 				commandQueue.put(command);
 			}
 		} catch (InterruptedException e) {

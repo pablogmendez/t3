@@ -18,19 +18,17 @@ import org.json.simple.parser.ParseException;
 
 import ar.fiuba.taller.common.Constants;
 
-public class App 
-{
+public class App {
 	final static Logger logger = Logger.getLogger(App.class);
-	
-    public static void main( String[] args )
-    {
-    	PropertyConfigurator.configure(Constants.LOGGER_CONF);
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-    	List<Thread> usersList = new ArrayList<Thread>();
-    	String username, mode, reg;
-    	
-    	logger.info("Se inicia una nueva instancia de ClientConsole");
-    	
+
+	public static void main(String[] args) {
+		PropertyConfigurator.configure(Constants.LOGGER_CONF);
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+		List<Thread> usersList = new ArrayList<Thread>();
+		String username, mode, reg;
+
+		logger.info("Se inicia una nueva instancia de ClientConsole");
+
 		try {
 			// Obtengo los usuarios y los pongo a ejecutar el script
 			JSONParser parser = new JSONParser();
@@ -44,15 +42,17 @@ public class App
 			while (iterator.hasNext()) {
 				username = iterator.next();
 				logger.info("Siguiente usuario a crear: " + username);
-			 	userConsoleThread = new Thread(new UserConsole(username));
-			 	userConsoleThread.start();
-			 	usersList.add(userConsoleThread);
-			 	logger.info("Usuario " + userConsoleThread.getId() + " creado!");
+				userConsoleThread = new Thread(new UserConsole(username));
+				userConsoleThread.start();
+				usersList.add(userConsoleThread);
+				logger.info(
+						"Usuario " + userConsoleThread.getId() + " creado!");
 			}
 
 			// Espero a que los usuarios hayan terminado de ejecutar
-			logger.info("Esperando a que los usuarios terminen: " + usersList.size());
-			for(Thread userThread : usersList ) {
+			logger.info("Esperando a que los usuarios terminen: "
+					+ usersList.size());
+			for (Thread userThread : usersList) {
 				userThread.join();
 				logger.info("Usuario " + userThread.getId() + " finalizado!");
 			}

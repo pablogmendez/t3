@@ -29,15 +29,16 @@ public class AnalyzerDispatcher implements Runnable {
 	List<String> hashtagFollowers;
 	Set<String> usersSet;
 	final static Logger logger = Logger.getLogger(AnalyzerDispatcher.class);
-	
-	public AnalyzerDispatcher(BlockingQueue<Response> responseQueue, UserRegistry userRegistry) {
+
+	public AnalyzerDispatcher(BlockingQueue<Response> responseQueue,
+			UserRegistry userRegistry) {
 		this.responseQueue = responseQueue;
 		this.userRegistry = userRegistry;
 		usersMap = new HashMap<String, RemoteQueue>();
 	}
-	
+
 	public void run() {
-		while(true) {
+		while (true) {
 			try {
 				response = responseQueue.take();
 				logger.info("Nueva respuesta para enviar");
@@ -47,37 +48,44 @@ public class AnalyzerDispatcher implements Runnable {
 				logger.info("Status: " + response.getResponse_status());
 				logger.info("Message: " + response.getMessage());
 				// Reviso si es un user register o un mensaje
-				// Si da error o es una registracion, se lo devuelvo solamente al usuario que envio el request
-				if(response.getResponse_status() == RESPONSE_STATUS.REGISTERED ||
-						response.getResponse_status() == RESPONSE_STATUS.ERROR) {
-						logger.info("Enviando respuesta");
-						remoteQueue = getUserQueue(response.getUser());
-						remoteQueue.put(response);
-				}
-				else {
+				// Si da error o es una registracion, se lo devuelvo solamente
+				// al usuario que envio el request
+				if (response.getResponse_status() == RESPONSE_STATUS.REGISTERED
+						|| response
+								.getResponse_status() == RESPONSE_STATUS.ERROR) 
+				{
+					logger.info("Enviando respuesta");
+					remoteQueue = getUserQueue(response.getUser());
+					remoteQueue.put(response);
+				} else {
 					// Por Ok, hago anycast a los followers
 					logger.info("Anycast a los followers");
 					usersSet = new HashSet<String>();
-					userFollowers = userRegistry.getUserFollowers(response.getUser());
-					hashtagFollowers = userRegistry.getHashtagFollowers(response.getMessage());
-					for(String follower : userFollowers) {
+					userFollowers = userRegistry
+							.getUserFollowers(response.getUser());
+					hashtagFollowers = userRegistry
+							.getHashtagFollowers(response.getMessage());
+					for (String follower : userFollowers) {
 						usersSet.add(follower);
 					}
-					for(String follower : hashtagFollowers) {
+					for (String follower : hashtagFollowers) {
 						usersSet.add(follower);
 					}
 					// Fowardeo el mensaje a los followers
 					Iterator<String> it = usersSet.iterator();
-					while(it.hasNext()) {
+					while (it.hasNext()) {
 						(getUserQueue(it.next())).put(response);
 					}
 				}
 			} catch (InterruptedException e) {
-				logger.error("Error al tomar respuestas de la cola responseQueue");
+				logger.error(
+						"Error al tomar respuestas de la cola responseQueue");
 				logger.info(e.toString());
 				e.printStackTrace();
 			} catch (IOException e) {
-				logger.error("Error al insertar respuesta en la cola remota del usuario:" + response.getUser());
+				logger.error(
+						"Error al insertar respuesta en la cola remota del "
+						+ "usuario:" + response.getUser());
 				logger.info(e.toString());
 				e.printStackTrace();
 			} catch (ParseException e) {
@@ -92,12 +100,14 @@ public class AnalyzerDispatcher implements Runnable {
 		}
 	}
 
-	private RemoteQueue getUserQueue(String username) throws IOException, TimeoutException {
+	private RemoteQueue getUserQueue(String username)
+			throws IOException, TimeoutException {
 		RemoteQueue tmpQueue;
 		tmpQueue = usersMap.get(username);
-		
-		if(tmpQueue == null) {
-			tmpQueue = new RemoteQueue(username, ConfigLoader.getInstance().getUsersServer());
+
+		if (tmpQueue == null) {
+			tmpQueue = new RemoteQueue(username,
+					ConfigLoader.getInstance().getUsersServer());
 			tmpQueue.init();
 			usersMap.put(username, tmpQueue);
 		}

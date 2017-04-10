@@ -6,14 +6,12 @@ import org.apache.log4j.PropertyConfigurator;
 
 import ar.fiuba.taller.common.Constants;
 
-public class App 
-{
+public class App {
 	final static Logger logger = Logger.getLogger(App.class);
-	
-    public static void main( String[] args )
-    {
-    	PropertyConfigurator.configure(Constants.LOGGER_CONF);
-    	MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+
+	public static void main(String[] args) {
+		PropertyConfigurator.configure(Constants.LOGGER_CONF);
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		try {
 			logger.info("Comenzando el analyzer");
 			Thread analyzerThread = new Thread(new Analyzer());
@@ -24,5 +22,5 @@ public class App
 			logger.info(e.toString());
 			e.printStackTrace();
 		}
-    }
+	}
 }

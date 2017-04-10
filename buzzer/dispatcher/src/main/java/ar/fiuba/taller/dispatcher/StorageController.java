@@ -12,10 +12,10 @@ import ar.fiuba.taller.common.RemoteQueue;
 public class StorageController implements Runnable {
 	private BlockingQueue<Command> storageCommandQueue;
 	private RemoteQueue storageQueue;
-	
+
 	final static Logger logger = Logger.getLogger(StorageController.class);
-	
-	public StorageController(BlockingQueue<Command> storageCommandQueue, 
+
+	public StorageController(BlockingQueue<Command> storageCommandQueue,
 			RemoteQueue storageQueue) {
 		this.storageCommandQueue = storageCommandQueue;
 		this.storageQueue = storageQueue;
@@ -24,23 +24,26 @@ public class StorageController implements Runnable {
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		Command command;
-		
+
 		logger.info("Iniciando el storage controller");
-		while(true) {
+		while (true) {
 			try {
 				command = storageCommandQueue.take();
-				logger.info("Comando recibido con los siguientes parametros: " 
-						+ "\nUsuario: " + command.getUser()
-						+ "\nComando: " + command.getCommand()
-						+ "\nMensaje: " + command.getMessage());
+				logger.info("Comando recibido con los siguientes parametros: "
+						+ "\nUsuario: " + command.getUser() + "\nComando: "
+						+ command.getCommand() + "\nMensaje: "
+						+ command.getMessage());
 				storageQueue.put(command);
 				logger.info("Comando enviado al storage");
 			} catch (InterruptedException e) {
-				logger.error("Error al obtener el comando de la cola storageCommandQueue");
+				logger.error(
+						"Error al obtener el comando de la cola "
+						+ "storageCommandQueue");
 				logger.info(e.toString());
 				e.printStackTrace();
 			} catch (IOException e) {
-				logger.error("Error al insertar el comando de la cola storageQueue");
+				logger.error(
+						"Error al insertar el comando de la cola storageQueue");
 				logger.info(e.toString());
 				e.printStackTrace();
 			}

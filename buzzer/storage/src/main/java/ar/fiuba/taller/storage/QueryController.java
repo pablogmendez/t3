@@ -19,12 +19,13 @@ public class QueryController implements Runnable {
 	private Command command;
 	private Response response;
 	final static Logger logger = Logger.getLogger(QueryController.class);
-	
-	public QueryController(BlockingQueue<Command> queryQueue, BlockingQueue<Response> responseQueue, Storage storage) {
+
+	public QueryController(BlockingQueue<Command> queryQueue,
+			BlockingQueue<Response> responseQueue, Storage storage) {
 		super();
-		this.queryQueue		= queryQueue;
-		this.responseQueue	= responseQueue;
-		this.storage		= storage;
+		this.queryQueue = queryQueue;
+		this.responseQueue = responseQueue;
+		this.storage = storage;
 	}
 
 	public void run() {
@@ -33,7 +34,7 @@ public class QueryController implements Runnable {
 		// Este mensaje deberia ser configurable
 		String error_message = "Error al consultar";
 		logger.info("Iniciando el query controller");
-		while(true) {
+		while (true) {
 			try {
 				command = queryQueue.take();
 				response = new Response();

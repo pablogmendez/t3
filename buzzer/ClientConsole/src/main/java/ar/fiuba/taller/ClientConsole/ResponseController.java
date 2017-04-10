@@ -14,12 +14,13 @@ import ar.fiuba.taller.common.RemoteQueue;
 import ar.fiuba.taller.common.Response;
 
 public class ResponseController extends DefaultConsumer implements Runnable {
-	
+
 	private BlockingQueue<Response> responseQueue;
 	private RemoteQueue remoteResponseQueue;
 	final static Logger logger = Logger.getLogger(ResponseController.class);
-	
-	public ResponseController(BlockingQueue<Response> responseQueue, RemoteQueue remoteResponseQueue) {
+
+	public ResponseController(BlockingQueue<Response> responseQueue,
+			RemoteQueue remoteResponseQueue) {
 		super(remoteResponseQueue.getChannel());
 		this.responseQueue = responseQueue;
 		this.remoteResponseQueue = remoteResponseQueue;
@@ -33,9 +34,9 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 		try {
 			response.deserialize(body);
 			logger.info("Respuesta recibida con los siguientes valores: "
-			+ "\nUUID:" + response.getUuid() 
-			+ "\nStatus:" + response.getResponse_status() 
-			+ "\nMensaje:" + response.getMessage());
+					+ "\nUUID:" + response.getUuid() + "\nStatus:"
+					+ response.getResponse_status() + "\nMensaje:"
+					+ response.getMessage());
 			responseQueue.put(response);
 			logger.info("Respuesta pusheada en la cola responseQueue");
 		} catch (ClassNotFoundException e) {
@@ -47,7 +48,8 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 			logger.info(e.toString());
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			logger.error("Error al insertar la respuesta en la cola responseQueue");
+			logger.error(
+					"Error al insertar la respuesta en la cola responseQueue");
 			logger.info(e.toString());
 			e.printStackTrace();
 		}
@@ -57,7 +59,8 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		logger.info("Iniciando el response controller");
 		try {
-			remoteResponseQueue.getChannel().basicConsume(remoteResponseQueue.getQueueName(), true, this);
+			remoteResponseQueue.getChannel().basicConsume(
+					remoteResponseQueue.getQueueName(), true, this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -10,8 +10,8 @@ public class RemoteQueue {
 	private String host;
 	private ConnectionFactory factory;
 	private Connection connection;
-	private Channel channel;	
-	
+	private Channel channel;
+
 	public Channel getChannel() {
 		return channel;
 	}
@@ -39,19 +39,19 @@ public class RemoteQueue {
 
 	public void init() throws IOException, TimeoutException {
 		factory = new ConnectionFactory();
-	    factory.setHost(host);
-	    connection = factory.newConnection();
-	    channel = connection.createChannel();
-	    channel.queueDeclareNoWait(queueName, false, false, false, null);
+		factory.setHost(host);
+		connection = factory.newConnection();
+		channel = connection.createChannel();
+		channel.queueDeclareNoWait(queueName, false, false, false, null);
 	}
-	
+
 	public void close() throws IOException, TimeoutException {
-	    channel.close();
-	    connection.close();
+		channel.close();
+		connection.close();
 	}
-	
+
 	public void put(ISerialize message) throws IOException {
-	    channel.basicPublish("", queueName, null, message.serialize());
+		channel.basicPublish("", queueName, null, message.serialize());
 	}
-	
+
 }

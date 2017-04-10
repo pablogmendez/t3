@@ -19,19 +19,20 @@ public class RemoveController implements Runnable {
 	private Command command;
 	private Response response;
 	final static Logger logger = Logger.getLogger(StorageController.class);
-	
-	public RemoveController(BlockingQueue<Command> removeQueue, BlockingQueue<Response> responseQueue, Storage storage) {
+
+	public RemoveController(BlockingQueue<Command> removeQueue,
+			BlockingQueue<Response> responseQueue, Storage storage) {
 		super();
-		this.removeQueue 	= removeQueue;
-		this.storage		= storage;
-		this.responseQueue	= responseQueue;
+		this.removeQueue = removeQueue;
+		this.storage = storage;
+		this.responseQueue = responseQueue;
 	}
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		String error_message = "Error al eliminar el mensaje";
 		logger.info("Iniciando el remove controller");
-		while(true) {
+		while (true) {
 			try {
 				command = removeQueue.take();
 				response = new Response();

@@ -31,13 +31,13 @@ public class ResponseController extends DefaultConsumer implements Runnable {
 		super.handleDelivery(consumerTag, envelope, properties, body);
 		Response response = new Response();
 		try {
+			response.deserialize(body);
 			logger.info("Respuesta recibida con los siguientes valores: "
 			+ "\nUUID:" + response.getUuid() 
 			+ "\nStatus:" + response.getResponse_status() 
 			+ "\nMensaje:" + response.getMessage());
-			response.deserialize(body);
 			responseQueue.put(response);
-			logger.error("Respuesta pusheada en la cola responseQueue");
+			logger.info("Respuesta pusheada en la cola responseQueue");
 		} catch (ClassNotFoundException e) {
 			logger.error("Error al deserializar la respuesta");
 			logger.info(e.toString());

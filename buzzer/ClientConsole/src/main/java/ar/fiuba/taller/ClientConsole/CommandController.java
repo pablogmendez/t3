@@ -31,13 +31,13 @@ public class CommandController implements Runnable {
 		
 		logger.info("Iniciando el command controller");
 		
-//		while(true) {
-			try {
-				logger.info("Obteniendo comando de la cola");
-				command = commandQueue.take();
-				logger.info("Comando obtenido");
-				logger.info("Comando recibido: " + command.getCommand());
-				logger.info("Mensaje: " + command.getMessage());
+		try {
+			logger.info("Obteniendo comando de la cola");
+			command = commandQueue.take();
+			logger.info("Comando obtenido");
+			logger.info("Comando recibido: " + command.getCommand());
+			logger.info("Mensaje: " + command.getMessage());
+			if(command.getMessage().length() <= 141) {
 				logger.info("Generando UUID");
 				command.setUuid(UUID.randomUUID());
 				logger.info("Generando timestamp");
@@ -47,16 +47,17 @@ public class CommandController implements Runnable {
 				logger.info("Enviando el mensaje al dispatcher");
 				dispatcherQueue.put(command);
 				logger.info("Mensaje enviado");
-				
-			} catch (InterruptedException e) {
-				logger.error("Error al sacar un comando de la cola commandQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				logger.error("Error al enviar el mensaje al dispatcher");
-				logger.info(e.toString());
-				e.printStackTrace();
-			}	
-//		}	
+			} else {
+				logger.error("El mensaje contiene mas de 141 caracteres");
+			}				
+		} catch (InterruptedException e) {
+			logger.error("Error al sacar un comando de la cola commandQueue");
+			logger.info(e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Error al enviar el mensaje al dispatcher");
+			logger.info(e.toString());
+			e.printStackTrace();
+		}		
 	}
 }

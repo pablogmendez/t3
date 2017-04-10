@@ -197,8 +197,6 @@ public class Storage {
 				array.add(command.getUuid().toString());
 				jsonObject.put(hashtag, array);
 			}
-//			array.add(command.getUuid().toString());
-//			jsonObject.put(hashtag, array);
 		}
         FileWriter file = new FileWriter(fileName);
         try {
@@ -216,58 +214,30 @@ public class Storage {
 	public String query(Command command) throws IOException, ParseException {
 		List<String> resultList;
 		String listString = "";
-		if(command.getMessage().substring(0).equals("#")) { // Es consulta por hashtag
-			resultList = queryHashTag(command.getMessage().substring(1, command.getMessage().length() - 1));
+		logger.debug("RRRRRRRRRRRRR");
+		logger.debug(String.valueOf(command.getMessage().charAt(0)));
+		if(String.valueOf(command.getMessage().charAt(0)).equals("#")) { // Es consulta por hashtag
+//			resultList = queryHashTag(command.getMessage().substring(1, command.getMessage().length()));
+			resultList = queryBy(command.getMessage().substring(1, command.getMessage().length()), "HASHTAG");
 		}
 		else if (command.getMessage().equals("TT")){ // Es consulta por TT
-			resultList = queryTT(command.getMessage().substring(3, command.getMessage().length() - 1));
+			resultList = queryTT(command.getMessage());
 		}
 		else { // Es consulta por usuario
-			resultList = queryUser(command.getMessage());
+			//resultList = queryUser(command.getMessage());
+			resultList = queryBy(command.getMessage(), "USER");
 		}
 		for(String element : resultList) {
-			listString += "-------------------------------------\n";
 			listString += element + "\n";
+		}
+		if (command.getMessage().equals("TT")){
+			listString += "Total: " + resultList.size();
 		}
 		return listString;
 	}
-	
-	private List<String> queryHashTag(String hashTag) throws IOException, ParseException {
-		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_HASHTAG_INDEX;		
-		JSONParser parser = new JSONParser();
-		Object obj, obj2;
-		List<String> messageList = new ArrayList<String>();
-		String file, id;
-		
-		logger.info("Consultando por hashtag");
-		// Obtengo la lista de archivos que contienen el hashtag
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        BufferedReader br2;
-        String line;
-        String line2;
-        line = br.readLine();
-        obj= parser.parse(line);
-        JSONObject jsonObject = (JSONObject) obj;
-        JSONObject jsonObject2;
-        JSONArray array = (JSONArray) jsonObject.get(hashTag);
-        // Abro archivo por archivo y recupero los mensajes
-        Iterator<String> iterator = array.iterator();
-        while (iterator.hasNext()) {
-            id = iterator.next();
-            file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor - 1) + 
-            		Constants.COMMAND_SCRIPT_EXTENSION;
-            br2 = new BufferedReader(new FileReader(file));
-            line2 = br2.readLine();
-            obj2= parser.parse(line2);
-            jsonObject2 = (JSONObject) obj2;
-            messageList.add((String)jsonObject2.get(id));
-        }
-        // Retorno la lista con los mensajes encontrados
-		return messageList;
-	}
 
 	private List<String> queryTT(String hashTag) throws FileNotFoundException, IOException, ParseException {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Long> map = new HashMap<String, Long>();
 		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
 		
 		// Levantar el json
@@ -280,41 +250,64 @@ public class Storage {
 		// Crear un map
 		for(Iterator iterator = jsonObject.keySet().iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
-			map.put(key, Integer.parseInt((String) jsonObject.get(key)));
+			map.put(key, (Long) jsonObject.get(key));
 		}
 		
 		return sortHashMapByValues(map);
 	}
 	
-	private List<String> queryUser(String user) throws IOException, ParseException {
-		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_USER_INDEX;		
+	private List<String> queryBy(String key, String type) throws IOException, ParseException {
+		String fileName;		
 		JSONParser parser = new JSONParser();
 		Object obj, obj2;
 		List<String> messageList = new ArrayList<String>();
 		String file, id;
 		
-		logger.info("Consultando por user");
+		if(type.equals("USER")) {
+			logger.info("Consultando por user");
+			fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_USER_INDEX;
+		} else if (type.equals("HASHTAG")) {
+			logger.info("Consultando por hashtag");
+			fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_HASHTAG_INDEX;
+		} else {
+			return null;
+		}
+
 		// Obtengo la lista de archivos que contienen el user
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        BufferedReader br2;
-        String line;
-        String line2;
-        line = br.readLine();
-        obj = parser.parse(line);
+		
+		File tmpFile = new File(fileName);
+		if(tmpFile.createNewFile()) {
+			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
+			oFile.write("{}".getBytes());
+		}
+        obj= parser.parse(new FileReader(fileName));
         JSONObject jsonObject = (JSONObject) obj;
+        JSONArray array = (JSONArray) jsonObject.get(key);
+
+        System.out.println(array.toJSONString());
+		
+        BufferedReader br2;
+        String line, reg;
         JSONObject jsonObject2;
-        JSONArray array = (JSONArray) jsonObject.get(user);
         // Abro archivo por archivo y recupero los mensajes
-        Iterator<String> iterator = array.iterator();
-        while (iterator.hasNext()) {
-            id = iterator.next();
-            file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor - 1) + 
-            		Constants.COMMAND_SCRIPT_EXTENSION;
-            br2 = new BufferedReader(new FileReader(file));
-            line2 = br2.readLine();
-            obj2= parser.parse(line2);
-            jsonObject2 = (JSONObject) obj2;
-            messageList.add((String)jsonObject2.get(id));
+        if(array != null) {
+	        Iterator<String> iterator = array.iterator();
+	        while (iterator.hasNext()) {
+	            id = iterator.next();
+	            System.out.println("id: " + id);
+	            file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor) + 
+	            		Constants.COMMAND_SCRIPT_EXTENSION;
+	            System.out.println("file: " + file);
+	            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	                while ((line = br.readLine()) != null) {
+	                	System.out.println("line: " + line);
+	                	obj2= parser.parse(line);
+	                	jsonObject2 = (JSONObject) obj2;
+	                	
+	                	messageList.add(jsonObject2.get(id).toString());
+	                }
+	            }
+	        }
         }
         // Retorno la lista con los mensajes encontrados
 		return messageList;
@@ -351,24 +344,24 @@ public class Storage {
 	}
 	
 	private List<String> sortHashMapByValues(
-	        Map<String, Integer> map) {
+	        Map<String, Long> map) {
 	    List<String> mapKeys = new ArrayList<String>(map.keySet());
-	    List<Integer> mapValues = new ArrayList<Integer>(map.values());
+	    List<Long> mapValues = new ArrayList<Long>(map.values());
 	    Collections.sort(mapValues);
 	    Collections.sort(mapKeys);
 
-	    LinkedHashMap<String, Integer> sortedMap =
-	        new LinkedHashMap<String, Integer>();
+	    LinkedHashMap<String, Long> sortedMap =
+	        new LinkedHashMap<String, Long>();
 
-	    java.util.Iterator<Integer> valueIt = mapValues.iterator();
+	    java.util.Iterator<Long> valueIt = mapValues.iterator();
 	    while (valueIt.hasNext()) {
-	        Integer val = valueIt.next();
+	        Long val = valueIt.next();
 	        java.util.Iterator<String> keyIt = mapKeys.iterator();
 
 	        while (keyIt.hasNext()) {
 	            String key = keyIt.next();
-	            Integer comp1 = map.get(key);
-	            Integer comp2 = val;
+	            Long comp1 = map.get(key);
+	            Long comp2 = val;
 
 	            if (comp1.equals(comp2)) {
 	                keyIt.remove();
@@ -377,7 +370,7 @@ public class Storage {
 	            }
 	        }
 	    }
-	    Map<String, Integer> map2 = sortedMap;
+	    Map<String, Long> map2 = sortedMap;
 	    List<String> tt = new ArrayList<String>();
         ArrayList<String> keys = new ArrayList<String>(sortedMap.keySet());
         int i=keys.size()-1;

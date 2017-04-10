@@ -40,6 +40,7 @@ public class QueryController implements Runnable {
 				response.setUuid(UUID.randomUUID());
 				response.setUser(command.getUser());
 				response.setMessage(storage.query(command));
+				logger.debug(response.getMessage());
 				response.setResponse_status(RESPONSE_STATUS.OK);
 			} catch (InterruptedException e) {
 				response.setResponse_status(RESPONSE_STATUS.ERROR);

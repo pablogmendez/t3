@@ -17,8 +17,8 @@ Instalacion
 3.- Instalar el programa
 	./Buzzer.sh -i
 
-4.- Ejecutar el programa
-	./Buzzer.sh -r
+4.- Muestra la ayuda
+	./Buzzer.sh -h
 
 
 Configuracion

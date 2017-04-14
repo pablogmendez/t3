@@ -6,7 +6,7 @@
 <!-- [START standard_mappings] -->
     <servlet>
       <servlet-name>sign</servlet-name>
-      <servlet-class>com.example.guestbook.SignGuestbookServlet</servlet-class>
+      <servlet-class>ar.fiuba.taller.ErrorsConcentratorServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -15,7 +15,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>login.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 <!-- [END standard_mappings] -->
 
@@ -29,7 +29,7 @@
       <url-pattern>/*</url-pattern>
     </filter-mapping>
     <listener>
-      <listener-class>com.example.guestbook.OfyHelper</listener-class>
+      <listener-class>ar.fiuba.taller.OfyHelper</listener-class>
     </listener>
 <!-- [END Objectify] -->
 </web-app>

@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <!--<link type="text/css" rel="stylesheet" href="/stylesheets/login.css"/>-->
+    <link type="text/css" rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap/css/bootstrap.min.css"/>
+
+    <script type = "text/javascript" src="js/angular.min.js"></script>
+    <script type = "text/javascript" src="js/angular-route.min.js"></script>
+
+    <script type = "text/javascript" src="js/app.js"></script>
+    <script type = "text/javascript" src="js/loginControl.js"></script>
+    <script type = "text/javascript" src="js/issuesControl.js"></script>
+    <script type = "text/javascript" src="js/userService.js"></script>
+    <script type = "text/javascript" src="js/headerControl.js"></script>
+
+  </head>
+  <body ng-app="errorsConcentretor">
+    <div ng-controller="headerCtrl">
+        <div ng-include="templateUrl"></div>
+    </div>
+    <div class="container" ng-view></div>
+  </body>
+</html>

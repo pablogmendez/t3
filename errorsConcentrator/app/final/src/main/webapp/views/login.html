@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="wrap">
+            <p class="form-title">
+            <i class="fa fa-bug fa-lg" aria-hidden="true"></i>Errors Concentrator</p>
+            <form class="login" id="loginForm" name="loginForm" ng-submit="loginValidate()" novalidate>
+                <input type="text" placeholder="Username" ng-model="username" required/>
+                <input type="password" placeholder="Password" ng-model="password" required/>
+                <input type="submit" value="Sign In" class="btn btn-primary btn-sm" />
+                <div class="remember-forgot">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" />
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

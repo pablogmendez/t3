@@ -15,7 +15,7 @@
  */
 
 //[START all]
-package com.example.guestbook;
+package ar.fiuba.taller;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;

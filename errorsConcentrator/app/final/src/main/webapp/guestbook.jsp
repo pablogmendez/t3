@@ -19,6 +19,8 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css"/>
     <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css"/>
+    <script type = "text/javascript" src="js/jquery.min.js"></script>
+    <script type = "text/javascript" src="js/main.js"></script>
 </head>
 
 <body>
@@ -47,12 +49,57 @@
         <li><a href="#">Functions</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;<%= user_name %></a></li>
+        <li><a href="#"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp;<%= user_name %></a></li>
+        <li><a href="#"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;Exit</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   </nav>
 
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="panel panel-default">
+          <div class="panel-heading">New Issue</div>
+            <div class="panel-body">
+              <form id="usrform">
+                  <input type="text" name="application" class="form-control" placeholder="Application" aria-describedby="sizing-addon2" required>
+                  <br>
+                  <input type="text" name="summary" class="form-control" placeholder="Summary" aria-describedby="sizing-addon2" required>
+                  <br>
+                  <input type="text" name="os" class="form-control" placeholder="Operative System" aria-describedby="sizing-addon2" required>
+                  <br>
+                  <textarea rows="10" cols="138" name="comment" form="usrform" placeholder="Description..."></textarea>
+                  <br>
+                  <br>
+                  <button id="submitButton" type="button" class="btn btn-primary btn-sm" />Create</button> 
+                  <br>
+              </form>
+            </div>  
+          </div> 
+        </div>   
+      </div>  
+    </div>
+
+  <script type="text/javascript">
+        $(document).ready(function () {
+      
+     $('#submitButton').click(function(){
+      
+      $.post('/jquery/submitData',   // url
+         $("#usrform").serialize(), // data to be submit
+         function(data, status, jqXHR) {// success callback
+            alert("HOLA");
+        })
+      .fail(function() {
+        alert("ERROR");
+      })
+      .always(function(data) {
+        alert(data);
+      });
+      });
+    });
+    </script>
 <%
     String guestbookName = request.getParameter("guestbookName");
     if (guestbookName == null) {

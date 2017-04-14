@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 //[START all]
-package com.example.guestbook;
+package ar.fiuba.taller;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;

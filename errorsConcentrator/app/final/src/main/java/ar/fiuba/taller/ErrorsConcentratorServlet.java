@@ -15,7 +15,7 @@
  */
 
 //[START all]
-package com.example.guestbook;
+package ar.fiuba.taller;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -29,9 +29,16 @@ import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import java.util.Date;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
 import com.googlecode.objectify.ObjectifyService;
 
@@ -42,7 +49,9 @@ import com.googlecode.objectify.ObjectifyService;
  * {@link #doPost(<#HttpServletRequest req#>, <#HttpServletResponse resp#>)} which takes the form
  * data and saves it.
  */
-public class SignGuestbookServlet extends HttpServlet {
+public class ErrorsConcentratorServlet extends HttpServlet {
+
+   private static final Logger log = Logger.getLogger(ErrorsConcentratorServlet.class.getName());
 
   // Process the http POST of the form
   @Override
@@ -65,6 +74,21 @@ public class SignGuestbookServlet extends HttpServlet {
     ObjectifyService.ofy().save().entity(greeting).now();
 
     resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
+  }
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+      log.info("Hice un get");
+      response(resp, "login ok");
+  }
+
+
+  private void response(HttpServletResponse resp, String msg)
+      throws IOException {
+    PrintWriter out = resp.getWriter();
+    out.println("<html>");
+    out.println("<body>");
+    out.println("<t1>" + msg + "</t1>");
+    out.println("</body>");
+    out.println("</html>");
   }
 }
 //[END all]

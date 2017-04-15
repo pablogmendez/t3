@@ -14,6 +14,26 @@
       <url-pattern>/sign</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>appmsgcount</servlet-name>
+      <servlet-class>ar.fiuba.taller.AppMsgCountServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>appmsgcount</servlet-name>
+      <url-pattern>/appmsgcount</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>functions</servlet-name>
+      <servlet-class>ar.fiuba.taller.FunctionsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>functions</servlet-name>
+      <url-pattern>/functions</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

@@ -6,7 +6,6 @@ myApp.controller('issuesControl', function($scope , $location, $http, userservic
     	var date = new Date().format('m-d-Y h:i:s');
     	var data = {
     				username:    $scope.username,
-    				timestamp: 	 date,
     				application: $scope.application, 
     				summary:     $scope.summary,
     				os:          $scope.os,

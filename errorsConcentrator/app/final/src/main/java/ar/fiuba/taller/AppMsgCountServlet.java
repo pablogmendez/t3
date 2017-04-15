@@ -26,11 +26,6 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-import com.google.appengine.api.taskqueue.TaskOptions;
-import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskHandle;
-
 import java.io.IOException;
 import java.util.Date;
 
@@ -55,47 +50,17 @@ import com.googlecode.objectify.ObjectifyService;
  * {@link #doPost(<#HttpServletRequest req#>, <#HttpServletResponse resp#>)} which takes the form
  * data and saves it.
  */
-public class ErrorsConcentratorServlet extends HttpServlet {
+public class AppMsgCountServlet extends HttpServlet {
 
-   private static final Logger log = Logger.getLogger(ErrorsConcentratorServlet.class.getName());
+   private static final Logger log = Logger.getLogger(AppMsgCountServlet.class.getName());
 
   // Process the http POST of the form
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //Greeting greeting;
-    Issue issue;
-    Queue functionsQueue;
-    Queue appMsgCountQueue;
-
     log.info("POST recibido");
 
-    String username = req.getParameter("username");
     String application = req.getParameter("application");
-    String summary = req.getParameter("summary");
-    String os = req.getParameter("os");
-    String description = req.getParameter("description");
-    log.info("Parametros recibidos");
-    log.info("username: " + username);
     log.info("application: " + application);
-    log.info("summary: " + summary);
-    log.info("os: " + os);
-    log.info("description: " + description);
-
-    log.info("Creando issue");
-    issue = new Issue(username, application, summary, os, description);
-    log.info("Hora de creacion del issue: " + issue.getDate());
-    log.info("Persistiendo issue");
-    ObjectifyService.ofy().save().entity(issue).now();
-
-    log.info("Agregando task a la cola de AppMsgCount");
-    appMsgCountQueue = QueueFactory.getQueue("app_msg_count-queue");
-    appMsgCountQueue.add(TaskOptions.Builder.withUrl("/appmsgcount").param("application", application));
-
-    log.info("Agregando task a la cola de Funciones");
-    functionsQueue = QueueFactory.getQueue("functions-queue");
-    functionsQueue.add(TaskOptions.Builder.withUrl("/functions").param("date", issue.getDate().toString()).param("description", description));
-
-    log.info("Servlet terminado");
     resp.setStatus(HttpServletResponse.SC_OK);
   }
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

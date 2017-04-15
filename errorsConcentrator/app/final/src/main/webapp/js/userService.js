@@ -1,3 +1,3 @@
 myApp.service('userservice', function() {
-    this.username;
+    this.username = "default";
 });

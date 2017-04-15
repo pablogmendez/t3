@@ -1,20 +1,25 @@
-  <div class="panel panel-default">
+<div ng-model="sendRequest">
+  <div class="panel panel-default" ng-hide="sendRequest">
     <div class="panel-heading">New Issue</div>
       <div class="panel-body">
-        <form id="usrform">
+        <form id="usrform" ng-submit="submit()">
          <div class="form-group">
-            <input type="text" name="application" class="form-control" placeholder="Application"  required>
+            <input type="text" ng-model="application" name="application" class="form-control" placeholder="Application"  required>
             <br>
-            <input type="text" name="summary" class="form-control" placeholder="Summary" required>
+            <input type="text" ng-model="summary" name="summary" class="form-control" placeholder="Summary" required>
             <br>
-            <input type="text" name="os" class="form-control" placeholder="Operative System" required>
+            <input type="text" ng-model="os" name="os" class="form-control" placeholder="Operative System" required>
             <br>
-            <textarea rows="10" cols="108" name="comment" form="usrform" placeholder="Description..."></textarea>
+            <textarea rows="10" ng-model="description" class="form-control" name="comment" form="usrform" placeholder="Description..."></textarea>
             <br>
-            <br>
-            <button id="submitButton" type="button" class="btn btn-primary btn-sm">Create</button>
+            <input id="submitButton" type="submit" class="btn btn-primary btn-sm" value="Create">
             </div>
         </form>
       </div>  
     </div>
   </div> 
+  <div ng-show="sendRequest">
+    <h1>{{response}}</h1>
+    <button id="back" class="btn btn-primary btn-sm" ng-click="back()">Back</button>
+  </div>
+</div>

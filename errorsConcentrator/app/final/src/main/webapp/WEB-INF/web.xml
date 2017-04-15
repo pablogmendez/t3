@@ -5,13 +5,13 @@
 
 <!-- [START standard_mappings] -->
     <servlet>
-      <servlet-name>sign</servlet-name>
+      <servlet-name>errorsconcentrator</servlet-name>
       <servlet-class>ar.fiuba.taller.ErrorsConcentratorServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-      <servlet-name>sign</servlet-name>
-      <url-pattern>/sign</url-pattern>
+      <servlet-name>errorsconcentrator</servlet-name>
+      <url-pattern>/errorsconcentrator</url-pattern>
     </servlet-mapping>
 
     <servlet>

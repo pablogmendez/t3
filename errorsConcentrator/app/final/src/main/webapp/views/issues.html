@@ -1,5 +1,5 @@
 <div ng-model="sendRequest">
-  <div class="panel panel-default" ng-hide="sendRequest">
+  <div class="panel panel-default" ng-hide="hideForm">
     <div class="panel-heading">New Issue</div>
       <div class="panel-body">
         <form id="usrform" ng-submit="submit()">
@@ -21,5 +21,8 @@
   <div ng-show="sendRequest">
     <h1>{{response}}</h1>
     <button id="back" class="btn btn-primary btn-sm" ng-click="back()">Back</button>
+  </div>
+  <div ng-show="creatingIssue">
+    <h1>Creating issue...<i class="fa fa-spinner fa-pulse fa-2x fa-fw" aria-hidden="true"></i></h1>
   </div>
 </div>

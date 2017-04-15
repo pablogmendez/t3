@@ -87,12 +87,14 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     log.info("Persistiendo issue");
     ObjectifyService.ofy().save().entity(issue).now();
 
+    log.info("Creando cola AppMsgCount");
+    appMsgCountQueue = QueueFactory.getQueue("appmsgcount-queue");
     log.info("Agregando task a la cola de AppMsgCount");
-    appMsgCountQueue = QueueFactory.getQueue("app_msg_count-queue");
     appMsgCountQueue.add(TaskOptions.Builder.withUrl("/appmsgcount").param("application", application));
 
-    log.info("Agregando task a la cola de Funciones");
+    log.info("Creando cola functions");
     functionsQueue = QueueFactory.getQueue("functions-queue");
+    log.info("Agregando task a la cola de Funciones");
     functionsQueue.add(TaskOptions.Builder.withUrl("/functions").param("date", issue.getDate().toString()).param("description", description));
 
     log.info("Servlet terminado");

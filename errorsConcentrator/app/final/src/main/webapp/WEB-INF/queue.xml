@@ -2,10 +2,10 @@
 <queue-entries>
   <queue>
     <name>functions-queue</name>
-    <mode>pull</mode>
+    <rate>5/s</rate>
   </queue>
   <queue>
-    <name>app_msg_count-queue</name>
-    <mode>pull</mode>
+    <name>appmsgcount-queue</name>
+    <rate>5/s</rate>
   </queue>
 </queue-entries>

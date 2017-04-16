@@ -57,26 +57,27 @@ public class AppMsgCountServlet extends HttpServlet {
   // Process the http POST of the form
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    AppMsgCount appMsgCount;
+
     log.info("POST recibido");
 
     String application = req.getParameter("application");
     log.info("application: " + application);
-    resp.setStatus(HttpServletResponse.SC_OK);
-  }
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-      log.info("Hice un get");
-      response(resp, "login ok");
-  }
 
+    log.info("Intentando cargar entidad");    
+    appMsgCount = ObjectifyService.ofy().load().type(AppMsgCount.class).
+    filter("application", application).first().now();
 
-  private void response(HttpServletResponse resp, String msg)
-      throws IOException {
-    PrintWriter out = resp.getWriter();
-    out.println("<html>");
-    out.println("<body>");
-    out.println("<t1>" + msg + "</t1>");
-    out.println("</body>");
-    out.println("</html>");
+    if(appMsgCount == null) {
+      log.info("Entidad inexistente. Creando una nueva.");    
+      appMsgCount = new AppMsgCount(application);
+    } else {
+      log.info("Entidad existente. Incrementando contador.");    
+      appMsgCount.incCount();
+    }
+    log.info("Persistiendo entidad.");    
+    ObjectifyService.ofy().save().entity(appMsgCount).now();
+    log.info("Servlet finalizado.");    
   }
 }
 //[END all]

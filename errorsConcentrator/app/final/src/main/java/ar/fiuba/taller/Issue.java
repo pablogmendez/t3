@@ -22,10 +22,14 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.annotation.Ignore;
 
 import java.lang.String;
 import java.util.Date;
 import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  * The @Entity tells Objectify about our entity.  We also register it in {@link OfyHelper}
@@ -48,6 +52,8 @@ public class Issue {
   private String os;
   private String description;
   @Index private Date date;
+
+  @Ignore private SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
   /**
    * Simple constructor just sets the date
@@ -95,6 +101,10 @@ public class Issue {
 
   public Date getDate() {
     return date;
+  }
+
+  public String getStringDate() throws ParseException {
+    return parser.format(date);
   }
 
 }

@@ -45,9 +45,12 @@ public class AppMsgCount {
   @Index private String application;
   private Long count;
 
+  public AppMsgCount() {
+  }
+
   public AppMsgCount(String application) {
     this.application = application;
-    this.count++;
+    this.count = new Long(1);
   }
 
   public Long getId() {
@@ -60,6 +63,10 @@ public class AppMsgCount {
 
   public Long getCount() {
     return count;
+  }
+
+  public void incCount() {
+    count++;
   }
 }
 //[END all]

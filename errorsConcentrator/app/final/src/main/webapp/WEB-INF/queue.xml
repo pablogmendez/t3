@@ -8,4 +8,8 @@
     <name>appmsgcount-queue</name>
     <rate>5/s</rate>
   </queue>
+  <queue>
+    <name>analyzer-queue</name>
+    <rate>5/s</rate>
+  </queue>
 </queue-entries>

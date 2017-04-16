@@ -1,11 +1,10 @@
-myApp.controller('issuesControl', function($scope , $location, $http, userservice){
+myApp.controller('issuesControl', function($scope , $location, $http, userservice, config){
 	$scope.username = userservice.username;
     $scope.hideForm = false;
 	$scope.sendRequest = false;
     $scope.creatingIssue = false;
 	$scope.response = "";
     $scope.submit = function() {   
-    	var date = new Date().format('m-d-Y h:i:s');
     	var data = {
     				username:    $scope.username,
     				application: $scope.application, 
@@ -17,17 +16,18 @@ myApp.controller('issuesControl', function($scope , $location, $http, userservic
         $scope.creatingIssue = true;
         $http({
    			method: 'POST',
-    		url: 'http://localhost:8080/errorsconcentrator',
+    		url: config.apiUrl,
     		params: data,
     		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).then(function successCallback(response) {
             $scope.creatingIssue = false;
             $scope.sendRequest = true;
-			$scope.response = "Issue was created successfully with id 987";
+			$scope.response = "Issue was created successfully with id " + response.data + "!";
+            console.log(response);
 		}, function errorCallback(response) {
             $scope.creatingIssue = false;
             $scope.sendRequest = true;
-			$scope.response = "Internal Error";
+			$scope.response = "Error " + response.status + ": " + response.data;
 		});
     };
     $scope.back = function() {

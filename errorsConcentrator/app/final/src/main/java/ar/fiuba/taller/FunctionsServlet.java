@@ -41,6 +41,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.concurrent.TimeUnit;
 
+import java.text.ParseException;
+
 import com.googlecode.objectify.ObjectifyService;
 
 /**
@@ -57,30 +59,36 @@ public class FunctionsServlet extends HttpServlet {
   // Process the http POST of the form
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    Function functionObj;
+
     log.info("POST recibido");
 
     String date = req.getParameter("date");
-    String description = req.getParameter("description");
+    String function = req.getParameter("function");
     log.info("Parametros recibidos");
     log.info("date: " + date);
-    log.info("description: " + description);
+    log.info("function: " + function);
 
-    resp.setStatus(HttpServletResponse.SC_OK);
-  }
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-      log.info("Hice un get");
-      response(resp, "login ok");
-  }
+    //log.info("Intentando cargar entidad");    
+    //functionObj = ObjectifyService.ofy().load().type(Function.class).
+    //filter("function", function).first().now();
 
+    try {
+    //  if(functionObj == null) {
+      log.info("Entidad inexistente. Creando una nueva.");    
+      functionObj = new Function(function, date);
+    //  } else {
+    //   log.info("Entidad existente. Incrementando contador.");    
+    //    functionObj.incCount();
+    //  }
+      log.info("Persistiendo entidad.");    
+      ObjectifyService.ofy().save().entity(functionObj).now();
+    } catch (ParseException e) {
+      e.printStackTrace();
+      log.severe("Error al instanciar una nueva funcion");
+    }
 
-  private void response(HttpServletResponse resp, String msg)
-      throws IOException {
-    PrintWriter out = resp.getWriter();
-    out.println("<html>");
-    out.println("<body>");
-    out.println("<t1>" + msg + "</t1>");
-    out.println("</body>");
-    out.println("</html>");
+    log.info("Servlet finalizado.");    
   }
 }
 //[END all]

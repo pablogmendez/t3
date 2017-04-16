@@ -22,10 +22,13 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.annotation.Ignore;
 
 import java.lang.String;
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  * The @Entity tells Objectify about our entity.  We also register it in {@link OfyHelper}
@@ -45,11 +48,15 @@ public class Function {
   private String function;
   private Long count;
   @Index private Date date;
+  @Ignore private SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-  public Function(String function, Date date) {
+  public Function(String function, String date)  throws ParseException {
     this.function = function;
-    this.date = date;
-    this.count++;
+    this.date = parser.parse(date);
+    this.count = new Long(1);
+  }
+
+  public Function() {
   }
 
   public Long getId() {
@@ -67,5 +74,14 @@ public class Function {
   public Date getDate() {
     return date;
   }
+
+  public String getStringDate() throws ParseException {
+    return parser.format(date);
+  }
+
+  public void incCount() {
+    count++;
+  }
+
 }
 //[END all]

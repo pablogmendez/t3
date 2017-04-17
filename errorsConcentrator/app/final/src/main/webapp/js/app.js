@@ -15,7 +15,7 @@ myApp.config( [ '$routeProvider' , function($routeProvider){
     })
     .when('/functions' , {      
         templateUrl: "views/functions.html",
-        controller: 'functionssControl'
+        controller: 'functionsControl'
     })
     .when('/404', {
         templateUrl: 'views/404.html',

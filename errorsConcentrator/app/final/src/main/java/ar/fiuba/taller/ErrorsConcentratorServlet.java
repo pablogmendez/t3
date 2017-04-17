@@ -139,7 +139,7 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     log.info("GET recibido");
 
     String type = req.getParameter("type");
-    String result = "data: [";
+    String result = "{\"data\": [";
 
     if(type.equals("reports")) {
       log.info("Solicitud de reporte");      
@@ -160,7 +160,7 @@ public class ErrorsConcentratorServlet extends HttpServlet {
       result += "]";
       Cursor cursor = iterator.getCursor();
       log.info("Cursor actual " + cursor.toWebSafeString());
-      result += ", \"cursor\" : \"" + cursor.toWebSafeString() + "\"";
+      result += ", \"cursor\" : \"" + cursor.toWebSafeString() + "\"}";
       resp.getWriter().write(result);
       resp.getWriter().flush();
       resp.getWriter().close();
@@ -190,8 +190,10 @@ public class ErrorsConcentratorServlet extends HttpServlet {
       for(String reg : topFunctions) {
         result += "\"" + reg + "\",";
       }
-      result = result.substring(0, result.length() - 1);
-      result += "]";
+      if(topFunctions.size() > 0) {
+        result = result.substring(0, result.length() - 1);
+      }
+      result += "]}";
       resp.getWriter().write(result);
       resp.getWriter().flush();
       resp.getWriter().close();

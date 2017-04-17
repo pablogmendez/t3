@@ -1,1 +1,36 @@
-<div></div>
+<div ng-model="functions" >
+	<div class="panel panel-default">
+	  	<!-- Default panel contents -->
+	  	<div class="panel-heading">Top 10 functions in last {{currentTimeQuery}}</div>		
+	  	<nav aria-label="...">
+		  <ul class="pagination">
+		    <li ng-class="status[0]"><a id="0" data-ng-click="getData($event)">{{timeQuery[0]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[1]"><a id="1" data-ng-click="getData($event)">{{timeQuery[1]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[2]"><a id="2" data-ng-click="getData($event)">{{timeQuery[2]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[3]"><a id="3" data-ng-click="getData($event)">{{timeQuery[3]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[4]"><a id="4" data-ng-click="getData($event)">{{timeQuery[4]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[5]"><a id="5" data-ng-click="getData($event)">{{timeQuery[5]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[6]"><a id="6" data-ng-click="getData($event)">{{timeQuery[6]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[7]"><a id="7" data-ng-click="getData($event)">{{timeQuery[7]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[8]"><a id="8" data-ng-click="getData($event)">{{timeQuery[8]}}<span class="sr-only"></span></a></li>
+		  </ul>
+		</nav>
+	  	<div ng-show="searching">
+    		<h1>Searching...<i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i></h1>
+  		</div>
+		<!-- Table -->
+		<div ng-hide="searching">
+			<table class="table">
+			  <tr>
+			    <th>Functions</th>
+			  </tr>
+			  <tr ng-show="found" ng-repeat="function in functions">
+			    <td>{{function}}</td>
+			  </tr>
+			  <tr ng-hide="found">
+			  	<td>No functions found</td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+</div>

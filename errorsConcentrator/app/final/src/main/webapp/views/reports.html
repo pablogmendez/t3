@@ -1,21 +1,28 @@
-<div>
-	<nav aria-label="Page navigation">
-	  <ul class="pagination">
-	    <li>
-	      <a href="#" aria-label="Previous">
-	        <span aria-hidden="true">&laquo;</span>
-	      </a>
-	    </li>
-	    <li><a href="#">1</a></li>
-	    <li><a href="#">2</a></li>
-	    <li><a href="#">3</a></li>
-	    <li><a href="#">4</a></li>
-	    <li><a href="#">5</a></li>
-	    <li>
-	      <a href="#" aria-label="Next">
-	        <span aria-hidden="true">&raquo;</span>
-	      </a>
-	    </li>
+<div ng-model="apps" >
+	<div class="panel panel-default">
+	  	<!-- Default panel contents -->
+	  	<div class="panel-heading">Today's issues by application</div>		
+	  	<div ng-show="searching">
+    		<h1>Searching...<i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i></h1>
+  		</div>
+		<!-- Table -->
+		<div ng-hide="searching">
+			<table class="table">
+			  <tr>
+			    <th>Application</th>
+			    <th>#Issues</th>
+			  </tr>
+			  <tr ng-repeat="app in apps">
+			    <td>{{app.application}}</td>
+			    <td>{{app.count}}</td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+	<nav aria-label="...">
+	  <ul class="pager">
+	    <li ng-class="previousClass"><a ng-click="getPreviousReport()"><span aria-hidden="true">&larr;</span> Back</a></li>
+	    <li ng-class="nextClass"><a ng-click="getNextReport()">Next <span aria-hidden="true">&rarr;</span></a></li>
 	  </ul>
 	</nav>
 </div>

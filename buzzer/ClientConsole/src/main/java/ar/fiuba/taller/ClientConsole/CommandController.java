@@ -31,7 +31,7 @@ public class CommandController implements Runnable {
 		Command command;
 
 		logger.info("Iniciando el command controller");
-
+		while(true) {
 		try {
 			logger.info("Obteniendo comando de la cola");
 			command = commandQueue.take();
@@ -59,6 +59,7 @@ public class CommandController implements Runnable {
 			logger.error("Error al enviar el mensaje al dispatcher");
 			logger.info(e.toString());
 			e.printStackTrace();
+		}
 		}
 	}
 }

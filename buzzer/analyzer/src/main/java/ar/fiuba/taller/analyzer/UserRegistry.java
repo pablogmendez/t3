@@ -102,7 +102,7 @@ public class UserRegistry {
 		jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(followed);
 
-		System.out.println(array.toJSONString());
+		//System.out.println(array.toJSONString());
 
 		return array;
 	}

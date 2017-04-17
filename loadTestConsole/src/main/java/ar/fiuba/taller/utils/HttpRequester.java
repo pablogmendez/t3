@@ -36,10 +36,12 @@ public class HttpRequester {
 		if (data.length() > 0)
 			url += "?" + data;
 		URL obj = new URL(url);
+		try {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// optional default is GET
 		con.setRequestMethod("GET");
+		con.setConnectTimeout(5000);
 
 		// add request header
 		if (!headers.isEmpty()) {
@@ -57,20 +59,25 @@ public class HttpRequester {
 			response.append(inputLine);
 		}
 		in.close();
-
-		// print result
 		return response.toString();
+		} catch (java.net.SocketTimeoutException e) {
+		   return "";
+		} catch (java.io.IOException e) {
+		   return "";
+		}
+		// print result
 	}
 
 	// HTTP POST request
 	private String doPost(String url, Map<String, String> headers, String data)
 			throws Exception {
 		URL obj = new URL(url);
+		try {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// add reuqest method
 		con.setRequestMethod("POST");
-
+		con.setConnectTimeout(5000);
 		// add reuqest header
 		if (!headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -97,6 +104,11 @@ public class HttpRequester {
 
 		// print result
 		return response.toString();
+		} catch (java.net.SocketTimeoutException e) {
+		   return "";
+		} catch (java.io.IOException e) {
+		   return "";
+		}
 
 	}
 
@@ -105,9 +117,10 @@ public class HttpRequester {
 			throws Exception {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
+		try {
 		// add reuqest method
 		con.setRequestMethod("PUT");
+		con.setConnectTimeout(5000);
 
 		// add reuqest header
 		if (!headers.isEmpty()) {
@@ -136,6 +149,11 @@ public class HttpRequester {
 
 		// print result
 		return response.toString();
+		} catch (java.net.SocketTimeoutException e) {
+		   return "";
+		} catch (java.io.IOException e) {
+		   return "";
+		}
 	}
 
 }

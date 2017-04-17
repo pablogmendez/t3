@@ -2,8 +2,67 @@
 	"commands": [
 		{
 			"command": "PUBLISH",
-			"message": "Mensaje 1 #HOLAAA"
+			"message": "#Lorem #ipsum dolor sit amet, consectetur adipiscing elit. In dictum #magna ut sem egestas, non condimentum ligula euismod. #Nulla sed nisl lectus. Pellentesque consequat et sapien eu placerat. Ut nec metus lorem. Ut suscipit leo tempus elementum maximus. In est urna, maximus ultricies mi eu, placerat hendrerit dui. In hac habitasse platea dictumst. Etiam accumsan pretium egestas. Aenean dolor odio, blandit non pharetra at, imperdiet id nisi. Cras pellentesque ut est ac rutrum. Duis pulvinar arcu orci, a tincidunt ex tristique vitae. Aenean viverra eleifend massa et molestie. Suspendisse eget nibh quis neque luctus egestas. Vivamus molestie faucibus sapien eget pharetra. Curabitur sit amet arcu a sem scelerisque #malesuada."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Some #people say that I must be a terrible person, but it not true. I have the heart of a young boy in a #jar on my #desk"
+		},		
+		{
+			"command": "PUBLISH",
+			"message": "Try not to #become a man of success, but rather, try to become a man of #value."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Don't be so #humble, you're not that #great."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Boredom is a #great motivator."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "If all #pulled in one direction, the world would keel #over."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "The man who never makes a mistake #always #takes orders from one who does."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "No man or woman who tries to #pursue an ideal in his or her own way is without #enemies."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Do just once what others say you can't do, and you will never pay attention to their #limitations again."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "If a #million people say a foolish thing, it is still a #foolish thing."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "When #people are free to do as they please, they usually #imitate each other."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
 		}
-		
 	]
 }

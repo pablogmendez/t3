@@ -1,0 +1,64 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "A conscience is what hurts when all your #other parts feel so #good."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A clear conscience is usually the sign of a #bad memory."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The sooner you fall behind the more time #youll have to catch up."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All those who believe in #telekinesis, #raise my hand."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I almost had a #psychic #girlfriend but she left me before we met."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "OK, so what's #the #speed of dark?"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If everything seems to be going well, you have obviously #overlooked something."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Depression is merely anger without #enthusiasm."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When everything is coming your #way, youre in the wrong lane."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Ambition is a poor excuse for not having enough sense to be lazy."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user40"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

@@ -1,0 +1,64 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "Everyone in #life has a purpose, even if its to serve as a BAD #EXAMPLE"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We didn’t lose.....we just ran out of #time"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Here officer, hold my beer while I find my #license."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There are some days when I just don't feel #like talking.. Today is that day."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The only reason that I talk to myself is #because that I'm the only one whose answers I accept."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Learn from the mistakes of others, #because you can't live long enough to make them all yourself."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Men are like pennies: two-faced and #worthless."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Love is like heaven but hurts like #hell."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Look up for inspiration, down for #concentration but don’t look side to side for information."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "You tried, and you failed, so the #lesson is, never try."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#enemies"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "QUERY",
+			"message": "#hell"
+		}
+	]
+}

@@ -14,15 +14,15 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 @Entity
-public class Function {
+public class FunctionCache {
   @Id private Long id;
 
   private String name;
-  @Index private Long hour;
+  @Index private Long count;
 
   public Function(String name)  throws ParseException {
     this.name = name;
-    this.hour = 0;
+    this.count = new Long(1);
   }
 
   public Function() {
@@ -36,12 +36,16 @@ public class Function {
     return name;
   }
 
-  public Long getHour() {
-    return hour;
+  public Long getCount() {
+    return count;
   }
 
-  public void incHour() {
-    hout++;
+  public void incCount() {
+    count++;
+  }
+
+  public void reset() {
+    count = 0;
   }
 
 }

@@ -1,20 +1,3 @@
-/**
- * Copyright 2014-2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-//[START all]
 package ar.fiuba.taller;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -63,21 +46,12 @@ import java.util.ListIterator;
 import com.googlecode.objectify.cmd.Query;
 import com.googlecode.objectify.*;
 
-/**
- * Form Handling Servlet
- * Most of the action for this sample is in webapp/guestbook.jsp, which displays the
- * {@link Greeting}'s. This servlet has one method
- * {@link #doPost(<#HttpServletRequest req#>, <#HttpServletResponse resp#>)} which takes the form
- * data and saves it.
- */
 public class ErrorsConcentratorServlet extends HttpServlet {
 
    private static final Logger log = Logger.getLogger(ErrorsConcentratorServlet.class.getName());
 
-  // Process the http POST of the form
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //Greeting greeting;
     Issue issue;
     Queue functionsQueue;
     Queue appMsgCountQueue;
@@ -116,21 +90,22 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     log.info("Analizando el stacktrace");
     Pattern p = Pattern.compile(regexPattern);
     Matcher m = p.matcher(description);
-    m.find();
-    function = m.group(1).substring(1, m.group(1).length() - 1);
-    log.info("Funcion encontrada: " + function);
-    try {
-      log.info("Agregando task a la cola de Funciones");
-      functionsQueue.add(TaskOptions.Builder.withUrl("/functions").
-        param("date", issue.getStringDate()).param("function", function));
-      resp.getWriter().write(issue.getId().toString());
-      resp.getWriter().flush();
-      resp.getWriter().close();
-      resp.setStatus(HttpServletResponse.SC_OK);
-    } catch (ParseException e) {
-      e.printStackTrace();
-      log.severe("Error al agregar la funcion a la cola de funciones");
-      resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    while(m.find()) {
+      function = m.group(1).substring(1, m.group(1).length() - 1);
+      log.info("Funcion encontrada: " + function);
+      try {
+        log.info("Agregando task a la cola de Funciones");
+        functionsQueue.add(TaskOptions.Builder.withUrl("/functionscache").
+          .param("name", function));
+        resp.getWriter().write(issue.getId().toString());
+        resp.getWriter().flush();
+        resp.getWriter().close();
+        resp.setStatus(HttpServletResponse.SC_OK);
+      } catch (ParseException e) {
+        e.printStackTrace();
+        log.severe("Error al agregar la funcion a la cola de funciones");
+        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      }
     }
     log.info("Servlet terminado");
   }
@@ -143,65 +118,77 @@ public class ErrorsConcentratorServlet extends HttpServlet {
 
     if(type.equals("reports")) {
       log.info("Solicitud de reporte");      
-      Query<AppMsgCount> query = ObjectifyService.ofy().load()
-      .type(AppMsgCount.class).limit(Constants.QUERY_LIMIT);
-      String cursorStr = req.getParameter("cursor");
-      if (cursorStr != null)
-        query = query.startAt(Cursor.fromWebSafeString(cursorStr));
-      QueryResultIterator<AppMsgCount> iterator = query.iterator();
-      while (iterator.hasNext()) {
-          AppMsgCount amc = iterator.next();
-          log.info("amc: application = " + amc.getApplication() + ", count = " 
-            + amc.getCount().toString());
-          result += "{\"application\" : \"" + amc.getApplication() + "\"," + 
-                    "\"count\" : " + amc.getCount().toString() + "},";
-      }
-      result = result.substring(0, result.length() - 1);
-      result += "]";
-      Cursor cursor = iterator.getCursor();
-      log.info("Cursor actual " + cursor.toWebSafeString());
-      result += ", \"cursor\" : \"" + cursor.toWebSafeString() + "\"}";
-      resp.getWriter().write(result);
-      resp.getWriter().flush();
-      resp.getWriter().close();
-      resp.setStatus(HttpServletResponse.SC_OK);
+      getAppReport(HttpServletRequest req, HttpServletResponse resp);
     } else if (type.equals("functions")) {
-      log.info("Solicitud de funciones");      
-      Map<String, Long> map = new HashMap<String, Long>();
-      int hours = Integer.parseInt(req.getParameter("hours"));
-      Calendar calendar = Calendar.getInstance();
-      calendar.add(Calendar.HOUR_OF_DAY, -hours);
-      Date date = calendar.getTime();
-      log.info("Consultando las funciones desde " + date.toString());      
-      Query<Function> query = ObjectifyService.ofy().load()
-      .type(Function.class).filter("date >=", date)
-      .limit(Constants.QUERY_LIMIT);
-            QueryResultIterator<Function> iterator = query.iterator();
-      log.info("Cargando el map");      
-      while (iterator.hasNext()) {
-        Function function = iterator.next();
-        if(!map.containsKey(function.getFunction())) {
-          map.put(function.getFunction(), function.getCount());
-        } else {
-          map.put(function.getFunction(), map.get(function.getFunction()) + 1);
-        }
-      }
-      List<String> topFunctions = sortHashMapByValues(map);
-      for(String reg : topFunctions) {
-        result += "\"" + reg + "\",";
-      }
-      if(topFunctions.size() > 0) {
-        result = result.substring(0, result.length() - 1);
-      }
-      result += "]}";
-      resp.getWriter().write(result);
-      resp.getWriter().flush();
-      resp.getWriter().close();
-      resp.setStatus(HttpServletResponse.SC_OK);
+      log.info("Solicitud de funciones");   
+      getFunction(HttpServletRequest req, HttpServletResponse resp);
     } else {
       log.severe("Parametros invalidos");
       resp.setStatus(HttpServletResponse.SC_FORBIDDEN); 
     }
+  }
+
+  private void getAppReport(HttpServletRequest req, HttpServletResponse resp) {
+    String result = "{\"data\": [";
+
+    Query<AppMsgCount> query = ObjectifyService.ofy().load()
+    .type(AppMsgCount.class).limit(Constants.QUERY_LIMIT);
+    String cursorStr = req.getParameter("cursor");
+    if (cursorStr != null)
+      query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+    QueryResultIterator<AppMsgCount> iterator = query.iterator();
+    while (iterator.hasNext()) {
+        AppMsgCount amc = iterator.next();
+        log.info("amc: application = " + amc.getApplication() + ", count = " 
+          + amc.getCount().toString());
+        result += "{\"application\" : \"" + amc.getApplication() + "\"," + 
+                  "\"count\" : " + amc.getCount().toString() + "},";
+    }
+    result = result.substring(0, result.length() - 1);
+    result += "]";
+    Cursor cursor = iterator.getCursor();
+    log.info("Cursor actual " + cursor.toWebSafeString());
+    result += ", \"cursor\" : \"" + cursor.toWebSafeString() + "\"}";
+    resp.getWriter().write(result);
+    resp.getWriter().flush();
+    resp.getWriter().close();
+    resp.setStatus(HttpServletResponse.SC_OK);
+  }
+
+  private void getFunctions(HttpServletRequest req, HttpServletResponse resp) {
+    String result = "{\"data\": [";
+ 
+    Map<String, Long> map = new HashMap<String, Long>();
+    int hours = Integer.parseInt(req.getParameter("hours"));
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.HOUR_OF_DAY, -hours);
+    Date date = calendar.getTime();
+    log.info("Consultando las funciones desde " + date.toString());      
+    Query<Function> query = ObjectifyService.ofy().load()
+    .type(Function.class).filter("date >=", date)
+    .limit(Constants.QUERY_LIMIT);
+          QueryResultIterator<Function> iterator = query.iterator();
+    log.info("Cargando el map");      
+    while (iterator.hasNext()) {
+      Function function = iterator.next();
+      if(!map.containsKey(function.getFunction())) {
+        map.put(function.getFunction(), function.getCount());
+      } else {
+        map.put(function.getFunction(), map.get(function.getFunction()) + 1);
+      }
+    }
+    List<String> topFunctions = sortHashMapByValues(map);
+    for(String reg : topFunctions) {
+      result += "\"" + reg + "\",";
+    }
+    if(topFunctions.size() > 0) {
+      result = result.substring(0, result.length() - 1);
+    }
+    result += "]}";
+    resp.getWriter().write(result);
+    resp.getWriter().flush();
+    resp.getWriter().close();
+    resp.setStatus(HttpServletResponse.SC_OK);
   }
 
   private List<String> sortHashMapByValues(Map<String, Long> map) {
@@ -243,4 +230,3 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     return tt;
   }
 }
-//[END all]

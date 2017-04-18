@@ -12,4 +12,8 @@
     <name>analyzer-queue</name>
     <rate>5/s</rate>
   </queue>
+  <queue>
+    <name>consolidate-queue</name>
+    <rate>5/s</rate>
+  </queue>
 </queue-entries>

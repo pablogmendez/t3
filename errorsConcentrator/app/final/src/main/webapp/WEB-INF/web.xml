@@ -34,6 +34,26 @@
       <url-pattern>/functions</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>functionscache</servlet-name>
+      <servlet-class>ar.fiuba.taller.FunctionsCacheServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>functionscache</servlet-name>
+      <url-pattern>/functionscache</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>consolidatefunctions</servlet-name>
+      <url-pattern>/consolidatefunctions</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>consolidatefunctions</servlet-name>
+      <servlet-class>ar.fiuba.taller.ConsolidateFunctionsServlet</servlet-class>
+    </servlet>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

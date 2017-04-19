@@ -69,26 +69,26 @@ public class FunctionsServlet extends HttpServlet {
     log.info("date: " + date);
     log.info("function: " + function);
 
-    //log.info("Intentando cargar entidad");    
+    //log.info("Intentando cargar entidad");
     //functionObj = ObjectifyService.ofy().load().type(Function.class).
     //filter("function", function).first().now();
 
-    try {
+    // try {
     //  if(functionObj == null) {
-      log.info("Entidad inexistente. Creando una nueva.");    
-      functionObj = new Function(function, date);
+      log.info("Entidad inexistente. Creando una nueva.");
+      functionObj = new Function(function);
     //  } else {
-    //   log.info("Entidad existente. Incrementando contador.");    
+    //   log.info("Entidad existente. Incrementando contador.");
     //    functionObj.incCount();
     //  }
-      log.info("Persistiendo entidad.");    
+      log.info("Persistiendo entidad.");
       ObjectifyService.ofy().save().entity(functionObj).now();
-    } catch (ParseException e) {
-      e.printStackTrace();
-      log.severe("Error al instanciar una nueva funcion");
-    }
+    // } catch (ParseException e) {
+    //   e.printStackTrace();
+    //   log.severe("Error al instanciar una nueva funcion");
+    // }
 
-    log.info("Servlet finalizado.");    
+    log.info("Servlet finalizado.");
   }
 }
 //[END all]

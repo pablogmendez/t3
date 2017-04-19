@@ -20,9 +20,9 @@ public class Function {
   private String name;
   @Index private Long hour;
 
-  public Function(String name)  throws ParseException {
+  public Function(String name) {
     this.name = name;
-    this.hour = 0;
+    this.hour = new Long(0);
   }
 
   public Function() {
@@ -41,7 +41,7 @@ public class Function {
   }
 
   public void incHour() {
-    hout++;
+    hour++;
   }
 
 }

@@ -20,12 +20,12 @@ public class FunctionCache {
   private String name;
   @Index private Long count;
 
-  public Function(String name)  throws ParseException {
+  public FunctionCache(String name)  throws ParseException {
     this.name = name;
     this.count = new Long(1);
   }
 
-  public Function() {
+  public FunctionCache() {
   }
 
   public Long getId() {
@@ -45,7 +45,7 @@ public class FunctionCache {
   }
 
   public void reset() {
-    count = 0;
+    count = new Long(0);
   }
 
 }

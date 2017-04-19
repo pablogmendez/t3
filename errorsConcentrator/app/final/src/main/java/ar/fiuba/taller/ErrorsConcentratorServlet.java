@@ -86,26 +86,20 @@ public class ErrorsConcentratorServlet extends HttpServlet {
 
     log.info("Conectando con cola functions");
     functionsQueue = QueueFactory.getQueue("functions-queue");
-    
+
     log.info("Analizando el stacktrace");
     Pattern p = Pattern.compile(regexPattern);
     Matcher m = p.matcher(description);
     while(m.find()) {
       function = m.group(1).substring(1, m.group(1).length() - 1);
       log.info("Funcion encontrada: " + function);
-      try {
-        log.info("Agregando task a la cola de Funciones");
-        functionsQueue.add(TaskOptions.Builder.withUrl("/functionscache").
-          .param("name", function));
-        resp.getWriter().write(issue.getId().toString());
-        resp.getWriter().flush();
-        resp.getWriter().close();
-        resp.setStatus(HttpServletResponse.SC_OK);
-      } catch (ParseException e) {
-        e.printStackTrace();
-        log.severe("Error al agregar la funcion a la cola de funciones");
-        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-      }
+      log.info("Agregando task a la cola de Funciones");
+      functionsQueue.add(TaskOptions.Builder.withUrl("/functionscache").
+        param("name", function));
+      resp.getWriter().write(issue.getId().toString());
+      resp.getWriter().flush();
+      resp.getWriter().close();
+      resp.setStatus(HttpServletResponse.SC_OK);
     }
     log.info("Servlet terminado");
   }
@@ -117,14 +111,14 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     String result = "{\"data\": [";
 
     if(type.equals("reports")) {
-      log.info("Solicitud de reporte");      
-      getAppReport(HttpServletRequest req, HttpServletResponse resp);
+      log.info("Solicitud de reporte");
+      getAppReport(req, resp);
     } else if (type.equals("functions")) {
-      log.info("Solicitud de funciones");   
-      getFunction(HttpServletRequest req, HttpServletResponse resp);
+      log.info("Solicitud de funciones");
+      getFunctions(req, resp);
     } else {
       log.severe("Parametros invalidos");
-      resp.setStatus(HttpServletResponse.SC_FORBIDDEN); 
+      resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
   }
 
@@ -139,9 +133,9 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     QueryResultIterator<AppMsgCount> iterator = query.iterator();
     while (iterator.hasNext()) {
         AppMsgCount amc = iterator.next();
-        log.info("amc: application = " + amc.getApplication() + ", count = " 
+        log.info("amc: application = " + amc.getApplication() + ", count = "
           + amc.getCount().toString());
-        result += "{\"application\" : \"" + amc.getApplication() + "\"," + 
+        result += "{\"application\" : \"" + amc.getApplication() + "\"," +
                   "\"count\" : " + amc.getCount().toString() + "},";
     }
     result = result.substring(0, result.length() - 1);
@@ -149,45 +143,53 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     Cursor cursor = iterator.getCursor();
     log.info("Cursor actual " + cursor.toWebSafeString());
     result += ", \"cursor\" : \"" + cursor.toWebSafeString() + "\"}";
-    resp.getWriter().write(result);
-    resp.getWriter().flush();
-    resp.getWriter().close();
+    try {
+      resp.getWriter().write(result);
+      resp.getWriter().flush();
+      resp.getWriter().close();
+    } catch (IOException e) {
+
+    }
     resp.setStatus(HttpServletResponse.SC_OK);
   }
 
   private void getFunctions(HttpServletRequest req, HttpServletResponse resp) {
     String result = "{\"data\": [";
- 
-    Map<String, Long> map = new HashMap<String, Long>();
-    int hours = Integer.parseInt(req.getParameter("hours"));
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.HOUR_OF_DAY, -hours);
-    Date date = calendar.getTime();
-    log.info("Consultando las funciones desde " + date.toString());      
-    Query<Function> query = ObjectifyService.ofy().load()
-    .type(Function.class).filter("date >=", date)
-    .limit(Constants.QUERY_LIMIT);
-          QueryResultIterator<Function> iterator = query.iterator();
-    log.info("Cargando el map");      
-    while (iterator.hasNext()) {
-      Function function = iterator.next();
-      if(!map.containsKey(function.getFunction())) {
-        map.put(function.getFunction(), function.getCount());
-      } else {
-        map.put(function.getFunction(), map.get(function.getFunction()) + 1);
-      }
+
+    // Map<String, Long> map = new HashMap<String, Long>();
+    // int hours = Integer.parseInt(req.getParameter("hours"));
+    // Calendar calendar = Calendar.getInstance();
+    // calendar.add(Calendar.HOUR_OF_DAY, -hours);
+    // Date date = calendar.getTime();
+    // log.info("Consultando las funciones desde " + date.toString());
+    // Query<Function> query = ObjectifyService.ofy().load()
+    // .type(Function.class).filter("date >=", date)
+    // .limit(Constants.QUERY_LIMIT);
+    //       QueryResultIterator<Function> iterator = query.iterator();
+    // log.info("Cargando el map");
+    // while (iterator.hasNext()) {
+    //   Function function = iterator.next();
+    //   if(!map.containsKey(function.getName())) {
+    //     map.put(function.getFunction(), function.getCount());
+    //   } else {
+    //     map.put(function.getFunction(), map.get(function.getFunction()) + 1);
+    //   }
+    // }
+    // List<String> topFunctions = sortHashMapByValues(map);
+    // for(String reg : topFunctions) {
+    //   result += "\"" + reg + "\",";
+    // }
+    // if(topFunctions.size() > 0) {
+    //   result = result.substring(0, result.length() - 1);
+    // }
+    // result += "]}";
+    try {
+      resp.getWriter().write(result);
+      resp.getWriter().flush();
+      resp.getWriter().close();
+    } catch (IOException e) {
+
     }
-    List<String> topFunctions = sortHashMapByValues(map);
-    for(String reg : topFunctions) {
-      result += "\"" + reg + "\",";
-    }
-    if(topFunctions.size() > 0) {
-      result = result.substring(0, result.length() - 1);
-    }
-    result += "]}";
-    resp.getWriter().write(result);
-    resp.getWriter().flush();
-    resp.getWriter().close();
     resp.setStatus(HttpServletResponse.SC_OK);
   }
 
@@ -197,7 +199,7 @@ public class ErrorsConcentratorServlet extends HttpServlet {
     Collections.sort(mapValues);
     Collections.sort(mapKeys);
 
-    LinkedHashMap<String, Long> sortedMap = 
+    LinkedHashMap<String, Long> sortedMap =
         new LinkedHashMap<String, Long>();
 
     java.util.Iterator<Long> valueIt = mapValues.iterator();

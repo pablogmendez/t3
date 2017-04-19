@@ -49,9 +49,8 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
     log.info("POST recibido");
 
     task = req.getParameter("task");
-
+    log.info("Tarea recibida: " + task);
     if(task.equals("init")) {
-      log.info("Tarea recibida: init");
       Query<FunctionCache> query = ObjectifyService.ofy().load()
       .type(FunctionCache.class).order("-count").limit(Constants.QUERY_LIMIT);
       QueryResultIterator<FunctionCache> iterator = query.iterator();
@@ -69,7 +68,6 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
       consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
         .param("task", "clean"));
     } else if (task.equals("clean")) {
-      log.info("Tarea recibida: clean");
       functionCacheObj = ObjectifyService.ofy().load().type(FunctionCache.class).
       filter("count >", 0).first().now();
       if(functionCacheObj == null) {

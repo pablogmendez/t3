@@ -1,13 +1,13 @@
 myApp.controller('functionsControl', function($scope , $location, $http, userservice, config){
     $scope.searching = false;
-    $scope.found = true;
+    $scope.found = false;
     $scope.functions = [];
     $scope.currentTimeQuery = "...";
-    $scope.timeQuery = ["1 hour", "6 hour", "12 hour", "1 day", "2 days", "4 days",
-     "7 days", "14 days", "30 days"];
+    $scope.timeQuery = ["1 hour", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours",
+     "7 hours", "8 hours", "9 hours", "10 hours"];
     $scope.status = ["dispabled", "dispabled", "dispabled", "dispabled",
-     "dispabled", "dispabled", "dispabled", "dispabled", "dispabled"];
-    $scope.time = [1, 6, 12, 24, 48, 96, 168, 336, 720];
+     "dispabled", "dispabled", "dispabled", "dispabled", "dispabled", "dispabled"];
+    $scope.time = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
 	$scope.getData = function(event)

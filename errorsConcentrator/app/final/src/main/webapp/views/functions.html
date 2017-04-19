@@ -13,6 +13,7 @@
 		    <li ng-class="status[6]"><a id="6" data-ng-click="getData($event)">{{timeQuery[6]}}<span class="sr-only"></span></a></li>
 		    <li ng-class="status[7]"><a id="7" data-ng-click="getData($event)">{{timeQuery[7]}}<span class="sr-only"></span></a></li>
 		    <li ng-class="status[8]"><a id="8" data-ng-click="getData($event)">{{timeQuery[8]}}<span class="sr-only"></span></a></li>
+		    <li ng-class="status[9]"><a id="9" data-ng-click="getData($event)">{{timeQuery[9]}}<span class="sr-only"></span></a></li>
 		  </ul>
 		</nav>
 	  	<div ng-show="searching">
@@ -20,16 +21,20 @@
   		</div>
 		<!-- Table -->
 		<div ng-hide="searching">
-			<table class="table">
+			<table ng-show="found" class="table">
 			  <tr>
+			  	<th>#</th>
 			    <th>Functions</th>
 			  </tr>
-			  <tr ng-show="found" ng-repeat="function in functions">
+			  <tr ng-repeat="function in functions">
+			  	<td>{{$index + 1}}</td>
 			    <td>{{function}}</td>
 			  </tr>
-			  <tr ng-hide="found">
-			  	<td>No functions found</td>
-			  </tr>
+			</table>
+			<table ng-hide="found" class="table">
+				<tr>
+			  		<td>No functions found</td>
+			  	</tr>
 			</table>
 		</div>
 	</div>

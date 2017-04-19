@@ -155,34 +155,25 @@ public class ErrorsConcentratorServlet extends HttpServlet {
 
   private void getFunctions(HttpServletRequest req, HttpServletResponse resp) {
     String result = "{\"data\": [";
+    String topFunctions = "";
 
-    // Map<String, Long> map = new HashMap<String, Long>();
-    // int hours = Integer.parseInt(req.getParameter("hours"));
-    // Calendar calendar = Calendar.getInstance();
-    // calendar.add(Calendar.HOUR_OF_DAY, -hours);
-    // Date date = calendar.getTime();
-    // log.info("Consultando las funciones desde " + date.toString());
-    // Query<Function> query = ObjectifyService.ofy().load()
-    // .type(Function.class).filter("date >=", date)
-    // .limit(Constants.QUERY_LIMIT);
-    //       QueryResultIterator<Function> iterator = query.iterator();
-    // log.info("Cargando el map");
-    // while (iterator.hasNext()) {
-    //   Function function = iterator.next();
-    //   if(!map.containsKey(function.getName())) {
-    //     map.put(function.getFunction(), function.getCount());
-    //   } else {
-    //     map.put(function.getFunction(), map.get(function.getFunction()) + 1);
-    //   }
-    // }
-    // List<String> topFunctions = sortHashMapByValues(map);
-    // for(String reg : topFunctions) {
-    //   result += "\"" + reg + "\",";
-    // }
-    // if(topFunctions.size() > 0) {
-    //   result = result.substring(0, result.length() - 1);
-    // }
-    // result += "]}";
+    int hours = Integer.parseInt(req.getParameter("hours"));
+    log.info("Consultando las funciones obtenidas hace " + hours + " horas");
+    Query<Function> query = ObjectifyService.ofy().load()
+     .type(Function.class).filter("hour ==", hours);
+    
+    QueryResultIterator<Function> iterator = query.iterator();
+    while (iterator.hasNext()) {
+      topFunctions += "\"" + iterator.next().getName() + "\",";
+    }
+    log.info("///" + topFunctions);
+    if(topFunctions.length() > 0) {
+      topFunctions = topFunctions.substring(0, topFunctions.length() - 1);
+    } else {
+      log.info("No se encontraron funciones");
+    }
+    result += topFunctions + "]}";
+    log.info("Resultado: " + result);
     try {
       resp.getWriter().write(result);
       resp.getWriter().flush();

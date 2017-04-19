@@ -41,24 +41,24 @@ public class FunctionsCacheServlet extends HttpServlet {
     log.info("Parametros recibidos");
     log.info("name: " + name);
 
-    log.info("Intentando cargar entidad");    
+    log.info("Intentando cargar entidad");
     functionCacheObj = ObjectifyService.ofy().load().type(FunctionCache.class).
     filter("name", name).first().now();
 
     try {
       if(functionCacheObj == null) {
-        log.info("Entidad inexistente. Creando una nueva.");    
+        log.info("Entidad inexistente. Creando una nueva.");
         functionCacheObj = new FunctionCache(name);
       } else {
-        log.info("Entidad existente. Incrementando contador.");    
+        log.info("Entidad existente. Incrementando contador.");
         functionCacheObj.incCount();
       }
-      log.info("Persistiendo entidad.");    
+      log.info("Persistiendo entidad.");
       ObjectifyService.ofy().save().entity(functionCacheObj).now();
     } catch (ParseException e) {
       e.printStackTrace();
       log.severe("Error al instanciar una nueva funcion");
     }
-    log.info("Servlet finalizado.");    
+    log.info("Servlet finalizado.");
   }
 }

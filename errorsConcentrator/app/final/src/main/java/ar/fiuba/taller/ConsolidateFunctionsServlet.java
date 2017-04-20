@@ -56,26 +56,32 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
       QueryResultIterator<FunctionCache> iterator = query.iterator();
       log.info("Armando la lista de funciones obtenidas");
       while (iterator.hasNext()) {
-        functions += iterator.next() + ",";
+        functionCacheObj = iterator.next();
+        functions += functionCacheObj.getName() + ",";
       }
       log.info("Funciones obtenidas: " + functions);
-      functions = functions.substring(0, functions.length() - 1);
-      request = "?task=update&functions=" + functions;
-      log.info("Enviando lista de funciones al update para iniciar le batch de actualizacion de la tabla maestra de funciones");
-      consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
-        .param("task", "update").param("functions", functions));
-      log.info("Enviando tarea para iniciar el batch de limpieza de la cache");
-      consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
-        .param("task", "clean"));
+      if(functions.length() > 0) {
+        functions = functions.substring(0, functions.length() - 1);
+        request = "?task=update&functions=" + functions;
+        log.info("Enviando lista de funciones al update para iniciar le batch de actualizacion de la tabla maestra de funciones");
+        consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+          .param("task", "update").param("functions", functions));
+        log.info("Enviando tarea para iniciar el batch de limpieza de la cache");
+        //consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+        //.param("task", "clean"));
+      } else {
+        log.info("No hay funciones nuevaspara actualizar. Disparo la tarea de incremento de horas");
+        consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+          .param("task", "inchours"));
+      }
     } else if (task.equals("clean")) {
       functionCacheObj = ObjectifyService.ofy().load().type(FunctionCache.class).
-      filter("count >", 0).first().now();
+        first().now();
       if(functionCacheObj == null) {
         log.info("Termine de resetear la cache. Termino aca");
       } else {
         log.info("Reseteando la funcion: " + functionCacheObj.getName());
-        functionCacheObj.reset();
-        ObjectifyService.ofy().save().entity(functionCacheObj).now();
+        ObjectifyService.ofy().delete().entity(functionCacheObj).now();
         log.info("Pasando la posta a otro clean");
         consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
           .param("task", "clean"));
@@ -86,14 +92,16 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
       if(functions.length() == 0) {
         log.info("Termine la actualizacion");
         log.info("Comienzo con el batch de incremento de las horas");
-        consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
-          .param("task", "inchours"));
+        //consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+        //  .param("task", "inchours"));
       } else {
+        log.info("String de funciones recibido:" + functions);
         log.info("Obtengo la siguiente funcion a almacenar");
         String[] functionsArray = explode(functions);
         String name = functionsArray[functionsArray.length - 1];
         log.info("Funcion a almacenar: " + name);
         Function function = new Function(name);
+        log.info("Otra vez: " + function.getName());
         ObjectifyService.ofy().save().entity(function).now();
         consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
         .param("task", "update").param("functions",
@@ -107,6 +115,8 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
       QueryResultIterator<Function> iterator = query.iterator();
       if(iterator.hasNext()) {
           Function function = iterator.next();
+          log.info("Incrementando la hora de la funcion: " + function.getName());
+          log.info("hora de la funcion: " + function.getHour());
           function.incHour();
           ObjectifyService.ofy().save().entity(function).now();
           consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
@@ -117,7 +127,7 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
           .param("task", "delete"));
       }
     } else if (task.equals("delete")) {
-        Function function = ObjectifyService.ofy().load().type(Function.class).filter("hour >=", 7).first().now();
+        Function function = ObjectifyService.ofy().load().type(Function.class).filter("hour >", Constants.FUNCTIONS_HIST_LIMIT).first().now();
         if(function != null) {
           log.info("Eliminando: " + function.getName());
           ObjectifyService.ofy().delete().entity(function).now();

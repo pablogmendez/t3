@@ -43,9 +43,4 @@ public class FunctionCache {
   public void incCount() {
     count++;
   }
-
-  public void reset() {
-    count = new Long(0);
-  }
-
 }

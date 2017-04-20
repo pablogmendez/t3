@@ -54,6 +54,16 @@
       <servlet-class>ar.fiuba.taller.ConsolidateFunctionsServlet</servlet-class>
     </servlet>
 
+    <servlet-mapping>
+      <servlet-name>debug</servlet-name>
+      <url-pattern>/debug</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>debug</servlet-name>
+      <servlet-class>ar.fiuba.taller.DebugServlet</servlet-class>
+    </servlet>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

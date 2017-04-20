@@ -7,7 +7,7 @@
   		</div>
 		<!-- Table -->
 		<div ng-hide="searching">
-			<table class="table">
+			<table class="table" ng-show="showTable">
 			  <tr>
 			    <th>Application</th>
 			    <th>#Issues</th>
@@ -17,6 +17,7 @@
 			    <td>{{app.count}}</td>
 			  </tr>
 			</table>
+			<p ng-hide="showTable">No applications found</p>
 		</div>
 	</div>
 	<nav aria-label="...">

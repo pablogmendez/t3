@@ -67,8 +67,8 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
         consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
           .param("task", "update").param("functions", functions));
         log.info("Enviando tarea para iniciar el batch de limpieza de la cache");
-        //consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
-        //.param("task", "clean"));
+        consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+        .param("task", "clean"));
       } else {
         log.info("No hay funciones nuevaspara actualizar. Disparo la tarea de incremento de horas");
         consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
@@ -92,8 +92,8 @@ public class ConsolidateFunctionsServlet extends HttpServlet {
       if(functions.length() == 0) {
         log.info("Termine la actualizacion");
         log.info("Comienzo con el batch de incremento de las horas");
-        //consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
-        //  .param("task", "inchours"));
+        consolidateQueue.add(TaskOptions.Builder.withUrl("/consolidatefunctions")
+          .param("task", "inchours"));
       } else {
         log.info("String de funciones recibido:" + functions);
         log.info("Obtengo la siguiente funcion a almacenar");

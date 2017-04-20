@@ -3,6 +3,7 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
     var stack = [];
     $scope.apps = [];
     $scope.searching = true;
+    $scope.showTable = false;
 
     $scope.previousClass="previous disabled";
     $scope.nextClass="next";
@@ -12,14 +13,19 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
 		url: config.apiUrl + "?type=reports"
 	}).then(function successCallback(response) {
 		$scope.searching = false;
+		$scope.showTable = true;
 		console.log(response.data);
 		$scope.apps = response.data.data;
 		newerCursor = response.data.cursor;
 		if($scope.apps.length < config.pageRegs) {
 			$scope.nextClass = "next disabled";
+		} else {
+			$scope.nextClass="next disabled";
 		}
 	}, function errorCallback(response) {
-		alert("Error " + response.status + ": " + response.data);
+		$scope.searching = false;
+		$scope.showTable = false;
+		$scope.nextClass="next disabled";
 	});
 
     $scope.getNextReport = function() {   
@@ -33,6 +39,7 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
     		url: config.apiUrl + data
 		}).then(function successCallback(response) {
 			$scope.searching = false;
+			$scope.showTable = true;
 			$scope.apps = response.data.data;
 			stack.push(newerCursor);
 			newerCursor = response.data.cursor;
@@ -42,7 +49,8 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
 			$scope.previousClass="previous";
             console.log(response);
 		}, function errorCallback(response) {
-			alert("Error " + response.status + ": " + response.data);
+			$scope.searching = false;
+			$scope.showTable = false;
 		});
     };
 
@@ -61,6 +69,7 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
     		url: config.apiUrl + data
 		}).then(function successCallback(response) {
 			$scope.searching = false;
+			$scope.showTable = true;
 			$scope.apps = response.data.data;
 			newerCursor = response.data.cursor;
 			if($scope.apps.length >= config.pageRegs) {
@@ -68,7 +77,8 @@ myApp.controller('reportsControl', function($scope , $location, $http, userservi
 			}
             console.log(response);
 		}, function errorCallback(response) {
-			alert("Error " + response.status + ": " + response.data);
+			$scope.searching = false;
+			$scope.showTable = false;
 		});	
 	}
 });

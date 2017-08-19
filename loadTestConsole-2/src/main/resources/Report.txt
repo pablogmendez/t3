@@ -1,0 +1,8 @@
+Load Test Console: Monitor de reportes
+--------------------------------------
+URLs analizadas....................: 0
+SCRIPTS descargados................: 0
+LINKS descargados..................: 0
+IMGs descargadas...................: 0
+Hilos ejecutando script............: 0
+Hilos descargando recurso..........: 0

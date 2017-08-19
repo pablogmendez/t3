@@ -1,0 +1,20 @@
+Por cada paso computar: tiempo total de carga y total de bytes descargados.
+
+Brindar un resumen con tiempo de descarga promedio, cantidad de respuestas exitosas vs errores y cantidad de usuarios agrupados cada 10 segundos.
+
+Realizar un monitoreo constante en un archivo de texto con cantidades de:
+
+○ URLs analizadas
+
+○ Recursos descargados (SCRIPT, LINK, IMG)
+
+○ Hilos en cada uno de los siguientes estados:
+
+■ Ejecutando script
+
+■ Descargando recurso
+
+TODO:
+* agregar put y post
+* probar otro tipo de funciones
+* Revisar tiempo

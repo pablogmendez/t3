@@ -1,18 +1,14 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
-import ar.fiuba.taller.utils.*;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 import org.apache.log4j.Logger;
@@ -24,14 +20,14 @@ public class LoadTestConsole {
 	
 	final static Logger logger = Logger.getLogger(LoadTestConsole.class);
 	
-	public LoadTestConsole() throws Exception {
+	public LoadTestConsole() throws IOException {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		// Cargo la configuracion del archivo de properties y el patron de usuarios
 		loadProperties();
 		loadUserPattern();
 	}
 
-	public void start() {
+	public void start() throws FileNotFoundException {
 		Semaphore fileChangeSem = new Semaphore(0);
 		ArrayBlockingQueue<SummaryStat> summaryQueue = 
 				new ArrayBlockingQueue<SummaryStat>(Integer.parseInt(
@@ -44,10 +40,7 @@ public class LoadTestConsole {
 		
 		// Creo los threads
 		
-		Thread usersControllerThread = new Thread(new UsersController(
-				Integer.parseInt(propertiesMap.get(Constants.MAX_USERS)), 
-				Integer.parseInt(propertiesMap.get(Constants.MAX_DOWNLOADERS)), 
-				usersPatternMap));
+		Thread usersControllerThread = null;
 		Thread patternFileWatcherThread = new Thread(new PatternFileWatcher(
 				propertiesMap.get(Constants.USERS_PATTERN_FILE), 
 				fileChangeSem,
@@ -58,13 +51,36 @@ public class LoadTestConsole {
 		Thread reportPrinterThread = new Thread(new ReportPrinter(report));
 		
 		logger.info("Iniciando LoadTestConsole");
+		logger.info("Iniciando los threads");
+		patternFileWatcherThread.start();
+		summaryControllerThread.start();
+		summaryPrinterThread.start();
+		reportControllerThread.start();
+		reportPrinterThread.start();
 		
 		while(!Thread.interrupted()) {
-			
+			logger.info("Cargando patron de usuarios");
+			loadUserPattern();
+			logger.info("Disparando el usersControllerThread");
+			usersControllerThread = new Thread(new UsersController(
+					Integer.parseInt(propertiesMap.get(Constants.MAX_USERS)), 
+					Integer.parseInt(propertiesMap.get(Constants.MAX_DOWNLOADERS)), 
+					usersPatternMap));
+			usersControllerThread.start();
+			try {
+				// Me quedo esperando hasta que cambie el archivo
+				logger.info("Esperando hasta que cambie el archivo");
+				fileChangeSem.acquire(); 
+			} catch (InterruptedException e) {
+				// Do nothing
+				logger.error("No se ha podido tomar el semaforo");
+			}
+			logger.info("Cambio el archivo. Interrumpiendo el usersControllerThread");
+			usersControllerThread.interrupt();
 		}
 	}	
 	
-	private void loadProperties() throws Exception {
+	private void loadProperties() throws IOException {
 		logger.info("Cargando configuracion");
 		propertiesMap = new HashMap<String, String>();
 		Properties properties = new Properties();
@@ -73,7 +89,7 @@ public class LoadTestConsole {
 				    .getContextClassLoader().getResourceAsStream(Constants.PROPERTIES_FILE));
 		} catch (IOException e) {
 			System.err.println("No ha sido posible cargar el archivo de propiedades");
-			throw new Exception();
+			throw new IOException();
 		}
 		for (String key : properties.stringPropertyNames()) {
 		    String value = properties.getProperty(key);
@@ -82,7 +98,17 @@ public class LoadTestConsole {
 		}
 	}
 	
-	private void loadUserPattern() {
-		
+	private void loadUserPattern() throws FileNotFoundException {
+		File file = new File(propertiesMap.get(Constants.USERS_PATTERN_FILE));
+	    if (file == null || !file.canRead()) {
+	        throw new IllegalArgumentException("file not readable: " + file);
+	    }
+
+	    @SuppressWarnings("resource")
+		final Scanner s = new Scanner(file).useDelimiter(":\n?");
+	    while (s.hasNext()) {
+	    	usersPatternMap.put(s.nextInt(), s.nextInt());
+	        s.nextLine();
+	    }		
 	}
 }

@@ -13,7 +13,7 @@ public final class Constants {
 	public static final String REPORT_QUEUE_SIZE	= "report.queue.size";
 
 	public static final int EXIT_SUCCESS			= 0;
-	public static final int PROPERTIES_LOAD_FAILURE	= 1;
+	public static final int EXIT_FAILURE			= 1;
 	
 	
 	public static enum REPORT_EVENT {

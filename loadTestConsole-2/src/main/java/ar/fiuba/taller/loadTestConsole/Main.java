@@ -16,7 +16,7 @@ public class Main {
 			loadTestConsole.start();
 			logger.info("[*] Finaliza la instancia de LoadTestConsole");
 		} catch (Exception e) {
-			System.exit(Constants.PROPERTIES_LOAD_FAILURE);
+			System.exit(Constants.EXIT_FAILURE);
 		}
 		System.exit(Constants.EXIT_SUCCESS);
 	}

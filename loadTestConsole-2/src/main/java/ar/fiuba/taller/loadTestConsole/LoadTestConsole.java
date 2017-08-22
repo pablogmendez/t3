@@ -10,6 +10,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -22,9 +23,8 @@ public class LoadTestConsole {
 	
 	public LoadTestConsole() throws IOException {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		// Cargo la configuracion del archivo de properties y el patron de usuarios
+		// Cargo la configuracion del archivo de properties
 		loadProperties();
-		loadUserPattern();
 	}
 
 	public void start() throws FileNotFoundException {
@@ -37,6 +37,7 @@ public class LoadTestConsole {
 						propertiesMap.get(Constants.REPORT_QUEUE_SIZE)));
 		Summary summary = new Summary();
 		Report report = new Report();
+		AtomicInteger patternTime = new AtomicInteger(0);
 		
 		// Creo los threads
 		
@@ -60,12 +61,12 @@ public class LoadTestConsole {
 		
 		while(!Thread.interrupted()) {
 			logger.info("Cargando patron de usuarios");
-			loadUserPattern();
+			loadUserPattern(patternTime);
 			logger.info("Disparando el usersControllerThread");
 			usersControllerThread = new Thread(new UsersController(
 					Integer.parseInt(propertiesMap.get(Constants.MAX_USERS)), 
 					Integer.parseInt(propertiesMap.get(Constants.MAX_DOWNLOADERS)), 
-					usersPatternMap));
+					usersPatternMap, patternTime));
 			usersControllerThread.start();
 			try {
 				// Me quedo esperando hasta que cambie el archivo
@@ -98,8 +99,10 @@ public class LoadTestConsole {
 		}
 	}
 	
-	private void loadUserPattern() throws FileNotFoundException {
+	private void loadUserPattern(AtomicInteger patternTime) throws FileNotFoundException {
 		File file = new File(propertiesMap.get(Constants.USERS_PATTERN_FILE));
+		int nextInt;
+		usersPatternMap = new HashMap<Integer, Integer>();
 	    if (file == null || !file.canRead()) {
 	        throw new IllegalArgumentException("file not readable: " + file);
 	    }
@@ -107,7 +110,10 @@ public class LoadTestConsole {
 	    @SuppressWarnings("resource")
 		final Scanner s = new Scanner(file).useDelimiter(":\n?");
 	    while (s.hasNext()) {
-	    	usersPatternMap.put(s.nextInt(), s.nextInt());
+	    	nextInt = s.nextInt();
+	    	if(nextInt >= patternTime.get()) {
+	    		usersPatternMap.put(nextInt, s.nextInt());
+	    	}
 	        s.nextLine();
 	    }		
 	}

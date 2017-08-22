@@ -5,18 +5,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.apache.log4j.Logger;
 
 public class SummaryController implements Runnable {
-	ArrayBlockingQueue<SummaryTask> pendingSummaryQueue;
-	ArrayBlockingQueue<SummaryTask> finishedSummaryQueue;
+	ArrayBlockingQueue<SummaryStat> summaryQueue;
 	Summary summary;
-	final static Logger logger = Logger.getLogger(App.class);
+	
+	final static Logger logger = Logger.getLogger(SummaryController.class);
 
 	public SummaryController(
-			ArrayBlockingQueue<SummaryTask> pendingSummaryQueue,
-			ArrayBlockingQueue<SummaryTask> finishedSummaryQueue,
+			ArrayBlockingQueue<SummaryStat> summaryQueue,
 			Summary summary) {
 		super();
-		this.pendingSummaryQueue = pendingSummaryQueue;
-		this.finishedSummaryQueue = finishedSummaryQueue;
+		this.summaryQueue = summaryQueue;
 		this.summary = summary;
 	}
 

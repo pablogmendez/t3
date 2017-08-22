@@ -1,23 +1,18 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import org.apache.log4j.Logger;
-
-import ar.fiuba.taller.utils.TerminateSignal;
+import org.apache.log4j.MDC;
 
 public class SummaryPrinter implements Runnable {
 
 	Summary summary;
-	TerminateSignal terminateSignal;
-	TerminateSignal globalTerminateSignal;
 
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(SummaryPrinter.class);
 
-	public SummaryPrinter(Summary summary, TerminateSignal terminateSignal,
-			TerminateSignal globalTerminateSignal) {
+	public SummaryPrinter(Summary summary) {
 		super();
 		this.summary = summary;
-		this.terminateSignal = terminateSignal;
-		this.globalTerminateSignal = globalTerminateSignal;
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
 	public void run() {

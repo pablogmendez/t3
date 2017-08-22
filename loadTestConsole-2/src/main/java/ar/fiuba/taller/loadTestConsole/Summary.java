@@ -18,18 +18,18 @@ public class Summary {
 		return successfullrequest;
 	}
 
-	public synchronized void setSuccessfullrequest(Integer successfullrequest) {
-		this.successfullrequest = successfullrequest;
+	public synchronized void incSuccessfullrequest() {
+		successfullrequest++;
 	}
-
+	
 	public synchronized Integer getFailedrequest() {
 		return failedrequest;
 	}
 
-	public synchronized void setFailedrequest(Integer failedrequest) {
-		this.failedrequest = failedrequest;
+	public synchronized void incFailedrequest() {
+		failedrequest++;
 	}
-
+	
 	public synchronized Integer getUsers() {
 		return users;
 	}

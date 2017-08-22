@@ -4,7 +4,7 @@
 
   <groupId>ar.fiuba.taller</groupId>
   <artifactId>loadTestConsole</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>loadTestConsole</name>
@@ -14,18 +14,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
+<dependencies>
+
     <dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
 		<version>1.2.17</version>
+		<scope>system</scope>
+      	<systemPath>${project.basedir}/lib/log4j-1.2.17.jar</systemPath>		
 	</dependency>
     
     <dependency>
@@ -33,77 +29,31 @@
   		<groupId>org.jsoup</groupId>
   		<artifactId>jsoup</artifactId>
   		<version>1.10.2</version>
+		<scope>system</scope>
+      	<systemPath>${project.basedir}/lib/jsoup-1.10.2.jar</systemPath>
 	</dependency>
+
+    <dependency>
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1.1</version>
+		<scope>system</scope>
+      	<systemPath>${project.basedir}/lib/json-simple-1.1.1.jar</systemPath>		
+	</dependency>
+    
     
   </dependencies>
   
   	<build>
  		<plugins> 
-
-		      <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-			    <source>1.7</source>
-			    <target>1.7</target>
-			</configuration>
-		    </plugin>
-
 			<plugin>
-  	 			<groupId>org.apache.maven.plugins</groupId>
-	        		<artifactId>maven-jar-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-	        			<archive>
-		            			<manifest>
-		                			<addClasspath>true</addClasspath>
-			                    		<classpathPrefix>lib/</classpathPrefix>
-			                    		<mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
-		                		</manifest>
-		            		</archive>
-	        		</configuration>
-			</plugin>
-	
-			<plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-	        	        <artifactId>maven-dependency-plugin</artifactId>
-	        	        <executions>
-	        	            <execution>
-	        	                <id>copy</id>
-	        	                <phase>install</phase>
-	        	                <goals>
-	        	                    <goal>copy-dependencies</goal>
-	        	                </goals>
-	        	                <configuration>
-	        	                    <outputDirectory>
-	        	                      ${project.build.directory}/lib
-	        	                    </outputDirectory>
-	        	                </configuration>
-	        	            </execution>
-	        	        </executions>
-		            </plugin>
-        	    
-		            <plugin>
-			            <groupId>org.apache.maven.plugins</groupId>
-			            <artifactId>maven-shade-plugin</artifactId>
-			            <version>2.1</version>
-			            <executions>
-			                <execution>
-			                    <phase>package</phase>
-			                    <goals>
-			                        <goal>shade</goal>
-			                    </goals>
-			                    <configuration>
-			                            <transformers>
-                		    			        <transformer
-                		    			            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                			    		                <mainClass>ar.fiuba.taller.loadTestConsole.App</mainClass>
-		    		                                </transformer>
-                		   	            </transformers>
-		    	                   </configuration>
-			                </execution>
-			            </executions>
-		           </plugin>
-            
+			    	<source>1.7</source>
+			    	<target>1.7</target>
+				</configuration>
+		    </plugin>            
 		</plugins>
  	</build> 
   

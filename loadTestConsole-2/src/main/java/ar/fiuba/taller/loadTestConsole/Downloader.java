@@ -14,7 +14,7 @@ public class Downloader implements Runnable {
 	private ArrayBlockingQueue<SummaryTask> summaryQueue;
 	private ArrayBlockingQueue<ReportTask> reportQueue;
 
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(Main.class);
 
 	public Downloader(
 			ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue,

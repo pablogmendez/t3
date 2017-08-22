@@ -4,18 +4,18 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import org.apache.log4j.Logger;
 
+import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
+
 public class ReportController implements Runnable {
 
-	private ArrayBlockingQueue<ReportTask> pendingReportQueue;
-	private ArrayBlockingQueue<ReportTask> finishedReportQueue;
+	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
 	private Report report;
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(ReportController.class);
 
-	public ReportController(ArrayBlockingQueue<ReportTask> pendingReportQueue,
-			ArrayBlockingQueue<ReportTask> finishedReportQueue, Report report) {
+	public ReportController(ArrayBlockingQueue<REPORT_EVENT> reportQueue,
+			Report report) {
 		super();
-		this.pendingReportQueue = pendingReportQueue;
-		this.finishedReportQueue = finishedReportQueue;
+		this.reportQueue = reportQueue;
 		this.report = report;
 	}
 

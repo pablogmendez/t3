@@ -4,25 +4,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 
-import ar.fiuba.taller.utils.TerminateSignal;
-
-public class Monitor implements Runnable {
+public class ReportPrinter implements Runnable {
 
 	Report report;
-	TerminateSignal terminateSignal;
 
-	final static Logger logger = Logger.getLogger(App.class);
+	final static Logger logger = Logger.getLogger(Main.class);
 
-	public Monitor(Report report, TerminateSignal terminateSignal) {
+	public ReportPrinter(Report report) {
 		super();
 		this.report = report;
-		this.terminateSignal = terminateSignal;
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
 	public void run() {
 		logger.info("Iniciando Monitor");
-		while (!terminateSignal.hasTerminate()) {
+		while (!Thread.interrupted()) {
 
 			try {
 				PrintWriter writer = new PrintWriter(Constants.REPORT_FILE,
@@ -44,13 +42,6 @@ public class Monitor implements Runnable {
 				writer.close();
 			} catch (IOException e) {
 				// do something
-			}
-
-			try {
-				Thread.sleep(Constants.MONITOR_TIMEOUT);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				logger.warn("Fallo el sleep del monitor");
 			}
 		}
 		logger.info("Finalizando Monitor");

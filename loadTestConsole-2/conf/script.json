@@ -1,0 +1,15 @@
+{
+	"steps":[
+	{"url" : "http://www.google.com",
+	"method" : "get",
+	"headers" : null,
+	"body" : null},
+	{"url" : "https://www.w3schools.com/",
+	"method" : "get",
+	"headers" : null,
+	"body" : null},
+	{"url" : "https://www.mkyong.com",
+	"method" : "get",
+	"headers" : null,
+	"body" : null}]
+}

@@ -40,7 +40,6 @@ public class LoadTestConsole {
 		AtomicInteger patternTime = new AtomicInteger(0);
 		
 		// Creo los threads
-		
 		Thread usersControllerThread = null;
 		Thread patternFileWatcherThread = new Thread(new PatternFileWatcher(
 				propertiesMap.get(Constants.USERS_PATTERN_FILE), 
@@ -64,9 +63,8 @@ public class LoadTestConsole {
 			loadUserPattern(patternTime);
 			logger.info("Disparando el usersControllerThread");
 			usersControllerThread = new Thread(new UsersController(
-					Integer.parseInt(propertiesMap.get(Constants.MAX_USERS)), 
-					Integer.parseInt(propertiesMap.get(Constants.MAX_DOWNLOADERS)), 
-					usersPatternMap, patternTime));
+					propertiesMap, usersPatternMap, patternTime,
+					summaryQueue, reportQueue));
 			usersControllerThread.start();
 			try {
 				// Me quedo esperando hasta que cambie el archivo
@@ -78,6 +76,11 @@ public class LoadTestConsole {
 			}
 			logger.info("Cambio el archivo. Interrumpiendo el usersControllerThread");
 			usersControllerThread.interrupt();
+			try {
+				usersControllerThread.join();
+			} catch (InterruptedException e) {
+				// Do nothing
+			}
 		}
 	}	
 	

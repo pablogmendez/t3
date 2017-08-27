@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -16,21 +17,32 @@ public class HttpRequester {
 	}
 
 	public String doHttpRequest(String method, String url,
-			Map<String, String> headers, String data) throws Exception {
-		String result = null;
+			String headers, String data, int timeout) throws Exception {
+		String result = null, name, value;
+		String[] headersArray, tmp;
+		Map<String, String> headersMap = new HashMap<String, String>();
+		
+		if(headers != null) {
+			headersArray = headers.split(";");
+			for(int i = 0; i < headersArray.length; i++) {
+				tmp = headersArray[i].split(":");
+				headersMap.put(tmp[0], tmp[1]);
+			}
+		}
+		
 		if (method.toLowerCase().equals("get")) {
-			result = doGet(url, headers, data);
+			result = doGet(url, headersMap, data, timeout);
 		} else if (method.toLowerCase().equals("post")) {
-			result = doPost(url, headers, data);
+			result = doPost(url, headersMap, data, timeout);
 		} else if (method.toLowerCase().equals("put")) {
-			result = doPut(url, headers, data);
+			result = doPut(url, headersMap, data, timeout);
 		}
 		return result;
 
 	}
 
 	// HTTP GET request
-	private String doGet(String url, Map<String, String> headers, String data)
+	private String doGet(String url, Map<String, String> headers, String data, int timeout)
 			throws Exception {
 		// Armo la conexion
 		if (data.length() > 0)
@@ -41,7 +53,7 @@ public class HttpRequester {
 
 		// optional default is GET
 		con.setRequestMethod("GET");
-		con.setConnectTimeout(5000);
+		con.setConnectTimeout(timeout);
 
 		// add request header
 		if (!headers.isEmpty()) {
@@ -69,7 +81,7 @@ public class HttpRequester {
 	}
 
 	// HTTP POST request
-	private String doPost(String url, Map<String, String> headers, String data)
+	private String doPost(String url, Map<String, String> headers, String data, int timeout)
 			throws Exception {
 		URL obj = new URL(url);
 		try {
@@ -77,7 +89,7 @@ public class HttpRequester {
 
 		// add reuqest method
 		con.setRequestMethod("POST");
-		con.setConnectTimeout(5000);
+		con.setConnectTimeout(timeout);
 		// add reuqest header
 		if (!headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -113,14 +125,14 @@ public class HttpRequester {
 	}
 
 	// HTTP PUT request
-	private String doPut(String url, Map<String, String> headers, String data)
+	private String doPut(String url, Map<String, String> headers, String data, int timeout)
 			throws Exception {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		try {
 		// add reuqest method
 		con.setRequestMethod("PUT");
-		con.setConnectTimeout(5000);
+		con.setConnectTimeout(timeout);
 
 		// add reuqest header
 		if (!headers.isEmpty()) {

@@ -2,29 +2,26 @@ package ar.fiuba.taller.loadTestConsole;
 
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Callable;
 
 import org.apache.log4j.Logger;
 
+import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
 import ar.fiuba.taller.utils.HttpRequester;
 
-public class Downloader implements Runnable {
+public class Downloader implements Callable {
 
-	private ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue;
-	private ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue;
-	private ArrayBlockingQueue<SummaryTask> summaryQueue;
-	private ArrayBlockingQueue<ReportTask> reportQueue;
+	final static Logger logger = Logger.getLogger(Downloader.class);
+	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
+	String url;
+	String type;
 
-	final static Logger logger = Logger.getLogger(Main.class);
 
-	public Downloader(
-			ArrayBlockingQueue<DownloaderTask> downloaderTaskPendigQueue,
-			ArrayBlockingQueue<DownloaderTask> downloaderTaskFinishedQueue,
-			ArrayBlockingQueue<SummaryTask> summaryQueue,
-			ArrayBlockingQueue<ReportTask> reportQueue) {
-		this.downloaderTaskPendigQueue = downloaderTaskPendigQueue;
-		this.downloaderTaskFinishedQueue = downloaderTaskFinishedQueue;
-		this.summaryQueue = summaryQueue;
+	public Downloader(ArrayBlockingQueue<REPORT_EVENT> reportQueue,
+			String url, String type) {
 		this.reportQueue = reportQueue;
+		this.url = url;
+		this.type = type;
 	}
 
 	public void run() {
@@ -98,6 +95,12 @@ public class Downloader implements Runnable {
 			logger.warn("No se ha podido pushear tareas en las colas");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Object call() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

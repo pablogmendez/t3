@@ -1,10 +1,10 @@
 package ar.fiuba.taller.loadTestConsole;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
-
 import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
 import ar.fiuba.taller.utils.HttpRequester;
@@ -13,94 +13,49 @@ public class Downloader implements Callable {
 
 	final static Logger logger = Logger.getLogger(Downloader.class);
 	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
-	String url;
-	String type;
-
+	private String url;
+	private String type;
+	private Map<String, String> propertiesMap;
 
 	public Downloader(ArrayBlockingQueue<REPORT_EVENT> reportQueue,
-			String url, String type) {
+			String url, String type, Map<String, String> propertiesMap) {
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.reportQueue = reportQueue;
 		this.url = url;
 		this.type = type;
-	}
-
-	public void run() {
-		DownloaderTask task = null;
-		Boolean gracefullQuit = false;
-		Integer bytesDownloaded;
-		long time_start, time_end, time_elapsed;
-		HttpRequester httpRequester = new HttpRequester();
-
-		logger.info("Iniciando un nuevo downloader");
-		logger.info("Obteniendo una nueva task");
-		try {
-			while (!gracefullQuit) {
-				task = downloaderTaskPendigQueue.take();
-				// Informo al monitor que arranco el downloader
-				reportQueue.put(new ReportTask(Constants.DEFAULT_ID,
-						Constants.TASK_STATUS.SUBMITTED, false, null));
-				logger.info("Task obtenida con los siguientes parametros:\n"
-						+ "Id: " + task.getId() + "\nStatus: "
-						+ task.getStatus() + "\nMethod: " + task.getMethod()
-						+ "\nUri: " + task.getUri());
-				if (task.getId() == Constants.DISCONNECT_ID) {
-					logger.info(
-							"Mensaje de desconexion. Se finaliza el thread.");
-					logger.info("Confirmando finalizacion al user");
-					downloaderTaskFinishedQueue.put(task);
-					logger.info("Downloader finalizado");
-					gracefullQuit = true;
-				} else {
-					logger.info("Nueva tarea recibida");
-					logger.info("Descargando recurso...");
-					task.setStatus(Constants.TASK_STATUS.EXECUTING);
-					try {
-						reportQueue.put(new ReportTask(Constants.DEFAULT_ID,
-								Constants.TASK_STATUS.EXECUTING, false,
-								task.getResourceType()));
-						time_start = System.currentTimeMillis();
-						bytesDownloaded = httpRequester
-								.doHttpRequest(task.getMethod(), task.getUri(),
-										new HashMap<String, String>(), "")
-								.length();// download(task.getMethod(),
-											// task.getUri());
-						time_end = System.currentTimeMillis();
-						time_elapsed = time_end - time_start;
-						logger.info("Bytes descargados: " + bytesDownloaded);
-						logger.info("Tiempo inicial: " + time_start
-								+ " nanosgundos");
-						logger.info(
-								"Tiempo final: " + time_end + " nanosgundos");
-						logger.info("Tiempo transcurrido: " + time_elapsed
-								+ " nanosegundos");
-						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID,
-								Constants.TASK_STATUS.SUBMITTED, 0, true,
-								time_elapsed));
-						// Informo al monitor que arranco el usuario
-						reportQueue.put(new ReportTask(Constants.DEFAULT_ID,
-								Constants.TASK_STATUS.FINISHED, false, null));
-						task.setStatus(Constants.TASK_STATUS.FINISHED);
-					} catch (Exception e) {
-						task.setStatus(Constants.TASK_STATUS.FAILED);
-						reportQueue.put(new ReportTask(Constants.DEFAULT_ID,
-								Constants.TASK_STATUS.FAILED, false, null));
-						summaryQueue.put(new SummaryTask(Constants.DEFAULT_ID,
-								Constants.TASK_STATUS.SUBMITTED, 0, false, 0));
-					} finally {
-						downloaderTaskFinishedQueue.put(task);
-					}
-				}
-			}
-		} catch (InterruptedException e) {
-			logger.warn("No se ha podido pushear tareas en las colas");
-			e.printStackTrace();
-		}
+		this.propertiesMap = propertiesMap;
 	}
 
 	@Override
-	public Object call() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Object call() {
+		long time_start, time_end, time_elapsed;
+		String strTime = null;
+		HttpRequester httpRequester = new HttpRequester();
+		
+		logger.info("Iniciando Downloader.");
+		try {
+			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOAD);
+			time_start = System.currentTimeMillis();
+			try {
+				httpRequester.doHttpRequest("get", 
+						url, null, null, 
+						Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT)));
+				time_end = System.currentTimeMillis();
+				time_elapsed = time_end - time_start;
+				strTime = Long.toString(time_elapsed);
+				reportQueue.put(Constants.TYPE_RESOURCE_MAP.get(type));
+				reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);	
+			} catch (Exception e) {
+				// Do nothing
+			}
+		} catch (InterruptedException e1) {
+			try {
+				reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);
+			} catch (InterruptedException e) {
+				// Do nothing
+			}				
+			logger.info("Downloader Interrumpido.");
+		}
+		return strTime;
 	}
-
 }

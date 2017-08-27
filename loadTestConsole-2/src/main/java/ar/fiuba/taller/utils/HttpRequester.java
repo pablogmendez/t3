@@ -18,7 +18,7 @@ public class HttpRequester {
 
 	public String doHttpRequest(String method, String url,
 			String headers, String data, int timeout) throws Exception {
-		String result = null, name, value;
+		String result = null;
 		String[] headersArray, tmp;
 		Map<String, String> headersMap = new HashMap<String, String>();
 		
@@ -33,7 +33,7 @@ public class HttpRequester {
 		if (method.toLowerCase().equals("get")) {
 			result = doGet(url, headersMap, data, timeout);
 		} else if (method.toLowerCase().equals("post")) {
-			result = doPost(url, headersMap, data, timeout);
+				result = doPost(url, headersMap, data, timeout);
 		} else if (method.toLowerCase().equals("put")) {
 			result = doPut(url, headersMap, data, timeout);
 		}

@@ -1,25 +1,23 @@
 package ar.fiuba.taller.loadTestConsole;
 
 public class RequestStat extends SummaryStat {
-	private Boolean successfullRequest;
-	private long timeElapsed;
+	private long successfullRequest;
+	private long failedRequest;
+	private long avgDownloadTime;
 	
-	public RequestStat(Boolean successfullRequest, long timeElapsed) {
+	public RequestStat(long successfullRequest, long failedRequest,
+			long avgDownloadTime) {
 		super();
 		this.successfullRequest = successfullRequest;
-		this.timeElapsed = timeElapsed;
+		this.failedRequest = failedRequest;
+		this.avgDownloadTime = avgDownloadTime;
 	}
 
 	@Override
 	public void updateSumary(Summary summary) { 
-		if(successfullRequest) {
-			summary.incSuccessfullrequest();
-		}
-		else {
-			summary.incFailedrequest();
-		}
-
-		summary.addTime(timeElapsed);		
+		summary.incSuccessfullrequest(successfullRequest);
+		summary.incFailedrequest(failedRequest);
+		summary.updateAvgDownloadTime(avgDownloadTime);		
 	}
 
 }

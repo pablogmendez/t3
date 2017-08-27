@@ -32,6 +32,7 @@ public class UsersController implements Runnable {
 			Map<Integer, Integer> usersPatternMap, AtomicInteger patternTime,
 			ArrayBlockingQueue<SummaryStat> summaryQueue,
 			ArrayBlockingQueue<REPORT_EVENT> reportQueue) {
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.propertiesMap = propertiesMap;
 		this.maxUsers = Integer.parseInt(this.propertiesMap.get(Constants.MAX_USERS));
 		this.usersPatternMap = usersPatternMap;
@@ -71,6 +72,7 @@ public class UsersController implements Runnable {
 				} else {
 					deltaUsers = 0;
 				}
+				summaryQueue.put(new UserStat(totalUsersCount));
 				logger.info("Tiempo a dormir hasta el proximo pulso: " + sleepTime);
 				patternTime.set(sleepTime);
 				Thread.sleep(sleepTime*Constants.SLEEP_UNIT);

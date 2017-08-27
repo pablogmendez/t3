@@ -2,49 +2,42 @@ package ar.fiuba.taller.loadTestConsole;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 public class ReportPrinter implements Runnable {
 
-	Report report;
+	private Report report;
+	private Map<String, String> propertiesMap;
+	final static Logger logger = Logger.getLogger(ReportPrinter.class);
 
-	final static Logger logger = Logger.getLogger(Main.class);
-
-	public ReportPrinter(Report report) {
-		super();
+	public ReportPrinter(Report report, Map<String, String> propertiesMap) {
 		this.report = report;
+		this.propertiesMap = propertiesMap;
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
 	public void run() {
 		logger.info("Iniciando Monitor");
 		while (!Thread.interrupted()) {
-
 			try {
-				PrintWriter writer = new PrintWriter(Constants.REPORT_FILE,
+				PrintWriter writer = new PrintWriter(propertiesMap.get(
+						Constants.REPORT_FILE),
 						"UTF-8");
-				writer.println("Load Test Console: Monitor de reportes");
-				writer.println("--------------------------------------");
-				writer.println("URLs analizadas....................: "
-						+ report.getAnalyzedUrl());
-				writer.println("SCRIPTS descargados................: "
-						+ report.getDownloadedScripts());
-				writer.println("LINKS descargados..................: "
-						+ report.getDownloadedLinks());
-				writer.println("IMGs descargadas...................: "
-						+ report.getDownloadedImages());
-				writer.println("Hilos ejecutando script............: "
-						+ report.getExecutionScriptThreads());
-				writer.println("Hilos descargando recurso..........: "
-						+ report.getDownloadResourceThreads());
+				writer.printf("Load Test Console: Monitor de reportes%n--------------------------------------%nURLs analizadas....................: %d%nSCRIPTS descargados................: %d%nLINKS descargados..................: %d%nIMGs descargadas...................: %d%nHilos ejecutando script............: %d%nHilos descargando recurso..........: %d%n",
+						report.getAnalyzedUrl(),
+						report.getDownloadedScripts(),
+						report.getDownloadedLinks(),
+						report.getDownloadedImages(),
+						report.getExecutionScriptThreads(),
+						report.getDownloadResourceThreads());
 				writer.close();
 			} catch (IOException e) {
-				// do something
+				logger.error("No se pudo abrir el report file");
 			}
 		}
 		logger.info("Finalizando Monitor");
 	}
-
 }

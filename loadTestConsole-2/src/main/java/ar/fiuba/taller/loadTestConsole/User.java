@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.swing.text.BadLocationException;
 import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,7 +27,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.w3c.dom.NodeList;
 import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
 import ar.fiuba.taller.utils.HttpRequester;
 
@@ -39,6 +39,7 @@ public class User implements Callable {
 	public User(Map<String, String> propertiesMap,
 			ArrayBlockingQueue<SummaryStat> summaryQueue,
 			ArrayBlockingQueue<REPORT_EVENT> reportQueue) {
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.summaryQueue = summaryQueue;
 		this.reportQueue = reportQueue;
 		this.propertiesMap = propertiesMap;
@@ -84,9 +85,8 @@ public class User implements Callable {
 	@SuppressWarnings({ "null", "unchecked" })
 	@Override
 	public Object call() throws FileNotFoundException, IOException, ParseException {
-		long time_elapsed, time_end, time_start;
+		long time_end, time_start, avgTime, successResponse, failedResponse;
 		String response = null;
-		int bytesDownloaded;
 		Map<String, String> resourceMap = null;
 		Set<Callable<Downloader>> downloadersSet = new HashSet<Callable<Downloader>>();
 		ExecutorService executorService = Executors.newFixedThreadPool(
@@ -101,45 +101,62 @@ public class User implements Callable {
 		List<Future<Downloader>> futures = null;
 		
 		logger.info("Iniciando usuario");
-		while(!Thread.interrupted()) {
-			Iterator<String> it = stepsArray.iterator();
-			while(it.hasNext()) {
-				objStep = (JSONObject)parser.parse(it.next());
-				logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
-				logger.info("Metodo: " + (String)objStep.get("method"));
-				logger.info("headers: " + (String)objStep.get("headers"));
-				logger.info("Body: " + (String)objStep.get("body"));
-				time_start = System.currentTimeMillis();
-				try {
-					response = httpRequester.doHttpRequest((String)objStep.get("method"), 
-							(String)objStep.get("url"),
-							(String)objStep.get("headers"),
-							(String)objStep.get("body"), 
-							Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT)));
-					resourceMap = getResources(response, (String)objStep.get("url"));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				time_end = System.currentTimeMillis();
-				time_elapsed = time_end - time_start;
-				bytesDownloaded = response.length();
-				for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
-				    downloadersSet.add(new Downloader(reportQueue, 
-				    		entry.getKey(), entry.getValue()));
-				}
-				try {
-					futures = executorService.invokeAll(downloadersSet);
-					for(Future<Downloader> future : futures){
-						System.out.println("future.get = " + future.get()); // status:tiempo
+		try {
+			while(!Thread.interrupted()) {
+				Iterator<String> it = stepsArray.iterator();
+				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
+				while(it.hasNext()) {
+					avgTime = 0;
+					successResponse = 0;
+					failedResponse = 0;
+					objStep = (JSONObject)parser.parse(it.next());
+					logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
+					logger.info("Metodo: " + (String)objStep.get("method"));
+					logger.info("headers: " + (String)objStep.get("headers"));
+					logger.info("Body: " + (String)objStep.get("body"));
+					time_start = System.currentTimeMillis();
+					try {
+						response = httpRequester.doHttpRequest((String)objStep.get("method"), 
+								(String)objStep.get("url"),
+								(String)objStep.get("headers"),
+								(String)objStep.get("body"), 
+								Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT)));
+						time_end = System.currentTimeMillis();
+						avgTime = time_end - time_start;
+						successResponse++;
+						resourceMap = getResources(response, (String)objStep.get("url"));
+						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+							downloadersSet.add(new Downloader(reportQueue, 
+									entry.getKey(), entry.getValue(), propertiesMap));
+						}
+						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+						try {
+							futures = executorService.invokeAll(downloadersSet);
+							for(Future<Downloader> future : futures){
+								if(future.get() != null) {
+									avgTime = (avgTime + Long.parseLong(
+											future.get().toString())/2);
+									successResponse++;
+								} else {
+									failedResponse++;
+								}
+							}
+						} catch (ExecutionException e) {
+							// Do nothing
+						}
+					} catch (Exception e) {
+						logger.error("No se ha podido descargar el recurso.");
+						failedResponse++;
 					}
-				} catch (InterruptedException e) {
-					logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
-					executorService.shutdownNow();
-				} catch (ExecutionException e) {
-					// Do nothing
+					summaryQueue.put(new RequestStat(successResponse,
+							failedResponse,
+							avgTime));
 				}
 			}
+		reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+		} catch (InterruptedException e) {
+			logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
+			executorService.shutdownNow();
 		}
 		return null;
 	}

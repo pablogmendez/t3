@@ -1,33 +1,32 @@
 package ar.fiuba.taller.loadTestConsole;
 
 public class Summary {
-	private long totalTime;
-	private Integer successfullrequest;
-	private Integer failedrequest;
+	private long avgDownloadTime;
+	private long successfullrequest;
+	private long failedrequest;
 	private Integer users;
 
 	public Summary() {
-		super();
-		totalTime = 0;
+		avgDownloadTime = 0;
 		successfullrequest = 0;
 		failedrequest = 0;
 		users = 0;
 	}
 
-	public synchronized Integer getSuccessfullrequest() {
+	public synchronized long getSuccessfullrequest() {
 		return successfullrequest;
 	}
 
-	public synchronized void incSuccessfullrequest() {
-		successfullrequest++;
+	public synchronized void incSuccessfullrequest(long count) {
+		successfullrequest += count;
 	}
 	
-	public synchronized Integer getFailedrequest() {
+	public synchronized long getFailedrequest() {
 		return failedrequest;
 	}
 
-	public synchronized void incFailedrequest() {
-		failedrequest++;
+	public synchronized void incFailedrequest(long count) {
+		failedrequest += count;
 	}
 	
 	public synchronized Integer getUsers() {
@@ -38,18 +37,15 @@ public class Summary {
 		this.users = users;
 	}
 
-	public synchronized long getAverageTime() {
-		if (successfullrequest > 0) {
-			return totalTime / successfullrequest;
-		}
-		return 0;
+	public synchronized long getAvgDownloadTime() {
+		return avgDownloadTime;
 	}
 
-	public synchronized void addTime(long time) {
-		totalTime += time;
+	public synchronized void updateAvgDownloadTime(long time) {
+		avgDownloadTime = (avgDownloadTime + time)/2;
 	}
 
-	public synchronized Integer getTotalRequests() {
+	public synchronized long getTotalRequests() {
 		return successfullrequest + failedrequest;
 	}
 }

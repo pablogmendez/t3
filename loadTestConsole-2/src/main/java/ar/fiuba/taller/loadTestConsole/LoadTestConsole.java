@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -111,13 +113,16 @@ public class LoadTestConsole {
 	    }
 
 	    @SuppressWarnings("resource")
-		final Scanner s = new Scanner(file).useDelimiter(":\n?");
-	    while (s.hasNext()) {
-	    	nextInt = s.nextInt();
-	    	if(nextInt >= patternTime.get()) {
-	    		usersPatternMap.put(nextInt, s.nextInt());
-	    	}
-	        s.nextLine();
-	    }		
+		final Scanner s = new Scanner(file).useDelimiter(Pattern.compile("(\\n)|:"));
+	    try {
+		    while (s.hasNext()) {
+		    	nextInt = s.nextInt();
+		    	if(nextInt >= patternTime.get()) {
+		    		usersPatternMap.put(nextInt, s.nextInt());
+		    	}
+		    }	
+	    } catch (InputMismatchException e) {
+	    	// Do nothing
+	    }
 	}
 }

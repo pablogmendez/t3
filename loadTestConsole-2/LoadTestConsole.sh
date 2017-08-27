@@ -5,8 +5,10 @@ if [ -z $JAVA_HOME ]; then
 fi
 
 DISPLAY_HELP=false
+LIBS=$(echo lib/* | sed 's/ /:/g')
+CONF=$(echo conf/* | sed 's/ /:/g')
 
-while getopts ":i :u :r" opt; do
+while getopts ":i :r" opt; do
   case $opt in
     i)
       echo "Instalando el programa"
@@ -15,15 +17,10 @@ while getopts ":i :u :r" opt; do
       mvn package
       [ $? -ne 0 ] && exit 1
       ;;
-    u)
-      echo "Desinstalando el programa"
-      mvn clean
-      [ $? -ne 0 ] && exit 1
-      ;;
     r)
       echo "Ejecutando el programa"
       gnome-terminal -e "bash -c \"watch -n 1 cat log/Report.txt; exec bash\"" &
-      java -jar target/loadTestConsole-0.0.1-SNAPSHOT.jar
+      java -cp "target/loadTestConsole-0.0.1.jar:$LIBS:$CONF" ar.fiuba.taller.loadTestConsole.Main
       [ $? -ne 0 ] && exit 1
       ;;
     *)
@@ -37,12 +34,10 @@ if [ $DISPLAY_HELP == true ]; then
 	echo "LoadTestConsole - Help"
 	echo "----------------------"
 	echo "Uso:"
-	echo "	./LoadTestConsole PARAM"
+	echo "	./LoadTestConsole [param]"
 	echo ""
-	echo "Parametros:"
-	echo "	Accion al ingresar PARAM"
+	echo "[param]:"
 	echo "	-i	Compila e instala el programa"
-	echo "	-u	Desinstala el programa"
 	echo "	-r	Inicia el programa"
 	echo ""
 fi

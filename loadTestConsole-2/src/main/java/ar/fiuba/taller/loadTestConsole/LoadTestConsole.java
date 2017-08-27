@@ -46,9 +46,9 @@ public class LoadTestConsole {
 				fileChangeSem,
 				Integer.parseInt(propertiesMap.get(Constants.FILE_WATCHER_TIMEOUT))));
 		Thread summaryControllerThread = new Thread(new SummaryController(summaryQueue, summary));
-		Thread summaryPrinterThread = new Thread(new SummaryPrinter(summary));
+		Thread summaryPrinterThread = new Thread(new SummaryPrinter(summary, propertiesMap));
 		Thread reportControllerThread = new Thread(new ReportController(reportQueue, report));
-		Thread reportPrinterThread = new Thread(new ReportPrinter(report));
+		Thread reportPrinterThread = new Thread(new ReportPrinter(report, propertiesMap));
 		
 		logger.info("Iniciando LoadTestConsole");
 		logger.info("Iniciando los threads");

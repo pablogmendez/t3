@@ -31,7 +31,7 @@ public class ReportController implements Runnable {
 				case URL_ANALYZED:
 					report.incAnalyzedUrl();
 					break;
-				case SCRIPT_DOWNLOAD:
+				case SCRIPT_DOWNLOADED:
 					report.incDownloadedScripts();
 					break;
 				case LINK_DOWNLOADED:

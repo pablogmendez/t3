@@ -30,7 +30,7 @@ import org.jsoup.select.Elements;
 import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
 import ar.fiuba.taller.utils.HttpRequester;
 
-public class User implements Callable {	
+public class User implements Runnable {	
 	final static Logger logger = Logger.getLogger(User.class);
 	private Map<String, String> propertiesMap;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
@@ -83,7 +83,7 @@ public class User implements Callable {
 	}
 	
 	@Override
-	public Object call() throws FileNotFoundException, IOException, ParseException {
+	public void run() {
 		long time_end, time_start, avgTime, successResponse, failedResponse;
 		String response = null;
 		Map<String, String> resourceMap = null;
@@ -93,14 +93,15 @@ public class User implements Callable {
 						Constants.MAX_DOWNLOADERS)));
 		JSONParser parser = new JSONParser();
 		HttpRequester httpRequester = new HttpRequester();		
-		Object objScript = parser.parse(new FileReader(propertiesMap.get(
-        		Constants.SCRIPT_FILE)));
+		Object objScript = null;
         JSONObject objStep = null; 
 		JSONArray stepsArray = (JSONArray)((JSONObject) objScript).get("steps");
 		List<Future<Downloader>> futures = null;
 		
 		logger.info("Iniciando usuario");
 		try {
+			objScript = parser.parse(new FileReader(propertiesMap.get(
+					Constants.SCRIPT_FILE)));
 			while(!Thread.interrupted()) {
 				Iterator<JSONObject> it = stepsArray.iterator();
 				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
@@ -153,10 +154,11 @@ public class User implements Callable {
 				}
 			}
 		reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+		} catch (IOException | ParseException e1) {
+			logger.error("No se ha podido leer el script de pasos");
 		} catch (InterruptedException e) {
 			logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
 			executorService.shutdownNow();
 		}
-		return null;
 	}
 }

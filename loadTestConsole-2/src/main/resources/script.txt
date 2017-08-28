@@ -1,5 +1,0 @@
-GET http://www.google.com
-GET http://stackoverflow.com/questions/1485708/how-do-i-do-a-http-get-in-java
-GET http://askubuntu.com
-GET https://es.stackoverflow.com
-GET https://es.wikipedia.org/wiki/Wikipedia_en_espa%C3%B1ol

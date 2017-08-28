@@ -1,5 +1,6 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +28,7 @@ public class UsersController implements Runnable {
 	private AtomicInteger patternTime;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
 	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
-	private List<Future<User>> futures = null;
+	private List<Future<User>> futures;
 	
 	public UsersController(Map<String, String> propertiesMap,
 			Map<Integer, Integer> usersPatternMap, AtomicInteger patternTime,
@@ -40,6 +41,7 @@ public class UsersController implements Runnable {
 		this.patternTime = patternTime;
 		this.summaryQueue = summaryQueue;
 		this.reportQueue = reportQueue;
+		this.futures = new ArrayList<Future<User>>();
 	}
 	
 	@Override
@@ -101,25 +103,11 @@ public class UsersController implements Runnable {
 		logger.info("Usuarios a agregar: " + usersToAdd);
 		if(usersToAdd > 0) {
 			logger.info("Agregando usuarios");
-			Set<Callable<User>> usersSet = new HashSet<Callable<User>>();
+			// Disparo los users
 			for(int i = 0; i < usersToAdd; i++) {
-				usersSet.add(new User(propertiesMap, summaryQueue, reportQueue));
+				futures.add((Future<User>) executorService.submit(new User(propertiesMap, summaryQueue, reportQueue)));
 			}
 			logger.info("111111");
-			// Disparo los users
-			try {
-				if(futures == null) {
-					logger.info("2222");
-						executorService.submit(new User(propertiesMap, summaryQueue, reportQueue));
-						logger.info("8888");
-				} else {				
-					logger.info("3333");
-					futures.addAll(executorService.invokeAll(usersSet));
-				}
-			} catch (InterruptedException e) {
-				// Do nothing
-				logger.info("4444");
-			}
 		} else if (usersToAdd < 0) {
 			logger.info("Eliminando usuarios");
 			int tmpUsersToAdd = Math.abs(usersToAdd);

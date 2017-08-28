@@ -82,7 +82,6 @@ public class User implements Callable {
 		return url;
 	}
 	
-	@SuppressWarnings({ "null", "unchecked" })
 	@Override
 	public Object call() throws FileNotFoundException, IOException, ParseException {
 		long time_end, time_start, avgTime, successResponse, failedResponse;
@@ -103,13 +102,13 @@ public class User implements Callable {
 		logger.info("Iniciando usuario");
 		try {
 			while(!Thread.interrupted()) {
-				Iterator<String> it = stepsArray.iterator();
+				Iterator<JSONObject> it = stepsArray.iterator();
 				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
 				while(it.hasNext()) {
 					avgTime = 0;
 					successResponse = 0;
 					failedResponse = 0;
-					objStep = (JSONObject)parser.parse(it.next());
+					objStep = it.next();
 					logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
 					logger.info("Metodo: " + (String)objStep.get("method"));
 					logger.info("headers: " + (String)objStep.get("headers"));
@@ -125,25 +124,25 @@ public class User implements Callable {
 						avgTime = time_end - time_start;
 						successResponse++;
 						resourceMap = getResources(response, (String)objStep.get("url"));
-						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
-							downloadersSet.add(new Downloader(reportQueue, 
-									entry.getKey(), entry.getValue(), propertiesMap));
-						}
-						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
-						try {
-							futures = executorService.invokeAll(downloadersSet);
-							for(Future<Downloader> future : futures){
-								if(future.get() != null) {
-									avgTime = (avgTime + Long.parseLong(
-											future.get().toString())/2);
-									successResponse++;
-								} else {
-									failedResponse++;
-								}
-							}
-						} catch (ExecutionException e) {
-							// Do nothing
-						}
+//						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+//							downloadersSet.add(new Downloader(reportQueue, 
+//									entry.getKey(), entry.getValue(), propertiesMap));
+//						}
+//						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+//						try {
+//							futures = executorService.invokeAll(downloadersSet);
+//							for(Future<Downloader> future : futures){
+//								if(future.get() != null) {
+//									avgTime = (avgTime + Long.parseLong(
+//											future.get().toString())/2);
+//									successResponse++;
+//								} else {
+//									failedResponse++;
+//								}
+//							}
+//						} catch (ExecutionException e) {
+//							// Do nothing
+//						}
 					} catch (Exception e) {
 						logger.error("No se ha podido descargar el recurso.");
 						failedResponse++;

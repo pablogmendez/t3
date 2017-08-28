@@ -12,15 +12,13 @@ while getopts ":i :r" opt; do
   case $opt in
     i)
       echo "Instalando el programa"
-      mvn clean
-      [ $? -ne 0 ] && exit 1
-      mvn package
+      mvn clean package
       [ $? -ne 0 ] && exit 1
       ;;
     r)
       echo "Ejecutando el programa"
       gnome-terminal -e "bash -c \"watch -n 1 cat log/Report.txt; exec bash\"" &
-      java -cp "target/loadTestConsole-0.0.1.jar:$LIBS:$CONF" ar.fiuba.taller.loadTestConsole.Main
+      java -cp "target/loadTestConsole-1.0.0.jar:$LIBS:$CONF:conf/" ar.fiuba.taller.loadTestConsole.Main
       [ $? -ne 0 ] && exit 1
       ;;
     *)

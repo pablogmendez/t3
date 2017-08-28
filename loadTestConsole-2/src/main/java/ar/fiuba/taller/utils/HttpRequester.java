@@ -45,8 +45,6 @@ public class HttpRequester {
 	private String doGet(String url, Map<String, String> headers, String data, int timeout)
 			throws Exception {
 		// Armo la conexion
-		if (data.length() > 0)
-			url += "?" + data;
 		URL obj = new URL(url);
 		try {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

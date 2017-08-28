@@ -27,6 +27,7 @@ public class UsersController implements Runnable {
 	private AtomicInteger patternTime;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
 	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
+	private List<Future<User>> futures = null;
 	
 	public UsersController(Map<String, String> propertiesMap,
 			Map<Integer, Integer> usersPatternMap, AtomicInteger patternTime,
@@ -48,8 +49,7 @@ public class UsersController implements Runnable {
 		int sleepTime = 0; 	  // Tiempo a esperar
 		int deltaUsers = 0;	  // Usuarios que se deben agregar o quitar
 		ExecutorService executorService = Executors.newFixedThreadPool(maxUsers);
-		Set<Callable<User>> usersSet = new HashSet<Callable<User>>();
-		List<Future<User>> futures = null;
+
 		Iterator<Map.Entry<Integer, Integer>> it = usersPatternMap.entrySet().iterator();
 		Map.Entry<Integer, Integer> pair;
 		
@@ -64,11 +64,12 @@ public class UsersController implements Runnable {
 			while(!Thread.interrupted()) {
 				logger.info("Usuarios corriendo en el pool: " + totalUsersCount);
 				logger.info("Usuarios que se deben ingresar al pool: " + deltaUsers);
-				totalUsersCount += updateUsers(totalUsersCount, deltaUsers, executorService, futures);
+				totalUsersCount += updateUsers(totalUsersCount, deltaUsers, executorService);
+				logger.info("dsfsdfsdfsdfsdf");
 				if(it.hasNext()) {
 					pair = it.next();
 					sleepTime = pair.getKey();
-					deltaUsers = totalUsersCount - pair.getValue();
+					deltaUsers = pair.getValue() - totalUsersCount;
 				} else {
 					deltaUsers = 0;
 				}
@@ -76,6 +77,7 @@ public class UsersController implements Runnable {
 				logger.info("Tiempo a dormir hasta el proximo pulso: " + sleepTime);
 				patternTime.set(sleepTime);
 				Thread.sleep(sleepTime*Constants.SLEEP_UNIT);
+				logger.debug("Me desperte!!");
 			}
 		} catch (InterruptedException e) {
 			logger.info("Senial de interrupcion recibida. Eliminado los Usuarios.");
@@ -85,8 +87,7 @@ public class UsersController implements Runnable {
 	
 	/* Actualiza el pool de threads con los usuarios pasados
 	   Retorna la cantidad de usuarios agregados o eliminados */
-	private int updateUsers(int totalUsersCount, int deltaUsers, ExecutorService executorService,
-			List<Future<User>> futures) {
+	private int updateUsers(int totalUsersCount, int deltaUsers, ExecutorService executorService) {
 		int usersToAdd = 0;
 		
 		if(totalUsersCount + deltaUsers >= maxUsers) {
@@ -104,15 +105,20 @@ public class UsersController implements Runnable {
 			for(int i = 0; i < usersToAdd; i++) {
 				usersSet.add(new User(propertiesMap, summaryQueue, reportQueue));
 			}
+			logger.info("111111");
 			// Disparo los users
 			try {
 				if(futures == null) {
-						futures = executorService.invokeAll(usersSet);
+					logger.info("2222");
+						executorService.submit(new User(propertiesMap, summaryQueue, reportQueue));
+						logger.info("8888");
 				} else {				
-					futures.addAll(executorService.invokeAll(usersSet));			
+					logger.info("3333");
+					futures.addAll(executorService.invokeAll(usersSet));
 				}
 			} catch (InterruptedException e) {
 				// Do nothing
+				logger.info("4444");
 			}
 		} else if (usersToAdd < 0) {
 			logger.info("Eliminando usuarios");

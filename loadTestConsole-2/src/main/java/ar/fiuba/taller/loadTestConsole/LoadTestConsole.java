@@ -106,7 +106,7 @@ public class LoadTestConsole {
 	
 	private void loadUserPattern(AtomicInteger patternTime) throws FileNotFoundException {
 		File file = new File(propertiesMap.get(Constants.USERS_PATTERN_FILE));
-		int nextInt;
+		int nextIntTime, nextIntUser;
 		usersPatternMap = new HashMap<Integer, Integer>();
 	    if (file == null || !file.canRead()) {
 	        throw new IllegalArgumentException("file not readable: " + file);
@@ -116,9 +116,11 @@ public class LoadTestConsole {
 		final Scanner s = new Scanner(file).useDelimiter(Pattern.compile("(\\n)|:"));
 	    try {
 		    while (s.hasNext()) {
-		    	nextInt = s.nextInt();
-		    	if(nextInt >= patternTime.get()) {
-		    		usersPatternMap.put(nextInt, s.nextInt());
+		    	nextIntTime = s.nextInt();
+		    	nextIntUser = s.nextInt();
+		    	logger.debug("Patron cargado: " + nextIntTime + "," + nextIntUser);
+		    	if(nextIntTime >= patternTime.get()) {
+		    		usersPatternMap.put(nextIntTime, nextIntUser);
 		    	}
 		    }	
 	    } catch (InputMismatchException e) {

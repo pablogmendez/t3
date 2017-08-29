@@ -1,6 +1,5 @@
 package ar.fiuba.taller.loadTestConsole;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -52,8 +51,10 @@ public class User implements Runnable {
 		Document doc = null;
 		Elements resource = null;
 		String tmpUrl = null;
-		
+		logger.debug("Entro al parser: " + url);
+		logger.debug("Entro al parser2: " + response);
 		doc = Jsoup.parse(response);
+		logger.debug("Empiezo a parsear");
 		for (Map.Entry<String, String> entry : Constants.RESOURCE_MAP.entrySet())
 		{
 			resource = doc.select(entry.getKey());
@@ -63,6 +64,8 @@ public class User implements Runnable {
 				if(tmpUrl.indexOf("http") == -1) {
 					tmpUrl = normalizeUrl(url, "last") + normalizeUrl(tmpUrl, "first");
 				}
+				logger.debug("url normalizada: " + tmpUrl);
+				logger.debug("tipo de recurso: " + entry.getKey());
 				tmpMap.put(entry.getKey(), tmpUrl);
 			}
 		}
@@ -72,16 +75,17 @@ public class User implements Runnable {
 	private String normalizeUrl(String url, String place) {
 		if(place.equals("first")) {
 			if(url.substring(0).equals("/")) {
-				return url.substring(1, url.length() - 1);
+				return url.substring(1, url.length());
 			}			
 		} else { // last			
 			if(url.substring(url.length() - 1).equals("/")) {
-				return url.substring(0, url.length() - 2);
+				return url.substring(0, url.length() - 1);
 			}
 		}
 		return url;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		long time_end, time_start, avgTime, successResponse, failedResponse;
@@ -94,17 +98,21 @@ public class User implements Runnable {
 		JSONParser parser = new JSONParser();
 		HttpRequester httpRequester = new HttpRequester();		
 		Object objScript = null;
+		try {
+			objScript = parser.parse(new FileReader(propertiesMap.get(
+					Constants.SCRIPT_FILE)));
+		} catch (IOException | ParseException e1) {
+			// Do nothing
+		}
         JSONObject objStep = null; 
 		JSONArray stepsArray = (JSONArray)((JSONObject) objScript).get("steps");
 		List<Future<Downloader>> futures = null;
 		
 		logger.info("Iniciando usuario");
 		try {
-			objScript = parser.parse(new FileReader(propertiesMap.get(
-					Constants.SCRIPT_FILE)));
+			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
 			while(!Thread.interrupted()) {
 				Iterator<JSONObject> it = stepsArray.iterator();
-				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
 				while(it.hasNext()) {
 					avgTime = 0;
 					successResponse = 0;
@@ -120,30 +128,32 @@ public class User implements Runnable {
 								(String)objStep.get("url"),
 								(String)objStep.get("headers"),
 								(String)objStep.get("body"), 
-								Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT)));
+								Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
 						time_end = System.currentTimeMillis();
 						avgTime = time_end - time_start;
 						successResponse++;
 						resourceMap = getResources(response, (String)objStep.get("url"));
-//						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
-//							downloadersSet.add(new Downloader(reportQueue, 
-//									entry.getKey(), entry.getValue(), propertiesMap));
-//						}
-//						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
-//						try {
-//							futures = executorService.invokeAll(downloadersSet);
-//							for(Future<Downloader> future : futures){
-//								if(future.get() != null) {
-//									avgTime = (avgTime + Long.parseLong(
-//											future.get().toString())/2);
-//									successResponse++;
-//								} else {
-//									failedResponse++;
-//								}
-//							}
-//						} catch (ExecutionException e) {
-//							// Do nothing
-//						}
+						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+							logger.debug("tipo: " + entry.getKey());
+							logger.debug("recurso: " + entry.getValue());
+							downloadersSet.add(new Downloader(reportQueue, 
+									entry.getValue(), entry.getKey(), propertiesMap));
+						}
+						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+						try {
+							futures = executorService.invokeAll(downloadersSet);
+							for(Future<Downloader> future : futures){
+								if(future.get() != null) {
+									avgTime = (avgTime + Long.parseLong(
+											future.get().toString())/2);
+									successResponse++;
+								} else {
+									failedResponse++;
+								}
+							}
+						} catch (ExecutionException e) {
+							// Do nothing
+						}
 					} catch (Exception e) {
 						logger.error("No se ha podido descargar el recurso.");
 						failedResponse++;
@@ -154,8 +164,6 @@ public class User implements Runnable {
 				}
 			}
 		reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
-		} catch (IOException | ParseException e1) {
-			logger.error("No se ha podido leer el script de pasos");
 		} catch (InterruptedException e) {
 			logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
 			executorService.shutdownNow();

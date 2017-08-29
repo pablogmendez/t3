@@ -11,13 +11,13 @@ CONF=$(echo conf/* | sed 's/ /:/g')
 while getopts ":i :r" opt; do
   case $opt in
     i)
-      echo "Instalando el programa"
+      echo "Compilando el programa"
       mvn clean package
       [ $? -ne 0 ] && exit 1
       ;;
     r)
       echo "Ejecutando el programa"
-      gnome-terminal -e "bash -c \"watch -n 1 cat log/Report.txt; exec bash\"" &
+      gnome-terminal -e "bash -c \"watch -n 1 cat log/report.txt; exec bash\"" &
       java -cp "target/loadTestConsole-1.0.0.jar:$LIBS:$CONF:conf/" ar.fiuba.taller.loadTestConsole.Main
       [ $? -ne 0 ] && exit 1
       ;;

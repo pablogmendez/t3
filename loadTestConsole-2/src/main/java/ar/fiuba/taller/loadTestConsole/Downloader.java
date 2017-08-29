@@ -33,6 +33,7 @@ public class Downloader implements Callable {
 		HttpRequester httpRequester = new HttpRequester();
 		
 		logger.info("Iniciando Downloader.");
+		logger.info("Url a descargar: " + url);
 		try {
 			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOAD);
 			time_start = System.currentTimeMillis();
@@ -43,17 +44,12 @@ public class Downloader implements Callable {
 				time_end = System.currentTimeMillis();
 				time_elapsed = time_end - time_start;
 				strTime = Long.toString(time_elapsed);
-				reportQueue.put(Constants.TYPE_RESOURCE_MAP.get(type));
-				reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);	
 			} catch (Exception e) {
-				// Do nothing
+				logger.error("No se pudo descargar el recurso");
 			}
+			reportQueue.put(Constants.TYPE_RESOURCE_MAP.get(type));
+			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);	
 		} catch (InterruptedException e1) {
-			try {
-				reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);
-			} catch (InterruptedException e) {
-				// Do nothing
-			}				
 			logger.info("Downloader Interrumpido.");
 		}
 		return strTime;

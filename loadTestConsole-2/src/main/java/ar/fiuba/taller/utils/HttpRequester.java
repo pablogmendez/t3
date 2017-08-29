@@ -10,11 +10,14 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
+
+import ar.fiuba.taller.loadTestConsole.Downloader;
+
 public class HttpRequester {
 
-	public HttpRequester() {
-		// TODO Auto-generated constructor stub
-	}
+	public HttpRequester() {}
 
 	public String doHttpRequest(String method, String url,
 			String headers, String data, int timeout) throws Exception {
@@ -47,33 +50,34 @@ public class HttpRequester {
 		// Armo la conexion
 		URL obj = new URL(url);
 		try {
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-		// optional default is GET
-		con.setRequestMethod("GET");
-		con.setConnectTimeout(timeout);
-
-		// add request header
-		if (!headers.isEmpty()) {
-			for (Map.Entry<String, String> entry : headers.entrySet()) {
-				con.setRequestProperty(entry.getKey(), entry.getValue());
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			// optional default is GET
+			con.setRequestMethod("GET");
+			con.setConnectTimeout(timeout);
+			// add request header
+			if (!headers.isEmpty()) {
+				for (Map.Entry<String, String> entry : headers.entrySet()) {
+					con.setRequestProperty(entry.getKey(), entry.getValue());
+				}
 			}
-		}
-
-		BufferedReader in = new BufferedReader(
-				new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-		return response.toString();
+	
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			if("".equals(response.toString())) {			
+				return null;
+			} else {
+				return response.toString();
+			}
 		} catch (java.net.SocketTimeoutException e) {
-		   return "";
+		   return null;
 		} catch (java.io.IOException e) {
-		   return "";
+		   return null;
 		}
 		// print result
 	}

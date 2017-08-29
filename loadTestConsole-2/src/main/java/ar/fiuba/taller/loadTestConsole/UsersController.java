@@ -28,7 +28,7 @@ public class UsersController implements Runnable {
 	private AtomicInteger patternTime;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
 	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
-	private List<Future<User>> futures;
+	private List<Future<User>> futures = null;
 	
 	public UsersController(Map<String, String> propertiesMap,
 			Map<Integer, Integer> usersPatternMap, AtomicInteger patternTime,
@@ -41,15 +41,16 @@ public class UsersController implements Runnable {
 		this.patternTime = patternTime;
 		this.summaryQueue = summaryQueue;
 		this.reportQueue = reportQueue;
-		this.futures = new ArrayList<Future<User>>();
+		this.futures = new ArrayList<>();
 	}
 	
 	@Override
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		int totalUsersCount = 0; // Usuarios totales corriendo
-		int sleepTime = 0; 	  // Tiempo a esperar
-		int deltaUsers = 0;	  // Usuarios que se deben agregar o quitar
+		int sleepTime = 0; 	  	// Tiempo a esperar
+		int deltaUsers = 0;	  	// Usuarios que se deben agregar o quitar
+		int oldTime = 0; 		// Tiempo del pulso anterior
 		ExecutorService executorService = Executors.newFixedThreadPool(maxUsers);
 
 		Iterator<Map.Entry<Integer, Integer>> it = usersPatternMap.entrySet().iterator();
@@ -67,11 +68,11 @@ public class UsersController implements Runnable {
 				logger.info("Usuarios corriendo en el pool: " + totalUsersCount);
 				logger.info("Usuarios que se deben ingresar al pool: " + deltaUsers);
 				totalUsersCount += updateUsers(totalUsersCount, deltaUsers, executorService);
-				logger.info("dsfsdfsdfsdfsdf");
 				if(it.hasNext()) {
 					pair = it.next();
-					sleepTime = pair.getKey();
+					sleepTime = pair.getKey() - oldTime;
 					deltaUsers = pair.getValue() - totalUsersCount;
+					oldTime = pair.getKey();
 				} else {
 					deltaUsers = 0;
 				}
@@ -79,7 +80,6 @@ public class UsersController implements Runnable {
 				logger.info("Tiempo a dormir hasta el proximo pulso: " + sleepTime);
 				patternTime.set(sleepTime);
 				Thread.sleep(sleepTime*Constants.SLEEP_UNIT);
-				logger.debug("Me desperte!!");
 			}
 		} catch (InterruptedException e) {
 			logger.info("Senial de interrupcion recibida. Eliminado los Usuarios.");
@@ -89,6 +89,7 @@ public class UsersController implements Runnable {
 	
 	/* Actualiza el pool de threads con los usuarios pasados
 	   Retorna la cantidad de usuarios agregados o eliminados */
+	@SuppressWarnings("unchecked")
 	private int updateUsers(int totalUsersCount, int deltaUsers, ExecutorService executorService) {
 		int usersToAdd = 0;
 		
@@ -107,7 +108,7 @@ public class UsersController implements Runnable {
 			for(int i = 0; i < usersToAdd; i++) {
 				futures.add((Future<User>) executorService.submit(new User(propertiesMap, summaryQueue, reportQueue)));
 			}
-			logger.info("111111");
+
 		} else if (usersToAdd < 0) {
 			logger.info("Eliminando usuarios");
 			int tmpUsersToAdd = Math.abs(usersToAdd);

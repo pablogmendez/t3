@@ -10,6 +10,7 @@ public final class Constants {
 	public static final String SCRIPT_FILE 			= "script.file";
 	public static final String REPORT_FILE			= "report.file";
 	public static final String SUMMARY_TIMEOUT 		= "summary.timeout";
+	public static final String REPORT_TIMEOUT 		= "report.timeout";
 	public static final String HTTP_TIMEOUT			= "http.timeout";
 	public static final String FILE_WATCHER_TIMEOUT	= "file.watcher.timeout";
 	public static final String USERS_PATTERN_FILE	= "users.pattern.file";

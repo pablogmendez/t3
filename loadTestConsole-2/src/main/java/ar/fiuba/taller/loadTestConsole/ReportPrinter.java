@@ -34,8 +34,13 @@ public class ReportPrinter implements Runnable {
 						report.getExecutionScriptThreads(),
 						report.getDownloadResourceThreads());
 				writer.close();
+				Thread.sleep(Integer.parseInt(propertiesMap.get(Constants.REPORT_TIMEOUT))*Constants.SLEEP_UNIT);
 			} catch (IOException e) {
 				logger.error("No se pudo abrir el report file");
+			} catch (NumberFormatException e) {
+				logger.error("Tiempo del sleep mal seteado");
+			} catch (InterruptedException e) {
+				logger.info("Report interrumpido");
 			}
 		}
 		logger.info("Finalizando Monitor");

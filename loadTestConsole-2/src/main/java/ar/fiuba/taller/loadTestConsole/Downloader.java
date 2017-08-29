@@ -34,6 +34,7 @@ public class Downloader implements Callable {
 		
 		logger.info("Iniciando Downloader.");
 		logger.info("Url a descargar: " + url);
+		logger.info("Tipo de recurso: " + type);
 		try {
 			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOAD);
 			time_start = System.currentTimeMillis();

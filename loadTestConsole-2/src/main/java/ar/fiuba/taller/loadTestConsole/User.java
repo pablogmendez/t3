@@ -62,7 +62,7 @@ public class User implements Runnable {
 			while (it.hasNext()) {
 				tmpUrl = it.next().attr(entry.getValue());
 				if(tmpUrl.indexOf("http") == -1) {
-					tmpUrl = normalizeUrl(url, "last") + normalizeUrl(tmpUrl, "first");
+					tmpUrl = normalizeUrl(url, "last") + "/" + normalizeUrl(tmpUrl, "first");
 				}
 				logger.debug("url normalizada: " + tmpUrl);
 				logger.debug("tipo de recurso: " + entry.getKey());
@@ -124,35 +124,40 @@ public class User implements Runnable {
 					logger.info("Body: " + (String)objStep.get("body"));
 					time_start = System.currentTimeMillis();
 					try {
+						logger.debug("Hago el request");
 						response = httpRequester.doHttpRequest((String)objStep.get("method"), 
 								(String)objStep.get("url"),
 								(String)objStep.get("headers"),
 								(String)objStep.get("body"), 
 								Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
-						time_end = System.currentTimeMillis();
-						avgTime = time_end - time_start;
-						successResponse++;
-						resourceMap = getResources(response, (String)objStep.get("url"));
-						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
-							logger.debug("tipo: " + entry.getKey());
-							logger.debug("recurso: " + entry.getValue());
-							downloadersSet.add(new Downloader(reportQueue, 
-									entry.getValue(), entry.getKey(), propertiesMap));
-						}
-						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
-						try {
-							futures = executorService.invokeAll(downloadersSet);
-							for(Future<Downloader> future : futures){
-								if(future.get() != null) {
-									avgTime = (avgTime + Long.parseLong(
-											future.get().toString())/2);
-									successResponse++;
-								} else {
-									failedResponse++;
-								}
+						logger.debug("Request listo");
+						if(response != null) {
+							logger.debug("Request distinto de null");
+							time_end = System.currentTimeMillis();
+							avgTime = time_end - time_start;
+							successResponse++;
+							resourceMap = getResources(response, (String)objStep.get("url"));
+							for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+								logger.debug("tipo: " + entry.getKey());
+								logger.debug("recurso: " + entry.getValue());
+								downloadersSet.add(new Downloader(reportQueue, 
+										entry.getValue(), entry.getKey(), propertiesMap));
 							}
-						} catch (ExecutionException e) {
-							// Do nothing
+							reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+							try {
+								futures = executorService.invokeAll(downloadersSet);
+								for(Future<Downloader> future : futures){
+									if(future.get() != null) {
+										avgTime = (avgTime + Long.parseLong(
+												future.get().toString())/2);
+										successResponse++;
+									} else {
+										failedResponse++;
+									}
+								}
+							} catch (ExecutionException e) {
+								// Do nothing
+							}
 						}
 					} catch (Exception e) {
 						logger.error("No se ha podido descargar el recurso.");

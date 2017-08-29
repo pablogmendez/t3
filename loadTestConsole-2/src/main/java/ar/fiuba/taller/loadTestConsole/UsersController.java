@@ -1,13 +1,10 @@
 package ar.fiuba.taller.loadTestConsole;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -17,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
-
 
 public class UsersController implements Runnable {
 

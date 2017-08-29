@@ -77,6 +77,7 @@ public class LoadTestConsole {
 				logger.error("No se ha podido tomar el semaforo");
 			}
 			logger.info("Cambio el archivo. Interrumpiendo el usersControllerThread");
+			System.out.println("Cambio el archvio. Recargando patron de usuarios...");
 			usersControllerThread.interrupt();
 			try {
 				usersControllerThread.join();

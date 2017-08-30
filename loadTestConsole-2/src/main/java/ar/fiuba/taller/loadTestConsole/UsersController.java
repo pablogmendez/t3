@@ -66,15 +66,18 @@ public class UsersController implements Runnable {
 				totalUsersCount += updateUsers(totalUsersCount, deltaUsers, executorService);
 				if(it.hasNext()) {
 					pair = it.next();
-					sleepTime = pair.getKey() - oldTime;
+					if(pair.getKey() > oldTime) {
+						sleepTime = pair.getKey() - oldTime;	
+					}
+					patternTime.set(oldTime);
 					deltaUsers = pair.getValue() - totalUsersCount;
 					oldTime = pair.getKey();
+					logger.debug("VALORES PARA LA PROXIMA CORRIDA: " + pair.getKey() + " - " + pair.getValue());
 				} else {
 					deltaUsers = 0;
 				}
 				summaryQueue.put(new UserStat(totalUsersCount));
 				logger.info("Tiempo a dormir hasta el proximo pulso: " + sleepTime);
-				patternTime.set(sleepTime);
 				Thread.sleep(sleepTime*Constants.SLEEP_UNIT);
 			}
 		} catch (InterruptedException e) {

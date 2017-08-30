@@ -8,6 +8,7 @@ ar/fiuba/taller/loadTestConsole/ReportController$1.class
 ar/fiuba/taller/loadTestConsole/Summary.class
 ar/fiuba/taller/loadTestConsole/User.class
 ar/fiuba/taller/loadTestConsole/ReportController.class
+ar/fiuba/taller/utils/PageAnalyzer.class
 ar/fiuba/taller/loadTestConsole/Main.class
 ar/fiuba/taller/loadTestConsole/Constants.class
 ar/fiuba/taller/loadTestConsole/PatternFileWatcher$1.class

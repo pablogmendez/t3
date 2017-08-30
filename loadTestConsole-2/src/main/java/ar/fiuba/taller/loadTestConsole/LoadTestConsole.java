@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -107,20 +108,28 @@ public class LoadTestConsole {
 	
 	private void loadUserPattern(AtomicInteger patternTime) throws FileNotFoundException {
 		File file = new File(propertiesMap.get(Constants.USERS_PATTERN_FILE));
+		logger.debug("1111");
 		int nextIntTime, nextIntUser;
-		usersPatternMap = new HashMap<Integer, Integer>();
+		logger.debug("2222");
 	    if (file == null || !file.canRead()) {
-	        throw new IllegalArgumentException("file not readable: " + file);
+	        System.out.println("No se ha podido abrir el archivo con el patron de usuarios.");
 	    }
-
+	    usersPatternMap = new TreeMap<Integer, Integer>();
+	    logger.debug("3333");
 	    @SuppressWarnings("resource")
 		final Scanner s = new Scanner(file).useDelimiter(Pattern.compile("(\\n)|:"));
+	    logger.debug("4444");
 	    try {
+	    	logger.debug("55555");
 		    while (s.hasNext()) {
 		    	nextIntTime = s.nextInt();
+		    	logger.debug("66666");
 		    	nextIntUser = s.nextInt();
 		    	logger.debug("Patron cargado: " + nextIntTime + "," + nextIntUser);
+		    	logger.debug("PATTERNTIME: " + patternTime.get());
 		    	if(nextIntTime >= patternTime.get()) {
+		    		logger.debug("timecargado: " + nextIntTime);
+		    		logger.debug("PATTERNTIMEEEEE: " + patternTime.get());
 		    		usersPatternMap.put(nextIntTime, nextIntUser);
 		    	}
 		    }	

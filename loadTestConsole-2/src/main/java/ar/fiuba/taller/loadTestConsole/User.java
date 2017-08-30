@@ -41,7 +41,7 @@ public class User implements Runnable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
-		long time_end, time_start, avgTime, successResponse, failedResponse;
+		long time_end, time_start, avgTime = 0, successResponse = 0, failedResponse = 0;
 		String response = null;
 		Map<String, String> resourceMap = null;
 		Set<Callable<Downloader>> downloadersSet  = new HashSet<Callable<Downloader>>();
@@ -55,6 +55,7 @@ public class User implements Runnable {
 		JSONArray stepsArray = null;
 		List<Future<Downloader>> futures = null;
 		PageAnalyzer pageAnalyzer = new PageAnalyzer();
+		Iterator<JSONObject> it = null;
 		
 		logger.info("Iniciando usuario");
 		try {
@@ -63,76 +64,83 @@ public class User implements Runnable {
 			stepsArray = (JSONArray)((JSONObject) objScript).get("steps");
 			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
 			while(!Thread.interrupted()) {
-				avgTime = 0;
-				successResponse = 0;
-				failedResponse = 0;
-				downloadersSet.clear();
-				Iterator<JSONObject> it = stepsArray.iterator();
-				while(it.hasNext()) {
-					objStep = it.next();
-					logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
-					logger.info("Metodo: " + (String)objStep.get("method"));
-					logger.info("headers: " + (String)objStep.get("headers"));
-					logger.info("Body: " + (String)objStep.get("body"));
-					time_start = System.currentTimeMillis();
-					try {
-						logger.debug("Hago el request");
-						response = httpRequester.doHttpRequest((String)objStep.get("method"), 
-								(String)objStep.get("url"),
-								(String)objStep.get("headers"),
-								(String)objStep.get("body"), 
-								Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
-						logger.debug("Request listo");
-						if(response == null) {
-							logger.debug("Request igual a null");
-							failedResponse++;
-						} else {
-							logger.debug("Request distinto de null");
-							time_end = System.currentTimeMillis();
-							avgTime = time_end - time_start;
-							successResponse++;
-							resourceMap = pageAnalyzer.getResources(response, (String)objStep.get("url"));
-							for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
-								logger.debug("tipo: " + entry.getKey());
-								logger.debug("recurso: " + entry.getValue());
-								downloadersSet.add(new Downloader(reportQueue, 
-										entry.getValue(), entry.getKey(), propertiesMap));
-							}
-							reportQueue.put(REPORT_EVENT.URL_ANALYZED);
-							logger.debug("CANTIDAD DE DOWNLOADERS A DISPARAR: " + downloadersSet.size());
-							try {
-								futures = executorService.invokeAll(downloadersSet);
-								for(Future<Downloader> future : futures){
-									if(future.get() != null) {
-										avgTime = (avgTime + Long.parseLong(
-												future.get().toString())/2);
-										successResponse++;
-									} else {
-										failedResponse++;
-									}
-								}
-							} catch (ExecutionException e) {
-								// Do nothing
-							}
-						}
-					} catch (Exception e) {
-						logger.error("No se ha podido descargar el recurso.");
-						failedResponse++;
-					}
-					logger.debug("ESCRIBO LAS ESTADISTICAS ANTES DE MANDARLAS");
-					logger.debug("success " + successResponse);
-					logger.debug("failed " + failedResponse);
-					summaryQueue.put(new RequestStat(successResponse,
-							failedResponse,
-							avgTime));
+				if(it == null || !it.hasNext()) {
+					avgTime = 0;
+					successResponse = 0;
+					failedResponse = 0;
+					downloadersSet.clear();
+					it = stepsArray.iterator();
 				}
+				objStep = it.next();
+				logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
+				logger.info("Metodo: " + (String)objStep.get("method"));
+				logger.info("headers: " + (String)objStep.get("headers"));
+				logger.info("Body: " + (String)objStep.get("body"));
+				time_start = System.currentTimeMillis();
+				try {
+					logger.debug("Hago el request");
+					response = httpRequester.doHttpRequest((String)objStep.get("method"), 
+							(String)objStep.get("url"),
+							(String)objStep.get("headers"),
+							(String)objStep.get("body"), 
+							Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
+					logger.debug("Request listo");
+					time_end = System.currentTimeMillis();
+					avgTime = time_end - time_start;
+					if(response == null) {
+						logger.debug("Request igual a null");
+						failedResponse++;
+					} else {
+						logger.debug("Request distinto de null");
+						successResponse++;
+						resourceMap = pageAnalyzer.getResources(response, (String)objStep.get("url"));
+//						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+							logger.debug("tipo: " + entry.getKey());
+							logger.debug("recurso: " + entry.getValue());
+							downloadersSet.add(new Downloader(reportQueue, 
+									entry.getValue(), entry.getKey(), propertiesMap));
+						}
+						logger.debug("CANTIDAD DE DOWNLOADERS A DISPARAR: " + downloadersSet.size());
+//						try {
+//							futures = executorService.invokeAll(downloadersSet);
+//							for(Future<Downloader> future : futures){
+//								if(future.get() != null) {
+//									avgTime = (avgTime + Long.parseLong(
+//											future.get().toString())/2);
+//									successResponse++;
+//								} else {
+//									failedResponse++;
+//								}
+//							}
+//						} catch (ExecutionException e) {
+//							// Do nothing
+//						}
+					}
+				} catch (Exception e) {
+					logger.error("No se ha podido descargar el recurso.");
+					failedResponse++;
+				}
+				logger.debug("ESCRIBO LAS ESTADISTICAS ANTES DE MANDARLAS");
+				logger.debug("success " + successResponse);
+				logger.debug("failed " + failedResponse);
+				summaryQueue.put(new RequestStat(successResponse,
+						failedResponse,
+						avgTime));
 			}
-			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
 		} catch (InterruptedException e) {
 			logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
 			executorService.shutdownNow();
 		} catch(IOException | ParseException e) {
 			logger.error("Nose ha podido leer el script.");
 		}
+		try {
+			logger.debug("YYYYYYYY");
+			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+		} catch (InterruptedException e1) {
+			// Do nothing
+			logger.debug("BBBBB");
+		}
+//		logger.debug("ASDASD");
 	}
 }

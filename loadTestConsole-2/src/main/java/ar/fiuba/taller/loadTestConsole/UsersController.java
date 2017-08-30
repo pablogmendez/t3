@@ -111,8 +111,26 @@ public class UsersController implements Runnable {
 		} else if (usersToAdd < 0) {
 			logger.info("Eliminando usuarios");
 			int tmpUsersToAdd = Math.abs(usersToAdd);
+			Iterator<Future<User>> it = futures.iterator();
+			Future<User> f;
+//			while(it.hasNext()) {
+//				f = it.next();
+//				f.cancel(true);
+//				if(f.isCancelled()) {
+//					logger.debug("CANCElo111");
+//				} else {
+//					logger.debug("noo CANCElo2222");
+//				}
+//			}
 			for(int i = 0; i < tmpUsersToAdd; i++) {
-				futures.remove(0).cancel(true);
+				f = it.next();
+				f.cancel(true);
+				if(f.isCancelled()) {
+					logger.debug("CANCElo111");
+				} else {
+					logger.debug("noo CANCElo2222");
+				}
+				it.remove();
 			}
 		}
 		return usersToAdd;

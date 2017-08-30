@@ -43,8 +43,6 @@ public class PageAnalyzer {
 				if(tmpUrl.indexOf("http") == -1) {
 					tmpUrl = normalizeUrl(url, "last") + "/" + normalizeUrl(tmpUrl, "first");
 				}
-				logger.debug("url normalizada: " + tmpUrl);
-				logger.debug("tipo de recurso: " + entry.getKey());
 				tmpMap.put(entry.getKey(), tmpUrl);
 			}
 		}

@@ -49,10 +49,14 @@ public class Downloader implements Callable {
 				logger.error("No se pudo descargar el recurso");
 			}
 			reportQueue.put(Constants.TYPE_RESOURCE_MAP.get(type));
-			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);	
 		} catch (InterruptedException e1) {
 			logger.info("Downloader Interrumpido.");
 		}
+		try {
+			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}	
 		return strTime;
 	}
 }

@@ -11,5 +11,13 @@
 	{"url" : "https://www.mkyong.com",
 	"method" : "get",
 	"headers" : null,
-	"body" : null}]
+	"body" : null},
+	{"url" : "https://www.tutorialspoint.com",
+	 "method" : "get",
+	 "headers" : null,
+	 "body" : null},
+	{"url" : "http://www.fi.uba.ar",
+	 "method" : "get",
+	 "headers" : null,
+	 "body" : null}]
 }

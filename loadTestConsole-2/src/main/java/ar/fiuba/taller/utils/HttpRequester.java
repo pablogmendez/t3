@@ -8,13 +8,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
-
-import ar.fiuba.taller.loadTestConsole.Downloader;
-
 public class HttpRequester {
 
 	public HttpRequester() {}

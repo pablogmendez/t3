@@ -33,7 +33,7 @@ public class PageAnalyzer {
 		Elements resource = null;
 		String tmpUrl = null;
 		doc = Jsoup.parse(response);
-
+		
 		for (Map.Entry<String, String> entry : Constants.RESOURCE_MAP.entrySet())
 		{
 			resource = doc.select(entry.getKey());
@@ -65,6 +65,5 @@ public class PageAnalyzer {
 			}
 		}
 		return tmpUrl;
-	}
-	
+	}	
 }

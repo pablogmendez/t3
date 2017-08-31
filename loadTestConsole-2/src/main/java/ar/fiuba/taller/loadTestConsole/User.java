@@ -1,7 +1,9 @@
 package ar.fiuba.taller.loadTestConsole;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import javax.swing.text.BadLocationException;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.json.simple.JSONArray;
@@ -59,10 +64,12 @@ public class User implements Runnable {
 		
 		logger.info("Iniciando usuario");
 		try {
+			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
 			objScript = parser.parse(new FileReader(propertiesMap.get(
 					Constants.SCRIPT_FILE)));
 			stepsArray = (JSONArray)((JSONObject) objScript).get("steps");
-			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
+			it = stepsArray.iterator();
+			
 			while(!Thread.interrupted()) {
 				if(it == null || !it.hasNext()) {
 					avgTime = 0;
@@ -77,70 +84,71 @@ public class User implements Runnable {
 				logger.info("headers: " + (String)objStep.get("headers"));
 				logger.info("Body: " + (String)objStep.get("body"));
 				time_start = System.currentTimeMillis();
-				try {
-					logger.debug("Hago el request");
+//				try {
 					response = httpRequester.doHttpRequest((String)objStep.get("method"), 
 							(String)objStep.get("url"),
 							(String)objStep.get("headers"),
 							(String)objStep.get("body"), 
 							Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
 					logger.debug("Request listo");
+					logger.debug(response);
+					logger.debug("------");
 					time_end = System.currentTimeMillis();
 					avgTime = time_end - time_start;
 					if(response == null) {
-						logger.debug("Request igual a null");
 						failedResponse++;
 					} else {
 						logger.debug("Request distinto de null");
 						successResponse++;
 						resourceMap = pageAnalyzer.getResources(response, (String)objStep.get("url"));
-//						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
+						reportQueue.put(REPORT_EVENT.URL_ANALYZED);
 						for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
 							logger.debug("tipo: " + entry.getKey());
 							logger.debug("recurso: " + entry.getValue());
 							downloadersSet.add(new Downloader(reportQueue, 
-									entry.getValue(), entry.getKey(), propertiesMap));
+									entry.getValue(), entry.getKey(), 
+									propertiesMap, summaryQueue));
 						}
-						logger.debug("CANTIDAD DE DOWNLOADERS A DISPARAR: " + downloadersSet.size());
-//						try {
-//							futures = executorService.invokeAll(downloadersSet);
-//							for(Future<Downloader> future : futures){
+						futures = executorService.invokeAll(downloadersSet);
+						for(Future<Downloader> future : futures){
+							logger.info("Esperando Downloaders");
+							future.get();
+//							try {
 //								if(future.get() != null) {
-//									avgTime = (avgTime + Long.parseLong(
-//											future.get().toString())/2);
+//									avgTime = (avgTime + Long.parseLong(future.get().toString())/2);
 //									successResponse++;
 //								} else {
 //									failedResponse++;
 //								}
+//							} catch (NumberFormatException
+//									| ExecutionException e) {
+//								failedResponse++;
 //							}
-//						} catch (ExecutionException e) {
-//							// Do nothing
-//						}
+						}
 					}
-				} catch (Exception e) {
-					logger.error("No se ha podido descargar el recurso.");
-					failedResponse++;
-				}
-				logger.debug("ESCRIBO LAS ESTADISTICAS ANTES DE MANDARLAS");
-				logger.debug("success " + successResponse);
-				logger.debug("failed " + failedResponse);
 				summaryQueue.put(new RequestStat(successResponse,
 						failedResponse,
 						avgTime));
 			}
-		} catch (InterruptedException e) {
-			logger.info("Senial de interrupcion recibida. Eliminado los downloaders.");
+		} catch (InterruptedException | ParseException | IOException e) {
+			logger.info("Fallo el user. Eliminando downloaders.");
 			executorService.shutdownNow();
-		} catch(IOException | ParseException e) {
-			logger.error("Nose ha podido leer el script.");
-		}
-		try {
-			logger.debug("YYYYYYYY");
-			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
-		} catch (InterruptedException e1) {
+		} catch (URISyntaxException e1) {
 			// Do nothing
-			logger.debug("BBBBB");
+		} catch (BadLocationException e1) {
+			// Do nothing
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {			
+			try {
+				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+			} catch (InterruptedException e1) {
+				// Do nothing
+			}
 		}
-//		logger.debug("ASDASD");
 	}
 }

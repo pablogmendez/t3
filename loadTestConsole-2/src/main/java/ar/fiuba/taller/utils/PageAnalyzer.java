@@ -25,8 +25,7 @@ public class PageAnalyzer {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
-	public Map<String, String> getResources(String response, String url)
-			throws URISyntaxException, IOException, BadLocationException {
+	public Map<String, String> getResources(String response, String url) {
 		Map<String, String> tmpMap = new HashMap<String, String>();
 		Iterator<Element> it = null;
 		Document doc = null;

@@ -32,7 +32,7 @@ public class Downloader implements Callable {
 	@Override
 	public Object call() {
 		long time_start, time_end, time_elapsed = 0;
-		String strTime = null, response = null;
+		String response = null;
 		HttpRequester httpRequester = new HttpRequester();
 		int successResponse = 0, failedResponse = 0;
 		
@@ -47,7 +47,6 @@ public class Downloader implements Callable {
 					Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT)));
 			time_end = System.currentTimeMillis();
 			time_elapsed = time_end - time_start;
-			//strTime = Long.toString(time_elapsed);
 			reportQueue.put(Constants.TYPE_RESOURCE_MAP.get(type));
 		} catch (Exception e) {
 			// Do nothing
@@ -66,6 +65,7 @@ public class Downloader implements Callable {
 				// Do nothing
 			}	
 		}
+		logger.info("Downloader terminado.");
 		return null;
 	}
 }

@@ -19,5 +19,21 @@
 	{"url" : "http://www.fi.uba.ar",
 	 "method" : "get",
 	 "headers" : null,
-	 "body" : null}]
+	 "body" : null},
+	{"url" : "http://putsreq.com/cTsVi2dfiMeujtwuv7Q6",
+	 "method" : "put",
+	 "headers" : null,
+	 "body" : "term=1"},
+	{"url" : "http://putsreq.com/cTsVi2dfiMeujtwuv7Q6",
+	 "method" : "post",
+	 "headers" : null,
+	 "body" : "hola=mundo"},
+	{"url" : "http://putsreq.com/cTsVi2dfiMeujtwuv7Q6",
+	 "method" : "put",
+	 "headers" : null,
+	 "body" : "count=5"},
+	{"url" : "http://putsreq.com/cTsVi2dfiMeujtwuv7Q6",
+	 "method" : "post",
+	 "headers" : null,
+	 "body" : "function=start"}]
 }

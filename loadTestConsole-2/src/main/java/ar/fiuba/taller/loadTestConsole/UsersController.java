@@ -57,6 +57,7 @@ public class UsersController implements Runnable {
 		if(it.hasNext()) {
 			pair = it.next();
 			deltaUsers = pair.getValue() - totalUsersCount;
+			oldTime = pair.getKey();
 		}
 		
 		try {
@@ -64,18 +65,20 @@ public class UsersController implements Runnable {
 				logger.info("Usuarios corriendo en el pool: " + totalUsersCount);
 				logger.info("Usuarios que se deben ingresar al pool: " + deltaUsers);
 				totalUsersCount += updateUsers(totalUsersCount, deltaUsers, executorService);
+				logger.info("Usuarios ingresados");
 				if(it.hasNext()) {
 					pair = it.next();
 					if(pair.getKey() > oldTime) {
 						sleepTime = pair.getKey() - oldTime;	
 					}
-					patternTime.set(oldTime);
 					deltaUsers = pair.getValue() - totalUsersCount;
 					oldTime = pair.getKey();
-					logger.debug("VALORES PARA LA PROXIMA CORRIDA: " + pair.getKey() + " - " + pair.getValue());
+					patternTime.set(oldTime);
+					logger.debug("Valores para la proxima corrida: " + pair.getKey() + " - " + pair.getValue());
 				} else {
 					deltaUsers = 0;
 				}
+				logger.info("Usuarios totales: " + totalUsersCount);
 				summaryQueue.put(new UserStat(totalUsersCount));
 				logger.info("Tiempo a dormir hasta el proximo pulso: " + sleepTime);
 				Thread.sleep(sleepTime*Constants.SLEEP_UNIT);
@@ -116,12 +119,17 @@ public class UsersController implements Runnable {
 			for(int i = 0; i < tmpUsersToAdd; i++) {
 				f = it.next();
 				f.cancel(true);
-				if(f.isCancelled()) {
-					logger.debug("CANCElo111");
-				} else {
-					logger.debug("noo CANCElo2222");
+				try {
+					Thread.sleep(100);
+					f.cancel(true);
+					Thread.sleep(100);
+					f.cancel(true);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				it.remove();
+				logger.debug("Usuario cancelado");
 			}
 		}
 		return usersToAdd;

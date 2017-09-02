@@ -23,18 +23,19 @@ public class ReportPrinter implements Runnable {
 		logger.info("Iniciando Monitor");
 		while (!Thread.interrupted()) {
 			try {
-				PrintWriter writer = new PrintWriter(propertiesMap.get(
-						Constants.REPORT_FILE),
-						"UTF-8");
-				writer.printf("Load Test Console: Monitor de reportes%n--------------------------------------%nURLs analizadas....................: %d%nSCRIPTS descargados................: %d%nLINKS descargados..................: %d%nIMGs descargadas...................: %d%nHilos ejecutando script............: %d%nHilos descargando recurso..........: %d%n",
-						report.getAnalyzedUrl(),
-						report.getDownloadedScripts(),
+				PrintWriter writer = new PrintWriter(
+						propertiesMap.get(Constants.REPORT_FILE), "UTF-8");
+				writer.printf(
+						"Load Test Console: Monitor de reportes%n--------------------------------------%nURLs analizadas....................: %d%nSCRIPTS descargados................: %d%nLINKS descargados..................: %d%nIMGs descargadas...................: %d%nHilos ejecutando script............: %d%nHilos descargando recurso..........: %d%n",
+						report.getAnalyzedUrl(), report.getDownloadedScripts(),
 						report.getDownloadedLinks(),
 						report.getDownloadedImages(),
 						report.getExecutionScriptThreads(),
 						report.getDownloadResourceThreads());
 				writer.close();
-				Thread.sleep(Integer.parseInt(propertiesMap.get(Constants.REPORT_TIMEOUT))*Constants.SLEEP_UNIT);
+				Thread.sleep((Integer
+						.parseInt(propertiesMap.get(Constants.REPORT_TIMEOUT))
+						* Constants.SLEEP_UNIT)/2);
 			} catch (IOException e) {
 				logger.error("No se pudo abrir el report file");
 			} catch (NumberFormatException e) {

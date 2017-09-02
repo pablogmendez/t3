@@ -1,0 +1,101 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "When people are #free to do as they please, they usually imitate each other."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When all think #alike, no one is thinking very much."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Every generation #laughs at the old fashions, but follows religiously the new."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We are discreet #sheep; we wait to see how the drove is going, and then go with the drove."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Whenever you #find you are on the side of the majority, it is time to pause and reflect."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It is dangerous to be right in matters on which the established authorities are #wrong."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We know what a person thinks not when he tells us what he thinks, but by his actions."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "As I grow older, I pay less attention to what men say. I just watch what they #do."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #memorandum isn't written to inform the receiver, but to protect the writer."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those #are my principles. If you don't like them I have others."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What #orators lack in depth they make up for in length."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Of #those who say nothing, few are silent."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Wise #men talk because they have something to say; fools, because they have to say something."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The secret of being tiresome is to tell #everything."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those who cannot remember the past are #condemned to #repeat it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can't understand why people are frightened by new #ideas. I'm frightened of old ones."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "History is the version of past events that people #have #decided to agree upon."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What luck for the rulers that men do not #think."
+		},
+
+		{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "#enemies"
+		},
+		{
+			"command": "QUERY",
+			"message": "#foolish"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

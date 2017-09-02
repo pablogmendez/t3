@@ -1,0 +1,64 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "Is tuna really #Chicken?"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "- Jessica #Simpson, after reading Tuna, Chicken of the sea"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I did my homework! I just #forgot to write it down."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Some people #drink from the fountain of knowledge, others just #gurgle."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'll kill you until #you die!!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "They #misunderestimated me!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "-George W. Bush"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't criticize my mess unless you'd like to become part of it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I have a mind like a steel trap; it is rusty and illegal in 47 states"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

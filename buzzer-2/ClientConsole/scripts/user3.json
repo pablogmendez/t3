@@ -1,0 +1,64 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "#Crazy is a relative term in my #family!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Men, #chocolate, and coffee are all better rich."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Keep #smiling, it makes people wonder what you're up #to."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Procrastinate now, don't put it #off."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Caution, #Blind #Man #Driving."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All #trespassers will be shot on sight. All survivors will then be prosecuted to the fullest extent of the law.Have a nice #day!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'd kill for a Nobel Peace #Prize."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Borrow money from #pessimists - they don't expect it #back."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Everyone has a photographic memory, some just don't #have #film"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "42.7% of all statistics are made up on the #spot."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Driving"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Blind"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

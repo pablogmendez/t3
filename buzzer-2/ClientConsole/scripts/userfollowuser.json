@@ -1,0 +1,8 @@
+{
+	"commands": [
+		{
+			"command": "FOLLOW",
+			"message": "user1"
+		}
+	]
+}

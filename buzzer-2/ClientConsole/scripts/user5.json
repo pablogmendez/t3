@@ -1,0 +1,72 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "Hard work pays off in the future, laziness pays off now."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I intend to live forever -- so far, so #good."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Eagles may soar, but weasels don't get sucked into jet engines."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "My mechanic told me,I couldn't repair your brakes,so I made your horn louder."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, destroy #all evidence that you tried."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A conclusion is the part where you got #tired of #thinking."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Experience is something you don't get until just #after #you need it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "To steal ideas from one person is plagiarism; to steal from many is research."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't drink and drive you might spill your #beer"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If you can't fix it with duck tape you have'nt #used enough"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Smile, and the world will smile with you."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Laugh and they'll all think your on drugs."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user3"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

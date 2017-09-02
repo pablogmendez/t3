@@ -1,0 +1,64 @@
+{
+	"commands": [
+		{
+		"command": "PUBLISH",
+		"message": "Boldly #Going #Nowhere."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Caution - #Driver Legally Blonde."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Honk If You've #Never Seen An Uzi Fired From A Car Window."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "GROW YOUR OWN #DOPE --- PLANT A BLONDE."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All Men Are #Animals; Some Just Make Better Pets."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "POLITICIANS & #DIAPERS BOTH NEED TO BE CHANGED, AND FOR THE SAME REASON"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those who think they know everything, annoy those of us that do"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Save the #environment...plant a Bush back in Texas."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't regret doing things, regret getting caught"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "None of us are virgins, life has screwed us all"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#DOPE"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user30"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Going"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		}
+	]
+}

@@ -25,7 +25,7 @@ import ar.fiuba.taller.loadTestConsole.Constants.REPORT_EVENT;
 import ar.fiuba.taller.utils.HttpRequester;
 import ar.fiuba.taller.utils.PageAnalyzer;
 
-public class User implements Runnable {	
+public class User implements Runnable {
 	final static Logger logger = Logger.getLogger(User.class);
 	private Map<String, String> propertiesMap;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
@@ -43,32 +43,32 @@ public class User implements Runnable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
-		long time_end, time_start, avgTime = 0, successResponse = 0, failedResponse = 0;
+		long time_end, time_start, avgTime = 0, successResponse = 0,
+				failedResponse = 0;
 		String response = null;
 		Map<String, String> resourceMap = null;
-		Set<Callable<Downloader>> downloadersSet  = new HashSet<Callable<Downloader>>();
+		Set<Callable<Downloader>> downloadersSet = new HashSet<Callable<Downloader>>();
 		ExecutorService executorService = Executors.newFixedThreadPool(
-				Integer.parseInt(propertiesMap.get(
-						Constants.MAX_DOWNLOADERS)));
+				Integer.parseInt(propertiesMap.get(Constants.MAX_DOWNLOADERS)));
 		JSONParser parser = new JSONParser();
-		HttpRequester httpRequester = new HttpRequester();		
+		HttpRequester httpRequester = new HttpRequester();
 		Object objScript = null;
-        JSONObject objStep = null; 
+		JSONObject objStep = null;
 		JSONArray stepsArray = null;
 		List<Future<Downloader>> futures = null;
 		PageAnalyzer pageAnalyzer = new PageAnalyzer();
 		Iterator<JSONObject> it = null;
-		
+
 		logger.info("Iniciando usuario");
 		try {
 			reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTING);
-			objScript = parser.parse(new FileReader(propertiesMap.get(
-					Constants.SCRIPT_FILE)));
-			stepsArray = (JSONArray)((JSONObject) objScript).get("steps");
+			objScript = parser.parse(
+					new FileReader(propertiesMap.get(Constants.SCRIPT_FILE)));
+			stepsArray = (JSONArray) ((JSONObject) objScript).get("steps");
 			it = stepsArray.iterator();
-			
-			while(!Thread.interrupted()) {
-				if(it == null || !it.hasNext()) {
+
+			while (!Thread.interrupted()) {
+				if (it == null || !it.hasNext()) {
 					avgTime = 0;
 					successResponse = 0;
 					failedResponse = 0;
@@ -76,41 +76,46 @@ public class User implements Runnable {
 					it = stepsArray.iterator();
 				}
 				objStep = it.next();
-				logger.info("Siguiente url a analizar: " + (String)objStep.get("url"));
-				logger.info("Metodo: " + (String)objStep.get("method"));
-				logger.info("headers: " + (String)objStep.get("headers"));
-				logger.info("Body: " + (String)objStep.get("body"));
+				logger.info("Siguiente url a analizar: "
+						+ (String) objStep.get("url"));
+				logger.info("Metodo: " + (String) objStep.get("method"));
+				logger.info("headers: " + (String) objStep.get("headers"));
+				logger.info("Body: " + (String) objStep.get("body"));
 				time_start = System.currentTimeMillis();
-				response = httpRequester.doHttpRequest((String)objStep.get("method"), 
-						(String)objStep.get("url"),
-						(String)objStep.get("headers"),
-						(String)objStep.get("body"), 
-						Integer.parseInt(propertiesMap.get(Constants.HTTP_TIMEOUT))*Constants.SLEEP_UNIT);
+				response = httpRequester.doHttpRequest(
+						(String) objStep.get("method"),
+						(String) objStep.get("url"),
+						(String) objStep.get("headers"),
+						(String) objStep.get("body"),
+						Integer.parseInt(
+								propertiesMap.get(Constants.HTTP_TIMEOUT))
+								* Constants.SLEEP_UNIT);
 				logger.debug("Request listo");
 				time_end = System.currentTimeMillis();
 				avgTime = time_end - time_start;
-				if(response == null) {
+				if (response == null) {
 					failedResponse++;
 				} else {
 					successResponse++;
-					resourceMap = pageAnalyzer.getResources(response, (String)objStep.get("url"));
+					resourceMap = pageAnalyzer.getResources(response,
+							(String) objStep.get("url"));
 					reportQueue.put(REPORT_EVENT.URL_ANALYZED);
-					for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+					for (Map.Entry<String, String> entry : resourceMap
+							.entrySet()) {
 						logger.debug("tipo: " + entry.getKey());
 						logger.debug("recurso: " + entry.getValue());
-						downloadersSet.add(new Downloader(reportQueue, 
-								entry.getValue(), entry.getKey(), 
-								propertiesMap, summaryQueue));
+						downloadersSet.add(new Downloader(reportQueue,
+								entry.getValue(), entry.getKey(), propertiesMap,
+								summaryQueue));
 					}
 					futures = executorService.invokeAll(downloadersSet);
 					logger.info("Esperando Downloaders");
-					for(Future<Downloader> future : futures){
+					for (Future<Downloader> future : futures) {
 						future.get();
 					}
 				}
 				summaryQueue.put(new RequestStat(successResponse,
-						failedResponse,
-						avgTime));
+						failedResponse, avgTime));
 			}
 		} catch (IOException | InterruptedException | ExecutionException e) {
 			// Do nothing
@@ -120,7 +125,7 @@ public class User implements Runnable {
 			} catch (ParseException e1) {
 				// Do nothing
 			}
-		} finally {			
+		} finally {
 			try {
 				logger.info("User cancelado. Eliminando downloaders.");
 				executorService.shutdownNow();

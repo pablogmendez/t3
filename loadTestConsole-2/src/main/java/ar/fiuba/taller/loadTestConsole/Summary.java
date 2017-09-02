@@ -42,7 +42,7 @@ public class Summary {
 	}
 
 	public synchronized void updateAvgDownloadTime(long time) {
-		avgDownloadTime = (avgDownloadTime + time)/2;
+		avgDownloadTime = (long) ((0.8*avgDownloadTime) + (0.2*time));
 	}
 
 	public synchronized long getTotalRequests() {

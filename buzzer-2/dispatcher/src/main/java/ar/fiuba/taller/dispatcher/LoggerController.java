@@ -1,25 +1,26 @@
 package ar.fiuba.taller.dispatcher;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.common.Command;
-import ar.fiuba.taller.common.RemoteQueue;
+import ar.fiuba.taller.common.Constants;
+import ar.fiuba.taller.common.WritingRemoteQueue;
 
 public class LoggerController implements Runnable {
-
 	private BlockingQueue<Command> loggerCommandQueue;
-	private RemoteQueue loggerQueue;
-
+	private WritingRemoteQueue loggerQueue;
 	final static Logger logger = Logger.getLogger(LoggerController.class);
 
 	public LoggerController(BlockingQueue<Command> loggerCommandQueue,
-			RemoteQueue loggerQueue) {
+			Map<String, String> config) {
 		this.loggerCommandQueue = loggerCommandQueue;
-		this.loggerQueue = loggerQueue;
+		loggerQueue = new WritingRemoteQueue(config.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
+				config.get(Constants.AUDIT_LOGGER_QUEUE_HOST), config);
 	}
 
 	public void run() {
@@ -27,27 +28,24 @@ public class LoggerController implements Runnable {
 		Command command;
 
 		logger.info("Iniciando el logger controller");
-		while (true) {
-			try {
-				command = loggerCommandQueue.take();
-				logger.info("Comando recibido con los siguientes parametros: "
-						+ "\nUsuario: " + command.getUser() + "\nComando: "
-						+ command.getCommand() + "\nMensaje: "
-						+ command.getMessage());
-				loggerQueue.put(command);
-				logger.info("Comando enviado al logger");
-			} catch (InterruptedException e) {
-				logger.error(
-						"Error al obtener el comando de la cola "
-						+ "loggerCommandQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				logger.error(
-						"Error al insertar el comando de la cola loggerQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
+		try {
+			while (!Thread.interrupted()) {
+				try {
+					command = loggerCommandQueue.take();
+					logger.info("Comando recibido con los siguientes parametros: "
+							+ "\nUsuario: " + command.getUser() + "\nComando: "
+							+ command.getCommand() + "\nMensaje: "
+							+ command.getMessage());
+					loggerQueue.push(command);
+					logger.info("Comando enviado al logger");
+				} catch (IOException e) {
+					logger.error(e);
+				}
 			}
+		} catch (InterruptedException e) {
+			logger.info("Logger controller interrumpido");
 		}
+		logger.info("Logger controller terminado");
 	}
 }
+

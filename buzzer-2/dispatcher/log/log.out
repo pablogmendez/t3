@@ -1,0 +1,5 @@
+[2017-09-03 22:47:17][INFO ] DispatcherController.java:54 - Thread_Id: 1 - Iniciando el dispatcher controller
+[2017-09-03 22:47:17][INFO ] LoggerController.java:30 - Thread_Id: 15 - Iniciando el logger controller
+[2017-09-03 22:47:17][INFO ] AnalyzerController.java:31 - Thread_Id: 11 - Iniciando el analyzer controller
+[2017-09-03 22:47:17][INFO ] StorageController.java:32 - Thread_Id: 13 - Iniciando el storage controller
+[2017-09-03 22:47:18][INFO ] DispatcherController.java:105 - Thread_Id: 1 - Dispatcher controller terminado

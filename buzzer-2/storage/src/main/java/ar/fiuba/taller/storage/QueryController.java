@@ -30,47 +30,35 @@ public class QueryController implements Runnable {
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		String queryResult;
-		// Este mensaje deberia ser configurable
 		String error_message = "Error al consultar";
 		logger.info("Iniciando el query controller");
-		while (true) {
-			try {
-				command = queryQueue.take();
-				response = new Response();
-				response.setUuid(UUID.randomUUID());
-				response.setUser(command.getUser());
-				response.setMessage(storage.query(command));
-				logger.debug(response.getMessage());
-				response.setResponse_status(RESPONSE_STATUS.OK);
-			} catch (InterruptedException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.error("Error al sacar comando de la cola removeQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.error("Error borrar el mensaje");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (ParseException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.error("Error borrar el mensaje");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} finally {
+		try {
+			while (!Thread.interrupted()) {
 				try {
-					responseQueue.put(response);
-				} catch (InterruptedException e) {
-					logger.error("No se pudo enviar la respuesta");
-					logger.info(e.toString());
-					e.printStackTrace();
+					command = queryQueue.take();
+					response = new Response();
+					response.setUuid(UUID.randomUUID());
+					response.setUser(command.getUser());
+					response.setMessage(storage.query(command));
+					logger.debug(response.getMessage());
+					response.setResponse_status(RESPONSE_STATUS.OK);
+				} catch (IOException e) {
+					response.setResponse_status(RESPONSE_STATUS.ERROR);
+					response.setMessage(error_message);
+					logger.error(e);
+				} catch (ParseException e) {
+					response.setResponse_status(RESPONSE_STATUS.ERROR);
+					response.setMessage(error_message);
+					logger.error(e);
+				} finally {
+					if(response != null) {
+						responseQueue.put(response);
+						response = null;
+					}
 				}
 			}
+		} catch (InterruptedException e) {
+			logger.info("Query Controller interrumpido");
 		}
 	}
-
 }

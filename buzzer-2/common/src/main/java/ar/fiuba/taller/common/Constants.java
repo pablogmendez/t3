@@ -19,25 +19,39 @@ public class Constants {
 	public static final String USERS_KEY = "users";
 	public static final String MESSAGE_KEY = "message";
 	public static final String USERS_FILE = "conf/users.json";
-	public static final String CONF_FILE = "conf/configuration.properties";
+	public static final String CONF_FILE = "configuration.properties";
 	public static final String LOGS_DIR = "log";
 	public static final String EVENT_VIEWER_FILE = "user_";
 	public static final String EVENT_VIEWER_FILE_EXTENSION = ".events";
-	public static final String RESPONSE_QUEUE_HOST = "responseQueueHost";
-	public static final String RESPONSE_QUEUE_NAME = "responseQueueName";
-	public static final String DISPATCHER_QUEUE_HOST = "dispatcherQueueHost";
-	public static final String DISPATCHER_QUEUE_NAME = "dispatcherQueueName";
-	public static final String AUDIT_LOGGER_QUEUE_HOST = "auditLoggerQueueHost";
-	public static final String AUDIT_LOGGER_QUEUE_NAME = "auditLoggerQueueName";
-	public static final String STORAGE_REQUEST_QUEUE_HOST = "storageResquestQueueHost";
-	public static final String STORAGE_REQUEST_QUEUE_NAME = "storageRequestQueueName";
-	public static final String STORAGE_RESPONSE_QUEUE_HOST = "storageResponseQueueHost";
-	public static final String STORAGE_RESPONSE_QUEUE_NAME = "storageResponseQueueName";
-	public static final String ANALYZER_QUEUE_HOST = "analyzerQueueHost";
-	public static final String ANALYZER_QUEUE_NAME = "analyzerQueueName";
-	public static final String USERS_SERVER = "usersServer";
-	public static final String SHARDING_FACTOR = "shardingFactor";
-	public static final String AUDIT_LOG_FILE = "log/audit.log";
+
+
+
+	// Constantes para el storage
+	public static final String STORAGE_QUEUE_NAME = "storage.queue.name";
+	public static final String STORAGE_QUERY_RESULT_QUEUE_NAME = "storage.query.result.queue.name";
+	public static final String STORAGE_QUEUE_HOST = "storage.queue.host";
+	public static final String STORAGE_QUERY_RESULT_QUEUE_HOST = "storage.query.result.queue.host";
+	public static final long   STORAGE_THREAD_WAIT_TIME = 5000;
+	public static final String SHARDING_FACTOR = "sharding.factor";
+	public static final String QUERY_COUNT_SHOW_POSTS = "query.count.show.posts";
+	public static final String TT_COUNT_SHOW = "tt.count.show";
+	
+	// Constantes para el audit logger
+	public static final String AUDIT_LOGGER_QUEUE_HOST = "audit.logger.queue.host";
+	public static final String AUDIT_LOGGER_QUEUE_NAME = "audit.logger.queue.name";
+	public static final long   AUDIT_LOGGER_THREAD_WAIT_TIME = 5000;
+	public static final String AUDIT_LOG_FILE = "audit.log.file";
+
+	// Constantes para el dispatcher
+	public static final String DISPATCHER_QUEUE_NAME = "dispatcher.queue.name";
+	public static final String DISPATCHER_QUEUE_HOST = "dispatcher.queue.host";
+	public static final long   DISPATCHER_THREAD_WAIT_TIME = 5000;
+	
+	// Constantes para el analyzer
+	public static final String ANALYZER_QUEUE_HOST = "analyzer.queue.host";
+	public static final String ANALYZER_QUEUE_NAME = "analyzer.queue.name";
+	public static final long   ANALYZER_THREAD_WAIT_TIME = 5000;
+	
 	public static final String DB_DIR = "db";
 	public static final String DB_INDEX_DIR = "idx";
 	public static final String DB_USER_INDEX = "user.json";
@@ -45,11 +59,19 @@ public class Constants {
 	public static final String DB_TT = "tt.json";
 	public static final SimpleDateFormat SDF = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
-	public static final String QUERY_COUNT_SHOW_POSTS = "queryCountShowPosts";
-	public static final String TT_COUNT_SHOW_POST = "ttCountShowPosts";
+
 	public static final String USER_READ_MODE = "r";
 	public static final String USER_WRITE_MODE = "w";
 
+	public static final String ACKS_CONFIG = "acks.config";
+	public static final String RETRIES_CONFIG = "retries.config";
+	public static final String KEY_SERIALIZER_CLASS_CONFIG = "key.serializer.class.config";
+	public static final String VALUE_SERIALIZER_CLASS_CONFIG = "value.serializer.class.config";
+	public static final String KEY_DESERIALIZER_CLASS_CONFIG = "key.deserializer.class.config";
+	public static final String VALUE_DESERIALIZER_CLASS_CONFIG = "value.deserializer.class.config";
+	public static final String GROUP_ID_CONFIG = "group.id.config";
+	public static final String AUTO_OFFSET_RESET_CONFIG = "auto.offset.reset.config";
+	
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW
 	};
@@ -77,4 +99,7 @@ public class Constants {
 		tmpMap1.put("REGISTERED", RESPONSE_STATUS.REGISTERED);
 		RESPONSE_STATUS_MAP = Collections.unmodifiableMap(tmpMap1);
 	}
+	
+	public static final int EXIT_SUCCESS = 0;
+	public static final int EXIT_FAILURE = 1;
 }

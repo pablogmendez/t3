@@ -32,41 +32,33 @@ public class RemoveController implements Runnable {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		String error_message = "Error al eliminar el mensaje";
 		logger.info("Iniciando el remove controller");
-		while (true) {
-			try {
-				command = removeQueue.take();
-				response = new Response();
-				response.setUuid(UUID.randomUUID());
-				response.setUser(command.getUser());
-				storage.delete(command);
-				response.setMessage("Borrado exitoso");
-				response.setResponse_status(RESPONSE_STATUS.OK);
-			} catch (InterruptedException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.error("Error borrar el mensaje");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (ParseException e) {
-				response.setResponse_status(RESPONSE_STATUS.ERROR);
-				response.setMessage(error_message);
-				logger.error("Error borrar el mensaje");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} finally {
-				try {
-					responseQueue.put(response);
-				} catch (InterruptedException e) {
-					logger.error("No se pudo enviar la respuesta");
-					logger.info(e.toString());
-					e.printStackTrace();
+		try {
+				while (!Thread.interrupted()) {
+					try {
+						command = removeQueue.take();
+						response = new Response();
+						response.setUuid(UUID.randomUUID());
+						response.setUser(command.getUser());
+						storage.delete(command);
+						response.setMessage("Borrado exitoso");
+						response.setResponse_status(RESPONSE_STATUS.OK);
+					} catch (IOException e) {
+						response.setResponse_status(RESPONSE_STATUS.ERROR);
+						response.setMessage(error_message);
+						logger.error(e);
+					} catch (ParseException e) {
+						response.setResponse_status(RESPONSE_STATUS.ERROR);
+						response.setMessage(error_message);
+						logger.error(e);
+					} finally {
+						if(response != null) {
+							responseQueue.put(response);
+							response = null;
+						}
+					}
 				}
-			}
+		} catch (InterruptedException e) {
+			logger.info("Remove Controller interrumpido");
 		}
 	}
 }

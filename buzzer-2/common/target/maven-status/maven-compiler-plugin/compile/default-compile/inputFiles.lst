@@ -1,0 +1,9 @@
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ISerialize.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ReadingRemoteQueueException.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ConfigLoader.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/WritingRemoteQueue.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Command.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Response.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Constants.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/RemoteQueue.java
+/home/pablo/Escritorio/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ReadingRemoteQueue.java

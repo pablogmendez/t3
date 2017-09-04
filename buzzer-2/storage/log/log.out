@@ -1,0 +1,14 @@
+[2017-09-03 19:17:04][INFO ] StorageController.java:62 - Thread_Id: 1 - Lanzando los threads de query, remove y create
+[2017-09-03 19:17:04][INFO ] QueryController.java:34 - Thread_Id: 10 - Iniciando el query controller
+[2017-09-03 19:17:04][INFO ] ResponseController.java:27 - Thread_Id: 1 - Iniciando el response controller
+[2017-09-03 19:17:04][INFO ] StorageController.java:68 - Thread_Id: 1 - Consumiendo de la storageQueue
+[2017-09-03 19:17:04][INFO ] RemoveController.java:34 - Thread_Id: 11 - Iniciando el remove controller
+[2017-09-03 19:17:04][INFO ] CreateController.java:34 - Thread_Id: 12 - Iniciando el create controller
+[2017-09-03 19:17:04][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-03 19:17:06][ERROR] StorageController.java:93 - Thread_Id: 1 - Fallo el join de alguno de los threads
+[2017-09-03 19:17:06][DEBUG] StorageController.java:94 - Thread_Id: 1 - java.lang.InterruptedException
+[2017-09-03 19:17:06][INFO ] RemoveController.java:61 - Thread_Id: 11 - Remove Controller interrumpido
+[2017-09-03 19:17:06][INFO ] ResponseController.java:60 - Thread_Id: 1 - ResponseController interrumpido
+[2017-09-03 19:17:06][INFO ] CreateController.java:63 - Thread_Id: 12 - Create controller interrumpido
+[2017-09-03 19:17:06][INFO ] QueryController.java:61 - Thread_Id: 10 - Query Controller interrumpido
+[2017-09-03 19:17:06][INFO ] StorageController.java:97 - Thread_Id: 1 - Storgae Controller terminado

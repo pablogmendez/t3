@@ -1,0 +1,11 @@
+ar/fiuba/taller/common/ReadingRemoteQueue.class
+ar/fiuba/taller/common/ISerialize.class
+ar/fiuba/taller/common/ConfigLoader.class
+ar/fiuba/taller/common/WritingRemoteQueue.class
+ar/fiuba/taller/common/Response.class
+ar/fiuba/taller/common/Constants$RESPONSE_STATUS.class
+ar/fiuba/taller/common/ReadingRemoteQueueException.class
+ar/fiuba/taller/common/Constants$COMMAND.class
+ar/fiuba/taller/common/Command.class
+ar/fiuba/taller/common/RemoteQueue.class
+ar/fiuba/taller/common/Constants.class

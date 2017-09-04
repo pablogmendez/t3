@@ -1,107 +1,107 @@
 package ar.fiuba.taller.dispatcher;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
-import com.rabbitmq.client.AMQP.BasicProperties;
-
 import ar.fiuba.taller.common.Command;
-import ar.fiuba.taller.common.RemoteQueue;
-import ar.fiuba.taller.common.Response;
+import ar.fiuba.taller.common.Constants;
+import ar.fiuba.taller.common.ReadingRemoteQueue;
+import ar.fiuba.taller.common.ReadingRemoteQueueException;
 
-public class DispatcherController extends DefaultConsumer implements Runnable {
+public class DispatcherController implements Runnable {
 
-	RemoteQueue dispatcherQueue;
-	BlockingQueue<Command> storageCommandQueue;
-	BlockingQueue<Command> analyzerCommandQueue;
-	BlockingQueue<Command> loggerCommandQueue;
+	private ReadingRemoteQueue dispatcherQueue;
+	private BlockingQueue<Command> storageCommandQueue;
+	private BlockingQueue<Command> analyzerCommandQueue;
+	private BlockingQueue<Command> loggerCommandQueue;
+	private Thread analyzerControllerThread;
+	private Thread storageControllerThread;
+	private Thread loggerControllerThread;
 	final static Logger logger = Logger.getLogger(DispatcherController.class);
 
-	public DispatcherController(RemoteQueue dispatcherQueue,
-			BlockingQueue<Command> storageCommandQueue,
-			BlockingQueue<Command> analyzerCommandQueue,
-			BlockingQueue<Command> loggerCommandQueue) {
-		super(dispatcherQueue.getChannel());
-		this.storageCommandQueue = storageCommandQueue;
-		this.analyzerCommandQueue = analyzerCommandQueue;
-		this.loggerCommandQueue = loggerCommandQueue;
+	public DispatcherController(Map<String, String> config,
+			ReadingRemoteQueue dispatcherQueue) {
+		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
+		analyzerCommandQueue = new ArrayBlockingQueue<Command>(
+				Constants.COMMAND_QUEUE_SIZE);
+		storageCommandQueue = new ArrayBlockingQueue<Command>(
+				Constants.COMMAND_QUEUE_SIZE);
+		loggerCommandQueue = new ArrayBlockingQueue<Command>(
+				Constants.COMMAND_QUEUE_SIZE);
+		analyzerControllerThread = new Thread(
+				new AnalyzerController(analyzerCommandQueue, config));
+		storageControllerThread = new Thread(
+				new StorageController(storageCommandQueue, config));
+		loggerControllerThread = new Thread(
+				new LoggerController(loggerCommandQueue, config));
 		this.dispatcherQueue = dispatcherQueue;
 	}
 
 	public void run() {
-		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		logger.info("Iniciando el dispatcher controller");
-		// while(true) {
-		try {
-			dispatcherQueue.getChannel()
-					.basicConsume(dispatcherQueue.getQueueName(), true, this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// }
-	}
-
-	@Override
-	public void handleDelivery(String consumerTag, Envelope envelope,
-			BasicProperties properties, byte[] body) throws IOException {
-		super.handleDelivery(consumerTag, envelope, properties, body);
 		Command command = new Command();
+		List<byte[]> messageList = null;
+
+		analyzerControllerThread.start();
+		storageControllerThread.start();
+		loggerControllerThread.start();
+
+		logger.info("Iniciando el dispatcher controller");
 		try {
-			command.deserialize(body);
-			logger.info("Comando recibido con los siguientes parametros: "
-					+ "\nUsuario: " + command.getUser() + "\nComando: "
-					+ command.getCommand() + "\nMensaje: "
-					+ command.getMessage());
-			switch (command.getCommand()) {
-			case PUBLISH:
-				logger.info("Enviando mensaje a la cola del storage");
-				storageCommandQueue.put(command);
-				logger.info("Enviando mensaje a la cola del analyzer");
-				analyzerCommandQueue.put(command);
-				logger.info("Enviando mensaje a la cola del logger");
-				loggerCommandQueue.put(command);
-				break;
-			case QUERY:
-				logger.info("Enviando mensaje a la cola del storage");
-				storageCommandQueue.put(command);
-				logger.info("Enviando mensaje a la cola del logger");
-				loggerCommandQueue.put(command);
-				break;
-			case DELETE:
-				logger.info("Enviando mensaje a la cola del storage");
-				storageCommandQueue.put(command);
-				logger.info("Enviando mensaje a la cola del logger");
-				loggerCommandQueue.put(command);
-				break;
-			case FOLLOW:
-				logger.info("Enviando mensaje a la cola del analyzer");
-				analyzerCommandQueue.put(command);
-				logger.info("Enviando mensaje a la cola del logger");
-				loggerCommandQueue.put(command);
-				break;
-			default:
-				logger.error("Comando invalido");
-				break;
+			while (!Thread.interrupted()) {
+				messageList = dispatcherQueue.pop();
+				for (byte[] message : messageList) {
+					try {
+						command.deserialize(message);
+						logger.info(
+								"Comando recibido con los siguientes parametros: "
+										+ "\nUsuario: " + command.getUser()
+										+ "\nComando: " + command.getCommand()
+										+ "\nMensaje: " + command.getMessage());
+						switch (command.getCommand()) {
+						case PUBLISH:
+							storageCommandQueue.put(command);
+							analyzerCommandQueue.put(command);
+							loggerCommandQueue.put(command);
+							break;
+						case QUERY:
+							storageCommandQueue.put(command);
+							loggerCommandQueue.put(command);
+							break;
+						case DELETE:
+							storageCommandQueue.put(command);
+							loggerCommandQueue.put(command);
+							break;
+						case FOLLOW:
+							analyzerCommandQueue.put(command);
+							loggerCommandQueue.put(command);
+							break;
+						default:
+							logger.error("Comando invalido");
+							break;
+						}
+					} catch (ClassNotFoundException | IOException e) {
+						logger.error("No se ha podido deserializar el mensaje");
+					}
+				}
 			}
-		} catch (ClassNotFoundException e) {
-			logger.info("Error al deserializar el comando");
-			logger.info(e.toString());
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.info("Error al deserializar el comando");
-			logger.info(e.toString());
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			logger.error("Error al insertar el comando en alguna de las colas");
-			logger.info(e.toString());
-			e.printStackTrace();
+		} catch (ReadingRemoteQueueException | InterruptedException e) {
+			analyzerControllerThread.interrupt();
+			storageControllerThread.interrupt();
+			loggerControllerThread.interrupt();
+			try {
+				analyzerControllerThread.join();
+				storageControllerThread.join();
+				loggerControllerThread.join();
+			} catch (InterruptedException e1) {
+				// Do nothing
+			}
 		}
+		logger.info("Dispatcher controller terminado");
 	}
 }

@@ -5,75 +5,61 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.BlockingQueue;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
-import com.rabbitmq.client.AMQP.BasicProperties;
-
 import ar.fiuba.taller.common.*;
 
-public class AuditLogger extends DefaultConsumer implements Runnable {
-
+public class AuditLogger implements Runnable {
 	private Timestamp timestamp;
-	private RemoteQueue loggerQueue;
+	private ReadingRemoteQueue loggerQueue;
+	private Map<String, String> config;
 	final static Logger logger = Logger.getLogger(AuditLogger.class);
 
-	public AuditLogger(RemoteQueue loggerQueue) {
-		super(loggerQueue.getChannel());
-		ConfigLoader.getInstance();
+	public AuditLogger(ReadingRemoteQueue loggerQueue, Map<String, String> config) {
 		this.loggerQueue = loggerQueue;
+		this.config = config;
 	}
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-
-		logger.info("Iniciando el audit logger");
-		try {
-			PrintWriter pw = new PrintWriter(Constants.AUDIT_LOG_FILE, "UTF-8");
-			pw.close();
-			loggerQueue.getChannel().basicConsume(loggerQueue.getQueueName(),
-					true, this);
-		} catch (IOException e) {
-			logger.error("Error consumir de la cola remota");
-			logger.info(e.toString());
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void handleDelivery(String consumerTag, Envelope envelope,
-			BasicProperties properties, byte[] body) throws IOException {
-		super.handleDelivery(consumerTag, envelope, properties, body);
-		PrintWriter pw = new PrintWriter(new BufferedWriter(
-				new FileWriter(Constants.AUDIT_LOG_FILE, true)));
+		List<byte[]> messageList = null;
 		Command command = new Command();
-		try {
-			command.deserialize(body);
-			logger.info("Comando recibido con los siguientes parametros: "
-					+ "\nUsuario: " + command.getUser() + "\nComando: "
-					+ command.getCommand() + "\nMensaje: "
-					+ command.getMessage());
-			logger.info("Escribiendo el mensaje en el archivo de log "
-					+ Constants.AUDIT_LOG_FILE);
-			logger.info(getAuditLogEntry(command));
-			pw.println(getAuditLogEntry(command));
+		PrintWriter pw = null;
+		
+		logger.info("Iniciando el audit logger");
+		
+	    try {
+	    	// Si no existe el archivo lo creo
+			pw = new PrintWriter(config.get(Constants.AUDIT_LOG_FILE), "UTF-8");
 			pw.close();
-		} catch (ClassNotFoundException e) {
-			logger.error("Error al deserializar el comando");
-			logger.info(e.toString());
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.error("Error al deserializar el comando");
-			logger.info(e.toString());
-			e.printStackTrace();
+	    	
+			// Lo abro para realizar append
+			pw = new PrintWriter(new BufferedWriter(
+					new FileWriter(config.get(Constants.AUDIT_LOG_FILE), true)));
+			
+	        while (!Thread.interrupted()) {
+	          messageList = loggerQueue.pop();
+	          for(byte[] message : messageList) {
+	  			try {
+					command.deserialize(message);
+					logger.info("Comando recibido: " + getAuditLogEntry(command));
+					pw.println(getAuditLogEntry(command));
+					pw.flush();
+				} catch (ClassNotFoundException | IOException  e) {
+					logger.error("No se ha podido deserializar el mensaje");
+				}
+	          }
+	        }
+	    } catch (IOException e) {
+			logger.error(e);
+		} catch(ReadingRemoteQueueException e) {
+			pw.close();
 		}
+		logger.info("Audit logger terminado");
 	}
 
 	private String getAuditLogEntry(Command command) {

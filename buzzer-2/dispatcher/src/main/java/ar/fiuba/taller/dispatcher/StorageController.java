@@ -1,24 +1,28 @@
 package ar.fiuba.taller.dispatcher;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.common.Command;
-import ar.fiuba.taller.common.RemoteQueue;
+import ar.fiuba.taller.common.Constants;
+import ar.fiuba.taller.common.WritingRemoteQueue;
 
 public class StorageController implements Runnable {
 	private BlockingQueue<Command> storageCommandQueue;
-	private RemoteQueue storageQueue;
+	private WritingRemoteQueue storageQueue;
 
 	final static Logger logger = Logger.getLogger(StorageController.class);
 
 	public StorageController(BlockingQueue<Command> storageCommandQueue,
-			RemoteQueue storageQueue) {
+			Map<String, String> config) {
 		this.storageCommandQueue = storageCommandQueue;
-		this.storageQueue = storageQueue;
+		this.storageQueue = new WritingRemoteQueue(
+				config.get(Constants.STORAGE_QUEUE_NAME),
+				config.get(Constants.STORAGE_QUEUE_HOST), config);
 	}
 
 	public void run() {
@@ -26,27 +30,22 @@ public class StorageController implements Runnable {
 		Command command;
 
 		logger.info("Iniciando el storage controller");
-		while (true) {
-			try {
-				command = storageCommandQueue.take();
-				logger.info("Comando recibido con los siguientes parametros: "
-						+ "\nUsuario: " + command.getUser() + "\nComando: "
-						+ command.getCommand() + "\nMensaje: "
-						+ command.getMessage());
-				storageQueue.put(command);
-				logger.info("Comando enviado al storage");
-			} catch (InterruptedException e) {
-				logger.error(
-						"Error al obtener el comando de la cola "
-						+ "storageCommandQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
-			} catch (IOException e) {
-				logger.error(
-						"Error al insertar el comando de la cola storageQueue");
-				logger.info(e.toString());
-				e.printStackTrace();
+		try {
+			while (!Thread.interrupted()) {
+				try {
+					command = storageCommandQueue.take();
+					logger.info("Comando recibido con los siguientes parametros: "
+							+ "\nUsuario: " + command.getUser() + "\nComando: "
+							+ command.getCommand() + "\nMensaje: "
+							+ command.getMessage());
+					storageQueue.push(command);
+					logger.info("Comando enviado al storage");
+				} catch (IOException e) {
+					logger.error(e);
+				}
 			}
+		} catch (InterruptedException e) {
+			logger.info("Storage controller interrumpido");
 		}
 	}
 }

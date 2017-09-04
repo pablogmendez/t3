@@ -1,4 +1,4 @@
-package ar.fiuba.taller.analyzer2;
+package ar.fiuba.taller.analyzer;
 
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;

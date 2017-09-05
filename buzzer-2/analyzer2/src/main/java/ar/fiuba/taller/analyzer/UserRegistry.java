@@ -1,6 +1,5 @@
 package ar.fiuba.taller.analyzer;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,9 +24,7 @@ public class UserRegistry {
 
 	final static Logger logger = Logger.getLogger(UserRegistry.class);
 
-	public UserRegistry() {
-		// TODO Auto-generated constructor stub
-	}
+	public UserRegistry() {}
 
 	public synchronized void update(String follower, String followed)
 			throws IOException, ParseException {

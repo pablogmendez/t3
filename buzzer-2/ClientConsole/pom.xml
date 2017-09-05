@@ -16,13 +16,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
 		<version>1.2.17</version>
@@ -37,14 +30,6 @@
     	<scope>system</scope>
       	<systemPath>${project.basedir}/../libs/json-simple-1.1.1.jar</systemPath>
 	</dependency>
-
-    <dependency>
-    	<groupId>com.rabbitmq</groupId>
-    	<artifactId>amqp-client</artifactId>
-    	<version>4.1.0</version>
-    	<scope>system</scope>
-      	<systemPath>${project.basedir}/../libs/amqp-client-4.1.0.jar</systemPath>
-	</dependency>
 	
 	<dependency>
 		<groupId>org.slf4j</groupId>
@@ -55,15 +40,39 @@
 	</dependency>
 
 	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-simple</artifactId>
-		<version>1.7.25</version>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.7.25</version>
       	<scope>system</scope>
-      	<systemPath>${project.basedir}/../libs/slf4j-simple-1.7.25.jar</systemPath>		
+      	<systemPath>${project.basedir}/../libs/slf4j-log4j12-1.7.25.jar</systemPath>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.apache.kafka</groupId>
+	    <artifactId>kafka_2.12</artifactId>
+	    <version>0.11.0.0-test</version>
+	    <scope>system</scope>
+      	<systemPath>${project.basedir}/../libs/kafka_2.12-0.11.0.0-test.jar</systemPath>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.apache.kafka</groupId>
+	    <artifactId>kafka-clients</artifactId>
+	    <version>0.11.0.0</version>
+	    <scope>system</scope>
+      	<systemPath>${project.basedir}/../libs/kafka-clients-0.11.0.0.jar</systemPath>
+	</dependency>
+  
+	<dependency>
+	    <groupId>org.apache.kafka</groupId>
+	    <artifactId>kafka-log4j-appender</artifactId>
+	    <version>0.11.0.0</version>
+    	<scope>system</scope>
+      	<systemPath>${project.basedir}/../libs/kafka-log4j-appender-0.11.0.0.jar</systemPath>
 	</dependency>
 	
 	<dependency>
-      <groupId>ar.fiuba.taller.common</groupId>
+      <groupId>ar.fiuba.taller</groupId>
       <artifactId>common</artifactId>
       <version>0.0.1-SNAPSHOT</version>
       <scope>system</scope>

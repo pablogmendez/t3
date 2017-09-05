@@ -18,11 +18,12 @@ import org.json.simple.parser.ParseException;
 
 import ar.fiuba.taller.common.Constants;
 
-public class App {
-	final static Logger logger = Logger.getLogger(App.class);
+public class MainClientConsole {
+	final static Logger logger = Logger.getLogger(MainClientConsole.class);
 
 	public static void main(String[] args) {
-		PropertyConfigurator.configure(Constants.LOGGER_CONF);
+		PropertyConfigurator.configure(
+				"/home/pablo/Escritorio/t3/buzzer-2/ClientConsole/conf/log4j.properties");
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		List<Thread> usersList = new ArrayList<Thread>();
 		String username, mode, reg;

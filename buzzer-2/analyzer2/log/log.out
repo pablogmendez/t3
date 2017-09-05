@@ -1,0 +1,7 @@
+[2017-09-05 07:11:53][ERROR] AnalyzerMain.java:22 - Thread_Id: 1 - Iniciando el analyzer
+[2017-09-05 07:11:53][INFO ] AnalyzerReciver.java:43 - Thread_Id: 1 - Iniciando el analyzer reciver
+[2017-09-05 07:11:53][INFO ] AnalyzerDispatcher.java:42 - Thread_Id: 1 - Iniciando el Analyzer dispatcher
+[2017-09-05 07:12:13][INFO ] AnalyzerReciver.java:91 - Thread_Id: 1 - Analyzer reciver finalizado
+[2017-09-05 07:12:13][INFO ] AnalyzerDispatcher.java:91 - Thread_Id: 1 - Analyzer dispatcher interrumpido
+[2017-09-05 07:12:13][INFO ] AnalyzerDispatcher.java:93 - Thread_Id: 1 - Analyzer dispatcher finalizado
+[2017-09-05 07:12:13][ERROR] AnalyzerMain$1.java:50 - Thread_Id: 1 - Analyzer terminado

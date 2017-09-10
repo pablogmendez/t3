@@ -123,5 +123,4 @@ public class StorageController implements Runnable {
 			logger.info("Comando recibido invalido. Comando descartado.");
 		}		
 	}
-	
 }

@@ -29,6 +29,7 @@ public class Constants {
 	public static final String INTERACTIVE_MODE = "i";
 	public static final String BATCH_MODE = "b";
 	public static final String MAX_LENGTH_MSG = "max.length.msg";
+	public static final String COMMAND_AMOUNT = "command.amount";
 	public static final long USER_THREAD_WAIT_TIME = 5000;
 	
 	// Constantes para el storage

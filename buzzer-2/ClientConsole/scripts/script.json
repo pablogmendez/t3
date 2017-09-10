@@ -1,0 +1,917 @@
+{
+	"commands": [
+		{
+			"command": "PUBLISH",
+			"message": "#Lorem #ipsum dolor sit amet, consectetur adipiscing elit. In dictum #magna ut sem egestas, non condimentum ligula euismod. #Nulla sed nisl lectus. Pellentesque consequat et sapien eu placerat. Ut nec metus lorem. Ut suscipit leo tempus elementum maximus. In est urna, maximus ultricies mi eu, placerat hendrerit dui. In hac habitasse platea dictumst. Etiam accumsan pretium egestas. Aenean dolor odio, blandit non pharetra at, imperdiet id nisi. Cras pellentesque ut est ac rutrum. Duis pulvinar arcu orci, a tincidunt ex tristique vitae. Aenean viverra eleifend massa et molestie. Suspendisse eget nibh quis neque luctus egestas. Vivamus molestie faucibus sapien eget pharetra. Curabitur sit amet arcu a sem scelerisque #malesuada."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Some #people say that I must be a terrible person, but it not true. I have the heart of a young boy in a #jar on my #desk"
+		},		
+		{
+			"command": "PUBLISH",
+			"message": "Try not to #become a man of success, but rather, try to become a man of #value."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Don't be so #humble, you're not that #great."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Boredom is a #great motivator."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "If all #pulled in one direction, the world would keel #over."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "The man who never makes a mistake #always #takes orders from one who does."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "No man or woman who tries to #pursue an ideal in his or her own way is without #enemies."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "Do just once what others say you can't do, and you will never pay attention to their #limitations again."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "If a #million people say a foolish thing, it is still a #foolish thing."
+		},
+		{
+			"command": "PUBLISH",
+			"message": "When #people are free to do as they please, they usually #imitate each other."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'm an angel, honest! The horns are just there to keep the halo straight"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There's nothing wrong with being a loser, it just depends on #how #good you are at it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, cheat, repeat #until caught, and then #lie!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Thank-you for visiting reality, come again........... Now entering your life, welcome"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Consciousness- that annoying time between naps"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Behind every good man there is a good woman and #behind"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "that another man looking at her #ass"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It takes 42 muscels to smile, so #instead pick up your #middle finger and"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "say bite me in a bitchy #tone!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Beauty is in the eye of #the beer holder"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can see clearly now, the #brain #is gone..."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+			"command": "QUERY",
+			"message": "#people"
+		},
+		{
+			"command": "QUERY",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "#people"
+		},
+		{
+			"command": "QUERY",
+			"message": "user1"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Boldly #Going #Nowhere."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Caution - #Driver Legally Blonde."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Honk If You've #Never Seen An Uzi Fired From A Car Window."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "GROW YOUR OWN #DOPE --- PLANT A BLONDE."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All Men Are #Animals; Some Just Make Better Pets."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "POLITICIANS & #DIAPERS BOTH NEED TO BE CHANGED, AND FOR THE SAME REASON"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those who think they know everything, annoy those of us that do"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Save the #environment...plant a Bush back in Texas."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't regret doing things, regret getting caught"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "None of us are virgins, life has screwed us all"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#DOPE"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user30"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Going"
+		},
+				{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Everyone in #life has a purpose, even if its to serve as a BAD #EXAMPLE"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We didn’t lose.....we just ran out of #time"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Here officer, hold my beer while I find my #license."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There are some days when I just don't feel #like talking.. Today is that day."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The only reason that I talk to myself is #because that I'm the only one whose answers I accept."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Learn from the mistakes of others, #because you can't live long enough to make them all yourself."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Men are like pennies: two-faced and #worthless."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Love is like heaven but hurts like #hell."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Look up for inspiration, down for #concentration but don’t look side to side for information."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "You tried, and you failed, so the #lesson is, never try."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#enemies"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "#hell"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Hard work pays off in the future, laziness pays off now."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I intend to live forever -- so far, so #good."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Eagles may soar, but weasels don't get sucked into jet engines."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "My mechanic told me,I couldn't repair your brakes,so I made your horn louder."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, destroy #all evidence that you tried."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A conclusion is the part where you got #tired of #thinking."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Experience is something you don't get until just #after #you need it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "To steal ideas from one person is plagiarism; to steal from many is research."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't drink and drive you might spill your #beer"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If you can't fix it with duck tape you have'nt #used enough"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Smile, and the world will smile with you."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Laugh and they'll all think your on drugs."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user3"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+				{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'm an angel, honest! The horns are just there to keep the halo straight"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There's nothing wrong with being a loser, it just depends on #how #good you are at it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, cheat, repeat #until caught, and then #lie!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Thank-you for visiting reality, come again........... Now entering your life, welcome"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Consciousness- that annoying time between naps"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Behind every good man there is a good woman and #behind"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "that another man looking at her #ass"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It takes 42 muscels to smile, so #instead pick up your #middle finger and"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "say bite me in a bitchy #tone!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Beauty is in the eye of #the beer holder"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can see clearly now, the #brain #is gone..."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When people are #free to do as they please, they usually imitate each other."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When all think #alike, no one is thinking very much."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Every generation #laughs at the old fashions, but follows religiously the new."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We are discreet #sheep; we wait to see how the drove is going, and then go with the drove."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Whenever you #find you are on the side of the majority, it is time to pause and reflect."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It is dangerous to be right in matters on which the established authorities are #wrong."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We know what a person thinks not when he tells us what he thinks, but by his actions."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "As I grow older, I pay less attention to what men say. I just watch what they #do."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #memorandum isn't written to inform the receiver, but to protect the writer."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those #are my principles. If you don't like them I have others."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What #orators lack in depth they make up for in length."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Of #those who say nothing, few are silent."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Wise #men talk because they have something to say; fools, because they have to say something."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The secret of being tiresome is to tell #everything."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those who cannot remember the past are #condemned to #repeat it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can't understand why people are frightened by new #ideas. I'm frightened of old ones."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "History is the version of past events that people #have #decided to agree upon."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What luck for the rulers that men do not #think."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#enemies"
+		},
+		{
+			"command": "QUERY",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'm an angel, honest! The horns are just there to keep the halo straight"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There's nothing wrong with being a loser, it just depends on #how #good you are at it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, cheat, repeat #until caught, and then #lie!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Thank-you for visiting reality, come again........... Now entering your life, welcome"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Consciousness- that annoying time between naps"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Behind every good man there is a good woman and #behind"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "that another man looking at her #ass"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It takes 42 muscels to smile, so #instead pick up your #middle finger and"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "say bite me in a bitchy #tone!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Beauty is in the eye of #the beer holder"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can see clearly now, the #brain #is gone..."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "#Crazy is a relative term in my #family!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Men, #chocolate, and coffee are all better rich."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Keep #smiling, it makes people wonder what you're up #to."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Procrastinate now, don't put it #off."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Caution, #Blind #Man #Driving."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All #trespassers will be shot on sight. All survivors will then be prosecuted to the fullest extent of the law.Have a nice #day!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'd kill for a Nobel Peace #Prize."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Borrow money from #pessimists - they don't expect it #back."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Everyone has a photographic memory, some just don't #have #film"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "42.7% of all statistics are made up on the #spot."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Driving"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#Blind"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Is tuna really #Chicken?"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "- Jessica #Simpson, after reading Tuna, Chicken of the sea"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I did my homework! I just #forgot to write it down."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Some people #drink from the fountain of knowledge, others just #gurgle."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'll kill you until #you die!!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "They #misunderestimated me!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "-George W. Bush"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Don't criticize my mess unless you'd like to become part of it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I have a mind like a steel trap; it is rusty and illegal in 47 states"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When people are #free to do as they please, they usually imitate each other."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When all think #alike, no one is thinking very much."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Every generation #laughs at the old fashions, but follows religiously the new."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We are discreet #sheep; we wait to see how the drove is going, and then go with the drove."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Whenever you #find you are on the side of the majority, it is time to pause and reflect."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It is dangerous to be right in matters on which the established authorities are #wrong."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "We know what a person thinks not when he tells us what he thinks, but by his actions."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "As I grow older, I pay less attention to what men say. I just watch what they #do."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #memorandum isn't written to inform the receiver, but to protect the writer."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those #are my principles. If you don't like them I have others."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What #orators lack in depth they make up for in length."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Of #those who say nothing, few are silent."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Wise #men talk because they have something to say; fools, because they have to say something."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The secret of being tiresome is to tell #everything."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Those who cannot remember the past are #condemned to #repeat it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can't understand why people are frightened by new #ideas. I'm frightened of old ones."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "History is the version of past events that people #have #decided to agree upon."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "What luck for the rulers that men do not #think."
+		},
+
+		{
+			"command": "FOLLOW",
+			"message": "user1"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user11"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#enemies"
+		},
+		{
+			"command": "QUERY",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A conscience is what hurts when all your #other parts feel so #good."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A clear conscience is usually the sign of a #bad memory."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "The sooner you fall behind the more time #youll have to catch up."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "All those who believe in #telekinesis, #raise my hand."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I almost had a #psychic #girlfriend but she left me before we met."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "OK, so what's #the #speed of dark?"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If everything seems to be going well, you have obviously #overlooked something."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Depression is merely anger without #enthusiasm."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "When everything is coming your #way, youre in the wrong lane."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Ambition is a poor excuse for not having enough sense to be lazy."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user40"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I'm an angel, honest! The horns are just there to keep the halo straight"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "There's nothing wrong with being a loser, it just depends on #how #good you are at it."
+		},
+		{
+		"command": "PUBLISH",
+		"message": "If at first you don't succeed, cheat, repeat #until caught, and then #lie!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Thank-you for visiting reality, come again........... Now entering your life, welcome"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Consciousness- that annoying time between naps"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Behind every good man there is a good woman and #behind"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "that another man looking at her #ass"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "It takes 42 muscels to smile, so #instead pick up your #middle finger and"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "say bite me in a bitchy #tone!"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "Beauty is in the eye of #the beer holder"
+		},
+		{
+		"command": "PUBLISH",
+		"message": "I can see clearly now, the #brain #is gone..."
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "user10"
+		},
+		{
+			"command": "FOLLOW",
+			"message": "#foolish"
+		},
+		{
+			"command": "QUERY",
+			"message": "TT"
+		}						
+	]
+}

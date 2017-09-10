@@ -58,7 +58,7 @@ public class MainClientConsole {
 			System.out.printf("Iniciando el Client console en modo batch");
 			try {
 				for(int i = 0; i < Integer.parseInt(args[1]); i++) {
-					usersSet.add(new BatchUser(configLoader.getProperties(), "user_" + i, "localhost:9092"));
+					usersSet.add(new BatchUser(configLoader.getProperties(), "user" + i, "localhost:9092"));
 				}
 				executor.invokeAll(usersSet);
 			} catch (InterruptedException e) {
@@ -74,7 +74,7 @@ public class MainClientConsole {
 				if (mode.equals(Constants.INTERACTIVE_MODE)) {
 					userThread.interrupt();
 					try {
-						userThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
+						userThread.join(Constants.USER_THREAD_WAIT_TIME);
 					} catch (InterruptedException e) {
 						// Do nothing
 					}

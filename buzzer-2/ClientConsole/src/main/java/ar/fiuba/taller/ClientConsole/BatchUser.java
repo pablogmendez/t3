@@ -2,7 +2,9 @@ package ar.fiuba.taller.ClientConsole;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -22,7 +24,8 @@ import ar.fiuba.taller.common.Response;
 import ar.fiuba.taller.common.WritingRemoteQueue;
 
 public class BatchUser implements Callable {
-	String userName;
+	private String userName;
+	private int commandAmount;
 	private BlockingQueue<Command> commandQueue;
 	private BlockingQueue<Response> responseQueue;
 	private Thread commandControllerThread;
@@ -35,6 +38,7 @@ public class BatchUser implements Callable {
 	public BatchUser(Map<String, String> config, String userName, String userHost) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.userName = userName;
+		commandAmount = Integer.parseInt(config.get(Constants.COMMAND_AMOUNT));
 		commandQueue = new ArrayBlockingQueue<Command>(
 				Constants.COMMAND_QUEUE_SIZE);
 		dispatcherQueue = new WritingRemoteQueue(
@@ -67,12 +71,14 @@ public class BatchUser implements Callable {
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONArray commandArray = (JSONArray) jsonObject
 					.get(Constants.COMMAND_ARRAY);
-			Iterator<JSONObject> iterator = commandArray.iterator();
 			JSONObject commandObject;
 			Command command;
+			List<Integer> commandIndexList = getCommandIndexList(commandAmount, commandArray.size());
+			Iterator<Integer> iterator = commandIndexList.iterator();
+			
 			
 			while (iterator.hasNext()) {
-				commandObject = iterator.next();
+				commandObject = (JSONObject) commandArray.get(iterator.next());
 				command = new Command(
 						(String) commandObject.get(Constants.COMMAND_KEY),
 						userName,
@@ -93,4 +99,15 @@ public class BatchUser implements Callable {
 		}
 		return null;
 	}
+	
+	private List<Integer> getCommandIndexList(int commandListIndexSize, int maxCommandsAvailable) {
+		List<Integer> commandIndexList = new ArrayList<Integer>();
+		
+		for(int i = 0; i < commandListIndexSize; i++) {
+			commandIndexList.add((int) (Math.random() * maxCommandsAvailable));
+		}
+		
+		return commandIndexList;
+	}
+	
 }

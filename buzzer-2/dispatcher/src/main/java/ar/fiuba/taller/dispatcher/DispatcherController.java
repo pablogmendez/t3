@@ -1,6 +1,7 @@
 package ar.fiuba.taller.dispatcher;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -55,9 +56,12 @@ public class DispatcherController implements Runnable {
 		try {
 			while (!Thread.interrupted()) {
 				messageList = dispatcherQueue.pop();
-				for (byte[] message : messageList) {
+				logger.debug("CONTENDIO DE LA LISTA: " + messageList.get(0));
+				Iterator<byte[]> it = messageList.iterator();
+				while(it.hasNext()) {
+				//for (byte[] message : messageList) {
 					try {
-						command.deserialize(message);
+						command.deserialize(it.next());
 						logger.info(
 								"Comando recibido con los siguientes parametros: "
 										+ "\nUsuario: " + command.getUser()
@@ -87,6 +91,8 @@ public class DispatcherController implements Runnable {
 						}
 					} catch (ClassNotFoundException | IOException e) {
 						logger.error("No se ha podido deserializar el mensaje");
+						logger.debug(e);
+						e.printStackTrace();
 					}
 				}
 			}

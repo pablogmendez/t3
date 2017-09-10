@@ -13,7 +13,7 @@ public class MainAuditLogger {
 	final static Logger logger = Logger.getLogger(MainAuditLogger.class);
 
 	public static void main(String[] args) throws Exception {
-		PropertyConfigurator.configure("/home/pablo/Escritorio/t3/buzzer-2/auditLogger/conf/log4j.properties");
+		PropertyConfigurator.configure(Constants.LOGGER_CONF);
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		ConfigLoader configLoader = null;
 		

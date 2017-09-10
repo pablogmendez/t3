@@ -1,7 +1,144 @@
-[2017-09-05 07:11:53][ERROR] AnalyzerMain.java:22 - Thread_Id: 1 - Iniciando el analyzer
-[2017-09-05 07:11:53][INFO ] AnalyzerReciver.java:43 - Thread_Id: 1 - Iniciando el analyzer reciver
-[2017-09-05 07:11:53][INFO ] AnalyzerDispatcher.java:42 - Thread_Id: 1 - Iniciando el Analyzer dispatcher
-[2017-09-05 07:12:13][INFO ] AnalyzerReciver.java:91 - Thread_Id: 1 - Analyzer reciver finalizado
-[2017-09-05 07:12:13][INFO ] AnalyzerDispatcher.java:91 - Thread_Id: 1 - Analyzer dispatcher interrumpido
-[2017-09-05 07:12:13][INFO ] AnalyzerDispatcher.java:93 - Thread_Id: 1 - Analyzer dispatcher finalizado
-[2017-09-05 07:12:13][ERROR] AnalyzerMain$1.java:50 - Thread_Id: 1 - Analyzer terminado
+[2017-09-09 21:48:24][INFO ] AnalyzerMain.java:21 - Thread_Id: 1 - Iniciando el analyzer
+[2017-09-09 21:48:25][INFO ] AnalyzerReciver.java:43 - Thread_Id: 1 - Iniciando el analyzer reciver
+[2017-09-09 21:48:25][INFO ] AnalyzerDispatcher.java:42 - Thread_Id: 1 - Iniciando el Analyzer dispatcher
+[2017-09-09 21:48:44][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: f2fb470b-f522-4a08-9050-3e40eab01245
+Usuario: user4
+Comando: PUBLISH
+Mensaje: "#RR hols"
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: f2fb470b-f522-4a08-9050-3e40eab01245
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user4
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 21:48:44
+user4
+"#RR hols"
+[2017-09-09 21:48:44][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 21:48:44][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 21:48:44][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 21:48:44][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 21:48:44
+user4
+"#RR hols"
+[2017-09-09 21:48:44][INFO ] UserRegistry.java:134 - Thread_Id: 1 - Hashtag: #RR
+[2017-09-09 21:48:44][INFO ] UserRegistry.java:136 - Thread_Id: 1 - arr: null
+[2017-09-09 21:53:14][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 39acd4cd-222e-4d45-806b-b827b1a550b8
+Usuario: user4
+Comando: PUBLISH
+Mensaje: #RR
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: 39acd4cd-222e-4d45-806b-b827b1a550b8
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user4
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 21:53:14
+user4
+#RR
+[2017-09-09 21:53:14][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 21:53:14][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 21:53:14][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 21:53:14][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 21:53:14
+user4
+#RR
+[2017-09-09 21:53:14][INFO ] UserRegistry.java:134 - Thread_Id: 1 - Hashtag: #RR
+[2017-09-09 21:53:14][INFO ] UserRegistry.java:136 - Thread_Id: 1 - arr: null
+[2017-09-09 22:33:33][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 75be5a68-8b78-44a3-a8c7-d0cecbe9f445
+Usuario: user8
+Comando: PUBLISH
+Mensaje: DDFF
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: 75be5a68-8b78-44a3-a8c7-d0cecbe9f445
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user8
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 22:33:33
+user8
+DDFF
+[2017-09-09 22:33:33][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 22:33:33][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 22:33:33][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 22:33:33][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 22:33:33
+user8
+DDFF
+[2017-09-09 22:51:55][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 6a5f6f71-98d6-4d5a-bf85-811c0323e868
+Usuario: user8
+Comando: PUBLISH
+Mensaje: GGGHJJK
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: 6a5f6f71-98d6-4d5a-bf85-811c0323e868
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user8
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 22:51:55
+user8
+GGGHJJK
+[2017-09-09 22:51:55][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 22:51:55][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 22:51:55][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 22:51:55][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 22:51:55
+user8
+GGGHJJK
+[2017-09-09 22:52:29][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 08ba35e9-3a56-4fb5-8015-687d6b0a59dd
+Usuario: user8
+Comando: PUBLISH
+Mensaje: WERTYYHHHGGFFF
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: 08ba35e9-3a56-4fb5-8015-687d6b0a59dd
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user8
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 22:52:29
+user8
+WERTYYHHHGGFFF
+[2017-09-09 22:52:29][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 22:52:29][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 22:52:29][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 22:52:29][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 22:52:29
+user8
+WERTYYHHHGGFFF
+[2017-09-09 22:52:40][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+Usuario: user8
+Comando: PUBLISH
+Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user8
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 22:52:40
+user8
+SDASDADASDasdasdasdaweqeqweeqweqweqweq
+[2017-09-09 22:52:40][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 22:52:40][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 22:52:40][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 22:52:40][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 22:52:40
+user8
+SDASDADASDasdasdasdaweqeqweeqweqweqweq
+[2017-09-09 22:56:38][INFO ] AnalyzerReciver.java:52 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+Usuario: user8
+Comando: PUBLISH
+Mensaje: asd
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:47 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:48 - Thread_Id: 1 - Nueva respuesta para enviar
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:49 - Thread_Id: 1 - UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:50 - Thread_Id: 1 - User: user8
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:51 - Thread_Id: 1 - Status: OK
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:52 - Thread_Id: 1 - Message: 2017-09-09 22:56:37
+user8
+asd
+[2017-09-09 22:56:38][INFO ] AnalyzerDispatcher.java:65 - Thread_Id: 1 - Anycast a los followers
+[2017-09-09 22:56:38][INFO ] UserRegistry.java:91 - Thread_Id: 1 - Buscando followers del usuario
+[2017-09-09 22:56:38][INFO ] UserRegistry.java:119 - Thread_Id: 1 - Buscando followers del hashtag
+[2017-09-09 22:56:38][INFO ] UserRegistry.java:126 - Thread_Id: 1 - Obteniendo hashtags de 2017-09-09 22:56:37
+user8
+asd
+[2017-09-09 23:03:05][INFO ] AnalyzerReciver.java:91 - Thread_Id: 1 - Analyzer reciver finalizado
+[2017-09-09 23:03:05][INFO ] AnalyzerDispatcher.java:91 - Thread_Id: 1 - Analyzer dispatcher interrumpido
+[2017-09-09 23:03:05][INFO ] AnalyzerDispatcher.java:93 - Thread_Id: 1 - Analyzer dispatcher finalizado
+[2017-09-09 23:03:05][INFO ] AnalyzerMain$1.java:49 - Thread_Id: 1 - Analyzer terminado

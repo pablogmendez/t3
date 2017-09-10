@@ -1,110 +1,94 @@
-Evento recibido:
-UUID: af5e5328-45c6-4a78-9221-3523901c3f84
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 904ccc28-555b-4139-ab91-421c5469e0ff
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 00c87343-9bbe-4a36-b647-95ebe3cbff05
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: b50305ef-cfd0-430d-ae80-aa7c85344cdd
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 1c3b37db-acc8-43af-98ff-a40e8a370c8e
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 469dc013-f14c-4976-9c29-7f7d773af300
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: a5049510-d98d-4c9c-bad4-0ea454f4039e
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: e98862ea-9d76-4a95-a202-dd9f5b1ddbe4
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 3f422c28-0533-4c59-b309-a74930baedfe
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: f5286c0e-7654-4a51-92e2-9ee5c47a0a31
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 9fcadce2-fba7-4cb2-98ce-12e9ab333d30
-Response Status: ERROR
-Message: Error al consultar
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 3732b9e2-aca0-49c4-9009-2d5700ddc825
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 0dce5154-171e-4279-9942-cbae7ead4929
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: cebffb9b-11a8-4362-9f41-66b8990c95d1
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: fea15b6c-b5ee-4cbc-98f9-47e2546e2886
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: b45d9f68-1d85-4e1b-a5d9-d2133aa36638
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 21428143-1eb1-4e1b-ba38-b6346e4bd6ef
-Response Status: ERROR
-Message: Error al consultar
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: da420d5e-c39f-468a-9116-1735fe0a2211
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: d5fd8a06-8360-4d7a-ac5c-31c962c7aac9
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 88e7776d-092e-45b0-8548-201ef0ce3a12
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: b1c327fc-c790-45ca-b14a-2820d2ed4b96
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 65bf39f6-6b65-4c61-b9d7-99358d702824
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
+Evento recibido - UUID: {e1fda933-2be4-41f1-b59b-a6a3a57e71fd} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {202176ed-013d-457a-898f-0c771cd60d1a} - Status: {OK} - Mensaje: {2017-09-09 21:08:58
+user1
+JAJAJAJAJAJa}
+-----------------------------------------------------
+Evento recibido - UUID: {202176ed-013d-457a-898f-0c771cd60d1a} - Status: {OK} - Mensaje: {2017-09-09 21:08:58
+user1
+JAJAJAJAJAJa}
+-----------------------------------------------------
+Evento recibido - UUID: {202176ed-013d-457a-898f-0c771cd60d1a} - Status: {OK} - Mensaje: {2017-09-09 21:08:58
+user1
+JAJAJAJAJAJa}
+-----------------------------------------------------
+Evento recibido - UUID: {202176ed-013d-457a-898f-0c771cd60d1a} - Status: {OK} - Mensaje: {2017-09-09 21:08:58
+user1
+JAJAJAJAJAJa}
+-----------------------------------------------------
+Evento recibido - UUID: {756c52a6-95cb-4c67-a5cc-13e3cb273811} - Status: {OK} - Mensaje: {2017-09-09 21:15:27
+user1
+GHJ}
+-----------------------------------------------------
+Evento recibido - UUID: {3eced4e0-0659-4491-bb08-6b3b1e7013ce} - Status: {OK} - Mensaje: {2017-09-09 21:20:03
+user1
+JOLA}
+-----------------------------------------------------
+Evento recibido - UUID: {1169d51f-88ac-4bbb-af50-f9ce39fd7513} - Status: {OK} - Mensaje: {2017-09-09 21:27:17
+user1
+IOP}
+-----------------------------------------------------
+Evento recibido - UUID: {1169d51f-88ac-4bbb-af50-f9ce39fd7513} - Status: {OK} - Mensaje: {2017-09-09 21:27:17
+user1
+IOP}
+-----------------------------------------------------
+Evento recibido - UUID: {1169d51f-88ac-4bbb-af50-f9ce39fd7513} - Status: {OK} - Mensaje: {2017-09-09 21:27:17
+user1
+IOP}
+-----------------------------------------------------
+Evento recibido - UUID: {c6a82847-a20d-4076-8795-bfd884b57b39} - Status: {OK} - Mensaje: {2017-09-09 21:31:47
+user1
+OPIOPOIOPIO}
+-----------------------------------------------------
+Evento recibido - UUID: {0bad438a-75b8-4628-8591-c8c49d50570c} - Status: {REGISTERED} - Mensaje: {Seguidor registrado}
+-----------------------------------------------------
+Evento recibido - UUID: {d8de0ae0-1240-49db-9013-649bb02c3008} - Status: {OK} - Mensaje: {2017-09-09 21:34:29
+user1
+"asd #UU ddddd"}
+-----------------------------------------------------
+Evento recibido - UUID: {2a7d64e5-d96c-4279-9c10-b8850829908f} - Status: {OK} - Mensaje: {2017-09-09 21:34:53
+user4
+"2345 556 #UU kk"}
+-----------------------------------------------------
+Evento recibido - UUID: {461f38c2-78c9-4cbf-a220-ea149e2f4643} - Status: {OK} - Mensaje: {2017-09-09 21:41:18
+user1
+HOLAAAAAAAAASSSSS}
+-----------------------------------------------------
+Evento recibido - UUID: {e97338b9-2ad6-4937-823b-d32fb6b2c538} - Status: {OK} - Mensaje: {Total de topics: 0
+}
+-----------------------------------------------------
+Evento recibido - UUID: {32b3b736-346a-4e79-baf9-14fe7818b3ad} - Status: {OK} - Mensaje: {Borrado exitoso}
+-----------------------------------------------------
+Evento recibido - UUID: {de996438-0399-45db-8ca0-fbdee85c792b} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {7f40a9dc-e2ac-44e7-b744-ac829ca717d9} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {7a243daa-0408-4a1a-b043-4c5e9b5c07e3} - Status: {OK} - Mensaje: {{"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {84561e4c-a8b7-4f65-8615-58da53d1e003} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {216fb299-238d-49c6-a1c3-034c2283ecc2} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {a99b6157-17d9-4870-a90a-465b6c7ba44c} - Status: {OK} - Mensaje: {}
+-----------------------------------------------------
+Evento recibido - UUID: {d4f77876-64db-4440-afc9-811b5f7f3040} - Status: {OK} - Mensaje: {{"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {1f7d0ffe-c5b1-4618-b682-38f809554085} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {1e1d4102-3d83-4497-9dad-09b200dc1ed5} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {e689dfa0-0d55-4201-9955-e63702416113} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {7cc80bea-53d0-47b4-9fb8-24188f55c54a} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {28e5024b-eb20-4902-8e6e-ef2e77278525} - Status: {OK} - Mensaje: {{"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"WERTYYHHHGGFFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:29"}
+{"message":"GGGHJJK","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:51:55"}
+{"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+}
+-----------------------------------------------------

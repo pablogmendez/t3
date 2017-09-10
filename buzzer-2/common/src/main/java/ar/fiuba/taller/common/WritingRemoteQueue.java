@@ -12,7 +12,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 public class WritingRemoteQueue extends RemoteQueue {
-	private Producer<String, String> producer;
+	private Producer<byte[], byte[]> producer;
 	private String queueName;
 
 	public WritingRemoteQueue(String queueName, String queueHost, Map<String, String> params) {
@@ -23,7 +23,7 @@ public class WritingRemoteQueue extends RemoteQueue {
 		props.put(ProducerConfig.RETRIES_CONFIG, Integer.parseInt(params.get(Constants.RETRIES_CONFIG)));
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, params.get(Constants.VALUE_SERIALIZER_CLASS_CONFIG));
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, params.get(Constants.KEY_SERIALIZER_CLASS_CONFIG));
-		producer = new KafkaProducer<String, String>(props);
+		producer = new KafkaProducer<byte[], byte[]>(props);
 	}
 
 	public void close() throws IOException, TimeoutException {
@@ -31,8 +31,8 @@ public class WritingRemoteQueue extends RemoteQueue {
 	}
 
 	public void push(ISerialize message) throws IOException {
-			ProducerRecord<String, String> data = new ProducerRecord<String, String>(
-               queueName, UUID.randomUUID().toString(), message.serialize().toString() );
+			ProducerRecord<byte[], byte[]> data = new ProducerRecord<byte[], byte[]>(
+               queueName, message.serialize());
 			producer.send(data);
 	}
 

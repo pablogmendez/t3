@@ -15,8 +15,7 @@ public class MainDispatcher {
 
 	public static void main(String[] args) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		PropertyConfigurator.configure(
-				"/home/pablo/Escritorio/t3/buzzer-2/dispatcher/conf/log4j.properties");
+		PropertyConfigurator.configure(Constants.LOGGER_CONF);
 		ConfigLoader configLoader = null;
 
 		try {

@@ -119,7 +119,7 @@ public class Storage {
 		jsonObject.put(command.getUuid().toString(), obj2);
 		FileWriter file = new FileWriter(fileName, true);
 		try {
-			file.write(jsonObject.toJSONString());
+			file.write(jsonObject.toJSONString() + String.format("%n"));
 		} catch (Exception e) {
 			logger.error("Error guardar la base de datos");
 			logger.info(e.toString());
@@ -297,9 +297,6 @@ public class Storage {
 		JSONObject jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(key);
 
-		System.out.println(array.toJSONString());
-
-		BufferedReader br2;
 		String line, reg;
 		JSONObject jsonObject2;
 		int remainingPost = queryCountShowPosts;
@@ -315,11 +312,13 @@ public class Storage {
 				try (BufferedReader br = new BufferedReader(
 						new FileReader(file))) {
 					while ((line = br.readLine()) != null
-							&& remainingPost > 0) {
+							&& remainingPost > 0 && !("").equals(line.trim())) {
 						System.out.println("line: " + line);
 						obj2 = parser.parse(line);
 						jsonObject2 = (JSONObject) obj2;
-						messageList.add(jsonObject2.get(id).toString());
+						if(jsonObject2.get(id) != null) {
+							messageList.add(jsonObject2.get(id).toString());
+						}
 						remainingPost--;
 					}
 				}
@@ -405,7 +404,6 @@ public class Storage {
 				}
 			}
 		}
-		Map<String, Long> map2 = sortedMap;
 		List<String> tt = new ArrayList<String>();
 		ArrayList<String> keys = new ArrayList<String>(sortedMap.keySet());
 		int i = keys.size() - 1;

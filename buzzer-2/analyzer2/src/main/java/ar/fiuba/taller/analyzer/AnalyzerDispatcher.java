@@ -96,6 +96,7 @@ public class AnalyzerDispatcher implements Runnable {
 	private WritingRemoteQueue getUserQueue(String username)
 			throws IOException, TimeoutException {
 		WritingRemoteQueue tmpQueue;
+		logger.info("Ususario a fowardear: " + username);
 		tmpQueue = usersMap.get(username);
 
 		if (tmpQueue == null) {

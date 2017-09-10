@@ -15,8 +15,7 @@ public class AnalyzerMain {
 
 	public static void main(String[] args) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		PropertyConfigurator.configure(
-				"/home/pablo/Escritorio/t3/buzzer-2/analyzer2/conf/log4j.properties");
+		PropertyConfigurator.configure(Constants.LOGGER_CONF);
 		ConfigLoader configLoader = null;
 		
 		logger.info("Iniciando el analyzer");

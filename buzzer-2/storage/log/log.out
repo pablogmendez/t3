@@ -1,14 +1,132 @@
-[2017-09-03 19:17:04][INFO ] StorageController.java:62 - Thread_Id: 1 - Lanzando los threads de query, remove y create
-[2017-09-03 19:17:04][INFO ] QueryController.java:34 - Thread_Id: 10 - Iniciando el query controller
-[2017-09-03 19:17:04][INFO ] ResponseController.java:27 - Thread_Id: 1 - Iniciando el response controller
-[2017-09-03 19:17:04][INFO ] StorageController.java:68 - Thread_Id: 1 - Consumiendo de la storageQueue
-[2017-09-03 19:17:04][INFO ] RemoveController.java:34 - Thread_Id: 11 - Iniciando el remove controller
-[2017-09-03 19:17:04][INFO ] CreateController.java:34 - Thread_Id: 12 - Iniciando el create controller
-[2017-09-03 19:17:04][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
-[2017-09-03 19:17:06][ERROR] StorageController.java:93 - Thread_Id: 1 - Fallo el join de alguno de los threads
-[2017-09-03 19:17:06][DEBUG] StorageController.java:94 - Thread_Id: 1 - java.lang.InterruptedException
-[2017-09-03 19:17:06][INFO ] RemoveController.java:61 - Thread_Id: 11 - Remove Controller interrumpido
-[2017-09-03 19:17:06][INFO ] ResponseController.java:60 - Thread_Id: 1 - ResponseController interrumpido
-[2017-09-03 19:17:06][INFO ] CreateController.java:63 - Thread_Id: 12 - Create controller interrumpido
-[2017-09-03 19:17:06][INFO ] QueryController.java:61 - Thread_Id: 10 - Query Controller interrumpido
-[2017-09-03 19:17:06][INFO ] StorageController.java:97 - Thread_Id: 1 - Storgae Controller terminado
+[2017-09-09 22:51:20][INFO ] StorageController.java:62 - Thread_Id: 1 - Lanzando los threads de query, remove y create
+[2017-09-09 22:51:20][INFO ] QueryController.java:34 - Thread_Id: 10 - Iniciando el query controller
+[2017-09-09 22:51:20][INFO ] CreateController.java:34 - Thread_Id: 12 - Iniciando el create controller
+[2017-09-09 22:51:20][INFO ] RemoveController.java:34 - Thread_Id: 11 - Iniciando el remove controller
+[2017-09-09 22:51:20][INFO ] ResponseController.java:27 - Thread_Id: 1 - Iniciando el response controller
+[2017-09-09 22:51:20][INFO ] StorageController.java:68 - Thread_Id: 1 - Consumiendo de la storageQueue
+[2017-09-09 22:51:20][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:51:31][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 365be9d2-82c7-4b79-9a30-7a09d9eb0a4a
+Usuario: user8
+Comando: QUERY
+Mensaje: user8
+[2017-09-09 22:51:31][INFO ] StorageController.java:113 - Thread_Id: 1 - Comando recibido: QUERY. Insertando en la cola de consultas.
+[2017-09-09 22:51:31][INFO ] Storage.java:279 - Thread_Id: 10 - Consultando por user
+[2017-09-09 22:51:31][DEBUG] QueryController.java:43 - Thread_Id: 10 - {"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+
+[2017-09-09 22:51:31][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:51:31][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: d4f77876-64db-4440-afc9-811b5f7f3040
+[2017-09-09 22:51:31][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:51:31][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: {"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+
+[2017-09-09 22:51:31][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:51:31][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:51:31][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:51:55][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 6a5f6f71-98d6-4d5a-bf85-811c0323e868
+Usuario: user8
+Comando: PUBLISH
+Mensaje: GGGHJJK
+[2017-09-09 22:51:55][INFO ] StorageController.java:108 - Thread_Id: 1 - Comando recibido: PUBLISH. Insertando en la cola de creacion.
+[2017-09-09 22:51:55][INFO ] Storage.java:107 - Thread_Id: 12 - Guardando el comando en la base de datos: db/6a.json
+[2017-09-09 22:51:55][INFO ] Storage.java:108 - Thread_Id: 12 - Contenido del registro: {command:PUBLISH,user:user8,message:GGGHJJK,timestamp:2017-09-09 22:51:55}
+[2017-09-09 22:51:55][INFO ] Storage.java:144 - Thread_Id: 12 - Actualizando el inice de usuarios
+[2017-09-09 22:51:55][INFO ] Storage.java:182 - Thread_Id: 12 - Actualizando el inice de hashtags
+[2017-09-09 22:51:55][INFO ] Storage.java:58 - Thread_Id: 12 - Actualizando los TT
+[2017-09-09 22:51:55][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:51:55][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: 1f7d0ffe-c5b1-4618-b682-38f809554085
+[2017-09-09 22:51:55][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:51:55][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: Creacion exitosa
+[2017-09-09 22:51:55][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:51:55][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:51:55][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:52:29][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: 08ba35e9-3a56-4fb5-8015-687d6b0a59dd
+Usuario: user8
+Comando: PUBLISH
+Mensaje: WERTYYHHHGGFFF
+[2017-09-09 22:52:29][INFO ] StorageController.java:108 - Thread_Id: 1 - Comando recibido: PUBLISH. Insertando en la cola de creacion.
+[2017-09-09 22:52:29][INFO ] Storage.java:107 - Thread_Id: 12 - Guardando el comando en la base de datos: db/08.json
+[2017-09-09 22:52:29][INFO ] Storage.java:108 - Thread_Id: 12 - Contenido del registro: {command:PUBLISH,user:user8,message:WERTYYHHHGGFFF,timestamp:2017-09-09 22:52:29}
+[2017-09-09 22:52:29][INFO ] Storage.java:144 - Thread_Id: 12 - Actualizando el inice de usuarios
+[2017-09-09 22:52:29][INFO ] Storage.java:182 - Thread_Id: 12 - Actualizando el inice de hashtags
+[2017-09-09 22:52:29][INFO ] Storage.java:58 - Thread_Id: 12 - Actualizando los TT
+[2017-09-09 22:52:29][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:52:29][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: 1e1d4102-3d83-4497-9dad-09b200dc1ed5
+[2017-09-09 22:52:29][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:52:29][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: Creacion exitosa
+[2017-09-09 22:52:29][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:52:29][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:52:29][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:52:40][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+Usuario: user8
+Comando: PUBLISH
+Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
+[2017-09-09 22:52:40][INFO ] StorageController.java:108 - Thread_Id: 1 - Comando recibido: PUBLISH. Insertando en la cola de creacion.
+[2017-09-09 22:52:40][INFO ] Storage.java:107 - Thread_Id: 12 - Guardando el comando en la base de datos: db/bc.json
+[2017-09-09 22:52:40][INFO ] Storage.java:108 - Thread_Id: 12 - Contenido del registro: {command:PUBLISH,user:user8,message:SDASDADASDasdasdasdaweqeqweeqweqweqweq,timestamp:2017-09-09 22:52:40}
+[2017-09-09 22:52:40][INFO ] Storage.java:144 - Thread_Id: 12 - Actualizando el inice de usuarios
+[2017-09-09 22:52:40][INFO ] Storage.java:182 - Thread_Id: 12 - Actualizando el inice de hashtags
+[2017-09-09 22:52:40][INFO ] Storage.java:58 - Thread_Id: 12 - Actualizando los TT
+[2017-09-09 22:52:40][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:52:40][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: e689dfa0-0d55-4201-9955-e63702416113
+[2017-09-09 22:52:40][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:52:40][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: Creacion exitosa
+[2017-09-09 22:52:40][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:52:40][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:52:40][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:56:38][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+Usuario: user8
+Comando: PUBLISH
+Mensaje: asd
+[2017-09-09 22:56:38][INFO ] StorageController.java:108 - Thread_Id: 1 - Comando recibido: PUBLISH. Insertando en la cola de creacion.
+[2017-09-09 22:56:38][INFO ] Storage.java:107 - Thread_Id: 12 - Guardando el comando en la base de datos: db/bc.json
+[2017-09-09 22:56:38][INFO ] Storage.java:108 - Thread_Id: 12 - Contenido del registro: {command:PUBLISH,user:user8,message:asd,timestamp:2017-09-09 22:56:37}
+[2017-09-09 22:56:38][INFO ] Storage.java:144 - Thread_Id: 12 - Actualizando el inice de usuarios
+[2017-09-09 22:56:38][INFO ] Storage.java:182 - Thread_Id: 12 - Actualizando el inice de hashtags
+[2017-09-09 22:56:38][INFO ] Storage.java:58 - Thread_Id: 12 - Actualizando los TT
+[2017-09-09 22:56:38][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:56:38][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: 7cc80bea-53d0-47b4-9fb8-24188f55c54a
+[2017-09-09 22:56:38][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:56:38][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: Creacion exitosa
+[2017-09-09 22:56:38][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:56:38][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:56:38][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:57:36][INFO ] StorageController.java:101 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+UUID: bc852a90-420d-4d30-b179-cf26a9e9c022
+Usuario: user8
+Comando: QUERY
+Mensaje: user8
+[2017-09-09 22:57:36][INFO ] StorageController.java:113 - Thread_Id: 1 - Comando recibido: QUERY. Insertando en la cola de consultas.
+[2017-09-09 22:57:36][INFO ] Storage.java:279 - Thread_Id: 10 - Consultando por user
+[2017-09-09 22:57:36][DEBUG] QueryController.java:43 - Thread_Id: 10 - {"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"WERTYYHHHGGFFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:29"}
+{"message":"GGGHJJK","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:51:55"}
+{"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+
+[2017-09-09 22:57:36][INFO ] ResponseController.java:42 - Thread_Id: 1 - Enviando respuesta al usuario: user8
+[2017-09-09 22:57:36][INFO ] ResponseController.java:44 - Thread_Id: 1 - UUID: 28e5024b-eb20-4902-8e6e-ef2e77278525
+[2017-09-09 22:57:36][INFO ] ResponseController.java:45 - Thread_Id: 1 - Status de la respuesta: OK
+[2017-09-09 22:57:36][INFO ] ResponseController.java:47 - Thread_Id: 1 - Contenido de la respuesta: {"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"SDASDADASDasdasdasdaweqeqweeqweqweqweq","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:40"}
+{"message":"asd","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:56:37"}
+{"message":"WERTYYHHHGGFFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:52:29"}
+{"message":"GGGHJJK","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:51:55"}
+{"message":"DDFF","user":"user8","command":"PUBLISH","timestamp":"2017-09-09 22:33:33"}
+
+[2017-09-09 22:57:36][INFO ] ResponseController.java:49 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 22:57:36][INFO ] ResponseController.java:52 - Thread_Id: 1 - Respuesta enviada
+[2017-09-09 22:57:36][INFO ] ResponseController.java:33 - Thread_Id: 1 - Esperando siguiente respuesta
+[2017-09-09 23:02:57][ERROR] StorageController.java:93 - Thread_Id: 1 - Fallo el join de alguno de los threads
+[2017-09-09 23:02:57][INFO ] ResponseController.java:60 - Thread_Id: 1 - ResponseController interrumpido
+[2017-09-09 23:02:57][INFO ] CreateController.java:63 - Thread_Id: 12 - Create controller interrumpido
+[2017-09-09 23:02:57][INFO ] RemoveController.java:61 - Thread_Id: 11 - Remove Controller interrumpido
+[2017-09-09 23:02:57][INFO ] QueryController.java:62 - Thread_Id: 10 - Query Controller interrumpido
+[2017-09-09 23:02:57][DEBUG] StorageController.java:94 - Thread_Id: 1 - java.lang.InterruptedException
+[2017-09-09 23:02:57][INFO ] StorageController.java:97 - Thread_Id: 1 - Storgae Controller terminado

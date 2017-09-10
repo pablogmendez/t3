@@ -1,0 +1,90 @@
+2017-09-09 18:54:16 - UUID: 6dc18d81-6e8a-47db-b94e-cabb1825040b - Usuario: user1 - Comando: PUBLISH - Mensaje: HOLA2
+2017-09-09 18:54:55 - UUID: 56d5ed12-28f2-4bdb-a10c-ce497d6c71ef - Usuario: user1 - Comando: PUBLISH - Mensaje: "HOLA #COMO te va"
+2017-09-09 18:56:37 - UUID: ca0b7ba5-6947-4b17-bdff-543e3b108d7a - Usuario: user1 - Comando: PUBLISH - Mensaje: "GG"
+2017-09-09 18:57:01 - UUID: e8da4f65-7131-43d5-bbdd-9febb1f6b9dd - Usuario: user1 - Comando: PUBLISH - Mensaje: QUEEEE
+2017-09-09 18:57:24 - UUID: 137ac636-9aa4-4399-bc8d-3c45421135fe - Usuario: user1 - Comando: PUBLISH - Mensaje: "ESTE #esun mensjae"
+2017-09-09 18:58:47 - UUID: ee9d0d86-8c82-4a86-949f-7f30df07d87d - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 19:15:32 - UUID: de917109-5477-49d2-a8ad-d20ffe094c35 - Usuario: user1 - Comando: QUERY - Mensaje: good
+2017-09-09 19:16:49 - UUID: 11f63697-1b73-4d4d-8586-0227ae35bca6 - Usuario: user1 - Comando: QUERY - Mensaje: #good
+2017-09-09 19:17:14 - UUID: 811737ca-1828-4860-8da5-81343edcb7e7 - Usuario: user1 - Comando: PUBLISH - Mensaje: HH
+2017-09-09 19:17:46 - UUID: 9b90beed-6c8d-4b88-941a-fe5f593dafc5 - Usuario: user1 - Comando: QUERY - Mensaje: #people
+2017-09-09 19:18:29 - UUID: e9fd98c7-7bd4-4bd0-bf57-cfcc89dfef33 - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 19:19:35 - UUID: c69ba491-2d3f-4b60-87d0-60222ef6ef0d - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 19:19:48 - UUID: 1515815c-2225-4947-a1e5-e46d65896f70 - Usuario: user1 - Comando: QUERY - Mensaje: #people
+2017-09-09 19:25:13 - UUID: 3656e5e1-6d9e-466a-a25a-6a6d4b3520df - Usuario: user1 - Comando: QUERY - Mensaje: #people
+2017-09-09 19:26:05 - UUID: cd5953cc-60cd-4b9d-9a9f-9f81e36909eb - Usuario: user1 - Comando: QUERY - Mensaje: imitate
+2017-09-09 19:26:24 - UUID: cde96dec-e9f6-496d-9088-8c181cc26df6 - Usuario: user1 - Comando: QUERY - Mensaje: #imitate
+2017-09-09 19:26:55 - UUID: 98087ecc-451b-424a-ad13-3bb03b8ae686 - Usuario: user1 - Comando: QUERY - Mensaje: #life
+2017-09-09 19:29:56 - UUID: 2b57be75-39aa-46b9-bafd-fd0c9740f726 - Usuario: user1 - Comando: QUERY - Mensaje: HH
+2017-09-09 19:35:24 - UUID: 77e346bc-e1d0-486c-9d34-3fa49ea7680e - Usuario: user1 - Comando: QUERY - Mensaje: RRE
+2017-09-09 19:35:40 - UUID: 47d65ad7-dbfd-4ac7-8933-e67c1ee6c641 - Usuario: user1 - Comando: QUERY - Mensaje: #people
+2017-09-09 19:39:59 - UUID: 9c7bb99c-dace-49f2-841c-ad6aa0db7d9e - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 19:40:19 - UUID: 73f1735f-10a7-402a-8ad4-bc8f0a934d2d - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 19:42:54 - UUID: cfdbe018-71f8-4792-945f-75d751caeed6 - Usuario: user1 - Comando: PUBLISH - Mensaje: SIIIIIIIIIIII
+2017-09-09 19:44:57 - UUID: b2713d71-37ae-4b66-8a69-11feb1c40faf - Usuario: user1 - Comando: DELETE - Mensaje: cfdbe018-71f8-4792-945f-75d751caeed6
+2017-09-09 19:46:54 - UUID: a78bdba3-7664-47d8-8208-4d70f0f39008 - Usuario: user2 - Comando: FOLLOW - Mensaje: user1
+2017-09-09 19:48:14 - UUID: b4312310-20b6-4ab1-a77d-e3a121df6165 - Usuario: user1 - Comando: PUBLISH - Mensaje: "soy el usuario 1111"
+2017-09-09 19:50:28 - UUID: 9c20d931-db71-42c6-8b9d-8385cbf1a56a - Usuario: user2 - Comando: FOLLOW - Mensaje: #hola
+2017-09-09 19:51:44 - UUID: 8bc91a5d-9b66-4694-a35c-033b90c98cce - Usuario: user1 - Comando: PUBLISH - Mensaje: "#hola como te va"
+2017-09-09 20:00:17 - UUID: 3b3805be-c9a1-4972-9c2c-dffbd81bfd63 - Usuario: user1 - Comando: PUBLISH - Mensaje: ASDASD
+2017-09-09 20:00:43 - UUID: 917e014c-95df-40f3-bb24-1f70986e896c - Usuario: user1 - Comando: PUBLISH - Mensaje: GGGGG
+2017-09-09 20:01:22 - UUID: 8ac4a0c8-7337-4467-b3cf-d300255bdba2 - Usuario: user4 - Comando: FOLLOW - Mensaje: #holaaaaa
+2017-09-09 20:09:45 - UUID: 25b3b793-5d82-4b3a-a8a1-fd1d4ebb9047 - Usuario: user1 - Comando: PUBLISH - Mensaje: HJLL
+2017-09-09 20:11:08 - UUID: 00b202cc-f430-4fc2-a29d-0dff11b1767b - Usuario: user1 - Comando: PUBLISH - Mensaje: "mando esto #holaaaaa"
+2017-09-09 20:17:27 - UUID: 3cdaa071-ed6e-4bf3-99b1-39e3ffd244ba - Usuario: user8 - Comando: FOLLOW - Mensaje: user1
+2017-09-09 20:18:55 - UUID: a917827d-782a-4809-92cd-43eabec6857b - Usuario: user8 - Comando: PUBLISH - Mensaje: QUETAL
+2017-09-09 20:22:55 - UUID: 229a839b-fd79-4f48-942d-d32ac04c102e - Usuario: user8 - Comando: PUBLISH - Mensaje: CAMA
+2017-09-09 21:06:56 - UUID: a4b2e5f4-a8f4-4fd8-a1d3-1f011d1c7a09 - Usuario: user1 - Comando: PUBLISH - Mensaje: "kkkkkk"
+2017-09-09 21:08:58 - UUID: 202176ed-013d-457a-898f-0c771cd60d1a - Usuario: user1 - Comando: PUBLISH - Mensaje: JAJAJAJAJAJa
+2017-09-09 21:15:27 - UUID: 756c52a6-95cb-4c67-a5cc-13e3cb273811 - Usuario: user1 - Comando: PUBLISH - Mensaje: GHJ
+2017-09-09 21:20:03 - UUID: 3eced4e0-0659-4491-bb08-6b3b1e7013ce - Usuario: user1 - Comando: PUBLISH - Mensaje: JOLA
+2017-09-09 21:21:58 - UUID: 34b11730-7183-44c7-ba83-cb55ac89212b - Usuario: user1 - Comando: PUBLISH - Mensaje: QUETALLLLLLLLLLLLLLLLLLLL
+2017-09-09 21:26:06 - UUID: 393aae94-6369-49d9-8995-452aba8687b6 - Usuario: user1 - Comando: PUBLISH - Mensaje: KOLA
+2017-09-09 21:27:17 - UUID: 1169d51f-88ac-4bbb-af50-f9ce39fd7513 - Usuario: user1 - Comando: PUBLISH - Mensaje: IOP
+2017-09-09 21:31:47 - UUID: c6a82847-a20d-4076-8795-bfd884b57b39 - Usuario: user1 - Comando: PUBLISH - Mensaje: OPIOPOIOPIO
+2017-09-09 21:31:55 - UUID: 23a75c4a-639c-4898-94b3-3dd2a520a5d3 - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:34:09 - UUID: 0bad438a-75b8-4628-8591-c8c49d50570c - Usuario: user8 - Comando: FOLLOW - Mensaje: #UU
+2017-09-09 21:34:29 - UUID: d8de0ae0-1240-49db-9013-649bb02c3008 - Usuario: user1 - Comando: PUBLISH - Mensaje: "asd #UU ddddd"
+2017-09-09 21:34:53 - UUID: 2a7d64e5-d96c-4279-9c10-b8850829908f - Usuario: user4 - Comando: PUBLISH - Mensaje: "2345 556 #UU kk"
+2017-09-09 21:40:05 - UUID: ab4f99d2-3ffb-410a-acd2-84a6ee525cce - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:40:26 - UUID: 4469862f-fe51-4be3-9be8-bee0298f5d57 - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:40:49 - UUID: 9562b828-098f-44ab-8f5f-0e04b0ea7cfb - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:41:18 - UUID: 461f38c2-78c9-4cbf-a220-ea149e2f4643 - Usuario: user1 - Comando: PUBLISH - Mensaje: HOLAAAAAAAAASSSSS
+2017-09-09 21:41:56 - UUID: b42acd82-d870-45de-a98f-0358b3c0f52c - Usuario: user1 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:42:12 - UUID: df577a01-1edf-4961-89e9-28941b5f76dc - Usuario: user4 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:42:20 - UUID: d3b0077f-ad6a-46f3-a836-72fea5ab0b96 - Usuario: user8 - Comando: QUERY - Mensaje: TT
+2017-09-09 21:42:55 - UUID: f0710725-eed2-4251-9025-d9e2eccddb5b - Usuario: user1 - Comando: QUERY - Mensaje: 461f38c2-78c9-4cbf-a220-ea149e2f4643
+2017-09-09 21:43:48 - UUID: 0ad3fd45-4485-446c-a1f5-51e459896623 - Usuario: user4 - Comando: QUERY - Mensaje: user1
+2017-09-09 21:44:19 - UUID: f2b41352-62b8-4844-970e-2691c2aeb50e - Usuario: user1 - Comando: PUBLISH - Mensaje: "QUETAL #JOJOJO #SOSOSO KLP"
+2017-09-09 21:44:50 - UUID: fb9ff260-6a11-4fd5-8aef-f205217774fa - Usuario: user4 - Comando: QUERY - Mensaje: user1
+2017-09-09 21:48:44 - UUID: f2fb470b-f522-4a08-9050-3e40eab01245 - Usuario: user4 - Comando: PUBLISH - Mensaje: "#RR hols"
+2017-09-09 21:49:15 - UUID: 5497ab80-cdd0-4365-a97b-85b9e2dec0da - Usuario: user1 - Comando: QUERY - Mensaje: user4
+2017-09-09 21:49:49 - UUID: 90aa30cd-8480-444d-b2ac-c197e56b6bb4 - Usuario: user4 - Comando: QUERY - Mensaje: user4
+2017-09-09 21:51:07 - UUID: a48eab0d-177b-4185-8f98-282776d8340b - Usuario: user4 - Comando: QUERY - Mensaje: user4
+2017-09-09 21:52:00 - UUID: 9b811331-e0b6-41b5-bbb0-afba02612455 - Usuario: user4 - Comando: QUERY - Mensaje: user1
+2017-09-09 21:53:14 - UUID: 39acd4cd-222e-4d45-806b-b827b1a550b8 - Usuario: user4 - Comando: PUBLISH - Mensaje: #RR
+2017-09-09 21:53:25 - UUID: f64c7a8b-3ab7-48be-9023-a7616f5e2c85 - Usuario: user4 - Comando: QUERY - Mensaje: TT
+2017-09-09 22:02:49 - UUID: 8f5acc3b-5591-420c-b320-1d202df7e1b9 - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:09:03 - UUID: d59d9a1d-e6ab-4395-9e23-e7294c981772 - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:15:36 - UUID: 2363c746-ca10-4b4f-8209-587cfa2c81cf - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:24:23 - UUID: 925cba8c-1702-4afd-bc73-bb77334a91fb - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:25:51 - UUID: ba8630fe-ff05-4def-b6d9-4b6f838dd1af - Usuario: user1 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:26:43 - UUID: 1de74f35-ab61-44ae-98b5-18600cc023a7 - Usuario: user4 - Comando: QUERY - Mensaje: user1
+2017-09-09 22:27:52 - UUID: e0cfb8c1-a939-4677-8ec2-2716a1db3f50 - Usuario: user4 - Comando: QUERY - Mensaje: #RR
+2017-09-09 22:29:42 - UUID: c10e49c7-bdf6-47f4-adc6-91c1202cdebb - Usuario: user4 - Comando: DELETE - Mensaje: c24b1bef-72ad-43ab-bc12-527f1e28c536
+2017-09-09 22:30:38 - UUID: f4aa57f4-8cee-4187-86a8-99b636e850a4 - Usuario: user4 - Comando: QUERY - Mensaje: #RR
+2017-09-09 22:31:13 - UUID: b5adea66-2366-424e-b0eb-5c97d8450d95 - Usuario: user4 - Comando: DELETE - Mensaje: 39acd4cd-222e-4d45-806b-b827b1a550b8
+2017-09-09 22:31:28 - UUID: ce86d2b8-273f-482c-876b-3ec166730451 - Usuario: user4 - Comando: QUERY - Mensaje: #RR
+2017-09-09 22:33:08 - UUID: edd6fbb3-e4c8-4ec0-96d8-3a766ddc80b4 - Usuario: user8 - Comando: DELETE - Mensaje: f2fb470b-f522-4a08-9050-3e40eab01245
+2017-09-09 22:33:33 - UUID: 75be5a68-8b78-44a3-a8c7-d0cecbe9f445 - Usuario: user8 - Comando: PUBLISH - Mensaje: DDFF
+2017-09-09 22:35:59 - UUID: 04778216-d9bf-4f6a-8b60-b287db8a3b10 - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:36:56 - UUID: 3a399d40-4215-47ae-ba31-e237160162e9 - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:39:29 - UUID: 2e02ec69-fff7-463f-bcab-e565fdb53ec1 - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:45:03 - UUID: 710a128e-6137-4bd7-8a22-ad96907cd1e7 - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:47:04 - UUID: 845cff6a-1d57-4feb-be65-51dcdc593834 - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:51:30 - UUID: 365be9d2-82c7-4b79-9a30-7a09d9eb0a4a - Usuario: user8 - Comando: QUERY - Mensaje: user8
+2017-09-09 22:51:55 - UUID: 6a5f6f71-98d6-4d5a-bf85-811c0323e868 - Usuario: user8 - Comando: PUBLISH - Mensaje: GGGHJJK
+2017-09-09 22:52:29 - UUID: 08ba35e9-3a56-4fb5-8015-687d6b0a59dd - Usuario: user8 - Comando: PUBLISH - Mensaje: WERTYYHHHGGFFF
+2017-09-09 22:52:40 - UUID: bc852a90-420d-4d30-b179-cf26a9e9c022 - Usuario: user8 - Comando: PUBLISH - Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
+2017-09-09 22:56:38 - UUID: bc852a90-420d-4d30-b179-cf26a9e9c022 - Usuario: user8 - Comando: PUBLISH - Mensaje: asd
+2017-09-09 22:57:36 - UUID: bc852a90-420d-4d30-b179-cf26a9e9c022 - Usuario: user8 - Comando: QUERY - Mensaje: user8

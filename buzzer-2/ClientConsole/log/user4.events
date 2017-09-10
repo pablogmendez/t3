@@ -1,164 +1,107 @@
-Evento recibido:
-UUID: 3bc75993-0946-4dc4-bedd-632ffe1f72b1
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 260cb34f-8bc5-42e3-b96c-ea9203e65575
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 8bc32e99-3704-47e4-8fc3-4ee70c5d6213
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 41beb615-f92e-4115-91e5-28c89a305ffa
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 82691289-d314-4952-8810-6e37a557443d
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 288432c3-cbb9-4036-a3a1-e0988930cb49
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: dc523624-d708-4ccb-8e2d-421c6ba6b06a
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: c3ec4dda-189b-4acf-988d-634581bc512a
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: c1ae6624-c1c8-456e-a4b1-4c9e31d315b4
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: b05fc6d1-c72a-416e-b962-58f5e69ecc67
-Response Status: OK
-Message: HOLA5
-good
-the
-great
-because
-way
-people
-HOLA
-you
-jar
-Total de topics: 119
-
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 49d40258-328e-4c3c-95f3-e96e54220b95
-Response Status: OK
-Message: HOLA5
-good
-the
-great
-because
-way
-people
-HOLA
-you
-jar
-Total de topics: 119
-
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 9000a9fe-afc6-4737-8735-092ec7595084
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 609498f2-c17b-4796-a73e-a44080e86d18
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 26c4ffa6-5970-42ce-9c36-4b24cec9f718
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 9e0e3be6-bcb6-4cb4-b6f8-fc35dd9ba96a
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: e38513a9-5685-4662-b804-1991d5b13f31
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 8a30409c-a04c-4d89-be91-6c29d5153667
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 0f1fe65c-cd8c-482e-ac67-d23852537085
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 147dcb4e-1c57-429a-8813-670053a598d7
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 8034f9bd-6398-4179-87bf-b839fc30d471
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: 57af7503-7ae6-4014-a96d-4d676a966014
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: e47823d3-5d77-48b8-9c4b-cec50193544b
-Response Status: OK
-Message: Creacion exitosa
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: c89e6ec5-99c3-4e30-9991-4bd697465c4d
-Response Status: OK
-Message: HOLA5
-good
-the
-you
-way
-people
-because
-great
-jar
-desk
-Total de topics: 127
-
------------------------------------------------------------------------------------------------------
-Evento recibido:
-UUID: a349039d-4a4c-48d7-bb87-067f59bb462c
-Response Status: OK
-Message: HOLA5
-good
-the
-you
-way
-people
-because
-great
-jar
-desk
-Total de topics: 127
-
------------------------------------------------------------------------------------------------------
+Evento recibido - UUID: {6dc18d81-6e8a-47db-b94e-cabb1825040b} - Status: {OK} - Mensaje: {2017-09-09 18:54:15
+user1
+HOLA2}
+-----------------------------------------------------
+Evento recibido - UUID: {6dc18d81-6e8a-47db-b94e-cabb1825040b} - Status: {OK} - Mensaje: {2017-09-09 18:54:15
+user1
+HOLA2}
+-----------------------------------------------------
+Evento recibido - UUID: {6dc18d81-6e8a-47db-b94e-cabb1825040b} - Status: {OK} - Mensaje: {2017-09-09 18:54:15
+user1
+HOLA2}
+-----------------------------------------------------
+Evento recibido - UUID: {25b3b793-5d82-4b3a-a8a1-fd1d4ebb9047} - Status: {OK} - Mensaje: {2017-09-09 20:09:45
+user1
+HJLL}
+-----------------------------------------------------
+Evento recibido - UUID: {00b202cc-f430-4fc2-a29d-0dff11b1767b} - Status: {OK} - Mensaje: {2017-09-09 20:11:08
+user1
+"mando esto #holaaaaa"}
+-----------------------------------------------------
+Evento recibido - UUID: {a4b2e5f4-a8f4-4fd8-a1d3-1f011d1c7a09} - Status: {OK} - Mensaje: {2017-09-09 21:06:56
+user1
+"kkkkkk"}
+-----------------------------------------------------
+Evento recibido - UUID: {202176ed-013d-457a-898f-0c771cd60d1a} - Status: {OK} - Mensaje: {2017-09-09 21:08:58
+user1
+JAJAJAJAJAJa}
+-----------------------------------------------------
+Evento recibido - UUID: {3eced4e0-0659-4491-bb08-6b3b1e7013ce} - Status: {OK} - Mensaje: {2017-09-09 21:20:03
+user1
+JOLA}
+-----------------------------------------------------
+Evento recibido - UUID: {3eced4e0-0659-4491-bb08-6b3b1e7013ce} - Status: {OK} - Mensaje: {2017-09-09 21:20:03
+user1
+JOLA}
+-----------------------------------------------------
+Evento recibido - UUID: {34b11730-7183-44c7-ba83-cb55ac89212b} - Status: {OK} - Mensaje: {2017-09-09 21:21:58
+user1
+QUETALLLLLLLLLLLLLLLLLLLL}
+-----------------------------------------------------
+Evento recibido - UUID: {393aae94-6369-49d9-8995-452aba8687b6} - Status: {OK} - Mensaje: {2017-09-09 21:26:06
+user1
+KOLA}
+-----------------------------------------------------
+Evento recibido - UUID: {1169d51f-88ac-4bbb-af50-f9ce39fd7513} - Status: {OK} - Mensaje: {2017-09-09 21:27:17
+user1
+IOP}
+-----------------------------------------------------
+Evento recibido - UUID: {c6a82847-a20d-4076-8795-bfd884b57b39} - Status: {OK} - Mensaje: {2017-09-09 21:31:47
+user1
+OPIOPOIOPIO}
+-----------------------------------------------------
+Evento recibido - UUID: {d8de0ae0-1240-49db-9013-649bb02c3008} - Status: {OK} - Mensaje: {2017-09-09 21:34:29
+user1
+"asd #UU ddddd"}
+-----------------------------------------------------
+Evento recibido - UUID: {24d4317d-69c7-43a0-851f-d79fb101b424} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {461f38c2-78c9-4cbf-a220-ea149e2f4643} - Status: {OK} - Mensaje: {2017-09-09 21:41:18
+user1
+HOLAAAAAAAAASSSSS}
+-----------------------------------------------------
+Evento recibido - UUID: {458b391d-bd91-481e-9a5e-79279bed573a} - Status: {OK} - Mensaje: {Total de topics: 0
+}
+-----------------------------------------------------
+Evento recibido - UUID: {1b8f9d94-f0f8-44fb-842b-d110493bd282} - Status: {OK} - Mensaje: {{"message":"HOLAAAAAAAAASSSSS","user":"user1","command":"PUBLISH","timestamp":"2017-09-09 21:41:18"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {8afc7829-119e-4202-945a-58a929c8be39} - Status: {OK} - Mensaje: {{"message":"\"QUETAL #JOJOJO #SOSOSO KLP\"","user":"user1","command":"PUBLISH","timestamp":"2017-09-09 21:44:19"}
+{"message":"HOLAAAAAAAAASSSSS","user":"user1","command":"PUBLISH","timestamp":"2017-09-09 21:41:18"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {1cdbb068-4bef-44aa-b62a-52efbf515928} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {f87853b3-2dab-47a3-96a6-964839e3812a} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {60229c90-098d-4cf7-a4b4-9f11e5fb5b69} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {8899320f-2bd4-459f-8e0d-918d185b7b65} - Status: {ERROR} - Mensaje: {Error al consultar}
+-----------------------------------------------------
+Evento recibido - UUID: {8efc8ce9-3748-428c-96ac-30c75e2c7ab0} - Status: {OK} - Mensaje: {Creacion exitosa}
+-----------------------------------------------------
+Evento recibido - UUID: {edf0c7c7-1b81-413d-9033-82d13b2fe775} - Status: {OK} - Mensaje: {RR
+SOSOSO
+JOJOJO
+Total de topics: 3
+}
+-----------------------------------------------------
+Evento recibido - UUID: {57803091-64d9-478c-81ea-9f65282c5265} - Status: {OK} - Mensaje: {{"message":"\"QUETAL #JOJOJO #SOSOSO KLP\"","user":"user1","command":"PUBLISH","timestamp":"2017-09-09 21:44:19"}
+{"message":"HOLAAAAAAAAASSSSS","user":"user1","command":"PUBLISH","timestamp":"2017-09-09 21:41:18"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {c24b1bef-72ad-43ab-bc12-527f1e28c536} - Status: {OK} - Mensaje: {{"message":"#RR","user":"user4","command":"PUBLISH","timestamp":"2017-09-09 21:53:14"}
+{"message":"\"#RR hols\"","user":"user4","command":"PUBLISH","timestamp":"2017-09-09 21:48:44"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {a32774ef-7d6e-4101-86ba-d9cdaa31c793} - Status: {ERROR} - Mensaje: {Error al eliminar el mensaje}
+-----------------------------------------------------
+Evento recibido - UUID: {5b9be812-a345-4ece-960c-2f0f0d157b47} - Status: {OK} - Mensaje: {{"message":"#RR","user":"user4","command":"PUBLISH","timestamp":"2017-09-09 21:53:14"}
+{"message":"\"#RR hols\"","user":"user4","command":"PUBLISH","timestamp":"2017-09-09 21:48:44"}
+}
+-----------------------------------------------------
+Evento recibido - UUID: {2fb791e5-e217-45ef-899c-e876290e10a2} - Status: {OK} - Mensaje: {Borrado exitoso}
+-----------------------------------------------------
+Evento recibido - UUID: {b183eb68-2691-4183-9727-111fcc97684a} - Status: {OK} - Mensaje: {{"message":"\"#RR hols\"","user":"user4","command":"PUBLISH","timestamp":"2017-09-09 21:48:44"}
+}
+-----------------------------------------------------

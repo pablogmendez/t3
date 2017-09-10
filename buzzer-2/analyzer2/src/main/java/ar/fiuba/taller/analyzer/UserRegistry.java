@@ -98,9 +98,9 @@ public class UserRegistry {
 		obj = parser.parse(new FileReader(usersFile));
 		jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(followed);
-
-		//System.out.println(array.toJSONString());
-
+		if(array == null) {
+			array = new JSONArray();
+		}
 		return array;
 	}
 
@@ -128,16 +128,17 @@ public class UserRegistry {
 		jsonObject = (JSONObject) obj;
 		String regexPattern = "(#\\w+)";
 		Pattern p = Pattern.compile(regexPattern);
-		Matcher m = p.matcher(followed);
+		Matcher m = p.matcher(followed); 
 		while (m.find()) {
 			word = m.group(1).substring(1, m.group(1).length());
 			logger.info("Hashtag: " + m.group(1));
-			logger.info("Topic sin #: " + word);
 			jsonArray = (JSONArray) jsonObject.get(word);
 			logger.info("arr: " + jsonArray);
-			it = jsonArray.iterator();
-			while (it.hasNext()) {
-				followersList.add(it.next());
+			if(jsonArray != null) {
+				it = jsonArray.iterator();
+				while (it.hasNext()) {
+					followersList.add(it.next());
+				}
 			}
 		}
 		return followersList;

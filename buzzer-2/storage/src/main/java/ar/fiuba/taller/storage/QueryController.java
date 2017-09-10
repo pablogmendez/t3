@@ -50,6 +50,7 @@ public class QueryController implements Runnable {
 					response.setResponse_status(RESPONSE_STATUS.ERROR);
 					response.setMessage(error_message);
 					logger.error(e);
+					e.printStackTrace();
 				} finally {
 					if(response != null) {
 						responseQueue.put(response);

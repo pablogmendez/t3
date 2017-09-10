@@ -20,6 +20,6 @@
 		<module>../dispatcher</module>
 		<module>../auditLogger</module>
 		<module>../storage</module>
-		<module>../analyzer</module>
+		<module>../analyzer2</module>
 	</modules>
 </project>

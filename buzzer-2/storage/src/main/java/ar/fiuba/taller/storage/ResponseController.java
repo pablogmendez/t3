@@ -36,7 +36,7 @@ public class ResponseController implements Runnable {
 				if (currentUserRemoteQueue == null) {
 					// Creo la cola
 					currentUserRemoteQueue = new WritingRemoteQueue(
-							response.getUser(), "localhost", config);
+							response.getUser(), "localhost:9092", config);
 					usersMap.put(response.getUser(), currentUserRemoteQueue);
 				}
 				logger.info(

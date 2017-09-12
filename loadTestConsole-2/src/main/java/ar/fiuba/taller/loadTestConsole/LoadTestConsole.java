@@ -46,10 +46,10 @@ public class LoadTestConsole {
 
 		// Creo los threads
 		Thread usersControllerThread = null;
-		Thread patternFileWatcherThread = new Thread(new PatternFileWatcher(
+		PatternFileWatcher pfw = new PatternFileWatcher(
 				propertiesMap.get(Constants.USERS_PATTERN_FILE), fileChangeSem,
 				Integer.parseInt(
-						propertiesMap.get(Constants.FILE_WATCHER_TIMEOUT))));
+						propertiesMap.get(Constants.FILE_WATCHER_TIMEOUT)));
 		Thread summaryControllerThread = new Thread(
 				new SummaryController(summaryQueue, summary));
 		Thread summaryPrinterThread = new Thread(
@@ -61,7 +61,8 @@ public class LoadTestConsole {
 
 		logger.info("Iniciando LoadTestConsole");
 		logger.info("Iniciando los threads");
-		patternFileWatcherThread.start();
+		//patternFileWatcherThread.start();
+		pfw.start();
 		summaryControllerThread.start();
 		summaryPrinterThread.start();
 		reportControllerThread.start();
@@ -91,8 +92,24 @@ public class LoadTestConsole {
 			try {
 				usersControllerThread.join();
 			} catch (InterruptedException e) {
-				// Do nothing
+				logger.error("Error al joinear el usersControllerThread");
+				logger.debug(e);
 			}
+		}
+		logger.info("Interrumpiendo los threads de estadisticas");
+		summaryControllerThread.interrupt();
+		summaryPrinterThread.interrupt();
+		reportControllerThread.interrupt();
+		reportPrinterThread.interrupt();
+		logger.info("Joineando los threads");
+		try {
+			summaryControllerThread.join();
+			summaryPrinterThread.join();
+			reportControllerThread.join();
+			reportPrinterThread.join();
+		} catch (InterruptedException e) {
+			logger.error("Error al joinear los threads de reportes");
+			logger.debug(e);
 		}
 	}
 
@@ -140,7 +157,8 @@ public class LoadTestConsole {
 				}
 			}
 		} catch (InputMismatchException e) {
-			// Do nothing
+			logger.error("Error al cargar el archivo de patrones de usuario");
+			logger.debug(e);
 		}
 	}
 }

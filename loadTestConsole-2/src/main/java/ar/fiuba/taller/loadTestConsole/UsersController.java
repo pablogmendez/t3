@@ -5,9 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -50,6 +55,7 @@ public class UsersController implements Runnable {
 		int oldTime = 0; // Tiempo del pulso anterior
 		ExecutorService executorService = Executors
 				.newFixedThreadPool(maxUsers);
+		Semaphore noUsersSem = new Semaphore(0);
 
 		Iterator<Map.Entry<Integer, Integer>> it = usersPatternMap.entrySet()
 				.iterator();
@@ -72,6 +78,8 @@ public class UsersController implements Runnable {
 				totalUsersCount += updateUsers(totalUsersCount, deltaUsers,
 						executorService);
 				logger.info("Usuarios ingresados");
+				logger.info("Usuarios totales: " + totalUsersCount);
+				summaryQueue.put(new UserStat(totalUsersCount));
 				if (it.hasNext()) {
 					pair = it.next();
 					if (pair.getKey() > oldTime) {
@@ -83,17 +91,18 @@ public class UsersController implements Runnable {
 					logger.debug("Valores para la proxima corrida: "
 							+ pair.getKey() + " - " + pair.getValue());
 				} else {
-					deltaUsers = 0;
+					logger.info(
+							"No hay mas usuarios para agregar. Me quedo bloqueado en el semaforo.");
+					noUsersSem.acquire();
 				}
-				logger.info("Usuarios totales: " + totalUsersCount);
-				summaryQueue.put(new UserStat(totalUsersCount));
-				logger.info(
-						"Tiempo a dormir hasta el proximo pulso: " + sleepTime);
+				logger.info("Tiempo a dormir hasta el proximo pulso: "
+						+ sleepTime);
 				Thread.sleep(sleepTime * Constants.SLEEP_UNIT);
 			}
 		} catch (InterruptedException e) {
 			logger.info(
 					"Senial de interrupcion recibida. Eliminado los Usuarios.");
+		} finally {
 			executorService.shutdownNow();
 		}
 	}
@@ -121,22 +130,64 @@ public class UsersController implements Runnable {
 			// Disparo los users
 			for (int i = 0; i < usersToAdd; i++) {
 				futures.add((Future<User>) executorService.submit(
-						new User(propertiesMap, summaryQueue, reportQueue)));
+						new User(propertiesMap, summaryQueue, reportQueue, i)));
 			}
 
 		} else if (usersToAdd < 0) {
-			logger.info("Eliminando usuarios");
+			logger.info("Eliminando " + usersToAdd	 + " usuarios");
 			int tmpUsersToAdd = Math.abs(usersToAdd);
 			Iterator<Future<User>> it = futures.iterator();
 			Future<User> f;
+			int retry;
+			
 			for (int i = 0; i < tmpUsersToAdd; i++) {
+				logger.debug("Matando al usuario -> " + i);
+				retry = 0;
 				f = it.next();
-				f.cancel(true);
-				f.cancel(true);
-				it.remove();
-				logger.debug("Usuario cancelado");
+//				try {
+//					while(retry < Constants.USER_KILL_RETRY) {
+						logger.info("Cancelando usuario. Intento nro: " + (retry));
+						f.cancel(true);
+						logger.debug("AAAA");
+//						try {
+//							logger.debug("bbbbbbbb");
+//							f.get(Constants.USERS_TIMEOUT, TimeUnit.MILLISECONDS);
+//							logger.debug("Usuario " + i + "Cancelado");
+//						} catch (TimeoutException e) {
+//							logger.error("Timeout expirado");
+//							if(retry == Constants.USER_KILL_RETRY - 1) {
+//								try {
+//									reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+//								} catch (InterruptedException e1) {
+//									logger.error("Error al informar terminacion de ejecucion de script");
+//									logger.debug(e1);
+//								}
+//							}
+//						} finally {
+//							retry++;							
+//						}
+//					}
+					it.remove();
+					logger.debug("Usuario cancelado");
+//				} catch (ExecutionException | InterruptedException e) {
+//					try {
+//						logger.debug("Error en la eliminacion de usuarios. Mando el success");
+//						reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
+//					} catch (InterruptedException e1) {
+//						logger.error("Error al informar terminacion de ejecucion de script");
+//						logger.debug(e1);
+//					}
+//					logger.error("Controlador interrumpido");
+//					logger.debug(e);
+//				} catch ( CancellationException e) {
+//					logger.debug("Cancellation exception");
+//					logger.debug(e);
+//					e.printStackTrace();
+//				}
+//			}
+			logger.debug("Usuarios cancelados");
 			}
 		}
-		return usersToAdd;
+	return usersToAdd;
 	}
 }

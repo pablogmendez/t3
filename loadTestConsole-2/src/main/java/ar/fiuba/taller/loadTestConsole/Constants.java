@@ -20,6 +20,8 @@ public final class Constants {
 	public static final int EXIT_SUCCESS = 0;
 	public static final int EXIT_FAILURE = 1;
 	public static final int SLEEP_UNIT = 1000;
+	public static final long USERS_TIMEOUT = 100;
+	public static final int USER_KILL_RETRY = 10;
 
 	public static final Map<String, String> RESOURCE_MAP;
 	static {

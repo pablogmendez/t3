@@ -30,14 +30,16 @@ public class User implements Runnable {
 	private Map<String, String> propertiesMap;
 	private ArrayBlockingQueue<SummaryStat> summaryQueue;
 	private ArrayBlockingQueue<REPORT_EVENT> reportQueue;
+	private int id;
 
 	public User(Map<String, String> propertiesMap,
 			ArrayBlockingQueue<SummaryStat> summaryQueue,
-			ArrayBlockingQueue<REPORT_EVENT> reportQueue) {
+			ArrayBlockingQueue<REPORT_EVENT> reportQueue, int id) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.summaryQueue = summaryQueue;
 		this.reportQueue = reportQueue;
 		this.propertiesMap = propertiesMap;
+		this.id = id;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,6 +70,7 @@ public class User implements Runnable {
 			it = stepsArray.iterator();
 
 			while (!Thread.interrupted()) {
+				logger.debug("idddddd: " + id);
 				if (it == null || !it.hasNext()) {
 					avgTime = 0;
 					successResponse = 0;
@@ -82,14 +85,20 @@ public class User implements Runnable {
 				logger.info("headers: " + (String) objStep.get("headers"));
 				logger.info("Body: " + (String) objStep.get("body"));
 				time_start = System.currentTimeMillis();
-				response = httpRequester.doHttpRequest(
-						(String) objStep.get("method"),
-						(String) objStep.get("url"),
-						(String) objStep.get("headers"),
-						(String) objStep.get("body"),
-						Integer.parseInt(
-								propertiesMap.get(Constants.HTTP_TIMEOUT))
-								* Constants.SLEEP_UNIT);
+//				try {
+					response = httpRequester.doHttpRequest(
+							(String) objStep.get("method"),
+							(String) objStep.get("url"),
+							(String) objStep.get("headers"),
+							(String) objStep.get("body"),
+							Integer.parseInt(
+									propertiesMap.get(Constants.HTTP_TIMEOUT))
+									* Constants.SLEEP_UNIT);
+//				} catch (IOException e) {
+//					logger.error("Error en el http -->" + id);
+//					logger.debug(e);
+//				}
+//				response = "http://www.fi.uba.ar";
 				logger.debug("Request listo");
 				time_end = System.currentTimeMillis();
 				avgTime = time_end - time_start;
@@ -117,21 +126,18 @@ public class User implements Runnable {
 				summaryQueue.put(new RequestStat(successResponse,
 						failedResponse, avgTime));
 			}
-		} catch (IOException | InterruptedException | ExecutionException e) {
-			// Do nothing
-		} catch (ParseException e) {
-			try {
-				throw new ParseException(0);
-			} catch (ParseException e1) {
-				// Do nothing
-			}
+		} catch (Exception e) {
+			logger.error("Error en la ejecucion del user --> " + id);
+			logger.debug(e);
 		} finally {
+			logger.debug("ME MUEROOOO -> " + id);
 			try {
 				logger.info("User cancelado. Eliminando downloaders.");
 				executorService.shutdownNow();
 				reportQueue.put(REPORT_EVENT.SCRIPT_EXECUTED);
 			} catch (InterruptedException e1) {
-				// Do nothing
+				logger.error("Error al enviar estadisticas a la cola de reportes --> " + id);
+				logger.debug(e1);
 			}
 		}
 	}

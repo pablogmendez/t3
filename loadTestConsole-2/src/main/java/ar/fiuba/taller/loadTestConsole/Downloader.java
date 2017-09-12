@@ -35,12 +35,14 @@ public class Downloader implements Callable {
 		String response = null;
 		HttpRequester httpRequester = new HttpRequester();
 		int successResponse = 0, failedResponse = 0;
+		boolean statSend = false;
 
 		logger.info("Iniciando Downloader.");
 		logger.info("Url a descargar: " + url);
 		logger.info("Tipo de recurso: " + type);
 		try {
 			reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOAD);
+			statSend = true;
 			time_start = System.currentTimeMillis();
 			response = httpRequester.doHttpRequest("get", url, null, null,
 					Integer.parseInt(
@@ -53,13 +55,15 @@ public class Downloader implements Callable {
 		} finally {
 			try {
 				if (response == null) {
-					successResponse++;
-				} else {
 					failedResponse++;
+				} else {
+					successResponse++;
 				}
 				summaryQueue.put(new RequestStat(successResponse,
 						failedResponse, time_elapsed));
-				reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);
+				if(statSend) {
+					reportQueue.put(REPORT_EVENT.RESOURCE_DOWNLOADED);
+				}
 			} catch (InterruptedException e) {
 				// Do nothing
 			}

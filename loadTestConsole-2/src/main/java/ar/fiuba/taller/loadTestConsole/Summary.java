@@ -4,6 +4,8 @@ public class Summary {
 	private long avgDownloadTime;
 	private long successfullrequest;
 	private long failedrequest;
+	private long requestCounter;
+	private long timeCounter;
 	private Integer users;
 
 	public Summary() {
@@ -11,6 +13,8 @@ public class Summary {
 		successfullrequest = 0;
 		failedrequest = 0;
 		users = 0;
+		requestCounter = 0;
+		timeCounter = 0;
 	}
 
 	public synchronized long getSuccessfullrequest() {
@@ -42,7 +46,9 @@ public class Summary {
 	}
 
 	public synchronized void updateAvgDownloadTime(long time) {
-		avgDownloadTime = (long) ((0.8*avgDownloadTime) + (0.2*time));
+		requestCounter++;
+		timeCounter += time;
+		avgDownloadTime = timeCounter / requestCounter;
 	}
 
 	public synchronized long getTotalRequests() {

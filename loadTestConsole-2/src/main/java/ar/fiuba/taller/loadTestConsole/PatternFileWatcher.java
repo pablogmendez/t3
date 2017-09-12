@@ -12,7 +12,7 @@ import org.apache.log4j.MDC;
 import ar.fiuba.taller.utils.FileWatcher;
 
 
-public class PatternFileWatcher implements Runnable {
+public class PatternFileWatcher  {
 	private Semaphore fileChangeSem;
 	private String patternFilePath;
 	private int pullTime;
@@ -26,8 +26,7 @@ public class PatternFileWatcher implements Runnable {
 		this.pullTime = pullTime;
 	}
 
-	@Override
-	public void run() {
+	public void start() {
 		// monitor a single file
 		logger.info("Iniciando PatternFileWatcher");
 		logger.debug( "patternFilePath -> " + patternFilePath);

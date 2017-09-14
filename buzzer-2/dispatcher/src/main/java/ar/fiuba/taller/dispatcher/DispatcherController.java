@@ -56,11 +56,11 @@ public class DispatcherController implements Runnable {
 		try {
 			while (!Thread.interrupted()) {
 				messageList = dispatcherQueue.pop();
-				logger.debug("CONTENDIO DE LA LISTA: " + messageList.get(0));
 				Iterator<byte[]> it = messageList.iterator();
 				while(it.hasNext()) {
 				//for (byte[] message : messageList) {
 					try {
+						command = new Command();
 						command.deserialize(it.next());
 						logger.info(
 								"Comando recibido con los siguientes parametros: "
@@ -72,16 +72,36 @@ public class DispatcherController implements Runnable {
 							storageCommandQueue.put(command);
 							analyzerCommandQueue.put(command);
 							loggerCommandQueue.put(command);
+							logger.info(
+									"Comando enviado al publish: "
+											+ "\nUsuario: " + command.getUser()
+											+ "\nComando: " + command.getCommand()
+											+ "\nMensaje: " + command.getMessage());
 							break;
 						case QUERY:
 							storageCommandQueue.put(command);
 							loggerCommandQueue.put(command);
+							logger.info(
+									"Comando enviado al query: "
+											+ "\nUsuario: " + command.getUser()
+											+ "\nComando: " + command.getCommand()
+											+ "\nMensaje: " + command.getMessage());
 							break;
 						case DELETE:
+							logger.info(
+									"Comando enviado al delete: "
+											+ "\nUsuario: " + command.getUser()
+											+ "\nComando: " + command.getCommand()
+											+ "\nMensaje: " + command.getMessage());
 							storageCommandQueue.put(command);
 							loggerCommandQueue.put(command);
 							break;
 						case FOLLOW:
+							logger.info(
+									"Comando enviado al follow: "
+											+ "\nUsuario: " + command.getUser()
+											+ "\nComando: " + command.getCommand()
+											+ "\nMensaje: " + command.getMessage());
 							analyzerCommandQueue.put(command);
 							loggerCommandQueue.put(command);
 							break;

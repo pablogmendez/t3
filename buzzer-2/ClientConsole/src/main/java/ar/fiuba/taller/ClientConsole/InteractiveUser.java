@@ -33,7 +33,8 @@ public class InteractiveUser implements Runnable {
 				config.get(Constants.DISPATCHER_QUEUE_HOST), config);
 		commandControllerThread = new Thread(new CommandController(commandQueue,
 				dispatcherQueue,
-				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG))));
+				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)), Constants.LOGS_DIR + "/" + userName
+				+ Constants.COMMANDS_FILE_EXTENSION));
 		responseQueue = new ArrayBlockingQueue<Response>(
 				Constants.RESPONSE_QUEUE_SIZE);
 		remoteUserResponseQueue = new ReadingRemoteQueue(userName, userHost,

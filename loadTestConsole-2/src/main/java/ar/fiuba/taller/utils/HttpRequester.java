@@ -50,11 +50,10 @@ public class HttpRequester {
 			int timeout) throws IOException {
 		// Armo la conexion
 		URL obj = new URL(url);
-//		try {
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			// optional default is GET
 			con.setRequestMethod("GET");
-			//con.setConnectTimeout(timeout);
+			con.setConnectTimeout(timeout);
 			// add request header
 			if (!headers.isEmpty()) {
 				for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -75,27 +74,17 @@ public class HttpRequester {
 			} else {
 				return response.toString();
 			}
-//		} catch (java.net.SocketTimeoutException e) {
-//			logger.error("Error de timeout en el GET");
-//			logger.debug(e);
-//			return null;
-//		}
-		// } catch (java.io.IOException e) {
-		// return null;
-		// }
-		// print result
 	}
 
 	// HTTP POST request
 	private String doPost(String url, Map<String, String> headers, String data,
 			int timeout) throws IOException {
 		URL obj = new URL(url);
-//		try {
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			// add reuqest method
 			con.setRequestMethod("POST");
-			//con.setConnectTimeout(timeout);
+			con.setConnectTimeout(timeout);
 			// add reuqest header
 			if (!headers.isEmpty()) {
 				for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -122,11 +111,6 @@ public class HttpRequester {
 
 			// print result
 			return response.toString();
-//		} catch (java.net.SocketTimeoutException e) {
-//			logger.error("Error de timeout en el POST");
-//			logger.debug(e);
-//			return null;
-//		}
 	}
 
 	// HTTP PUT request
@@ -134,10 +118,9 @@ public class HttpRequester {
 			int timeout) throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-//		try {
 			// add reuqest method
 			con.setRequestMethod("PUT");
-			//con.setConnectTimeout(timeout);
+			con.setConnectTimeout(timeout);
 
 			// add reuqest header
 			if (!headers.isEmpty()) {
@@ -165,11 +148,6 @@ public class HttpRequester {
 
 			// print result
 			return response.toString();
-//		} catch (java.net.SocketTimeoutException e) {
-//			logger.error("Error de timeout en el PUT");
-//			logger.debug(e);
-//			return null;
-//		}
 	}
 
 }

@@ -32,6 +32,7 @@ public class StorageController implements Runnable {
 		logger.info("Iniciando el storage controller");
 		try {
 			while (!Thread.interrupted()) {
+				command = new Command();
 				try {
 					command = storageCommandQueue.take();
 					logger.info("Comando recibido con los siguientes parametros: "

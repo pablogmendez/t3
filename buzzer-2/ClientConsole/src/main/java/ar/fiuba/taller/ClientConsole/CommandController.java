@@ -1,6 +1,9 @@
 package ar.fiuba.taller.ClientConsole;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
@@ -17,19 +20,23 @@ public class CommandController implements Runnable {
 	private WritingRemoteQueue dispatcherQueue;
 	private int maxlengthMsg;
 	private Timestamp timestamp;
-
+	private String commandFile;
+	
 	final static Logger logger = Logger.getLogger(CommandController.class);
 
 	public CommandController(BlockingQueue<Command> commandQueue,
-			WritingRemoteQueue dispatcherQueue, int maxlengthMsg) {
+			WritingRemoteQueue dispatcherQueue, int maxlengthMsg, String commandFile) {
 		this.commandQueue = commandQueue;
 		this.dispatcherQueue = dispatcherQueue;
 		this.maxlengthMsg = maxlengthMsg;
+		this.commandFile = commandFile;
 	}
 
 	public void run() {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		Command command;
+		FileWriter responseFile = null;
+		PrintWriter pw;
 
 		logger.debug("Iniciando el command controller");
 		try {
@@ -50,6 +57,14 @@ public class CommandController implements Runnable {
 						logger.debug("Enviando el mensaje al dispatcher");
 						dispatcherQueue.push(command);
 						logger.debug("Mensaje enviado");
+						pw = new PrintWriter(new BufferedWriter(
+								new FileWriter(commandFile, true)));
+						logger.debug("Respuesta obtenida");
+						pw.printf(
+								"Evento enviado - UUID: {%s} - Timestamp: {%s} - Comando: {%s} - Mensaje: {%s}%n-----------------------------------------------------%n",
+								command.getUuid(), command.getTimestamp(), command.getCommand(),
+								command.getMessage());
+						pw.close();
 						System.out.printf(
 								"Comando enviado - UUID: {%s} - Comando: {%s} - Usuario: {%s} - Mensaje: {%s} - Timestamp: {%s}",
 								command.getUuid().toString(),

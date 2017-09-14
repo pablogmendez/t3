@@ -8,8 +8,8 @@ import java.util.Map;
 public class Constants {
 
 	// Constantes globales
-	public static final int COMMAND_QUEUE_SIZE = 100;
-	public static final int RESPONSE_QUEUE_SIZE = 100;
+	public static final int COMMAND_QUEUE_SIZE = 1000;
+	public static final int RESPONSE_QUEUE_SIZE = 1000;
 	public static final String LOGGER_CONF = "conf/log4j.properties";
 	
 	public static final String COMMAND_SCRIPT = "scripts/script.json";
@@ -24,12 +24,14 @@ public class Constants {
 	public static final String LOGS_DIR = "log";
 	public static final String EVENT_VIEWER_FILE = "user_";
 	public static final String EVENT_VIEWER_FILE_EXTENSION = ".events";
+	public static final String COMMANDS_FILE_EXTENSION = ".commands";
 
 	// Constantes para el usuario
 	public static final String INTERACTIVE_MODE = "i";
 	public static final String BATCH_MODE = "b";
 	public static final String MAX_LENGTH_MSG = "max.length.msg";
 	public static final String COMMAND_AMOUNT = "command.amount";
+	public static final String BATCH_DELAY_TIME = "batch.delay.time";
 	public static final long USER_THREAD_WAIT_TIME = 5000;
 	
 	// Constantes para el storage

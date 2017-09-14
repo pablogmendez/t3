@@ -56,7 +56,7 @@ public class StorageController implements Runnable {
 	}
 
 	public void run() {
-		Command command = new Command();
+		Command command;
 		List<byte[]> messageList = null;
 
 		logger.info("Lanzando los threads de query, remove y create");
@@ -71,6 +71,7 @@ public class StorageController implements Runnable {
 	          messageList = storageQueue.pop();
 	          for(byte[] message : messageList) {
 	  			try {
+	  				command = new Command();
 					command.deserialize(message);
 					analyzeCommand(command);
 

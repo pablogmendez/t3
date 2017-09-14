@@ -33,6 +33,7 @@ public class BatchUser implements Callable {
 	private Thread responseControllerThread;
 	private ReadingRemoteQueue remoteUserResponseQueue;
 	private WritingRemoteQueue dispatcherQueue;
+	private long delayTime; 
 	final static Logger logger = Logger.getLogger(BatchUser.class);
 	
 	public BatchUser(Map<String, String> config, String userName, String userHost) {
@@ -46,7 +47,8 @@ public class BatchUser implements Callable {
 				config.get(Constants.DISPATCHER_QUEUE_HOST), config);
 		commandControllerThread = new Thread(new CommandController(commandQueue,
 				dispatcherQueue,
-				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG))));
+				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)), Constants.LOGS_DIR + "/" + userName
+				+ Constants.COMMANDS_FILE_EXTENSION));
 		responseQueue = new ArrayBlockingQueue<Response>(
 				Constants.RESPONSE_QUEUE_SIZE);
 		remoteUserResponseQueue = new ReadingRemoteQueue(userName, userHost,
@@ -56,11 +58,13 @@ public class BatchUser implements Callable {
 		eventViewerThread = new Thread(new EventWriter(responseQueue, userName,
 				Constants.LOGS_DIR + "/" + userName
 						+ Constants.EVENT_VIEWER_FILE_EXTENSION));
+		delayTime = Long.parseLong(config.get(Constants.BATCH_DELAY_TIME));
 	}
 
 	@Override
 	public Object call() throws Exception {
 		logger.debug("Iniciando el script reader");
+		int count = 0;
 		
 		commandControllerThread.start();
 		eventViewerThread.start();
@@ -84,11 +88,12 @@ public class BatchUser implements Callable {
 						userName,
 						(String) commandObject.get(Constants.MESSAGE_KEY), null,
 						null);
-				logger.debug("Se inserto comando con los siguientes parametros: "
+				logger.debug("COMANDO: " + count + ".Se inserto comando con los siguientes parametros: "
 						+ "\nUsuario: " + command.getUser() + "\nComando: "
 						+ command.getCommand() + "\nMensaje: "
 						+ command.getMessage());
 				commandQueue.put(command);
+				++count;
 			}
 		} catch (InterruptedException e) {
 			logger.error("Thread interrumpido");

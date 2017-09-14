@@ -17,32 +17,31 @@ public class AnalyzerMain {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		PropertyConfigurator.configure(Constants.LOGGER_CONF);
 		ConfigLoader configLoader = null;
-		
+
 		logger.info("Iniciando el analyzer");
-		
+
 		try {
 			configLoader = new ConfigLoader(Constants.CONF_FILE);
 		} catch (IOException e) {
 			logger.error("Error al cargar la configuracion");
 			System.exit(Constants.EXIT_FAILURE);
 		}
-		
+
 		final ReadingRemoteQueue analyzerQueue = new ReadingRemoteQueue(
-				configLoader.getProperties()
-						.get(Constants.ANALYZER_QUEUE_NAME),
-				configLoader.getProperties()
-						.get(Constants.ANALYZER_QUEUE_HOST),
+				configLoader.getProperties().get(Constants.ANALYZER_QUEUE_NAME),
+				configLoader.getProperties().get(Constants.ANALYZER_QUEUE_HOST),
 				configLoader.getProperties());
-		
-		final Thread analyzerReciverThread = new Thread(
-				new AnalyzerReciver(configLoader.getProperties(), analyzerQueue));
+
+		final Thread analyzerReciverThread = new Thread(new AnalyzerReciver(
+				configLoader.getProperties(), analyzerQueue));
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
 				analyzerQueue.shutDown();
 				analyzerReciverThread.interrupt();
 				try {
-					analyzerReciverThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
+					analyzerReciverThread
+							.join(Constants.STORAGE_THREAD_WAIT_TIME);
 				} catch (InterruptedException e) {
 					// Do nothing
 				} finally {

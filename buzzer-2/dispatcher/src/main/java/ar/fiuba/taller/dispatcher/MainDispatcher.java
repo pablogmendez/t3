@@ -24,16 +24,16 @@ public class MainDispatcher {
 			logger.error("Error al cargar la configuracion");
 			System.exit(Constants.EXIT_FAILURE);
 		}
-		
+
 		final ReadingRemoteQueue dispatcherQueue = new ReadingRemoteQueue(
 				configLoader.getProperties()
 						.get(Constants.DISPATCHER_QUEUE_NAME),
 				configLoader.getProperties()
 						.get(Constants.DISPATCHER_QUEUE_HOST),
 				configLoader.getProperties());
-		
-		final Thread dispatcherThread = new Thread(
-				new DispatcherController(configLoader.getProperties(), dispatcherQueue));
+
+		final Thread dispatcherThread = new Thread(new DispatcherController(
+				configLoader.getProperties(), dispatcherQueue));
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {

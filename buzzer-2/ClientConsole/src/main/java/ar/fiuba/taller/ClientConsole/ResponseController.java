@@ -25,7 +25,7 @@ public class ResponseController implements Runnable {
 	public void run() {
 		Response response = new Response();
 		List<byte[]> messageList = null;
-		
+
 		logger.debug("Iniciando el response controller");
 		try {
 			while (!Thread.interrupted()) {
@@ -35,7 +35,8 @@ public class ResponseController implements Runnable {
 						response.deserialize(message);
 						responseQueue.put(response);
 					} catch (IOException | ClassNotFoundException e) {
-						logger.error("No se ha podido obtener el mensaje de la cola del usuario");
+						logger.error(
+								"No se ha podido obtener el mensaje de la cola del usuario");
 						logger.debug(e);
 					}
 				}

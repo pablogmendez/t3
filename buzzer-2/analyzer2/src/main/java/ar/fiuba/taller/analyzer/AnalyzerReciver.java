@@ -33,26 +33,28 @@ public class AnalyzerReciver implements Runnable {
 	public void run() {
 		Command command = new Command();
 		Response response = new Response();
-		List<byte[]> messageList = null;		
+		List<byte[]> messageList = null;
 		BlockingQueue<Response> responseQueue = new ArrayBlockingQueue<Response>(
 				Constants.RESPONSE_QUEUE_SIZE);
-		UserRegistry userRegistry = new UserRegistry();		
+		UserRegistry userRegistry = new UserRegistry();
 		Thread analyzerDispatcherThread = new Thread(
 				new AnalyzerDispatcher(responseQueue, userRegistry, config));
-		
+
 		logger.info("Iniciando el analyzer reciver");
 		analyzerDispatcherThread.start();
-		
+
 		try {
 			while (!Thread.interrupted()) {
 				messageList = analyzerQueue.pop();
 				for (byte[] message : messageList) {
-					try {	
+					try {
 						command.deserialize(message);
-						logger.info("Comando recibido con los siguientes parametros: "
-							+ "\nUUID: " + command.getUuid() + "\nUsuario: "
-							+ command.getUser() + "\nComando: " + command.getCommand()
-							+ "\nMensaje: " + command.getMessage());
+						logger.info(
+								"Comando recibido con los siguientes parametros: "
+										+ "\nUUID: " + command.getUuid()
+										+ "\nUsuario: " + command.getUser()
+										+ "\nComando: " + command.getCommand()
+										+ "\nMensaje: " + command.getMessage());
 						switch (command.getCommand()) {
 						case PUBLISH:
 							response = new Response();
@@ -60,25 +62,30 @@ public class AnalyzerReciver implements Runnable {
 							response.setUser(command.getUser());
 							response.setResponse_status(RESPONSE_STATUS.OK);
 							response.setMessage(command.getTimestamp() + "\n"
-									+ command.getUser() + "\n" + command.getMessage());
+									+ command.getUser() + "\n"
+									+ command.getMessage());
 							responseQueue.put(response);
 							break;
 						case FOLLOW:
-							userRegistry.update(command.getUser(), command.getMessage());
+							userRegistry.update(command.getUser(),
+									command.getMessage());
 							response = new Response();
 							response.setUuid(command.getUuid());
 							response.setUser(command.getUser());
-							response.setResponse_status(RESPONSE_STATUS.REGISTERED);
+							response.setResponse_status(
+									RESPONSE_STATUS.REGISTERED);
 							response.setMessage("Seguidor registrado");
 							responseQueue.put(response);
 							break;
 						default:
-							logger.info("Comando recibido invalido. Comando descartado.");
+							logger.info(
+									"Comando recibido invalido. Comando descartado.");
 						}
-					} catch (IOException | ParseException | ClassNotFoundException e) {
+					} catch (IOException | ParseException
+							| ClassNotFoundException e) {
 						logger.error("Error al tratar el mensaje recibido.");
 					}
-				}				
+				}
 			}
 		} catch (ReadingRemoteQueueException | InterruptedException e) {
 			analyzerDispatcherThread.interrupt();

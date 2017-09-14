@@ -33,10 +33,11 @@ public class AnalyzerController implements Runnable {
 			while (!Thread.interrupted()) {
 				try {
 					command = analyzerCommandQueue.take();
-					logger.info("Comando recibido con los siguientes parametros: "
-							+ "\nUsuario: " + command.getUser() + "\nComando: "
-							+ command.getCommand() + "\nMensaje: "
-							+ command.getMessage());
+					logger.info(
+							"Comando recibido con los siguientes parametros: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 					analyzerQueue.push(command);
 					logger.info("Comando enviado al analyzer");
 				} catch (IOException e) {

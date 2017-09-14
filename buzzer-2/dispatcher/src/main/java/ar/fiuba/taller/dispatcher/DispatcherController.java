@@ -57,8 +57,8 @@ public class DispatcherController implements Runnable {
 			while (!Thread.interrupted()) {
 				messageList = dispatcherQueue.pop();
 				Iterator<byte[]> it = messageList.iterator();
-				while(it.hasNext()) {
-				//for (byte[] message : messageList) {
+				while (it.hasNext()) {
+					// for (byte[] message : messageList) {
 					try {
 						command = new Command();
 						command.deserialize(it.next());
@@ -72,36 +72,32 @@ public class DispatcherController implements Runnable {
 							storageCommandQueue.put(command);
 							analyzerCommandQueue.put(command);
 							loggerCommandQueue.put(command);
-							logger.info(
-									"Comando enviado al publish: "
-											+ "\nUsuario: " + command.getUser()
-											+ "\nComando: " + command.getCommand()
-											+ "\nMensaje: " + command.getMessage());
+							logger.info("Comando enviado al publish: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 							break;
 						case QUERY:
 							storageCommandQueue.put(command);
 							loggerCommandQueue.put(command);
-							logger.info(
-									"Comando enviado al query: "
-											+ "\nUsuario: " + command.getUser()
-											+ "\nComando: " + command.getCommand()
-											+ "\nMensaje: " + command.getMessage());
+							logger.info("Comando enviado al query: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 							break;
 						case DELETE:
-							logger.info(
-									"Comando enviado al delete: "
-											+ "\nUsuario: " + command.getUser()
-											+ "\nComando: " + command.getCommand()
-											+ "\nMensaje: " + command.getMessage());
+							logger.info("Comando enviado al delete: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 							storageCommandQueue.put(command);
 							loggerCommandQueue.put(command);
 							break;
 						case FOLLOW:
-							logger.info(
-									"Comando enviado al follow: "
-											+ "\nUsuario: " + command.getUser()
-											+ "\nComando: " + command.getCommand()
-											+ "\nMensaje: " + command.getMessage());
+							logger.info("Comando enviado al follow: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 							analyzerCommandQueue.put(command);
 							loggerCommandQueue.put(command);
 							break;

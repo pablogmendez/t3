@@ -311,12 +311,12 @@ public class Storage {
 				System.out.println("file: " + file);
 				try (BufferedReader br = new BufferedReader(
 						new FileReader(file))) {
-					while ((line = br.readLine()) != null
-							&& remainingPost > 0 && !("").equals(line.trim())) {
+					while ((line = br.readLine()) != null && remainingPost > 0
+							&& !("").equals(line.trim())) {
 						System.out.println("line: " + line);
 						obj2 = parser.parse(line);
 						jsonObject2 = (JSONObject) obj2;
-						if(jsonObject2.get(id) != null) {
+						if (jsonObject2.get(id) != null) {
 							messageList.add(jsonObject2.get(id).toString());
 						}
 						remainingPost--;
@@ -384,8 +384,7 @@ public class Storage {
 		Collections.sort(mapValues);
 		Collections.sort(mapKeys);
 
-		LinkedHashMap<String, Long> sortedMap = 
-				new LinkedHashMap<String, Long>();
+		LinkedHashMap<String, Long> sortedMap = new LinkedHashMap<String, Long>();
 
 		java.util.Iterator<Long> valueIt = mapValues.iterator();
 		while (valueIt.hasNext()) {

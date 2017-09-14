@@ -64,23 +64,23 @@ public class StorageController implements Runnable {
 		removeControllerThread.start();
 		createControllerThread.start();
 		responseControllerThread.start();
-		
-		logger.info("Consumiendo de la storageQueue");
-	    try {
-	        while (!Thread.interrupted()) {
-	          messageList = storageQueue.pop();
-	          for(byte[] message : messageList) {
-	  			try {
-	  				command = new Command();
-					command.deserialize(message);
-					analyzeCommand(command);
 
-				} catch (ClassNotFoundException | IOException  e) {
-					logger.error("No se ha podido deserializar el mensaje");
+		logger.info("Consumiendo de la storageQueue");
+		try {
+			while (!Thread.interrupted()) {
+				messageList = storageQueue.pop();
+				for (byte[] message : messageList) {
+					try {
+						command = new Command();
+						command.deserialize(message);
+						analyzeCommand(command);
+
+					} catch (ClassNotFoundException | IOException e) {
+						logger.error("No se ha podido deserializar el mensaje");
+					}
 				}
-	          }
-	        }
-	    } catch (ReadingRemoteQueueException | InterruptedException e) {
+			}
+		} catch (ReadingRemoteQueueException | InterruptedException e) {
 			queryControllerThread.interrupt();
 			removeControllerThread.interrupt();
 			createControllerThread.interrupt();
@@ -89,13 +89,14 @@ public class StorageController implements Runnable {
 				queryControllerThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
 				removeControllerThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
 				createControllerThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
-				responseControllerThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
+				responseControllerThread
+						.join(Constants.STORAGE_THREAD_WAIT_TIME);
 			} catch (InterruptedException e1) {
 				logger.error("Fallo el join de alguno de los threads");
 				logger.debug(e1);
 			}
-	    }
-	    logger.info("Storgae Controller terminado");
+		}
+		logger.info("Storgae Controller terminado");
 	}
 
 	private void analyzeCommand(Command command) throws InterruptedException {
@@ -122,6 +123,6 @@ public class StorageController implements Runnable {
 			break;
 		default:
 			logger.info("Comando recibido invalido. Comando descartado.");
-		}		
+		}
 	}
 }

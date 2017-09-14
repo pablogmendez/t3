@@ -15,14 +15,19 @@ public class WritingRemoteQueue extends RemoteQueue {
 	private Producer<byte[], byte[]> producer;
 	private String queueName;
 
-	public WritingRemoteQueue(String queueName, String queueHost, Map<String, String> params) {
+	public WritingRemoteQueue(String queueName, String queueHost,
+			Map<String, String> params) {
 		Properties props = new Properties();
 		this.queueName = queueName;
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, queueHost);
-		props.put(ProducerConfig.ACKS_CONFIG, params.get(Constants.ACKS_CONFIG));
-		props.put(ProducerConfig.RETRIES_CONFIG, Integer.parseInt(params.get(Constants.RETRIES_CONFIG)));
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, params.get(Constants.VALUE_SERIALIZER_CLASS_CONFIG));
-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, params.get(Constants.KEY_SERIALIZER_CLASS_CONFIG));
+		props.put(ProducerConfig.ACKS_CONFIG,
+				params.get(Constants.ACKS_CONFIG));
+		props.put(ProducerConfig.RETRIES_CONFIG,
+				Integer.parseInt(params.get(Constants.RETRIES_CONFIG)));
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+				params.get(Constants.VALUE_SERIALIZER_CLASS_CONFIG));
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+				params.get(Constants.KEY_SERIALIZER_CLASS_CONFIG));
 		producer = new KafkaProducer<byte[], byte[]>(props);
 	}
 
@@ -31,9 +36,9 @@ public class WritingRemoteQueue extends RemoteQueue {
 	}
 
 	public void push(ISerialize message) throws IOException {
-			ProducerRecord<byte[], byte[]> data = new ProducerRecord<byte[], byte[]>(
-               queueName, message.serialize());
-			producer.send(data);
+		ProducerRecord<byte[], byte[]> data = new ProducerRecord<byte[], byte[]>(
+				queueName, message.serialize());
+		producer.send(data);
 	}
 
 }

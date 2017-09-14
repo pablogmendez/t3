@@ -53,14 +53,14 @@ public class CreateController implements Runnable {
 					response.setMessage(error_message);
 					logger.error(e);
 				} finally {
-					if(response != null) {
+					if (response != null) {
 						responseQueue.put(response);
 						response = null;
 					}
 				}
 			}
 		} catch (InterruptedException e) {
-			logger.info("Create controller interrumpido");			
+			logger.info("Create controller interrumpido");
 		}
 	}
 }

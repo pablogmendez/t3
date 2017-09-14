@@ -15,8 +15,8 @@ public class MainStorage {
 	public static void main(String[] args) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		PropertyConfigurator.configure(Constants.LOGGER_CONF);
-		ConfigLoader configLoader = null;		
-		
+		ConfigLoader configLoader = null;
+
 		try {
 			configLoader = new ConfigLoader(Constants.CONF_FILE);
 		} catch (IOException e) {
@@ -27,21 +27,22 @@ public class MainStorage {
 				configLoader.getProperties().get(Constants.STORAGE_QUEUE_NAME),
 				configLoader.getProperties().get(Constants.STORAGE_QUEUE_HOST),
 				configLoader.getProperties());
-		final Thread storageControllerThread = new Thread(
-				new StorageController(configLoader.getProperties(), storageQueue));
-		
+		final Thread storageControllerThread = new Thread(new StorageController(
+				configLoader.getProperties(), storageQueue));
+
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-			  @Override
-			  public void run() {
-				  storageQueue.shutDown();
-				  storageControllerThread.interrupt();
-				  try {
-					storageControllerThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
+			@Override
+			public void run() {
+				storageQueue.shutDown();
+				storageControllerThread.interrupt();
+				try {
+					storageControllerThread
+							.join(Constants.STORAGE_THREAD_WAIT_TIME);
 				} catch (InterruptedException e) {
 					// Do nothing
 				}
-			  }
-			});
+			}
+		});
 		storageControllerThread.start();
 	}
 }

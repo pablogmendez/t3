@@ -33,10 +33,11 @@ public class BatchUser implements Callable {
 	private Thread responseControllerThread;
 	private ReadingRemoteQueue remoteUserResponseQueue;
 	private WritingRemoteQueue dispatcherQueue;
-	private long delayTime; 
+	private long delayTime;
 	final static Logger logger = Logger.getLogger(BatchUser.class);
-	
-	public BatchUser(Map<String, String> config, String userName, String userHost) {
+
+	public BatchUser(Map<String, String> config, String userName,
+			String userHost) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		this.userName = userName;
 		commandAmount = Integer.parseInt(config.get(Constants.COMMAND_AMOUNT));
@@ -45,10 +46,11 @@ public class BatchUser implements Callable {
 		dispatcherQueue = new WritingRemoteQueue(
 				config.get(Constants.DISPATCHER_QUEUE_NAME),
 				config.get(Constants.DISPATCHER_QUEUE_HOST), config);
-		commandControllerThread = new Thread(new CommandController(commandQueue,
-				dispatcherQueue,
-				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)), Constants.LOGS_DIR + "/" + userName
-				+ Constants.COMMANDS_FILE_EXTENSION));
+		commandControllerThread = new Thread(
+				new CommandController(commandQueue, dispatcherQueue,
+						Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)),
+						Constants.LOGS_DIR + "/" + userName
+								+ Constants.COMMANDS_FILE_EXTENSION));
 		responseQueue = new ArrayBlockingQueue<Response>(
 				Constants.RESPONSE_QUEUE_SIZE);
 		remoteUserResponseQueue = new ReadingRemoteQueue(userName, userHost,
@@ -65,7 +67,7 @@ public class BatchUser implements Callable {
 	public Object call() throws Exception {
 		logger.debug("Iniciando el script reader");
 		int count = 0;
-		
+
 		commandControllerThread.start();
 		eventViewerThread.start();
 		responseControllerThread.start();
@@ -77,10 +79,10 @@ public class BatchUser implements Callable {
 					.get(Constants.COMMAND_ARRAY);
 			JSONObject commandObject;
 			Command command;
-			List<Integer> commandIndexList = getCommandIndexList(commandAmount, commandArray.size());
+			List<Integer> commandIndexList = getCommandIndexList(commandAmount,
+					commandArray.size());
 			Iterator<Integer> iterator = commandIndexList.iterator();
-			
-			
+
 			while (iterator.hasNext()) {
 				commandObject = (JSONObject) commandArray.get(iterator.next());
 				command = new Command(
@@ -88,7 +90,8 @@ public class BatchUser implements Callable {
 						userName,
 						(String) commandObject.get(Constants.MESSAGE_KEY), null,
 						null);
-				logger.debug("COMANDO: " + count + ".Se inserto comando con los siguientes parametros: "
+				logger.debug("COMANDO: " + count
+						+ ".Se inserto comando con los siguientes parametros: "
 						+ "\nUsuario: " + command.getUser() + "\nComando: "
 						+ command.getCommand() + "\nMensaje: "
 						+ command.getMessage());
@@ -104,15 +107,16 @@ public class BatchUser implements Callable {
 		}
 		return null;
 	}
-	
-	private List<Integer> getCommandIndexList(int commandListIndexSize, int maxCommandsAvailable) {
+
+	private List<Integer> getCommandIndexList(int commandListIndexSize,
+			int maxCommandsAvailable) {
 		List<Integer> commandIndexList = new ArrayList<Integer>();
-		
-		for(int i = 0; i < commandListIndexSize; i++) {
+
+		for (int i = 0; i < commandListIndexSize; i++) {
 			commandIndexList.add((int) (Math.random() * maxCommandsAvailable));
 		}
-		
+
 		return commandIndexList;
 	}
-	
+
 }

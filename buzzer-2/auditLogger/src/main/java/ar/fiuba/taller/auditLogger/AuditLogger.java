@@ -19,7 +19,8 @@ public class AuditLogger implements Runnable {
 	private Map<String, String> config;
 	final static Logger logger = Logger.getLogger(AuditLogger.class);
 
-	public AuditLogger(ReadingRemoteQueue loggerQueue, Map<String, String> config) {
+	public AuditLogger(ReadingRemoteQueue loggerQueue,
+			Map<String, String> config) {
 		this.loggerQueue = loggerQueue;
 		this.config = config;
 	}
@@ -29,34 +30,35 @@ public class AuditLogger implements Runnable {
 		List<byte[]> messageList = null;
 		Command command = new Command();
 		PrintWriter pw = null;
-		
+
 		logger.info("Iniciando el audit logger");
-		
-	    try {
-	    	// Si no existe el archivo lo creo
+
+		try {
+			// Si no existe el archivo lo creo
 			pw = new PrintWriter(config.get(Constants.AUDIT_LOG_FILE), "UTF-8");
 			pw.close();
-	    	
+
 			// Lo abro para realizar append
-			pw = new PrintWriter(new BufferedWriter(
-					new FileWriter(config.get(Constants.AUDIT_LOG_FILE), true)));
-			
-	        while (!Thread.interrupted()) {
-	          messageList = loggerQueue.pop();
-	          for(byte[] message : messageList) {
-	  			try {
-					command.deserialize(message);
-					logger.info("Comando recibido: " + getAuditLogEntry(command));
-					pw.println(getAuditLogEntry(command));
-					pw.flush();
-				} catch (ClassNotFoundException | IOException  e) {
-					logger.error("No se ha podido deserializar el mensaje");
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(
+					config.get(Constants.AUDIT_LOG_FILE), true)));
+
+			while (!Thread.interrupted()) {
+				messageList = loggerQueue.pop();
+				for (byte[] message : messageList) {
+					try {
+						command.deserialize(message);
+						logger.info("Comando recibido: "
+								+ getAuditLogEntry(command));
+						pw.println(getAuditLogEntry(command));
+						pw.flush();
+					} catch (ClassNotFoundException | IOException e) {
+						logger.error("No se ha podido deserializar el mensaje");
+					}
 				}
-	          }
-	        }
-	    } catch (IOException e) {
+			}
+		} catch (IOException e) {
 			logger.error(e);
-		} catch(ReadingRemoteQueueException e) {
+		} catch (ReadingRemoteQueueException e) {
 			pw.close();
 		}
 		logger.info("Audit logger terminado");

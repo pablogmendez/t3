@@ -31,10 +31,11 @@ public class InteractiveUser implements Runnable {
 		dispatcherQueue = new WritingRemoteQueue(
 				config.get(Constants.DISPATCHER_QUEUE_NAME),
 				config.get(Constants.DISPATCHER_QUEUE_HOST), config);
-		commandControllerThread = new Thread(new CommandController(commandQueue,
-				dispatcherQueue,
-				Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)), Constants.LOGS_DIR + "/" + userName
-				+ Constants.COMMANDS_FILE_EXTENSION));
+		commandControllerThread = new Thread(
+				new CommandController(commandQueue, dispatcherQueue,
+						Integer.parseInt(config.get(Constants.MAX_LENGTH_MSG)),
+						Constants.LOGS_DIR + "/" + userName
+								+ Constants.COMMANDS_FILE_EXTENSION));
 		responseQueue = new ArrayBlockingQueue<Response>(
 				Constants.RESPONSE_QUEUE_SIZE);
 		remoteUserResponseQueue = new ReadingRemoteQueue(userName, userHost,
@@ -64,7 +65,8 @@ public class InteractiveUser implements Runnable {
 					commandQueue.put(new Command(msgParts[0], userName,
 							msgParts[1], null, null));
 				} catch (IOException e) {
-					System.out.println("Error: No se ha podido procesar el comando");
+					System.out.println(
+							"Error: No se ha podido procesar el comando");
 				}
 			}
 		} catch (InterruptedException e) {

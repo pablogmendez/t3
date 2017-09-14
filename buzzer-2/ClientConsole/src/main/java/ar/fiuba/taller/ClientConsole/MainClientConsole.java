@@ -26,11 +26,11 @@ public class MainClientConsole {
 		Set<Callable<String>> usersSet = new HashSet<Callable<String>>();
 		int usersAmount = 0;
 		ConfigLoader configLoader = null;
-		
-		if(args.length == 0) {
+
+		if (args.length == 0) {
 			displayHelp();
 		}
-		
+
 		final String mode = args[0];
 
 		try {
@@ -45,10 +45,11 @@ public class MainClientConsole {
 		} catch (NumberFormatException e) {
 			// Do nothing
 		}
-		
-		final Thread userThread = createUser(mode, configLoader.getProperties(), args[1], args[2]);
+
+		final Thread userThread = createUser(mode, configLoader.getProperties(),
+				args[1], args[2]);
 		final ExecutorService executor = createUsers(mode, usersAmount);
-		
+
 		if (mode.equals(Constants.INTERACTIVE_MODE)) {
 			System.out.printf(
 					"Iniciando el Client console en modo interactivo para el usuario %s",
@@ -57,8 +58,9 @@ public class MainClientConsole {
 		} else if (mode.equals(Constants.BATCH_MODE)) {
 			System.out.printf("Iniciando el Client console en modo batch");
 			try {
-				for(int i = 0; i < Integer.parseInt(args[1]); i++) {
-					usersSet.add(new BatchUser(configLoader.getProperties(), "user" + i, "localhost:9092"));
+				for (int i = 0; i < Integer.parseInt(args[1]); i++) {
+					usersSet.add(new BatchUser(configLoader.getProperties(),
+							"user" + i, "localhost:9092"));
 				}
 				executor.invokeAll(usersSet);
 			} catch (InterruptedException e) {
@@ -81,7 +83,9 @@ public class MainClientConsole {
 				} else {
 					executor.shutdownNow();
 					try {
-						executor.awaitTermination(Constants.USER_THREAD_WAIT_TIME, TimeUnit.MILLISECONDS);
+						executor.awaitTermination(
+								Constants.USER_THREAD_WAIT_TIME,
+								TimeUnit.MILLISECONDS);
 					} catch (InterruptedException e) {
 						// Do nothing
 					}
@@ -90,32 +94,32 @@ public class MainClientConsole {
 		});
 	}
 
-	private static Thread createUser(String mode, Map<String, String> config, String userName, String hostName) {
+	private static Thread createUser(String mode, Map<String, String> config,
+			String userName, String hostName) {
 		if (mode.equals(Constants.INTERACTIVE_MODE)) {
 			if ((userName == null || ("").equals(userName))
 					&& (hostName == null || ("").equals(hostName))) {
 				displayHelp();
-			};
+			}
+			;
 			System.out.printf(
 					"Iniciando el Client console en modo interactivo para el usuario %s",
 					userName);
-			return new Thread(
-					new InteractiveUser(config, userName, hostName));
-		}
-		else {
+			return new Thread(new InteractiveUser(config, userName, hostName));
+		} else {
 			return null;
 		}
 	}
-	
+
 	private static ExecutorService createUsers(String mode, int userAmount) {
-		if (mode.equals(Constants.BATCH_MODE)) {		
+		if (mode.equals(Constants.BATCH_MODE)) {
 			ExecutorService executor = Executors.newFixedThreadPool(userAmount);
 			return executor;
 		} else {
 			return null;
 		}
 	}
-	
+
 	private static void displayHelp() {
 		System.out.printf(
 				"Client console%n**************%nSintaxis:%n./ClientConsole <params>%nParametros:%ni [username] [host]: Inicia el cliente en modo interactivo%nusername: Nombre del usuario%nhost: Nombre y puerto del servidor a conectar (ej. localhost:9092)%n%nb [usersamount] [host]: Inicia el cliente en modo batch%nusersamount: Cantidad de usuarios a simular%nhost: Nombre y puerto del servidor a conectar (ej. localhost:9092)%n%n");

@@ -33,30 +33,30 @@ public class RemoveController implements Runnable {
 		String error_message = "Error al eliminar el mensaje";
 		logger.info("Iniciando el remove controller");
 		try {
-				while (!Thread.interrupted()) {
-					try {
-						command = removeQueue.take();
-						response = new Response();
-						response.setUuid(UUID.randomUUID());
-						response.setUser(command.getUser());
-						storage.delete(command);
-						response.setMessage("Borrado exitoso");
-						response.setResponse_status(RESPONSE_STATUS.OK);
-					} catch (IOException e) {
-						response.setResponse_status(RESPONSE_STATUS.ERROR);
-						response.setMessage(error_message);
-						logger.error(e);
-					} catch (ParseException e) {
-						response.setResponse_status(RESPONSE_STATUS.ERROR);
-						response.setMessage(error_message);
-						logger.error(e);
-					} finally {
-						if(response != null) {
-							responseQueue.put(response);
-							response = null;
-						}
+			while (!Thread.interrupted()) {
+				try {
+					command = removeQueue.take();
+					response = new Response();
+					response.setUuid(UUID.randomUUID());
+					response.setUser(command.getUser());
+					storage.delete(command);
+					response.setMessage("Borrado exitoso");
+					response.setResponse_status(RESPONSE_STATUS.OK);
+				} catch (IOException e) {
+					response.setResponse_status(RESPONSE_STATUS.ERROR);
+					response.setMessage(error_message);
+					logger.error(e);
+				} catch (ParseException e) {
+					response.setResponse_status(RESPONSE_STATUS.ERROR);
+					response.setMessage(error_message);
+					logger.error(e);
+				} finally {
+					if (response != null) {
+						responseQueue.put(response);
+						response = null;
 					}
 				}
+			}
 		} catch (InterruptedException e) {
 			logger.info("Remove Controller interrumpido");
 		}

@@ -21,11 +21,12 @@ public class CommandController implements Runnable {
 	private int maxlengthMsg;
 	private Timestamp timestamp;
 	private String commandFile;
-	
+
 	final static Logger logger = Logger.getLogger(CommandController.class);
 
 	public CommandController(BlockingQueue<Command> commandQueue,
-			WritingRemoteQueue dispatcherQueue, int maxlengthMsg, String commandFile) {
+			WritingRemoteQueue dispatcherQueue, int maxlengthMsg,
+			String commandFile) {
 		this.commandQueue = commandQueue;
 		this.dispatcherQueue = dispatcherQueue;
 		this.maxlengthMsg = maxlengthMsg;
@@ -62,8 +63,8 @@ public class CommandController implements Runnable {
 						logger.debug("Respuesta obtenida");
 						pw.printf(
 								"Evento enviado - UUID: {%s} - Timestamp: {%s} - Comando: {%s} - Mensaje: {%s}%n-----------------------------------------------------%n",
-								command.getUuid(), command.getTimestamp(), command.getCommand(),
-								command.getMessage());
+								command.getUuid(), command.getTimestamp(),
+								command.getCommand(), command.getMessage());
 						pw.close();
 						System.out.printf(
 								"Comando enviado - UUID: {%s} - Comando: {%s} - Usuario: {%s} - Mensaje: {%s} - Timestamp: {%s}",

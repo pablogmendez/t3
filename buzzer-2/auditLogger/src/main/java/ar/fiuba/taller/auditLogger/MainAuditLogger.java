@@ -16,34 +16,38 @@ public class MainAuditLogger {
 		PropertyConfigurator.configure(Constants.LOGGER_CONF);
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 		ConfigLoader configLoader = null;
-		
+
 		try {
 			configLoader = new ConfigLoader(Constants.CONF_FILE);
 		} catch (IOException e) {
 			logger.error("Error al cargar la configuracion");
 			System.exit(Constants.EXIT_FAILURE);
 		}
-		
+
 		final ReadingRemoteQueue loggerQueue = new ReadingRemoteQueue(
-				configLoader.getProperties().get(Constants.AUDIT_LOGGER_QUEUE_NAME),
-				configLoader.getProperties().get(Constants.AUDIT_LOGGER_QUEUE_HOST),
+				configLoader.getProperties()
+						.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
+				configLoader.getProperties()
+						.get(Constants.AUDIT_LOGGER_QUEUE_HOST),
 				configLoader.getProperties());
-		
-		final Thread auditLoggerThread = new Thread(new AuditLogger(loggerQueue, configLoader.getProperties()));
-		
+
+		final Thread auditLoggerThread = new Thread(
+				new AuditLogger(loggerQueue, configLoader.getProperties()));
+
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-			  @Override
-			  public void run() {
-				  loggerQueue.shutDown();
-				  auditLoggerThread.interrupt();
-				  try {
-					  auditLoggerThread.join(Constants.AUDIT_LOGGER_THREAD_WAIT_TIME);
+			@Override
+			public void run() {
+				loggerQueue.shutDown();
+				auditLoggerThread.interrupt();
+				try {
+					auditLoggerThread
+							.join(Constants.AUDIT_LOGGER_THREAD_WAIT_TIME);
 				} catch (InterruptedException e) {
 					// Do nothing
 				}
-			  }
-			});
-		
+			}
+		});
+
 		auditLoggerThread.start();
 	}
 }

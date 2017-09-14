@@ -19,7 +19,8 @@ public class LoggerController implements Runnable {
 	public LoggerController(BlockingQueue<Command> loggerCommandQueue,
 			Map<String, String> config) {
 		this.loggerCommandQueue = loggerCommandQueue;
-		loggerQueue = new WritingRemoteQueue(config.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
+		loggerQueue = new WritingRemoteQueue(
+				config.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
 				config.get(Constants.AUDIT_LOGGER_QUEUE_HOST), config);
 	}
 
@@ -32,10 +33,11 @@ public class LoggerController implements Runnable {
 			while (!Thread.interrupted()) {
 				try {
 					command = loggerCommandQueue.take();
-					logger.info("Comando recibido con los siguientes parametros: "
-							+ "\nUsuario: " + command.getUser() + "\nComando: "
-							+ command.getCommand() + "\nMensaje: "
-							+ command.getMessage());
+					logger.info(
+							"Comando recibido con los siguientes parametros: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 					loggerQueue.push(command);
 					logger.info("Comando enviado al logger");
 				} catch (IOException e) {
@@ -48,4 +50,3 @@ public class LoggerController implements Runnable {
 		logger.info("Logger controller terminado");
 	}
 }
-

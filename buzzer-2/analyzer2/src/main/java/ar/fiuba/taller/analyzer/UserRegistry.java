@@ -24,7 +24,8 @@ public class UserRegistry {
 
 	final static Logger logger = Logger.getLogger(UserRegistry.class);
 
-	public UserRegistry() {}
+	public UserRegistry() {
+	}
 
 	public synchronized void update(String follower, String followed)
 			throws IOException, ParseException {
@@ -98,7 +99,7 @@ public class UserRegistry {
 		obj = parser.parse(new FileReader(usersFile));
 		jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(followed);
-		if(array == null) {
+		if (array == null) {
 			array = new JSONArray();
 		}
 		return array;
@@ -128,13 +129,13 @@ public class UserRegistry {
 		jsonObject = (JSONObject) obj;
 		String regexPattern = "(#\\w+)";
 		Pattern p = Pattern.compile(regexPattern);
-		Matcher m = p.matcher(followed); 
+		Matcher m = p.matcher(followed);
 		while (m.find()) {
 			word = m.group(1).substring(1, m.group(1).length());
 			logger.info("Hashtag: " + m.group(1));
 			jsonArray = (JSONArray) jsonObject.get(word);
 			logger.info("arr: " + jsonArray);
-			if(jsonArray != null) {
+			if (jsonArray != null) {
 				it = jsonArray.iterator();
 				while (it.hasNext()) {
 					followersList.add(it.next());

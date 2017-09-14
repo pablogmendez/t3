@@ -8,8 +8,8 @@ import java.util.Properties;
 
 public class ConfigLoader {
 
-	private Map<String, String> propertiesMap; 
-	
+	private Map<String, String> propertiesMap;
+
 	public ConfigLoader(String configFile) throws IOException {
 		propertiesMap = new HashMap<String, String>();
 		Properties properties = new Properties();
@@ -25,10 +25,10 @@ public class ConfigLoader {
 			String value = properties.getProperty(key);
 			propertiesMap.put(key, value);
 		}
-		
+
 		propertiesMap = Collections.unmodifiableMap(propertiesMap);
 	}
-	
+
 	public Map<String, String> getProperties() {
 		return propertiesMap;
 	}

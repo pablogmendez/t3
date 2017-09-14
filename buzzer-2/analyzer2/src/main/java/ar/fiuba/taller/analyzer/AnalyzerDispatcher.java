@@ -51,12 +51,13 @@ public class AnalyzerDispatcher implements Runnable {
 					logger.info("Status: " + response.getResponse_status());
 					logger.info("Message: " + response.getMessage());
 					// Reviso si es un user register o un mensaje
-					// Si da error o es una registracion, se lo devuelvo solamente
+					// Si da error o es una registracion, se lo devuelvo
+					// solamente
 					// al usuario que envio el request
-					if (response.getResponse_status() == RESPONSE_STATUS.REGISTERED
+					if (response
+							.getResponse_status() == RESPONSE_STATUS.REGISTERED
 							|| response
-									.getResponse_status() == RESPONSE_STATUS.ERROR) 
-					{
+									.getResponse_status() == RESPONSE_STATUS.ERROR) {
 						logger.info("Enviando respuesta");
 						remoteQueue = getUserQueue(response.getUser());
 						remoteQueue.push(response);
@@ -80,14 +81,14 @@ public class AnalyzerDispatcher implements Runnable {
 							(getUserQueue(it.next())).push(response);
 						}
 					}
-				} catch (IOException | ParseException  | TimeoutException e) {
+				} catch (IOException | ParseException | TimeoutException e) {
 					logger.error(
 							"Error al insertar respuesta en la cola remota del "
-							+ "usuario:" + response.getUser());
+									+ "usuario:" + response.getUser());
 					logger.error(e);
 				}
-			} 
-		}catch (InterruptedException e) {
+			}
+		} catch (InterruptedException e) {
 			logger.info("Analyzer dispatcher interrumpido");
 		}
 		logger.info("Analyzer dispatcher finalizado");
@@ -100,8 +101,8 @@ public class AnalyzerDispatcher implements Runnable {
 		tmpQueue = usersMap.get(username);
 
 		if (tmpQueue == null) {
-			tmpQueue = new WritingRemoteQueue(username,
-					"localhost:9092", config);
+			tmpQueue = new WritingRemoteQueue(username, "localhost:9092",
+					config);
 			usersMap.put(username, tmpQueue);
 		}
 		return usersMap.get(username);

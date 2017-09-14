@@ -35,10 +35,11 @@ public class StorageController implements Runnable {
 				command = new Command();
 				try {
 					command = storageCommandQueue.take();
-					logger.info("Comando recibido con los siguientes parametros: "
-							+ "\nUsuario: " + command.getUser() + "\nComando: "
-							+ command.getCommand() + "\nMensaje: "
-							+ command.getMessage());
+					logger.info(
+							"Comando recibido con los siguientes parametros: "
+									+ "\nUsuario: " + command.getUser()
+									+ "\nComando: " + command.getCommand()
+									+ "\nMensaje: " + command.getMessage());
 					storageQueue.push(command);
 					logger.info("Comando enviado al storage");
 				} catch (IOException e) {

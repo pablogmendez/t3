@@ -11,7 +11,7 @@ public class Constants {
 	public static final int COMMAND_QUEUE_SIZE = 1000;
 	public static final int RESPONSE_QUEUE_SIZE = 1000;
 	public static final String LOGGER_CONF = "conf/log4j.properties";
-	
+
 	public static final String COMMAND_SCRIPT = "scripts/script.json";
 	public static final String COMMAND_ARRAY = "commands";
 	public static final String COMMAND_KEY = "command";
@@ -33,34 +33,34 @@ public class Constants {
 	public static final String COMMAND_AMOUNT = "command.amount";
 	public static final String BATCH_DELAY_TIME = "batch.delay.time";
 	public static final long USER_THREAD_WAIT_TIME = 5000;
-	
+
 	// Constantes para el storage
 	public static final String STORAGE_QUEUE_NAME = "storage.queue.name";
 	public static final String STORAGE_QUERY_RESULT_QUEUE_NAME = "storage.query.result.queue.name";
 	public static final String STORAGE_QUEUE_HOST = "storage.queue.host";
 	public static final String STORAGE_QUERY_RESULT_QUEUE_HOST = "storage.query.result.queue.host";
-	public static final long   STORAGE_THREAD_WAIT_TIME = 5000;
+	public static final long STORAGE_THREAD_WAIT_TIME = 5000;
 	public static final String SHARDING_FACTOR = "sharding.factor";
 	public static final String QUERY_COUNT_SHOW_POSTS = "query.count.show.posts";
 	public static final String TT_COUNT_SHOW = "tt.count.show";
 	public static final String COMMAND_SCRIPT_EXTENSION = ".json";
-	
+
 	// Constantes para el audit logger
 	public static final String AUDIT_LOGGER_QUEUE_HOST = "audit.logger.queue.host";
 	public static final String AUDIT_LOGGER_QUEUE_NAME = "audit.logger.queue.name";
-	public static final long   AUDIT_LOGGER_THREAD_WAIT_TIME = 5000;
+	public static final long AUDIT_LOGGER_THREAD_WAIT_TIME = 5000;
 	public static final String AUDIT_LOG_FILE = "audit.log.file";
 
 	// Constantes para el dispatcher
 	public static final String DISPATCHER_QUEUE_NAME = "dispatcher.queue.name";
 	public static final String DISPATCHER_QUEUE_HOST = "dispatcher.queue.host";
-	public static final long   DISPATCHER_THREAD_WAIT_TIME = 5000;
-	
+	public static final long DISPATCHER_THREAD_WAIT_TIME = 5000;
+
 	// Constantes para el analyzer
 	public static final String ANALYZER_QUEUE_HOST = "analyzer.queue.host";
 	public static final String ANALYZER_QUEUE_NAME = "analyzer.queue.name";
-	public static final long   ANALYZER_THREAD_WAIT_TIME = 5000;
-	
+	public static final long ANALYZER_THREAD_WAIT_TIME = 5000;
+
 	public static final String DB_DIR = "db";
 	public static final String DB_INDEX_DIR = "idx";
 	public static final String DB_USER_INDEX = "user.json";
@@ -80,7 +80,7 @@ public class Constants {
 	public static final String VALUE_DESERIALIZER_CLASS_CONFIG = "value.deserializer.class.config";
 	public static final String GROUP_ID_CONFIG = "group.id.config";
 	public static final String AUTO_OFFSET_RESET_CONFIG = "auto.offset.reset.config";
-	
+
 	public static enum COMMAND {
 		PUBLISH, QUERY, DELETE, FOLLOW
 	};
@@ -108,7 +108,7 @@ public class Constants {
 		tmpMap1.put("REGISTERED", RESPONSE_STATUS.REGISTERED);
 		RESPONSE_STATUS_MAP = Collections.unmodifiableMap(tmpMap1);
 	}
-	
+
 	public static final int EXIT_SUCCESS = 0;
 	public static final int EXIT_FAILURE = 1;
 }

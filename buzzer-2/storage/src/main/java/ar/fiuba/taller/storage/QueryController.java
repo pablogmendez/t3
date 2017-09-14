@@ -52,7 +52,7 @@ public class QueryController implements Runnable {
 					logger.error(e);
 					e.printStackTrace();
 				} finally {
-					if(response != null) {
+					if (response != null) {
 						responseQueue.put(response);
 						response = null;
 					}

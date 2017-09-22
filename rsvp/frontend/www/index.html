@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>RSVP</title>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Angular js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+
+    <!-- UI-Router -->
+    <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!-- Angular app -->
+    <script src="app.js"></script>
+
+    <!-- App controllers and constants-->
+    <script src="controllers/confirmarasistencia.js"></script>
+    <script src="controllers/consultarasistencia.js"></script>
+    <script src="controllers/listarinvitados.js"></script>
+    <script src="controllers/globalconf.js"></script>
+
+  </head>
+<!-- apply our angular app to our site -->
+<body ng-app="routerApp">
+
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#"><span class=" glyphicon glyphicon-envelope" aria-hidden="true"></span> RSVP</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="confirmarasistencia">Confirmar asistencia</a></li>
+        <li><a ui-sref="consultarasistencia">Consultar asistencia</a></li>
+        <li><a ui-sref="listarinvitados">Listar invitados</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <div ui-view></div>
+
+</div>
+
+</body>
+</html>

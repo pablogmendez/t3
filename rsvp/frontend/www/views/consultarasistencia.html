@@ -1,0 +1,13 @@
+<div class="container">
+	<form>
+		<div class="form-group" ng-submit="submit()">
+			<label for="id" ng-model="user">Ingrese el ID de la connfirmacion:</label>
+			<input type="text" class="form-control" id="id">
+			<br>
+			<input id="submitButton" type="submit" class="btn btn-primary" value="Consultar asistencia" ng-disabled="submitDisabled">
+		</div>
+	</form> 
+	<div ng-show="submitDisabled">
+		<h3><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>Consultando asistencia ... </h3>
+	</div>
+</div>

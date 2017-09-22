@@ -1,0 +1,22 @@
+<div class="container">
+	<form>
+		<div class="form-group" ng-submit="submit()">
+			<label for="user" ng-model="user">Usuario:</label>
+			<input type="text" class="form-control" id="user">
+			<br>
+			<label for="lastname" ng-model="lastname">Apellido:</label>
+			<input type="text" class="form-control" id="lastname">
+			<br>
+			<label for="email">Email:</label>
+    		<input type="email" class="form-control" id="email">
+    		<br>
+    		<label for="company" ng-model="company">Compañia:</label>
+			<input type="text" class="form-control" id="company">
+			<br>
+			<input id="submitButton" type="submit" class="btn btn-primary" value="Confirmar asistencia" ng-disabled="submitDisabled">
+		</div>
+	</form> 
+	<div ng-show="submitDisabled">
+		<h3><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>Confirmando asistencia ... </h3>
+	</div>
+</div>

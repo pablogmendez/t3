@@ -8,16 +8,18 @@
 		<div ng-hide="searching">
 			<table class="table" ng-show="showTable">
 			  <tr>
+			  	<th>ID</th>
 			    <th>Nombre</th>
 			    <th>Apellido</th>
 			    <th>Email</th>
 			    <th>Compañia</th>
 			  </tr>
 			  <tr ng-repeat="guest in guests track by $index">
-			    <td>{{guest.Name}}</td>
-			    <td>{{guest.LastName}}</td>
-			    <td>{{guest.Email}}</td>
-				<td>{{guest.Company}}</td>
+			  	<td>{{guest.id}}</td>
+			    <td>{{guest.guest.Name}}</td>
+			    <td>{{guest.guest.LastName}}</td>
+			    <td>{{guest.guest.Email}}</td>
+				<td>{{guest.guest.Company}}</td>
 			  </tr>
 			</table>
 			<p ng-hide="showTable">No se encontraron invitados</p>

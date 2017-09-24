@@ -14,6 +14,8 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 	}).then(function successCallback(response) {
 		$scope.searching = false;
 		$scope.showTable = true;
+		console.log("HOLA");
+		console.log(response.data);
 		$scope.guests = response.data.guests;
 		newerCursor = response.data.cursor;
 		if($scope.guests.length < globalConf.pageRegs) {
@@ -22,6 +24,7 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 			$scope.nextClass="next";
 		}
 	}, function errorCallback(response) {
+		console.log(response);
 		$scope.searching = false;
 		$scope.showTable = false;
 		$scope.nextClass="next disabled";

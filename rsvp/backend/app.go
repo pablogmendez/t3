@@ -124,7 +124,7 @@ func list(w http.ResponseWriter, r *http.Request) {
 	t := q.Run(c)
 	for {
 	        var g Guest
-	        _, err := t.Next(&g)
+	        id, err := t.Next(&g)
 	        if err == datastore.Done {
 	                break
 	        }
@@ -132,14 +132,17 @@ func list(w http.ResponseWriter, r *http.Request) {
 	                c.Errorf("fetching next Guest: %v", err)
 	                break
 	        }
+
+   			stringKey := fmt.Sprintf("%v", id)
+		    aStringKey := strings.Split(stringKey, ",")
+
 	        res, _ := json.Marshal(g)
-	        guests = append(guests, string(res))
-	        //guests = append(guests, ", ")
+	        guests = append(guests, "{\"id\":\"" + aStringKey[1] + "\", \"guest\":" + string(res) + "}")
 	}
 	// Get updated cursor and store it for next time.
 	strGuests := strings.Join(guests, ",")
+	c.Debugf("fetching next Guest: %s", strGuests)
 	if cursor, err := t.Cursor(); err == nil {	    
-		//res, _ := json.Marshal(map[string]string{"cursor": cursor.String(), "guests": string(strGuests)})
 		fmt.Fprintf(w, "%s", "{\"cursor\": \"" + cursor.String() +"\", \"guests\":[" + strGuests +"]}")
 	}
 }

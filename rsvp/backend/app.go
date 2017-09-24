@@ -11,14 +11,21 @@ import (
     "appengine/memcache"
 )
 
-// [START greeting_struct]
+// [START guest_struct]
 type Guest struct {
     Name  string
     LastName string
     Email string
     Company string
 }
-// [END greeting_struct]
+// [END guest_struct]
+
+// [START list_struct]
+type List struct {
+    Cursor  string
+    Guests 	string
+}
+// [END list_struct]
 
 func init() {
 	http.HandleFunc("/confirm", confirm)
@@ -32,7 +39,7 @@ func confirm(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	// [END new_context]        
     c.Debugf("Entrando a la funcion confirm del servicio default: %v", r.URL)
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	g := Guest{
 	    Name: r.FormValue("name"),
 	    LastName: r.FormValue("lastname"),
@@ -60,6 +67,7 @@ func query(w http.ResponseWriter, r *http.Request) {
 
     // [START new_context]	
     c := appengine.NewContext(r)
+    w.Header().Set("Access-Control-Allow-Origin", "*")
     id := r.FormValue("id")
 	n, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
@@ -96,24 +104,43 @@ func query(w http.ResponseWriter, r *http.Request) {
 // [START func_list]
 func list(w http.ResponseWriter, r *http.Request) {
     // [START new_context]	
-    c := appengine.NewContext(r)
+	c := appengine.NewContext(r)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	// Create a query for all Person entities.
+	const pageSize = 5
+	q := datastore.NewQuery("Guest").Limit(pageSize)
 
-	n, err := strconv.ParseInt("5171003185430528", 10, 64)
-
-	//entity_id_int, err := strconv.ParseInt(entity_id, 10, 64) 
-	if err != nil {
-    	fmt.Fprint(w, "Unable to parse key")
- 	   	return;
+	// If the application stored a cursor during a previous request, use it.
+	if r.FormValue("cursor") != "" {
+	        cursor, err := datastore.DecodeCursor(r.FormValue("cursor"))
+	        if err == nil {
+	                q = q.Start(cursor)
+	        }
 	}
-    
-    var g Guest
-    key := datastore.NewKey(c, "Guest", "", n, nil)
-    
-    if err := datastore.Get(c, key, &g); err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
 
-    fmt.Fprintf(w, "Stored and retrieved the Employee named %q", g.Name)
+	// Iterate over the results.
+	var guests []string
+
+	t := q.Run(c)
+	for {
+	        var g Guest
+	        _, err := t.Next(&g)
+	        if err == datastore.Done {
+	                break
+	        }
+	        if err != nil {
+	                c.Errorf("fetching next Guest: %v", err)
+	                break
+	        }
+	        res, _ := json.Marshal(g)
+	        guests = append(guests, string(res))
+	        //guests = append(guests, ", ")
+	}
+	// Get updated cursor and store it for next time.
+	strGuests := strings.Join(guests, ",")
+	if cursor, err := t.Cursor(); err == nil {	    
+		//res, _ := json.Marshal(map[string]string{"cursor": cursor.String(), "guests": string(strGuests)})
+		fmt.Fprintf(w, "%s", "{\"cursor\": \"" + cursor.String() +"\", \"guests\":[" + strGuests +"]}")
+	}
 }
 // [END func_list]

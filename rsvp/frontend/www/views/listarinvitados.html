@@ -2,26 +2,28 @@
 	  	<!-- Default panel contents -->
 	  	<div class="panel-heading"><b>Invitados con confirmación aceptada</b></div>		
 	  	<div ng-show="searching">
-    		<h1>Searching...<i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i></h1>
+    		<h1>Buscando invitados...<i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i></h1>
   		</div>
 		<!-- Table -->
 		<div ng-hide="searching">
 			<table class="table" ng-show="showTable">
 			  <tr>
-			    <th>ID</th>
 			    <th>Nombre</th>
 			    <th>Apellido</th>
 			    <th>Email</th>
 			    <th>Compañia</th>
 			  </tr>
-			  <tr ng-repeat="app in apps">
-			    <td>{{app.application}}</td>
-			    <td>{{app.count}}</td>
+			  <tr ng-repeat="guest in guests track by $index">
+			    <td>{{guest.Name}}</td>
+			    <td>{{guest.LastName}}</td>
+			    <td>{{guest.Email}}</td>
+				<td>{{guest.Company}}</td>
 			  </tr>
 			</table>
-			<p ng-hide="showTable">No applications found</p>
+			<p ng-hide="showTable">No se encontraron invitados</p>
 		</div>
 	</div>
+	{{guests[0].name}}
 	<nav aria-label="...">
 	  <ul class="pager">
 	    <li ng-class="previousClass"><a ng-click="getPreviousReport()"><span aria-hidden="true">&larr;</span> Prev</a></li>

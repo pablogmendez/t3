@@ -15,16 +15,13 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 		$scope.searching = false;
 		$scope.showTable = true;
 		$scope.guests = response.data.guests;
-		console.log(response.data.guests);
 		newerCursor = response.data.cursor;
 		if($scope.guests.length < globalConf.pageRegs) {
 			$scope.nextClass = "next disabled";
 		} else {
-			$scope.nextClass="next disabled";
+			$scope.nextClass="next";
 		}
 	}, function errorCallback(response) {
-				console.log("bbbb");
-		console.log(response);
 		$scope.searching = false;
 		$scope.showTable = false;
 		$scope.nextClass="next disabled";
@@ -43,6 +40,7 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 			$scope.searching = false;
 			$scope.showTable = true;
 			$scope.guests = response.data.guests;
+			console.log(response.data.guests);
 			stack.push(newerCursor);
 			newerCursor = response.data.cursor;
 			if($scope.guests.length < globalConf.pageRegs) {

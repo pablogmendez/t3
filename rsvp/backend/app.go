@@ -107,7 +107,7 @@ func list(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	// Create a query for all Person entities.
-	const pageSize = 5
+	const pageSize = 10
 	q := datastore.NewQuery("Guest").Limit(pageSize)
 
 	// If the application stored a cursor during a previous request, use it.

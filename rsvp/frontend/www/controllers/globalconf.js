@@ -1,4 +1,4 @@
 routerApp.constant('globalConf' , {
-    'api_url': 'http://localhost:8081',
+    'api_url': 'https://app-dot-useful-music-180113.appspot.com',
     'pageRegs': 10
 });

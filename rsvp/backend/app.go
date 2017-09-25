@@ -108,7 +108,21 @@ func list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	// Create a query for all Person entities.
 	const pageSize = 10
-	q := datastore.NewQuery("Guest").Limit(pageSize)
+	q := datastore.NewQuery("Guest")
+	if r.FormValue("name") != "" {
+		q = q.Filter("Name =", r.FormValue("name"))	
+	}
+	if r.FormValue("lastname") != "" {
+		q = q.Filter("LastName =", r.FormValue("lastname"))	
+	}
+	if r.FormValue("email") != "" {
+		q = q.Filter("Email =", r.FormValue("email"))	
+	}
+	if r.FormValue("company") != "" {
+		q = q.Filter("Company =", r.FormValue("company"))	
+	}
+
+	q = q.Limit(pageSize)
 
 	// If the application stored a cursor during a previous request, use it.
 	if r.FormValue("cursor") != "" {

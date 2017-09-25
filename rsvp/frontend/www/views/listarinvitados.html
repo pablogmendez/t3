@@ -1,3 +1,23 @@
+<div ng-show="search">
+	<form id="confirmForm" ng-submit="submit()">
+		<div class="form-group">
+			<label for="user">Usuario:</label>
+			<input type="text" class="form-control" id="user" ng-model="name">
+			<br>
+			<label for="lastname">Apellido:</label>
+			<input type="text" class="form-control" id="lastname" ng-model="lastname">
+			<br>
+			<label for="email">Email:</label>
+    		<input type="email" class="form-control" id="email" ng-model="email">
+    		<br>
+    		<label for="company">Compañia:</label>
+			<input type="text" class="form-control" id="company" ng-model="company">
+			<br>
+			<input id="submitButton" type="submit" class="btn btn-primary" value="Buscar" ng-disabled="submitDisabled">
+		</div>
+	</form> 
+</div>
+<div ng-hide="search">
 	<div class="panel panel-default">
 	  	<!-- Default panel contents -->
 	  	<div class="panel-heading"><b>Invitados con confirmación aceptada</b></div>		
@@ -31,3 +51,4 @@
 	    <li ng-class="nextClass"><a ng-click="getNextReport()">Next <span aria-hidden="true">&rarr;</span></a></li>
 	  </ul>
 	</nav>
+</div>

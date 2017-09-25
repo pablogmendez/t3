@@ -2,33 +2,36 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
     var newerCursor = "";
     var stack = [];
     $scope.guests = [];
-    $scope.searching = true;
-    $scope.showTable = false;
+    $scope.search = true;
 
-    $scope.previousClass="previous disabled";
-    $scope.nextClass="next";
-
-	$http({
-		method: 'GET',
-		url: globalConf.api_url + "/list?cursor="
-	}).then(function successCallback(response) {
-		$scope.searching = false;
-		$scope.showTable = true;
-		console.log("HOLA");
-		console.log(response.data);
-		$scope.guests = response.data.guests;
-		newerCursor = response.data.cursor;
-		if($scope.guests.length < globalConf.pageRegs) {
-			$scope.nextClass = "next disabled";
-		} else {
-			$scope.nextClass="next";
-		}
-	}, function errorCallback(response) {
-		console.log(response);
-		$scope.searching = false;
-		$scope.showTable = false;
-		$scope.nextClass="next disabled";
-	});
+    $scope.submit = function() {
+    	$scope.searching = true;
+    	$scope.showTable = false;
+    	$scope.search = false;
+    	$scope.previousClass="previous disabled";
+    	$scope.nextClass="next";
+		$http({
+			method: 'GET',
+			url: globalConf.api_url + "/list?cursor="
+		}).then(function successCallback(response) {
+			$scope.searching = false;
+			$scope.showTable = true;
+			console.log("HOLA");
+			console.log(response.data);
+			$scope.guests = response.data.guests;
+			newerCursor = response.data.cursor;
+			if($scope.guests.length < globalConf.pageRegs) {
+				$scope.nextClass = "next disabled";
+			} else {
+				$scope.nextClass="next";
+			}
+		}, function errorCallback(response) {
+			console.log(response);
+			$scope.searching = false;
+			$scope.showTable = false;
+			$scope.nextClass="next disabled";
+		});
+	}
 
     $scope.getNextReport = function() {   
     	$scope.searching = true;

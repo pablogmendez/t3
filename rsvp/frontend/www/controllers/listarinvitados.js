@@ -4,6 +4,11 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
     $scope.guests = [];
     $scope.search = true;
 
+	$scope.name = "";
+	$scope.lastname = "";
+	$scope.email = "";
+	$scope.company = "";
+
     $scope.submit = function() {
     	$scope.searching = true;
     	$scope.showTable = false;
@@ -12,12 +17,10 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
     	$scope.nextClass="next";
 		$http({
 			method: 'GET',
-			url: globalConf.api_url + "/list?cursor="
+			url: globalConf.api_url + "/list?name=" + $scope.name + "&lastname=" + $scope.lastname + "&email=" + $scope.email + "&company=" + $scope.company + "&cursor="
 		}).then(function successCallback(response) {
 			$scope.searching = false;
 			$scope.showTable = true;
-			console.log("HOLA");
-			console.log(response.data);
 			$scope.guests = response.data.guests;
 			newerCursor = response.data.cursor;
 			if($scope.guests.length < globalConf.pageRegs) {
@@ -26,7 +29,6 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 				$scope.nextClass="next";
 			}
 		}, function errorCallback(response) {
-			console.log(response);
 			$scope.searching = false;
 			$scope.showTable = false;
 			$scope.nextClass="next disabled";
@@ -35,7 +37,7 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 
     $scope.getNextReport = function() {   
     	$scope.searching = true;
-    	var data = "/list?";
+    	var data = "/list?name=" + $scope.name + "&lastname=" + $scope.lastname + "&email=" + $scope.email + "&company=" + $scope.company;
     	if($scope.newerCursor != "") {
     		data += "cursor=" +  newerCursor;
     	}
@@ -53,7 +55,6 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 				$scope.nextClass = "next disabled";
 			}
 			$scope.previousClass="previous";
-            console.log(response);
 		}, function errorCallback(response) {
 			$scope.searching = false;
 			$scope.showTable = false;
@@ -62,9 +63,8 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 
 	$scope.getPreviousReport = function() {   
 		$scope.searching = true;
-	    var data = "/list?";
+	    var data = "/list?name=" + $scope.name + "&lastname=" + $scope.lastname + "&email=" + $scope.email + "&company=" + $scope.company;
 	    var olderCursor = stack.pop();
-	    console.log("cursor " + olderCursor);
 	    if(olderCursor != undefined && stack.length > 0) {
     		data += "cursor=" +  olderCursor;
     	} else {
@@ -81,7 +81,6 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 			if($scope.guests.length >= globalConf.pageRegs) {
 				$scope.nextClass = "next";
 			}
-            console.log(response);
 		}, function errorCallback(response) {
 			$scope.searching = false;
 			$scope.showTable = false;

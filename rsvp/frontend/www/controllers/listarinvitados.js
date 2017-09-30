@@ -39,7 +39,7 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
     	$scope.searching = true;
     	var data = "/list?name=" + $scope.name + "&lastname=" + $scope.lastname + "&email=" + $scope.email + "&company=" + $scope.company;
     	if($scope.newerCursor != "") {
-    		data += "cursor=" +  newerCursor;
+    		data += "&cursor=" +  newerCursor;
     	}
         $http({
    			method: 'GET',
@@ -66,7 +66,7 @@ routerApp.controller('listarinvitadosController', function($scope, $http, global
 	    var data = "/list?name=" + $scope.name + "&lastname=" + $scope.lastname + "&email=" + $scope.email + "&company=" + $scope.company;
 	    var olderCursor = stack.pop();
 	    if(olderCursor != undefined && stack.length > 0) {
-    		data += "cursor=" +  olderCursor;
+    		data += "&cursor=" +  olderCursor;
     	} else {
     		$scope.previousClass="previous disabled";
     	}

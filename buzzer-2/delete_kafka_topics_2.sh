@@ -11,6 +11,6 @@ echo borrando los topics de zookeeper
 #	echo "Borrando topic --  $t"
 #	/opt/kafka/kafka_2.12-0.11.0.0/bin/zookeeper-shell.sh localhost:2181 rmr $t
 #don
-/opt/kafka/kafka_2.12-0.11.0.0/bin/zookeeper-shell.sh localhost:2181 rmr /brokers/topics
+/opt/kafka_2.11-0.11.0.1/bin/zookeeper-shell.sh localhost:2181 rmr /brokers/topics
 
 echo "ok"

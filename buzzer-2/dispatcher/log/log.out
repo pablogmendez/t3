@@ -1,1528 +1,1601 @@
-[2017-09-09 18:52:47][INFO ] AnalyzerController.java:31 - Thread_Id: 11 - Iniciando el analyzer controller
-[2017-09-09 18:52:47][INFO ] LoggerController.java:30 - Thread_Id: 15 - Iniciando el logger controller
-[2017-09-09 18:52:47][INFO ] DispatcherController.java:55 - Thread_Id: 1 - Iniciando el dispatcher controller
-[2017-09-09 18:52:47][INFO ] StorageController.java:32 - Thread_Id: 13 - Iniciando el storage controller
-[2017-09-09 18:54:15][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6a9b63
-[2017-09-09 18:54:15][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:24][INFO ] DispatcherController.java:51 - Thread_Id: 1 - Iniciando el dispatcher controller
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HOLA2
-[2017-09-09 18:54:15][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Honk If You've #Never Seen An Uzi Fired From A Car Window.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HOLA2
-[2017-09-09 18:54:15][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLA2
-[2017-09-09 18:54:15][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLA2
-[2017-09-09 18:54:15][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 18:54:15][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 18:54:15][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:54:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@33126026
-[2017-09-09 18:54:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "HOLA #COMO te va"
-[2017-09-09 18:54:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "HOLA #COMO te va"
-[2017-09-09 18:54:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:54:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "HOLA #COMO te va"
-[2017-09-09 18:54:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 18:54:55][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "HOLA #COMO te va"
-[2017-09-09 18:54:55][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 18:56:37][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@60b2b51d
-[2017-09-09 18:56:37][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "GG"
-[2017-09-09 18:56:37][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "GG"
-[2017-09-09 18:56:37][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:56:37][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "GG"
-[2017-09-09 18:56:37][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 18:56:37][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "GG"
-[2017-09-09 18:56:37][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 18:57:01][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3ac2d8aa
-[2017-09-09 18:57:01][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUEEEE
-[2017-09-09 18:57:01][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUEEEE
-[2017-09-09 18:57:01][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUEEEE
-[2017-09-09 18:57:01][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 18:57:01][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUEEEE
-[2017-09-09 18:57:01][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:57:01][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 18:57:24][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@12d3ad36
-[2017-09-09 18:57:24][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "ESTE #esun mensjae"
-[2017-09-09 18:57:24][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "ESTE #esun mensjae"
-[2017-09-09 18:57:24][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "ESTE #esun mensjae"
-[2017-09-09 18:57:24][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:57:24][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 18:57:24][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "ESTE #esun mensjae"
-[2017-09-09 18:57:24][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 18:58:47][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3260ec1a
-[2017-09-09 18:58:47][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Honk If You've #Never Seen An Uzi Fired From A Car Window.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 18:58:47][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user3
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 18:58:47][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 18:58:47][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 18:58:47][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:15:32][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6491808a
-[2017-09-09 19:15:32][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: good
-[2017-09-09 19:15:32][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: good
-[2017-09-09 19:15:32][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: good
-[2017-09-09 19:15:32][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:15:32][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:16:49][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@5124a03e
-[2017-09-09 19:16:49][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #good
-[2017-09-09 19:16:49][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #good
-[2017-09-09 19:16:49][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #good
-[2017-09-09 19:16:49][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:16:49][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:17:14][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6b794001
-[2017-09-09 19:17:14][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HH
-[2017-09-09 19:17:14][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HH
-[2017-09-09 19:17:14][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HH
-[2017-09-09 19:17:14][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: HH
-[2017-09-09 19:17:14][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:17:14][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:17:14][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:17:46][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@21c12d39
-[2017-09-09 19:17:46][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:17:46][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:17:46][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:17:46][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:17:46][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:18:29][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@493c7c5b
-[2017-09-09 19:18:29][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 19:18:29][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user7
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 19:18:29][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:18:29][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 19:18:29][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:19:35][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3d6d1012
-[2017-09-09 19:19:35][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 19:19:35][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 19:19:35][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 19:19:35][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:19:35][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:19:48][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1c3536f6
-[2017-09-09 19:19:48][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:19:48][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:19:48][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:19:48][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:19:48][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:25:13][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@343568ac
-[2017-09-09 19:25:13][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:25:13][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:25:13][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:25:13][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:25:13][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:26:05][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1ec114d5
-[2017-09-09 19:26:05][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: imitate
-[2017-09-09 19:26:05][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: imitate
-[2017-09-09 19:26:05][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: imitate
-[2017-09-09 19:26:05][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:26:05][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:26:24][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@4bf97a9f
-[2017-09-09 19:26:24][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #imitate
-[2017-09-09 19:26:24][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #imitate
-[2017-09-09 19:26:24][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #imitate
-[2017-09-09 19:26:24][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:26:24][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:26:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7e4e6790
-[2017-09-09 19:26:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #life
-[2017-09-09 19:26:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #life
-[2017-09-09 19:26:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:26:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #life
-[2017-09-09 19:26:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:29:56][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@77fd7647
-[2017-09-09 19:29:56][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: HH
-[2017-09-09 19:29:56][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: HH
-[2017-09-09 19:29:56][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:29:56][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: HH
-[2017-09-09 19:29:56][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:35:24][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7a02edcf
-[2017-09-09 19:35:24][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: RRE
-[2017-09-09 19:35:24][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: RRE
-[2017-09-09 19:35:24][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:35:24][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: RRE
-[2017-09-09 19:35:24][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:35:40][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@13cdbc9a
-[2017-09-09 19:35:40][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:35:40][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:35:40][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: #people
-[2017-09-09 19:35:40][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:35:40][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:39:59][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1303ff5d
-[2017-09-09 19:39:59][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: I almost had a #psychic #girlfriend but she left me before we met.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: I almost had a #psychic #girlfriend but she left me before we met.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user40
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user40
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: FOLLOW
 Mensaje: user1
-[2017-09-09 19:39:59][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user5
+Comando: FOLLOW
 Mensaje: user1
-[2017-09-09 19:39:59][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: If all #pulled in one direction, the world would keel #over.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: If all #pulled in one direction, the world would keel #over.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Smile, and the world will smile with you.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Smile, and the world will smile with you.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Procrastinate now, don't put it #off.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Procrastinate now, don't put it #off.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Behind every good man there is a good woman and #behind
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Behind every good man there is a good woman and #behind
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Smile, and the world will smile with you.
+[2017-10-01 12:19:30][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Smile, and the world will smile with you.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user8
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user7
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user3
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user3
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user1
 Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user1
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: FOLLOW
 Mensaje: user1
-[2017-09-09 19:39:59][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:39:59][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:40:19][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6dd4b8cb
-[2017-09-09 19:40:19][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user8
+Comando: FOLLOW
+Mensaje: user1
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Keep #smiling, it makes people wonder what you're up #to.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Keep #smiling, it makes people wonder what you're up #to.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user1
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user8
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: QUERY
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user3
+Comando: QUERY
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Is tuna really #Chicken?
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Is tuna really #Chicken?
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Experience is something you don't get until just #after #you need it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Experience is something you don't get until just #after #you need it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 19:40:19][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user8
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 19:40:19][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: All Men Are #Animals; Some Just Make Better Pets.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: All Men Are #Animals; Some Just Make Better Pets.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Laugh and they'll all think your on drugs.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Laugh and they'll all think your on drugs.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Those #are my principles. If you don't like them I have others.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Those #are my principles. If you don't like them I have others.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Borrow money from #pessimists - they don't expect it #back.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: Borrow money from #pessimists - they don't expect it #back.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: The sooner you fall behind the more time #youll have to catch up.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: The sooner you fall behind the more time #youll have to catch up.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: A clear conscience is usually the sign of a #bad memory.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: A clear conscience is usually the sign of a #bad memory.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user1
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: No man or woman who tries to #pursue an ideal in his or her own way is without #enemies.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: No man or woman who tries to #pursue an ideal in his or her own way is without #enemies.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: If everything seems to be going well, you have obviously #overlooked something.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: If everything seems to be going well, you have obviously #overlooked something.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #Blind
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #Blind
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: My mechanic told me,I couldn't repair your brakes,so I made your horn louder.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: My mechanic told me,I couldn't repair your brakes,so I made your horn louder.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: To steal ideas from one person is plagiarism; to steal from many is research.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: To steal ideas from one person is plagiarism; to steal from many is research.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Don't criticize my mess unless you'd like to become part of it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Don't criticize my mess unless you'd like to become part of it.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: The secret of being tiresome is to tell #everything.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: The secret of being tiresome is to tell #everything.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 19:40:19][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:40:19][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:42:54][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7cbe451
-[2017-09-09 19:42:54][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user5
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
 Comando: PUBLISH
-Mensaje: SIIIIIIIIIIII
-[2017-09-09 19:42:54][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: There are some days when I just don't feel #like talking.. Today is that day.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
 Comando: PUBLISH
-Mensaje: SIIIIIIIIIIII
-[2017-09-09 19:42:54][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: There are some days when I just don't feel #like talking.. Today is that day.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
 Comando: PUBLISH
-Mensaje: SIIIIIIIIIIII
-[2017-09-09 19:42:54][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:42:54][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Those who think they know everything, annoy those of us that do
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
 Comando: PUBLISH
-Mensaje: SIIIIIIIIIIII
-[2017-09-09 19:42:54][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:42:54][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:44:57][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@696909de
-[2017-09-09 19:44:57][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: DELETE
-Mensaje: cfdbe018-71f8-4792-945f-75d751caeed6
-[2017-09-09 19:44:57][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: DELETE
-Mensaje: cfdbe018-71f8-4792-945f-75d751caeed6
-[2017-09-09 19:44:57][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: DELETE
-Mensaje: cfdbe018-71f8-4792-945f-75d751caeed6
-[2017-09-09 19:44:57][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:44:57][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:46:54][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@659cfab9
-[2017-09-09 19:46:54][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Mensaje: Those who think they know everything, annoy those of us that do
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user2
 Comando: FOLLOW
-Mensaje: user1
-[2017-09-09 19:46:54][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
 Usuario: user2
 Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: When everything is coming your #way, youre in the wrong lane.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: When everything is coming your #way, youre in the wrong lane.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user4
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: When #people are free to do as they please, they usually #imitate each other.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: When #people are free to do as they please, they usually #imitate each other.
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: It takes 42 muscels to smile, so #instead pick up your #middle finger and
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: It takes 42 muscels to smile, so #instead pick up your #middle finger and
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:31][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user7
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: What luck for the rulers that men do not #think.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: What luck for the rulers that men do not #think.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: If a #million people say a foolish thing, it is still a #foolish thing.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: If a #million people say a foolish thing, it is still a #foolish thing.
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:19:32][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user8
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user3
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: When people are #free to do as they please, they usually imitate each other.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: When people are #free to do as they please, they usually imitate each other.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user2
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: QUERY
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user7
+Comando: QUERY
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: When everything is coming your #way, youre in the wrong lane.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: When everything is coming your #way, youre in the wrong lane.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Procrastinate now, don't put it #off.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Procrastinate now, don't put it #off.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: FOLLOW
 Mensaje: user1
-[2017-09-09 19:46:54][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: user1
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user0
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user7
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #Blind
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #Blind
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: No man or woman who tries to #pursue an ideal in his or her own way is without #enemies.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: No man or woman who tries to #pursue an ideal in his or her own way is without #enemies.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Men, #chocolate, and coffee are all better rich.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Men, #chocolate, and coffee are all better rich.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user4
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: There's nothing wrong with being a loser, it just depends on #how #good you are at it.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: We know what a person thinks not when he tells us what he thinks, but by his actions.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: We know what a person thinks not when he tells us what he thinks, but by his actions.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: If you can't fix it with duck tape you have'nt #used enough
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: If you can't fix it with duck tape you have'nt #used enough
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user5
+Comando: FOLLOW
+Mensaje: #enemies
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user2
 Comando: FOLLOW
-Mensaje: user1
-[2017-09-09 19:46:54][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:46:54][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:48:14][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@2dc61421
-[2017-09-09 19:48:14][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "soy el usuario 1111"
-[2017-09-09 19:48:14][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "soy el usuario 1111"
-[2017-09-09 19:48:14][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "soy el usuario 1111"
-[2017-09-09 19:48:14][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "soy el usuario 1111"
-[2017-09-09 19:48:14][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:48:14][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:48:14][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:50:28][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@757784a4
-[2017-09-09 19:50:28][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
 Usuario: user2
 Comando: FOLLOW
-Mensaje: #hola
-[2017-09-09 19:50:28][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
+Mensaje: user10
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: All those who believe in #telekinesis, #raise my hand.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: All those who believe in #telekinesis, #raise my hand.
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:09][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: When people are #free to do as they please, they usually imitate each other.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: When people are #free to do as they please, they usually imitate each other.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: Of #those who say nothing, few are silent.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: - Jessica #Simpson, after reading Tuna, Chicken of the sea
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: - Jessica #Simpson, after reading Tuna, Chicken of the sea
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: Beauty is in the eye of #the beer holder
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: History is the version of past events that people #have #decided to agree upon.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: History is the version of past events that people #have #decided to agree upon.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Don't drink and drive you might spill your #beer
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: As I grow older, I pay less attention to what men say. I just watch what they #do.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: As I grow older, I pay less attention to what men say. I just watch what they #do.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user7
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: I can see clearly now, the #brain #is gone...
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Don't regret doing things, regret getting caught
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: Don't regret doing things, regret getting caught
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Look up for inspiration, down for #concentration but don’t look side to side for information.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Look up for inspiration, down for #concentration but don’t look side to side for information.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, cheat, repeat #until caught, and then #lie!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user5
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user1
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: GROW YOUR OWN #DOPE --- PLANT A BLONDE.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: GROW YOUR OWN #DOPE --- PLANT A BLONDE.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Behind every good man there is a good woman and #behind
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Behind every good man there is a good woman and #behind
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Don't criticize my mess unless you'd like to become part of it.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Don't criticize my mess unless you'd like to become part of it.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I did my homework! I just #forgot to write it down.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: I did my homework! I just #forgot to write it down.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user0
+Comando: FOLLOW
+Mensaje: #foolish
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Whenever you #find you are on the side of the majority, it is time to pause and reflect.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: Whenever you #find you are on the side of the majority, it is time to pause and reflect.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: A #good essay is 10% inspiration, 15% perspiration, and 75% #desperation
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: I intend to live forever -- so far, so #good.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: The man who never makes a mistake #always #takes orders from one who does.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: The man who never makes a mistake #always #takes orders from one who does.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: If all #pulled in one direction, the world would keel #over.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: If all #pulled in one direction, the world would keel #over.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user3
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: What #orators lack in depth they make up for in length.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user5
+Comando: PUBLISH
+Mensaje: What #orators lack in depth they make up for in length.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: When all think #alike, no one is thinking very much.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: When all think #alike, no one is thinking very much.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user5
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user5
+Comando: QUERY
+Mensaje: TT
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Look up for inspiration, down for #concentration but don’t look side to side for information.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: Look up for inspiration, down for #concentration but don’t look side to side for information.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: What luck for the rulers that men do not #think.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user1
+Comando: PUBLISH
+Mensaje: What luck for the rulers that men do not #think.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: Consciousness- that annoying time between naps
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: The secret of being tiresome is to tell #everything.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
+Comando: PUBLISH
+Mensaje: The secret of being tiresome is to tell #everything.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user9
+Comando: PUBLISH
+Mensaje: Thank-you for visiting reality, come again........... Now entering your life, welcome
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user2
+Comando: PUBLISH
+Mensaje: When they put unknown at the end of a quote, that means they #probably don't no how to spell #anonymous
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user6
+Comando: FOLLOW
+Mensaje: user11
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, destroy #all evidence that you tried.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: If at first you don't succeed, destroy #all evidence that you tried.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: A conclusion is the part where you got #tired of #thinking.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user8
+Comando: PUBLISH
+Mensaje: Blessed #is the man who, having nothing to say, abstains from giving us wordy evidence of the fact.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user8
+Comando: QUERY
+Mensaje: user1
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user8
+Comando: QUERY
+Mensaje: user1
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
+Comando: PUBLISH
+Mensaje: say bite me in a bitchy #tone!
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
+Comando: PUBLISH
+Mensaje: I'm an angel, honest! The horns are just there to keep the halo straight
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
+Usuario: user9
+Comando: FOLLOW
+Mensaje: user10
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: My mechanic told me,I couldn't repair your brakes,so I made your horn louder.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: My mechanic told me,I couldn't repair your brakes,so I made your horn louder.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user2
 Comando: FOLLOW
-Mensaje: #hola
-[2017-09-09 19:50:28][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:50:28][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
+Mensaje: user11
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:92 - Thread_Id: 1 - Comando enviado al follow: 
 Usuario: user2
 Comando: FOLLOW
-Mensaje: #hola
-[2017-09-09 19:50:28][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 19:51:44][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@54f1442d
-[2017-09-09 19:51:44][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "#hola como te va"
-[2017-09-09 19:51:44][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "#hola como te va"
-[2017-09-09 19:51:44][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "#hola como te va"
-[2017-09-09 19:51:44][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 19:51:44][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "#hola como te va"
-[2017-09-09 19:51:44][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 19:51:44][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:00:17][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@56ba3538
-[2017-09-09 20:00:17][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: ASDASD
-[2017-09-09 20:00:17][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: ASDASD
-[2017-09-09 20:00:17][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:00:17][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: ASDASD
-[2017-09-09 20:00:17][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: ASDASD
-[2017-09-09 20:00:17][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:00:17][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:00:43][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@4b4044d2
-[2017-09-09 20:00:43][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GGGGG
-[2017-09-09 20:00:43][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GGGGG
-[2017-09-09 20:00:43][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GGGGG
-[2017-09-09 20:00:43][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:00:43][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GGGGG
-[2017-09-09 20:00:43][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:00:43][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:01:22][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@25babba
-[2017-09-09 20:01:22][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Mensaje: user11
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user4
-Comando: FOLLOW
-Mensaje: #holaaaaa
-[2017-09-09 20:01:22][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
 Usuario: user4
-Comando: FOLLOW
-Mensaje: #holaaaaa
-[2017-09-09 20:01:22][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:01:22][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
+Comando: PUBLISH
+Mensaje: We are discreet #sheep; we wait to see how the drove is going, and then go with the drove.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: POLITICIANS & #DIAPERS BOTH NEED TO BE CHANGED, AND FOR THE SAME REASON
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user7
+Comando: PUBLISH
+Mensaje: POLITICIANS & #DIAPERS BOTH NEED TO BE CHANGED, AND FOR THE SAME REASON
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user4
-Comando: FOLLOW
-Mensaje: #holaaaaa
-[2017-09-09 20:01:22][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:09:45][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@5c5547f0
-[2017-09-09 20:09:45][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Comando: PUBLISH
+Mensaje: It takes 42 muscels to smile, so #instead pick up your #middle finger and
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
+Comando: PUBLISH
+Mensaje: It takes 42 muscels to smile, so #instead pick up your #middle finger and
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user1
 Comando: PUBLISH
-Mensaje: HJLL
-[2017-09-09 20:09:45][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
 Usuario: user1
 Comando: PUBLISH
-Mensaje: HJLL
-[2017-09-09 20:09:45][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: that another man looking at her #ass
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
 Comando: PUBLISH
-Mensaje: HJLL
-[2017-09-09 20:09:45][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: - Jessica #Simpson, after reading Tuna, Chicken of the sea
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
 Comando: PUBLISH
-Mensaje: HJLL
-[2017-09-09 20:09:45][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:09:45][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:09:45][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:11:08][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@5bc1aab7
-[2017-09-09 20:11:08][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: - Jessica #Simpson, after reading Tuna, Chicken of the sea
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user4
 Comando: PUBLISH
-Mensaje: "mando esto #holaaaaa"
-[2017-09-09 20:11:08][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Some #people say that I must be a terrible person, but it not true. I have the heart of a young boy in a #jar on my #desk
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user4
 Comando: PUBLISH
-Mensaje: "mando esto #holaaaaa"
-[2017-09-09 20:11:08][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
+Mensaje: Some #people say that I must be a terrible person, but it not true. I have the heart of a young boy in a #jar on my #desk
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user1
-Comando: PUBLISH
-Mensaje: "mando esto #holaaaaa"
-[2017-09-09 20:11:08][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:11:08][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "mando esto #holaaaaa"
-[2017-09-09 20:11:08][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:11:08][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:17:27][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@126e03c9
-[2017-09-09 20:17:27][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
+Comando: QUERY
 Mensaje: user1
-[2017-09-09 20:17:27][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user1
+Comando: QUERY
 Mensaje: user1
-[2017-09-09 20:17:27][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
-Mensaje: user1
-[2017-09-09 20:17:27][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:17:27][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:18:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@4d377c45
-[2017-09-09 20:18:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user0
 Comando: PUBLISH
-Mensaje: QUETAL
-[2017-09-09 20:18:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user0
 Comando: PUBLISH
-Mensaje: QUETAL
-[2017-09-09 20:18:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+Mensaje: None of us are virgins, life has screwed us all
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: QUETAL
-[2017-09-09 20:18:55][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+Mensaje: Ambition is a poor excuse for not having enough sense to be lazy.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: QUETAL
-[2017-09-09 20:18:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:18:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:18:55][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 20:22:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3babd8d4
-[2017-09-09 20:22:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+Mensaje: Ambition is a poor excuse for not having enough sense to be lazy.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: CAMA
-[2017-09-09 20:22:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user3
 Comando: PUBLISH
-Mensaje: CAMA
-[2017-09-09 20:22:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: CAMA
-[2017-09-09 20:22:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 20:22:55][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: CAMA
-[2017-09-09 20:22:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 20:22:55][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:06:56][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6de94904
-[2017-09-09 21:06:56][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "kkkkkk"
-[2017-09-09 21:06:56][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "kkkkkk"
-[2017-09-09 21:06:56][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "kkkkkk"
-[2017-09-09 21:06:56][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "kkkkkk"
-[2017-09-09 21:06:56][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:06:56][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:06:56][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:08:58][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@ffb7f3b
-[2017-09-09 21:08:58][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JAJAJAJAJAJa
-[2017-09-09 21:08:58][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JAJAJAJAJAJa
-[2017-09-09 21:08:58][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JAJAJAJAJAJa
-[2017-09-09 21:08:58][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JAJAJAJAJAJa
-[2017-09-09 21:08:58][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:08:58][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:08:58][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:15:27][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@79d8ffd5
-[2017-09-09 21:15:27][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GHJ
-[2017-09-09 21:15:27][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GHJ
-[2017-09-09 21:15:27][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GHJ
-[2017-09-09 21:15:27][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: GHJ
-[2017-09-09 21:15:27][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:15:27][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:15:27][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:20:03][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1c50f542
-[2017-09-09 21:20:03][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JOLA
-[2017-09-09 21:20:03][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JOLA
-[2017-09-09 21:20:03][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JOLA
-[2017-09-09 21:20:03][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:20:03][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:20:03][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: JOLA
-[2017-09-09 21:20:03][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:21:58][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3bd63ea5
-[2017-09-09 21:21:58][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUETALLLLLLLLLLLLLLLLLLLL
-[2017-09-09 21:21:58][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUETALLLLLLLLLLLLLLLLLLLL
-[2017-09-09 21:21:58][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUETALLLLLLLLLLLLLLLLLLLL
-[2017-09-09 21:21:58][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:21:58][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: QUETALLLLLLLLLLLLLLLLLLLL
-[2017-09-09 21:21:58][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:21:58][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:26:06][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6f009c43
-[2017-09-09 21:26:06][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: KOLA
-[2017-09-09 21:26:06][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: KOLA
-[2017-09-09 21:26:06][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: KOLA
-[2017-09-09 21:26:06][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:26:06][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: KOLA
-[2017-09-09 21:26:06][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:26:06][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:27:17][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@5118f021
-[2017-09-09 21:27:17][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: IOP
-[2017-09-09 21:27:17][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: IOP
-[2017-09-09 21:27:17][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:27:17][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: IOP
-[2017-09-09 21:27:17][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:27:17][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: IOP
-[2017-09-09 21:27:17][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:31:47][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@4a79f5a5
-[2017-09-09 21:31:47][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: OPIOPOIOPIO
-[2017-09-09 21:31:47][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: OPIOPOIOPIO
-[2017-09-09 21:31:47][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:31:47][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: OPIOPOIOPIO
-[2017-09-09 21:31:47][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:31:47][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: OPIOPOIOPIO
-[2017-09-09 21:31:47][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:31:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@40d0c959
-[2017-09-09 21:31:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: Every generation #laughs at the old fashions, but follows religiously the new.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 21:31:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:78 - Thread_Id: 1 - Comando enviado al query: 
+Usuario: user6
 Comando: QUERY
 Mensaje: TT
-[2017-09-09 21:31:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:31:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:31:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:34:09][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@2bd9b784
-[2017-09-09 21:34:09][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
-Mensaje: #UU
-[2017-09-09 21:34:09][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
-Mensaje: #UU
-[2017-09-09 21:34:09][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: FOLLOW
-Mensaje: #UU
-[2017-09-09 21:34:09][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:34:09][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:34:29][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3d56d326
-[2017-09-09 21:34:29][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Usuario: user6
 Comando: PUBLISH
-Mensaje: "asd #UU ddddd"
-[2017-09-09 21:34:29][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
+Usuario: user6
 Comando: PUBLISH
-Mensaje: "asd #UU ddddd"
-[2017-09-09 21:34:29][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:34:29][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "asd #UU ddddd"
-[2017-09-09 21:34:29][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:34:29][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "asd #UU ddddd"
-[2017-09-09 21:34:29][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:34:53][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3807ddf4
-[2017-09-09 21:34:53][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
+Mensaje: A #memorandum isn't written to inform the receiver, but to protect the writer.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:60 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
 Usuario: user4
 Comando: PUBLISH
-Mensaje: "2345 556 #UU kk"
-[2017-09-09 21:34:53][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
+Mensaje: Wise #men talk because they have something to say; fools, because they have to say something.
+[2017-10-01 12:21:10][INFO ] DispatcherController.java:70 - Thread_Id: 1 - Comando enviado al publish: 
 Usuario: user4
 Comando: PUBLISH
-Mensaje: "2345 556 #UU kk"
-[2017-09-09 21:34:53][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "2345 556 #UU kk"
-[2017-09-09 21:34:53][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "2345 556 #UU kk"
-[2017-09-09 21:34:53][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:34:53][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:34:53][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:40:05][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7edb51ac
-[2017-09-09 21:40:05][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:05][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:05][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:40:05][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:05][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:40:26][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1858bc64
-[2017-09-09 21:40:26][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:26][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:26][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:26][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:40:26][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:40:49][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@131c93aa
-[2017-09-09 21:40:49][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:49][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:49][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:40:49][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:40:49][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:41:18][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@15721440
-[2017-09-09 21:41:18][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLAAAAAAAAASSSSS
-[2017-09-09 21:41:18][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLAAAAAAAAASSSSS
-[2017-09-09 21:41:18][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLAAAAAAAAASSSSS
-[2017-09-09 21:41:18][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:41:18][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:41:18][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: HOLAAAAAAAAASSSSS
-[2017-09-09 21:41:18][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:41:56][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@31007173
-[2017-09-09 21:41:56][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:41:56][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:41:56][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:41:56][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:41:56][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:42:12][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6c6650ab
-[2017-09-09 21:42:12][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:12][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:12][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:42:12][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:12][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:42:20][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1b900f4e
-[2017-09-09 21:42:20][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:20][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:20][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:42:20][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:42:20][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:42:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1ec5d868
-[2017-09-09 21:42:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: 461f38c2-78c9-4cbf-a220-ea149e2f4643
-[2017-09-09 21:42:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: 461f38c2-78c9-4cbf-a220-ea149e2f4643
-[2017-09-09 21:42:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:42:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: 461f38c2-78c9-4cbf-a220-ea149e2f4643
-[2017-09-09 21:42:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:43:48][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@2c7cb92a
-[2017-09-09 21:43:48][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:43:48][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:43:48][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:43:48][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:43:48][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:44:19][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@72415706
-[2017-09-09 21:44:19][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "QUETAL #JOJOJO #SOSOSO KLP"
-[2017-09-09 21:44:19][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "QUETAL #JOJOJO #SOSOSO KLP"
-[2017-09-09 21:44:19][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:44:19][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "QUETAL #JOJOJO #SOSOSO KLP"
-[2017-09-09 21:44:19][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:44:19][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: PUBLISH
-Mensaje: "QUETAL #JOJOJO #SOSOSO KLP"
-[2017-09-09 21:44:19][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:44:50][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@69b0dc7f
-[2017-09-09 21:44:50][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:44:50][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:44:50][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:44:50][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:44:50][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:48:44][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@59865fb9
-[2017-09-09 21:48:44][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "#RR hols"
-[2017-09-09 21:48:44][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "#RR hols"
-[2017-09-09 21:48:44][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "#RR hols"
-[2017-09-09 21:48:44][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:48:44][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:48:44][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: "#RR hols"
-[2017-09-09 21:48:44][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:49:15][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@10fa184a
-[2017-09-09 21:49:15][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:15][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:15][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:49:15][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:15][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:49:49][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@68fb8434
-[2017-09-09 21:49:49][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:49][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:49][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:49:49][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:49:49][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:51:07][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7c7ee70
-[2017-09-09 21:51:07][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:51:07][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:51:07][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:51:07][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user4
-[2017-09-09 21:51:07][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:52:00][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6c5712a6
-[2017-09-09 21:52:00][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:52:00][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:52:00][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 21:52:00][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:52:00][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:53:14][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@2caf6f2e
-[2017-09-09 21:53:14][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: #RR
-[2017-09-09 21:53:14][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: #RR
-[2017-09-09 21:53:14][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: #RR
-[2017-09-09 21:53:14][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 21:53:14][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: PUBLISH
-Mensaje: #RR
-[2017-09-09 21:53:14][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 21:53:14][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:53:25][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@184184ab
-[2017-09-09 21:53:25][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:53:25][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:53:25][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: TT
-[2017-09-09 21:53:25][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 21:53:25][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:02:49][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@204d4dbd
-[2017-09-09 22:02:49][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:02:49][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:02:49][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:02:49][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:02:49][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:09:03][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@745ba930
-[2017-09-09 22:09:03][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:09:03][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:09:03][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:09:03][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:09:03][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:15:36][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@235a7e8a
-[2017-09-09 22:15:36][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:15:36][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:15:36][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:15:36][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:15:36][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:24:23][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@37aac296
-[2017-09-09 22:24:23][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:24:23][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:24:23][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:24:23][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:24:23][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:25:51][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@7dc0517b
-[2017-09-09 22:25:51][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:25:51][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:25:51][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user1
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:25:51][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:25:51][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:26:43][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@54fb75da
-[2017-09-09 22:26:43][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:26:43][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:26:43][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: user1
-[2017-09-09 22:26:43][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:26:43][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:27:52][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@24a5efe1
-[2017-09-09 22:27:52][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:27:52][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:27:52][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:27:52][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:27:52][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:29:42][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@45fa2791
-[2017-09-09 22:29:42][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: c24b1bef-72ad-43ab-bc12-527f1e28c536
-[2017-09-09 22:29:42][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: c24b1bef-72ad-43ab-bc12-527f1e28c536
-[2017-09-09 22:29:42][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: c24b1bef-72ad-43ab-bc12-527f1e28c536
-[2017-09-09 22:29:42][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:29:42][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:30:38][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3a4efddc
-[2017-09-09 22:30:38][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:30:38][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:30:38][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:30:38][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:30:38][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:31:13][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@35140aea
-[2017-09-09 22:31:13][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: 39acd4cd-222e-4d45-806b-b827b1a550b8
-[2017-09-09 22:31:13][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: 39acd4cd-222e-4d45-806b-b827b1a550b8
-[2017-09-09 22:31:13][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: DELETE
-Mensaje: 39acd4cd-222e-4d45-806b-b827b1a550b8
-[2017-09-09 22:31:13][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:31:13][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:31:28][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@3ec5314e
-[2017-09-09 22:31:28][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:31:28][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:31:28][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user4
-Comando: QUERY
-Mensaje: #RR
-[2017-09-09 22:31:28][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:31:28][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:33:08][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@2a175fa8
-[2017-09-09 22:33:08][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: DELETE
-Mensaje: f2fb470b-f522-4a08-9050-3e40eab01245
-[2017-09-09 22:33:08][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: DELETE
-Mensaje: f2fb470b-f522-4a08-9050-3e40eab01245
-[2017-09-09 22:33:08][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: DELETE
-Mensaje: f2fb470b-f522-4a08-9050-3e40eab01245
-[2017-09-09 22:33:08][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:33:08][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:33:33][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@67fae72b
-[2017-09-09 22:33:33][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: DDFF
-[2017-09-09 22:33:33][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: DDFF
-[2017-09-09 22:33:33][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: DDFF
-[2017-09-09 22:33:33][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:33:33][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: DDFF
-[2017-09-09 22:33:33][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:33:33][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 22:35:59][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@722cf264
-[2017-09-09 22:35:59][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:35:59][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:35:59][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:35:59][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:35:59][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:36:56][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@6574e22e
-[2017-09-09 22:36:56][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:36:56][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:36:56][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:36:56][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:36:56][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:39:29][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@750e0b37
-[2017-09-09 22:39:29][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:39:29][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:39:29][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:39:29][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:39:29][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:45:03][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@457d7902
-[2017-09-09 22:45:03][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:45:03][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:45:03][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:45:03][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:45:03][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:47:04][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@50570c1b
-[2017-09-09 22:47:04][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:47:04][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:47:04][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:47:04][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:47:04][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:51:30][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@1270f1ad
-[2017-09-09 22:51:30][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:51:30][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:51:30][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:51:30][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:51:30][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:51:55][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@17221767
-[2017-09-09 22:51:55][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: GGGHJJK
-[2017-09-09 22:51:55][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: GGGHJJK
-[2017-09-09 22:51:55][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: GGGHJJK
-[2017-09-09 22:51:55][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: GGGHJJK
-[2017-09-09 22:51:55][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:51:55][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:51:55][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 22:52:29][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@39b9c9e8
-[2017-09-09 22:52:29][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: WERTYYHHHGGFFF
-[2017-09-09 22:52:29][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: WERTYYHHHGGFFF
-[2017-09-09 22:52:29][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: WERTYYHHHGGFFF
-[2017-09-09 22:52:29][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:52:29][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: WERTYYHHHGGFFF
-[2017-09-09 22:52:29][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:52:29][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 22:52:40][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@51662d10
-[2017-09-09 22:52:40][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
-[2017-09-09 22:52:40][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
-[2017-09-09 22:52:40][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:52:40][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
-[2017-09-09 22:52:40][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:52:40][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: SDASDADASDasdasdasdaweqeqweeqweqweqweq
-[2017-09-09 22:52:40][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 22:56:38][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@440e5308
-[2017-09-09 22:56:38][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: asd
-[2017-09-09 22:56:38][INFO ] AnalyzerController.java:36 - Thread_Id: 11 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: asd
-[2017-09-09 22:56:38][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: asd
-[2017-09-09 22:56:38][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: PUBLISH
-Mensaje: asd
-[2017-09-09 22:56:38][INFO ] AnalyzerController.java:41 - Thread_Id: 11 - Comando enviado al analyzer
-[2017-09-09 22:56:38][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:56:38][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 22:57:36][DEBUG] DispatcherController.java:59 - Thread_Id: 1 - CONTENDIO DE LA LISTA: [B@4390edc1
-[2017-09-09 22:57:36][INFO ] DispatcherController.java:65 - Thread_Id: 1 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:57:36][INFO ] StorageController.java:37 - Thread_Id: 13 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:57:36][INFO ] LoggerController.java:35 - Thread_Id: 15 - Comando recibido con los siguientes parametros: 
-Usuario: user8
-Comando: QUERY
-Mensaje: user8
-[2017-09-09 22:57:36][INFO ] StorageController.java:42 - Thread_Id: 13 - Comando enviado al storage
-[2017-09-09 22:57:36][INFO ] LoggerController.java:40 - Thread_Id: 15 - Comando enviado al logger
-[2017-09-09 23:03:07][INFO ] DispatcherController.java:111 - Thread_Id: 1 - Dispatcher controller terminado
-[2017-09-09 23:03:07][INFO ] AnalyzerController.java:47 - Thread_Id: 11 - Analyzer controller interrumpido
-[2017-09-09 23:03:07][INFO ] LoggerController.java:46 - Thread_Id: 15 - Logger controller interrumpido
-[2017-09-09 23:03:07][INFO ] AnalyzerController.java:49 - Thread_Id: 11 - Analyzer controller terminado
+Mensaje: Wise #men talk because they have something to say; fools, because they have to say something.

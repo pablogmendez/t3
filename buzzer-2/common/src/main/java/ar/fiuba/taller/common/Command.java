@@ -22,11 +22,11 @@ public class Command implements Serializable, ISerialize {
 	private String timestamp;
 
 	public Command() {
-		this.command = null;
-		this.user = null;
-		this.message = null;
-		this.uuid = null;
-		this.timestamp = null;
+		this.command = COMMAND.EMPTY;
+		this.user = "";
+		this.message = "";
+		this.uuid = new UUID(0,0);
+		this.timestamp = "";
 	}
 
 	public Command(String command, String user, String message, UUID uuid,

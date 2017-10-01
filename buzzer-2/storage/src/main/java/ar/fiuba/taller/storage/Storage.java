@@ -45,7 +45,7 @@ public class Storage {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
-	public synchronized void create(Command command)
+	public void create(Command command)
 			throws IOException, ParseException {
 		saveMessage(command);
 	}
@@ -87,12 +87,15 @@ public class Storage {
 		try {
 			file.write(jsonObject.toJSONString());
 		} catch (Exception e) {
-			logger.error("Error guardar el indice de hashtags");
-			logger.info(e.toString());
-			e.printStackTrace();
+			logger.error("Error guardar el indice de hashtags: " + e);
 		} finally {
 			file.flush();
-			file.close();
+			try {
+				file.close();
+			} catch(IOException e) {
+				// Do nothing
+				logger.error("No se ha podido cerrar el archivo de TT: " + e);
+			}
 		}
 	}
 
@@ -121,12 +124,15 @@ public class Storage {
 		try {
 			file.write(jsonObject.toJSONString() + String.format("%n"));
 		} catch (Exception e) {
-			logger.error("Error guardar la base de datos");
-			logger.info(e.toString());
-			e.printStackTrace();
+			logger.error("Error guardar la base de datos: " + e);
 		} finally {
 			file.flush();
-			file.close();
+			try {
+				file.close();
+			} catch(IOException e) {
+				// Do nothing
+				logger.error("No se ha podido cerrar la base de datos: " + e);
+			}
 		}
 		// Una vez que persisto el mensaje, actualizo los indices y el TT
 		updateUserIndex(command);
@@ -163,12 +169,15 @@ public class Storage {
 		try {
 			file.write(jsonObject.toJSONString());
 		} catch (Exception e) {
-			logger.error("Error al guardar el user index");
-			logger.info(e.toString());
-			e.printStackTrace();
+			logger.error("Error al guardar el user index: " + e);
 		} finally {
 			file.flush();
-			file.close();
+			try {
+				file.close();
+			} catch(IOException e) {
+				// Do nothing
+				logger.error("No se ha podido cerrar el archivo de indices: " + e);
+			}
 		}
 	}
 
@@ -211,22 +220,22 @@ public class Storage {
 		try {
 			file.write(jsonObject.toJSONString());
 		} catch (Exception e) {
-			logger.error("Error guardar el indice de hashtags");
-			logger.info(e.toString());
-			e.printStackTrace();
+			logger.error("Error guardar el indice de hashtags: " + e);
 		} finally {
 			file.flush();
-			file.close();
+			try {
+				file.close();
+			} catch(IOException e) {
+				// Do nothing
+				logger.error("No se ha podido cerrar el archivo de indices de hashtags: " + e);
+			}
 		}
 	}
 
 	public String query(Command command) throws IOException, ParseException {
 		List<String> resultList;
 		String listString = "";
-		if (String.valueOf(command.getMessage().charAt(0)).equals("#")) { // Es
-																			// consulta
-																			// por
-																			// hashtag
+		if (String.valueOf(command.getMessage().charAt(0)).equals("#")) { // #
 			resultList = queryBy(command.getMessage().substring(1,
 					command.getMessage().length()), "HASHTAG");
 		} else if (command.getMessage().equals("TT")) { // Es consulta por TT
@@ -237,7 +246,6 @@ public class Storage {
 		for (String element : resultList) {
 			listString += element + "\n";
 		}
-
 		return listString;
 	}
 

@@ -2,7 +2,6 @@
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ISerialize.java
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/RemoteQueue.java
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Response.java
-/home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/ReadingRemoteQueueException.java
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Command.java
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/WritingRemoteQueue.java
 /home/pablo/Desktop/t3/buzzer-2/common/src/main/java/ar/fiuba/taller/common/Constants.java

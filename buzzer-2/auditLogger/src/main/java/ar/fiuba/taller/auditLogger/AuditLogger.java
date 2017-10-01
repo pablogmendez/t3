@@ -13,7 +13,7 @@ import org.apache.log4j.MDC;
 
 import ar.fiuba.taller.common.*;
 
-public class AuditLogger implements Runnable {
+public class AuditLogger {
 	private Timestamp timestamp;
 	private ReadingRemoteQueue loggerQueue;
 	private Map<String, String> config;
@@ -57,9 +57,7 @@ public class AuditLogger implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			logger.error(e);
-		} catch (ReadingRemoteQueueException e) {
-			pw.close();
+			logger.error("No se ha podido abrir el archivo de log: " + e);
 		}
 		logger.info("Audit logger terminado");
 	}

@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -13,44 +12,41 @@ import org.apache.log4j.MDC;
 import ar.fiuba.taller.common.Command;
 import ar.fiuba.taller.common.Constants;
 import ar.fiuba.taller.common.ReadingRemoteQueue;
-import ar.fiuba.taller.common.ReadingRemoteQueueException;
+import ar.fiuba.taller.common.WritingRemoteQueue;
 
-public class DispatcherController implements Runnable {
+public class DispatcherController {
 
 	private ReadingRemoteQueue dispatcherQueue;
-	private BlockingQueue<Command> storageCommandQueue;
-	private BlockingQueue<Command> analyzerCommandQueue;
-	private BlockingQueue<Command> loggerCommandQueue;
-	private Thread analyzerControllerThread;
-	private Thread storageControllerThread;
-	private Thread loggerControllerThread;
+	private WritingRemoteQueue storageQueue;
+	private WritingRemoteQueue analyzerQueue;
+	private WritingRemoteQueue loggerQueue;
+	
 	final static Logger logger = Logger.getLogger(DispatcherController.class);
 
 	public DispatcherController(Map<String, String> config,
 			ReadingRemoteQueue dispatcherQueue) {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
-		analyzerCommandQueue = new ArrayBlockingQueue<Command>(
-				Constants.COMMAND_QUEUE_SIZE);
-		storageCommandQueue = new ArrayBlockingQueue<Command>(
-				Constants.COMMAND_QUEUE_SIZE);
-		loggerCommandQueue = new ArrayBlockingQueue<Command>(
-				Constants.COMMAND_QUEUE_SIZE);
-		analyzerControllerThread = new Thread(
-				new AnalyzerController(analyzerCommandQueue, config));
-		storageControllerThread = new Thread(
-				new StorageController(storageCommandQueue, config));
-		loggerControllerThread = new Thread(
-				new LoggerController(loggerCommandQueue, config));
 		this.dispatcherQueue = dispatcherQueue;
+		try {
+			this.storageQueue = new WritingRemoteQueue(
+					config.get(Constants.STORAGE_QUEUE_NAME),
+					config.get(Constants.KAFKA_WRITE_PROPERTIES));
+			this.loggerQueue = new WritingRemoteQueue(
+					config.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
+					config.get(Constants.KAFKA_WRITE_PROPERTIES));
+			this.analyzerQueue = new WritingRemoteQueue(
+					config.get(Constants.ANALYZER_QUEUE_NAME),
+					config.get(Constants.KAFKA_WRITE_PROPERTIES));
+		} catch (IOException e) {
+			logger.error("No se han podido inicializar las colas de kafka: " + e);
+			System.exit(1);
+		}
 	}
 
 	public void run() {
 		Command command = new Command();
 		List<byte[]> messageList = null;
 
-		analyzerControllerThread.start();
-		storageControllerThread.start();
-		loggerControllerThread.start();
 
 		logger.info("Iniciando el dispatcher controller");
 		try {
@@ -58,7 +54,6 @@ public class DispatcherController implements Runnable {
 				messageList = dispatcherQueue.pop();
 				Iterator<byte[]> it = messageList.iterator();
 				while (it.hasNext()) {
-					// for (byte[] message : messageList) {
 					try {
 						command = new Command();
 						command.deserialize(it.next());
@@ -69,17 +64,17 @@ public class DispatcherController implements Runnable {
 										+ "\nMensaje: " + command.getMessage());
 						switch (command.getCommand()) {
 						case PUBLISH:
-							storageCommandQueue.put(command);
-							analyzerCommandQueue.put(command);
-							loggerCommandQueue.put(command);
+							storageQueue.push(command);
+							analyzerQueue.push(command);
+							loggerQueue.push(command);
 							logger.info("Comando enviado al publish: "
 									+ "\nUsuario: " + command.getUser()
 									+ "\nComando: " + command.getCommand()
 									+ "\nMensaje: " + command.getMessage());
 							break;
 						case QUERY:
-							storageCommandQueue.put(command);
-							loggerCommandQueue.put(command);
+							storageQueue.push(command);
+							loggerQueue.push(command);
 							logger.info("Comando enviado al query: "
 									+ "\nUsuario: " + command.getUser()
 									+ "\nComando: " + command.getCommand()
@@ -90,38 +85,35 @@ public class DispatcherController implements Runnable {
 									+ "\nUsuario: " + command.getUser()
 									+ "\nComando: " + command.getCommand()
 									+ "\nMensaje: " + command.getMessage());
-							storageCommandQueue.put(command);
-							loggerCommandQueue.put(command);
+							storageQueue.push(command);
+							loggerQueue.push(command);
 							break;
 						case FOLLOW:
 							logger.info("Comando enviado al follow: "
 									+ "\nUsuario: " + command.getUser()
 									+ "\nComando: " + command.getCommand()
 									+ "\nMensaje: " + command.getMessage());
-							analyzerCommandQueue.put(command);
-							loggerCommandQueue.put(command);
+							analyzerQueue.push(command);
+							loggerQueue.push(command);
 							break;
 						default:
 							logger.error("Comando invalido");
 							break;
 						}
 					} catch (ClassNotFoundException | IOException e) {
-						logger.error("No se ha podido deserializar el mensaje");
-						logger.debug(e);
-						e.printStackTrace();
+						logger.error("No se ha podido deserializar el mensaje: " + e);
 					}
 				}
 			}
-		} catch (ReadingRemoteQueueException | InterruptedException e) {
-			analyzerControllerThread.interrupt();
-			storageControllerThread.interrupt();
-			loggerControllerThread.interrupt();
+		} finally {
 			try {
-				analyzerControllerThread.join();
-				storageControllerThread.join();
-				loggerControllerThread.join();
-			} catch (InterruptedException e1) {
+				storageQueue.close();
+				dispatcherQueue.close();
+				analyzerQueue.close();
+			} catch (IOException | TimeoutException e) {
 				// Do nothing
+				logger.error("No se ha podido cerrar alguna de las colas");
+				logger.debug(e);
 			}
 		}
 		logger.info("Dispatcher controller terminado");

@@ -1,6 +1,9 @@
 package ar.fiuba.taller.common;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,20 +20,18 @@ import org.apache.kafka.common.errors.WakeupException;
 public class ReadingRemoteQueue extends RemoteQueue {
 	private KafkaConsumer<byte[], byte[]> consumer;
 
-	public ReadingRemoteQueue(String queueName, String queueHost,
-			Map<String, String> params) {
+	public class ReadingRemoteQueueException extends WakeupException {
+	}
+	
+	public ReadingRemoteQueue(String queueName,
+			String propertiesFile) throws IOException {
 		Properties consumerConfig = new Properties();
-		consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, queueHost);
-		consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG,
-				params.get(Constants.GROUP_ID_CONFIG));
-		consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-				params.get(Constants.AUTO_OFFSET_RESET_CONFIG));
-		consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-				params.get(Constants.KEY_DESERIALIZER_CLASS_CONFIG));
-		consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-				params.get(Constants.VALUE_DESERIALIZER_CLASS_CONFIG));
+		InputStream input = null;
+		input = new FileInputStream(propertiesFile);
+		consumerConfig.load(input);
 		consumer = new KafkaConsumer<byte[], byte[]>(consumerConfig);
 		consumer.subscribe(Collections.singletonList(queueName));
+		input.close();
 	}
 
 	@Override

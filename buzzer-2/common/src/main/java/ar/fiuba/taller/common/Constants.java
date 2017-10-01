@@ -25,6 +25,9 @@ public class Constants {
 	public static final String EVENT_VIEWER_FILE = "user_";
 	public static final String EVENT_VIEWER_FILE_EXTENSION = ".events";
 	public static final String COMMANDS_FILE_EXTENSION = ".commands";
+	
+	public static final String KAFKA_READ_PROPERTIES = "kafka.read.properties";
+	public static final String KAFKA_WRITE_PROPERTIES = "kafka.write.properties";
 
 	// Constantes para el usuario
 	public static final String INTERACTIVE_MODE = "i";
@@ -39,6 +42,7 @@ public class Constants {
 	public static final String STORAGE_QUERY_RESULT_QUEUE_NAME = "storage.query.result.queue.name";
 	public static final String STORAGE_QUEUE_HOST = "storage.queue.host";
 	public static final String STORAGE_QUERY_RESULT_QUEUE_HOST = "storage.query.result.queue.host";
+	public static final String USERS_RESPONSE_HOST = "users.response.host";
 	public static final long STORAGE_THREAD_WAIT_TIME = 5000;
 	public static final String SHARDING_FACTOR = "sharding.factor";
 	public static final String QUERY_COUNT_SHOW_POSTS = "query.count.show.posts";
@@ -82,7 +86,7 @@ public class Constants {
 	public static final String AUTO_OFFSET_RESET_CONFIG = "auto.offset.reset.config";
 
 	public static enum COMMAND {
-		PUBLISH, QUERY, DELETE, FOLLOW
+		PUBLISH, QUERY, DELETE, FOLLOW, EMPTY
 	};
 
 	public static Map<String, COMMAND> COMMAND_MAP;
@@ -96,7 +100,7 @@ public class Constants {
 	}
 
 	public static enum RESPONSE_STATUS {
-		OK, ERROR, REGISTERED
+		OK, ERROR, REGISTERED, EMPTY
 	}
 
 	public static Map<String, RESPONSE_STATUS> RESPONSE_STATUS_MAP;

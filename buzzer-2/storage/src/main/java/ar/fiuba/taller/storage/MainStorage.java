@@ -1,6 +1,8 @@
 package ar.fiuba.taller.storage;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.log4j.PropertyConfigurator;
@@ -23,26 +25,26 @@ public class MainStorage {
 			logger.error("Error al cargar la configuracion");
 			System.exit(Constants.EXIT_FAILURE);
 		}
-		final ReadingRemoteQueue storageQueue = new ReadingRemoteQueue(
-				configLoader.getProperties().get(Constants.STORAGE_QUEUE_NAME),
-				configLoader.getProperties().get(Constants.STORAGE_QUEUE_HOST),
-				configLoader.getProperties());
-		final Thread storageControllerThread = new Thread(new StorageController(
-				configLoader.getProperties(), storageQueue));
+		ReadingRemoteQueue storageQueue = null;
+		try {
+			storageQueue = new ReadingRemoteQueue(
+					configLoader.getProperties().get(Constants.STORAGE_QUEUE_NAME),
+					configLoader.getProperties().get(Constants.KAFKA_READ_PROPERTIES));
+		} catch (IOException e1) {
+			logger.error("No se han podido inicializar las colas de kafka: " + e1);
+			System.exit(1);
+		}
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				storageQueue.shutDown();
-				storageControllerThread.interrupt();
-				try {
-					storageControllerThread
-							.join(Constants.STORAGE_THREAD_WAIT_TIME);
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-		});
-		storageControllerThread.start();
+		StorageController storageController = new StorageController(
+				configLoader.getProperties(), storageQueue);
+		
+		storageController.run();
+		storageQueue.shutDown();
+		try {
+			storageQueue.close();
+		} catch (IOException | TimeoutException e) {
+			// Do nothing
+			logger.error("No se ha podido cerrar la cola de entrada al storage: " + e);
+		}
 	}
 }

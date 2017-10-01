@@ -28,26 +28,11 @@ public class MainAuditLogger {
 				configLoader.getProperties()
 						.get(Constants.AUDIT_LOGGER_QUEUE_NAME),
 				configLoader.getProperties()
-						.get(Constants.AUDIT_LOGGER_QUEUE_HOST),
-				configLoader.getProperties());
-
-		final Thread auditLoggerThread = new Thread(
-				new AuditLogger(loggerQueue, configLoader.getProperties()));
-
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				loggerQueue.shutDown();
-				auditLoggerThread.interrupt();
-				try {
-					auditLoggerThread
-							.join(Constants.AUDIT_LOGGER_THREAD_WAIT_TIME);
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-		});
-
-		auditLoggerThread.start();
+						.get(Constants.KAFKA_READ_PROPERTIES));
+		
+		AuditLogger auditLogger = new AuditLogger(loggerQueue, configLoader.getProperties());
+		auditLogger.run();
+		loggerQueue.shutDown();
+		loggerQueue.close();
 	}
 }

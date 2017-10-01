@@ -1,6 +1,7 @@
 package ar.fiuba.taller.analyzer;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -27,29 +28,25 @@ public class AnalyzerMain {
 			System.exit(Constants.EXIT_FAILURE);
 		}
 
-		final ReadingRemoteQueue analyzerQueue = new ReadingRemoteQueue(
-				configLoader.getProperties().get(Constants.ANALYZER_QUEUE_NAME),
-				configLoader.getProperties().get(Constants.ANALYZER_QUEUE_HOST),
-				configLoader.getProperties());
+		ReadingRemoteQueue analyzerQueue = null;
+		try {
+			analyzerQueue = new ReadingRemoteQueue(
+					configLoader.getProperties().get(Constants.ANALYZER_QUEUE_NAME),
+					configLoader.getProperties().get(Constants.KAFKA_READ_PROPERTIES));
+		} catch (IOException e1) {
+			logger.error("No se ha podido inicializar la cola de kafka: " + e1);
+			System.exit(Constants.EXIT_FAILURE);
+		}
 
-		final Thread analyzerReciverThread = new Thread(new AnalyzerReciver(
-				configLoader.getProperties(), analyzerQueue));
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				analyzerQueue.shutDown();
-				analyzerReciverThread.interrupt();
-				try {
-					analyzerReciverThread
-							.join(Constants.STORAGE_THREAD_WAIT_TIME);
-				} catch (InterruptedException e) {
-					// Do nothing
-				} finally {
-					logger.info("Analyzer terminado");
-				}
-			}
-		});
-
-		analyzerReciverThread.start();
+		AnalyzerController analyzerController = new AnalyzerController(
+				configLoader.getProperties(), analyzerQueue);
+		analyzerController.run();
+		analyzerQueue.shutDown();
+		try {
+			analyzerQueue.close();
+		} catch (IOException | TimeoutException e) {
+			// Do nothing
+			logger.error("No se ha podido cerrar la cola del analyzer: " + e);
+		}
 	}
 }

@@ -27,7 +27,7 @@ public class UserRegistry {
 	public UserRegistry() {
 	}
 
-	public synchronized void update(String follower, String followed)
+	public void update(String follower, String followed)
 			throws IOException, ParseException {
 		String updateFile;
 		String updateKey;
@@ -73,12 +73,14 @@ public class UserRegistry {
 		try {
 			file.write(jsonObject.toJSONString());
 		} catch (Exception e) {
-			logger.error("Error al guardar el index");
-			logger.info(e.toString());
-			e.printStackTrace();
+			logger.error("Error al guardar el index: " + e);
 		} finally {
 			file.flush();
-			file.close();
+			try {
+				file.close();
+			} catch (IOException e) {
+				logger.error("No se ha podido cerrar el archivo de registro: " + e);
+			}
 		}
 	}
 

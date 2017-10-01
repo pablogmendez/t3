@@ -29,9 +29,9 @@ public class Response implements Serializable, ISerialize {
 
 	public Response() {
 		super();
-		this.uuid = null;
-		this.response_status = null;
-		this.message = null;
+		this.uuid = new UUID(0,0);
+		this.response_status = RESPONSE_STATUS.EMPTY;
+		this.message = "";
 	}
 
 	public byte[] serialize() throws IOException {

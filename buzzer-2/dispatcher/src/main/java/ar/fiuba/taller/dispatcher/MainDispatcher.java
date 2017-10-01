@@ -1,6 +1,7 @@
 package ar.fiuba.taller.dispatcher;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -25,28 +26,29 @@ public class MainDispatcher {
 			System.exit(Constants.EXIT_FAILURE);
 		}
 
-		final ReadingRemoteQueue dispatcherQueue = new ReadingRemoteQueue(
-				configLoader.getProperties()
-						.get(Constants.DISPATCHER_QUEUE_NAME),
-				configLoader.getProperties()
-						.get(Constants.DISPATCHER_QUEUE_HOST),
-				configLoader.getProperties());
+		ReadingRemoteQueue dispatcherQueue = null;
+		try {
+			dispatcherQueue = new ReadingRemoteQueue(
+					configLoader.getProperties()
+							.get(Constants.DISPATCHER_QUEUE_NAME),
+					configLoader.getProperties()
+							.get(Constants.KAFKA_READ_PROPERTIES));
+		} catch (IOException e1) {
+			logger.error("No se han podido inicializar las colas de kafka: " + e1);
+			System.exit(1);
+		}
 
-		final Thread dispatcherThread = new Thread(new DispatcherController(
-				configLoader.getProperties(), dispatcherQueue));
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				dispatcherQueue.shutDown();
-				dispatcherThread.interrupt();
-				try {
-					dispatcherThread.join(Constants.STORAGE_THREAD_WAIT_TIME);
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-		});
-
-		dispatcherThread.start();
+		DispatcherController dispatcherController = new DispatcherController(
+				configLoader.getProperties(), dispatcherQueue);
+		
+		dispatcherController.run();
+		dispatcherQueue.shutDown();
+		try {
+			dispatcherQueue.close();
+		} catch (IOException | TimeoutException e) {
+			// Do nothing
+			logger.error("No se ha podido cerrar la cola del dispatcher");
+			logger.debug(e);
+		}
 	}
 }

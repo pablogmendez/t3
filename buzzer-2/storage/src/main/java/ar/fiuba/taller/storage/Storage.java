@@ -45,11 +45,6 @@ public class Storage {
 		MDC.put("PID", String.valueOf(Thread.currentThread().getId()));
 	}
 
-	public void create(Command command)
-			throws IOException, ParseException {
-		saveMessage(command);
-	}
-
 	private void updateTT(Command command) throws IOException, ParseException {
 		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
 		JSONParser parser = new JSONParser();

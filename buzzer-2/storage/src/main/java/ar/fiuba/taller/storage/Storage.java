@@ -9,6 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,41 +63,53 @@ public class Storage {
 			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
 			oFile.write("{}".getBytes());
 		}
-
-		obj = parser.parse(new FileReader(fileName));
-		JSONObject jsonObject = (JSONObject) obj;
-		int count = 0;
-		String regexPattern = "(#\\w+)";
-		Pattern p = Pattern.compile(regexPattern);
-		Matcher m = p.matcher(command.getMessage());
-		String hashtag;
-		while (m.find()) {
-			hashtag = m.group(1);
-			hashtag = hashtag.substring(1, hashtag.length());
-			Long obj2 = (Long) jsonObject.get(hashtag);
-			if (obj2 == null) {
-				// La entrada no existe y hay que crearla
-				jsonObject.put(hashtag, 1);
-			} else {
-				obj2++;
-				jsonObject.put(hashtag, obj2);
-			}
-
-		}
-
-		FileWriter file = new FileWriter(fileName);
+		Path path = Paths.get(fileName);
+		FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
+		FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
 		try {
-			file.write(jsonObject.toJSONString());
-		} catch (Exception e) {
-			logger.error("Error guardar el indice de hashtags: " + e);
-		} finally {
-			file.flush();
-			try {
-				file.close();
-			} catch(IOException e) {
-				// Do nothing
-				logger.error("No se ha podido cerrar el archivo de TT: " + e);
+			ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+			fileChannel.read(buffer);
+			buffer.position(0);
+			StringBuilder sb = new StringBuilder();
+	        while (buffer.hasRemaining()) {	
+	            sb.append((char) buffer.get());                
+	        }
+	        String tmp = sb.toString();
+	        if((tmp.split("}", -1).length - 1) > 1) {
+	        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
+	        }
+			obj = parser.parse(new StringReader(tmp));
+			JSONObject jsonObject = (JSONObject) obj;
+			int count = 0;
+			String regexPattern = "(#\\w+)";
+			Pattern p = Pattern.compile(regexPattern);
+			Matcher m = p.matcher(command.getMessage());
+			String hashtag;
+			while (m.find()) {
+				hashtag = m.group(1);
+				hashtag = hashtag.substring(1, hashtag.length());
+				Long obj2 = (Long) jsonObject.get(hashtag);
+				if (obj2 == null) {
+					// La entrada no existe y hay que crearla
+					jsonObject.put(hashtag, 1);
+				} else {
+					obj2++;
+					jsonObject.put(hashtag, obj2);
+				}
 			}
+			lock.release();
+			fileChannel.close();
+			logger.debug("sssssss" + jsonObject.toJSONString());
+			fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
+		            StandardOpenOption.TRUNCATE_EXISTING);
+			lock = fileChannel.lock(); // gets an exclusive lock
+				buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
+				fileChannel.write(buffer);
+		} catch (Exception e) {
+			logger.error("Error guardar el indice de TT: " + e);
+		} finally {
+			lock.release();
+			fileChannel.close();
 		}
 	}
 
@@ -115,19 +134,19 @@ public class Storage {
 		obj2.put("timestamp", command.getTimestamp());
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(command.getUuid().toString(), obj2);
-		FileWriter file = new FileWriter(fileName, true);
+
+        Path path = Paths.get(fileName);
+        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
+	            StandardOpenOption.APPEND);
+        FileLock lock = fileChannel.lock(); // gets an exclusive lock
 		try {
-			file.write(jsonObject.toJSONString() + String.format("%n"));
+			ByteBuffer buffer = ByteBuffer.wrap((jsonObject.toJSONString() + String.format("%n")).getBytes());
+			fileChannel.write(buffer);
 		} catch (Exception e) {
 			logger.error("Error guardar la base de datos: " + e);
 		} finally {
-			file.flush();
-			try {
-				file.close();
-			} catch(IOException e) {
-				// Do nothing
-				logger.error("No se ha podido cerrar la base de datos: " + e);
-			}
+			lock.release();
+			fileChannel.close();
 		}
 		// Una vez que persisto el mensaje, actualizo los indices y el TT
 		updateUserIndex(command);
@@ -148,7 +167,23 @@ public class Storage {
 			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
 			oFile.write("{}".getBytes());
 		}
-		obj = parser.parse(new FileReader(fileName));
+
+        Path path = Paths.get(fileName);
+        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
+        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+        try {
+		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+		fileChannel.read(buffer);
+		buffer.position(0);
+		StringBuilder sb = new StringBuilder();
+        while (buffer.hasRemaining()) {	
+            sb.append((char) buffer.get());                
+        }
+        String tmp = sb.toString();
+        if((tmp.split("}", -1).length - 1) > 1) {
+        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
+        }		
+		obj = parser.parse(new StringReader(tmp));
 		JSONObject jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(command.getUser());
 		if (array == null) {
@@ -160,19 +195,18 @@ public class Storage {
 			array.add(command.getUuid().toString());
 			jsonObject.put(command.getUser(), array);
 		}
-		FileWriter file = new FileWriter(fileName);
-		try {
-			file.write(jsonObject.toJSONString());
+		lock.release();
+		fileChannel.close();
+		fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
+	            StandardOpenOption.TRUNCATE_EXISTING);
+		lock = fileChannel.lock(); // gets an exclusive lock
+			buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
+			fileChannel.write(buffer);
 		} catch (Exception e) {
-			logger.error("Error al guardar el user index: " + e);
+			logger.error("Error guardar el indice de u: " + e);
 		} finally {
-			file.flush();
-			try {
-				file.close();
-			} catch(IOException e) {
-				// Do nothing
-				logger.error("No se ha podido cerrar el archivo de indices: " + e);
-			}
+			lock.release();
+			fileChannel.close();
 		}
 	}
 
@@ -189,7 +223,23 @@ public class Storage {
 			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
 			oFile.write("{}".getBytes());
 		}
-		obj = parser.parse(new FileReader(fileName));
+		
+        Path path = Paths.get(fileName);
+        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
+        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+        try {
+		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+		fileChannel.read(buffer);
+		buffer.position(0);
+		StringBuilder sb = new StringBuilder();
+        while (buffer.hasRemaining()) {	
+            sb.append((char) buffer.get());                
+        }
+        String tmp = sb.toString();
+        if((tmp.split("}", -1).length - 1) > 1) {
+        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
+        }
+		obj = parser.parse(new StringReader(tmp));
 		JSONObject jsonObject = (JSONObject) obj;
 		JSONArray array;
 		String regexPattern = "(#\\w+)";
@@ -211,24 +261,23 @@ public class Storage {
 				jsonObject.put(hashtag, array);
 			}
 		}
-		FileWriter file = new FileWriter(fileName);
-		try {
-			file.write(jsonObject.toJSONString());
+		lock.release();
+		fileChannel.close();
+		fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
+	            StandardOpenOption.TRUNCATE_EXISTING);
+		lock = fileChannel.lock(); // gets an exclusive lock
+			buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
+			fileChannel.write(buffer);
 		} catch (Exception e) {
 			logger.error("Error guardar el indice de hashtags: " + e);
 		} finally {
-			file.flush();
-			try {
-				file.close();
-			} catch(IOException e) {
-				// Do nothing
-				logger.error("No se ha podido cerrar el archivo de indices de hashtags: " + e);
-			}
+			lock.release();
+			fileChannel.close();
 		}
 	}
 
 	public String query(Command command) throws IOException, ParseException {
-		List<String> resultList;
+		List<String> resultList = new ArrayList<String>();
 		String listString = "";
 		if (String.valueOf(command.getMessage().charAt(0)).equals("#")) { // #
 			resultList = queryBy(command.getMessage().substring(1,
@@ -238,8 +287,10 @@ public class Storage {
 		} else { // Es consulta por usuario
 			resultList = queryBy(command.getMessage(), "USER");
 		}
-		for (String element : resultList) {
-			listString += element + "\n";
+		if(!resultList.isEmpty()) {
+			for (String element : resultList) {
+				listString += element + "\n";
+			}
 		}
 		return listString;
 	}
@@ -248,12 +299,24 @@ public class Storage {
 			throws FileNotFoundException, IOException, ParseException {
 		Map<String, Long> map = new HashMap<String, Long>();
 		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
-		List<String> returnList = null;
+		List<String> returnList = new ArrayList<String>();
 
 		// Levantar el json
 		JSONParser parser = new JSONParser();
 
-		Object obj = parser.parse(new FileReader(fileName));
+        Path path = Paths.get(fileName);
+        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
+        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+        try {
+        ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+		fileChannel.read(buffer);
+		buffer.position(0);
+		StringBuilder sb = new StringBuilder();
+        while (buffer.hasRemaining()) {	
+            sb.append((char) buffer.get());                
+        }
+		
+		Object obj = parser.parse(new StringReader(sb.toString()));
 
 		JSONObject jsonObject = (JSONObject) obj;
 
@@ -267,6 +330,12 @@ public class Storage {
 		returnList = sortHashMapByValues(map);
 		returnList
 				.add("Total de topics: " + String.valueOf(map.keySet().size()));
+        } catch(Exception e) {
+        	// Do nothing
+        } finally {
+		lock.release();
+		fileChannel.close();
+        }
 		return returnList;
 	}
 
@@ -286,7 +355,7 @@ public class Storage {
 			fileName = Constants.DB_INDEX_DIR + "/"
 					+ Constants.DB_HASHTAG_INDEX;
 		} else {
-			return null;
+			return messageList;
 		}
 
 		// Obtengo la lista de archivos que contienen el user
@@ -296,7 +365,20 @@ public class Storage {
 			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
 			oFile.write("{}".getBytes());
 		}
-		obj = parser.parse(new FileReader(fileName));
+		
+        Path path = Paths.get(fileName);
+        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
+        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+        try {
+		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+		fileChannel.read(buffer);
+		buffer.position(0);
+		StringBuilder sb = new StringBuilder();
+        while (buffer.hasRemaining()) {	
+            sb.append((char) buffer.get());                
+        }
+		
+		obj = parser.parse(new StringReader(sb.toString()));
 		JSONObject jsonObject = (JSONObject) obj;
 		JSONArray array = (JSONArray) jsonObject.get(key);
 
@@ -308,12 +390,22 @@ public class Storage {
 			ListIterator<String> iterator = array.listIterator(array.size());
 			while (iterator.hasPrevious() && remainingPost > 0) {
 				id = iterator.previous();
-				System.out.println("id: " + id);
 				file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor)
 						+ Constants.COMMAND_SCRIPT_EXTENSION;
-				System.out.println("file: " + file);
-				try (BufferedReader br = new BufferedReader(
-						new FileReader(file))) {
+				Path path2 = Paths.get(file);
+				FileChannel fileChannel2 = FileChannel.open(path2, StandardOpenOption.READ);
+				FileLock lock2 = fileChannel2.lock(0, Long.MAX_VALUE, true);
+				ByteBuffer buffer2 = ByteBuffer.allocate(((int) fileChannel2.size()));
+				fileChannel2.read(buffer2);
+				buffer2.position(0);
+				StringBuilder sb2 = new StringBuilder();
+				while (buffer2.hasRemaining()) {	
+					sb2.append((char) buffer2.get());                
+				}
+				try (
+					BufferedReader br = new BufferedReader(
+					new StringReader(sb2.toString()))
+				) {
 					while ((line = br.readLine()) != null && remainingPost > 0
 							&& !("").equals(line.trim())) {
 						System.out.println("line: " + line);
@@ -325,13 +417,21 @@ public class Storage {
 						remainingPost--;
 					}
 				}
+				lock2.release();
+				fileChannel2.close();
 			}
 		}
+        }catch(Exception e) {
+        	// Do nothing
+        } finally {
+		lock.release();
+		fileChannel.close();
+        }
 		// Retorno la lista con los mensajes encontrados
 		return messageList;
 	}
 
-	public synchronized void delete(Command command)
+	public void delete(Command command)
 			throws IOException, ParseException {
 		String file = Constants.DB_DIR + "/"
 				+ command.getMessage().substring(0, shardingFactor)
@@ -350,7 +450,6 @@ public class Storage {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			while ((line = br.readLine()) != null) {
-				System.out.println("line: " + line);
 				obj2 = parser.parse(line);
 				jsonObject2 = (JSONObject) obj2;
 				key = (String) jsonObject2.keySet().iterator().next();

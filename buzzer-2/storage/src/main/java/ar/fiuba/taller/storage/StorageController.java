@@ -121,6 +121,7 @@ public class StorageController {
 		} catch (ParseException e) {
 			response.setResponse_status(RESPONSE_STATUS.ERROR);
 			response.setMessage(error_message);
+			e.printStackTrace();
 			logger.error(e);
 		} finally {
 			if (response != null) {

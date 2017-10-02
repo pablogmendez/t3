@@ -34,7 +34,6 @@ public class EventWriter implements Runnable {
 		logger.debug("Iniciando el event viewer");
 		try {
 			while (!Thread.interrupted()) {
-				logger.debug("Esperando respuesta");
 				messageList = remoteResponseQueue.pop();
 					try {
 						for (byte[] message : messageList) {

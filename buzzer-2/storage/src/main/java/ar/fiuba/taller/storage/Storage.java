@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -55,30 +56,14 @@ public class Storage {
 	private void updateTT(Command command) throws IOException, ParseException {
 		String fileName = Constants.DB_INDEX_DIR + "/" + Constants.DB_TT;
 		JSONParser parser = new JSONParser();
-		Object obj;
 
 		logger.info("Actualizando los TT");
-		File tmpFile = new File(fileName);
-		if (tmpFile.createNewFile()) {
-			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
-			oFile.write("{}".getBytes());
-		}
-		Path path = Paths.get(fileName);
-		FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-		FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
-		try {
-			ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
-			fileChannel.read(buffer);
-			buffer.position(0);
-			StringBuilder sb = new StringBuilder();
-	        while (buffer.hasRemaining()) {	
-	            sb.append((char) buffer.get());                
-	        }
-	        String tmp = sb.toString();
-	        if((tmp.split("}", -1).length - 1) > 1) {
-	        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
-	        }
-			obj = parser.parse(new StringReader(tmp));
+		RandomAccessFile aFile = new RandomAccessFile(fileName, "rw");
+		try (FileChannel fileChannel = aFile.getChannel()) {
+			FileLock lock = fileChannel.lock();
+			ByteBuffer buffer = null;
+			String tmp = loadFile(fileChannel, buffer);
+			Object obj = parser.parse(new StringReader(tmp));
 			JSONObject jsonObject = (JSONObject) obj;
 			int count = 0;
 			String regexPattern = "(#\\w+)";
@@ -97,19 +82,15 @@ public class Storage {
 					jsonObject.put(hashtag, obj2);
 				}
 			}
-			lock.release();
-			fileChannel.close();
-			logger.debug("sssssss" + jsonObject.toJSONString());
-			fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
-		            StandardOpenOption.TRUNCATE_EXISTING);
-			lock = fileChannel.lock(); // gets an exclusive lock
-				buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
-				fileChannel.write(buffer);
+			fileChannel.truncate(0);
+			buffer = ByteBuffer.allocate(((int) jsonObject.toJSONString().length()));
+			buffer.put(jsonObject.toJSONString().getBytes());
+			buffer.flip();
+	        while(buffer.hasRemaining()) {
+	        	fileChannel.write(buffer);
+	        }
 		} catch (Exception e) {
 			logger.error("Error guardar el indice de TT: " + e);
-		} finally {
-			lock.release();
-			fileChannel.close();
 		}
 	}
 
@@ -135,23 +116,23 @@ public class Storage {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(command.getUuid().toString(), obj2);
 
-        Path path = Paths.get(fileName);
-        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
-	            StandardOpenOption.APPEND);
-        FileLock lock = fileChannel.lock(); // gets an exclusive lock
+		RandomAccessFile aFile     = new RandomAccessFile(fileName, "rw");
+		FileChannel      fileChannel = aFile.getChannel();
+		FileLock lock = fileChannel.lock();
+
 		try {
 			ByteBuffer buffer = ByteBuffer.wrap((jsonObject.toJSONString() + String.format("%n")).getBytes());
 			fileChannel.write(buffer);
 		} catch (Exception e) {
 			logger.error("Error guardar la base de datos: " + e);
 		} finally {
+			// Una vez que persisto el mensaje, actualizo los indices y el TT
+			updateUserIndex(command);
+			updateHashTagIndex(command);
+			updateTT(command);
 			lock.release();
 			fileChannel.close();
 		}
-		// Una vez que persisto el mensaje, actualizo los indices y el TT
-		updateUserIndex(command);
-		updateHashTagIndex(command);
-		updateTT(command);
 	}
 
 	private void updateUserIndex(Command command)
@@ -159,54 +140,34 @@ public class Storage {
 		String fileName = Constants.DB_INDEX_DIR + "/"
 				+ Constants.DB_USER_INDEX;
 		JSONParser parser = new JSONParser();
-		Object obj;
 
 		logger.info("Actualizando el inice de usuarios");
-		File tmpFile = new File(fileName);
-		if (tmpFile.createNewFile()) {
-			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
-			oFile.write("{}".getBytes());
-		}
-
-        Path path = Paths.get(fileName);
-        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
-        try {
-		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
-		fileChannel.read(buffer);
-		buffer.position(0);
-		StringBuilder sb = new StringBuilder();
-        while (buffer.hasRemaining()) {	
-            sb.append((char) buffer.get());                
-        }
-        String tmp = sb.toString();
-        if((tmp.split("}", -1).length - 1) > 1) {
-        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
-        }		
-		obj = parser.parse(new StringReader(tmp));
-		JSONObject jsonObject = (JSONObject) obj;
-		JSONArray array = (JSONArray) jsonObject.get(command.getUser());
-		if (array == null) {
-			// Hay que crear la entrada en el indice
-			JSONArray ar2 = new JSONArray();
-			ar2.add(command.getUuid().toString());
-			jsonObject.put(command.getUser(), ar2);
-		} else {
-			array.add(command.getUuid().toString());
-			jsonObject.put(command.getUser(), array);
-		}
-		lock.release();
-		fileChannel.close();
-		fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
-	            StandardOpenOption.TRUNCATE_EXISTING);
-		lock = fileChannel.lock(); // gets an exclusive lock
-			buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
-			fileChannel.write(buffer);
+		RandomAccessFile aFile = new RandomAccessFile(fileName, "rw");
+        try (FileChannel fileChannel = aFile.getChannel()) {
+			FileLock lock = fileChannel.lock();
+			ByteBuffer buffer = null;
+			String tmp = loadFile(fileChannel, buffer);
+			Object obj = parser.parse(new StringReader(tmp));
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray array = (JSONArray) jsonObject.get(command.getUser());
+			if (array == null) {
+				// Hay que crear la entrada en el indice
+				JSONArray ar2 = new JSONArray();
+				ar2.add(command.getUuid().toString());
+				jsonObject.put(command.getUser(), ar2);
+			} else {
+				array.add(command.getUuid().toString());
+				jsonObject.put(command.getUser(), array);
+			}
+			fileChannel.truncate(0);
+			buffer = ByteBuffer.allocate(((int) jsonObject.toJSONString().length()));
+			buffer.put(jsonObject.toJSONString().getBytes());
+			buffer.flip();
+	        while(buffer.hasRemaining()) {
+	        	fileChannel.write(buffer);
+	        }
 		} catch (Exception e) {
-			logger.error("Error guardar el indice de u: " + e);
-		} finally {
-			lock.release();
-			fileChannel.close();
+			logger.error("Error guardar el indice de usuarios: " + e);
 		}
 	}
 
@@ -215,64 +176,44 @@ public class Storage {
 		String fileName = Constants.DB_INDEX_DIR + "/"
 				+ Constants.DB_HASHTAG_INDEX;
 		JSONParser parser = new JSONParser();
-		Object obj;
 
 		logger.info("Actualizando el inice de hashtags");
-		File tmpFile = new File(fileName);
-		if (tmpFile.createNewFile()) {
-			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
-			oFile.write("{}".getBytes());
-		}
-		
-        Path path = Paths.get(fileName);
-        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
-        try {
-		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
-		fileChannel.read(buffer);
-		buffer.position(0);
-		StringBuilder sb = new StringBuilder();
-        while (buffer.hasRemaining()) {	
-            sb.append((char) buffer.get());                
-        }
-        String tmp = sb.toString();
-        if((tmp.split("}", -1).length - 1) > 1) {
-        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
-        }
-		obj = parser.parse(new StringReader(tmp));
-		JSONObject jsonObject = (JSONObject) obj;
-		JSONArray array;
-		String regexPattern = "(#\\w+)";
-		Pattern p = Pattern.compile(regexPattern);
-		Matcher m = p.matcher(command.getMessage());
-		String hashtag;
-		JSONArray ar2;
-		while (m.find()) {
-			hashtag = m.group(1);
-			hashtag = hashtag.substring(1, hashtag.length());
-			array = (JSONArray) jsonObject.get(hashtag);
-			if (array == null) {
-				// Hay que crear la entrada en el indice
-				ar2 = new JSONArray();
-				ar2.add(command.getUuid().toString());
-				jsonObject.put(hashtag, ar2);
-			} else {
-				array.add(command.getUuid().toString());
-				jsonObject.put(hashtag, array);
+		RandomAccessFile aFile = new RandomAccessFile(fileName, "rw");
+        try (FileChannel fileChannel = aFile.getChannel()) {
+			FileLock lock = fileChannel.lock();
+			ByteBuffer buffer = null;
+			String tmp = loadFile(fileChannel, buffer);
+			Object obj = parser.parse(new StringReader(tmp));
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray array;
+			String regexPattern = "(#\\w+)";
+			Pattern p = Pattern.compile(regexPattern);
+			Matcher m = p.matcher(command.getMessage());
+			String hashtag;
+			JSONArray ar2;
+			while (m.find()) {
+				hashtag = m.group(1);
+				hashtag = hashtag.substring(1, hashtag.length());
+				array = (JSONArray) jsonObject.get(hashtag);
+				if (array == null) {
+					// Hay que crear la entrada en el indice
+					ar2 = new JSONArray();
+					ar2.add(command.getUuid().toString());
+					jsonObject.put(hashtag, ar2);
+				} else {
+					array.add(command.getUuid().toString());
+					jsonObject.put(hashtag, array);
+				}
 			}
-		}
-		lock.release();
-		fileChannel.close();
-		fileChannel = FileChannel.open(path, StandardOpenOption.WRITE,
-	            StandardOpenOption.TRUNCATE_EXISTING);
-		lock = fileChannel.lock(); // gets an exclusive lock
-			buffer = ByteBuffer.wrap(jsonObject.toJSONString().getBytes());
-			fileChannel.write(buffer);
+			fileChannel.truncate(0);
+			buffer = ByteBuffer.allocate(((int) jsonObject.toJSONString().length()));
+			buffer.put(jsonObject.toJSONString().getBytes());
+			buffer.flip();
+	        while(buffer.hasRemaining()) {
+	        	fileChannel.write(buffer);
+	        }
 		} catch (Exception e) {
 			logger.error("Error guardar el indice de hashtags: " + e);
-		} finally {
-			lock.release();
-			fileChannel.close();
 		}
 	}
 
@@ -304,37 +245,33 @@ public class Storage {
 		// Levantar el json
 		JSONParser parser = new JSONParser();
 
-        Path path = Paths.get(fileName);
-        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
-        try {
-        ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
-		fileChannel.read(buffer);
-		buffer.position(0);
-		StringBuilder sb = new StringBuilder();
-        while (buffer.hasRemaining()) {	
-            sb.append((char) buffer.get());                
-        }
-		
-		Object obj = parser.parse(new StringReader(sb.toString()));
-
-		JSONObject jsonObject = (JSONObject) obj;
-
-		// Crear un map
-		for (Iterator iterator = jsonObject.keySet().iterator(); iterator
-				.hasNext();) {
-			String key = (String) iterator.next();
-			map.put(key, (Long) jsonObject.get(key));
-		}
-
-		returnList = sortHashMapByValues(map);
-		returnList
-				.add("Total de topics: " + String.valueOf(map.keySet().size()));
+		RandomAccessFile aFile = new RandomAccessFile(fileName, "rw");
+        try (FileChannel fileChannel = aFile.getChannel()) {
+        	FileLock lock = fileChannel.lock();
+	        ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+			fileChannel.read(buffer);
+			buffer.position(0);
+			StringBuilder sb = new StringBuilder();
+	        while (buffer.hasRemaining()) {	
+	            sb.append((char) buffer.get());                
+	        }
+			
+			Object obj = parser.parse(new StringReader(sb.toString()));
+	
+			JSONObject jsonObject = (JSONObject) obj;
+	
+			// Crear un map
+			for (Iterator iterator = jsonObject.keySet().iterator(); iterator
+					.hasNext();) {
+				String key = (String) iterator.next();
+				map.put(key, (Long) jsonObject.get(key));
+			}
+	
+			returnList = sortHashMapByValues(map);
+			returnList
+					.add("Total de topics: " + String.valueOf(map.keySet().size()));
         } catch(Exception e) {
         	// Do nothing
-        } finally {
-		lock.release();
-		fileChannel.close();
         }
 		return returnList;
 	}
@@ -343,7 +280,7 @@ public class Storage {
 			throws IOException, ParseException {
 		String fileName;
 		JSONParser parser = new JSONParser();
-		Object obj, obj2;
+		Object obj2;
 		List<String> messageList = new ArrayList<String>();
 		String file, id;
 
@@ -359,125 +296,60 @@ public class Storage {
 		}
 
 		// Obtengo la lista de archivos que contienen el user
-
-		File tmpFile = new File(fileName);
-		if (tmpFile.createNewFile()) {
-			FileOutputStream oFile = new FileOutputStream(tmpFile, false);
-			oFile.write("{}".getBytes());
-		}
 		
-        Path path = Paths.get(fileName);
-        FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-        FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
-        try {
-		ByteBuffer buffer = ByteBuffer.allocate(((int) fileChannel.size()));
-		fileChannel.read(buffer);
-		buffer.position(0);
-		StringBuilder sb = new StringBuilder();
-        while (buffer.hasRemaining()) {	
-            sb.append((char) buffer.get());                
-        }
-		
-		obj = parser.parse(new StringReader(sb.toString()));
-		JSONObject jsonObject = (JSONObject) obj;
-		JSONArray array = (JSONArray) jsonObject.get(key);
-
-		String line, reg;
-		JSONObject jsonObject2;
-		int remainingPost = queryCountShowPosts;
-		// Abro archivo por archivo y recupero los mensajes
-		if (array != null) {
-			ListIterator<String> iterator = array.listIterator(array.size());
-			while (iterator.hasPrevious() && remainingPost > 0) {
-				id = iterator.previous();
-				file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor)
-						+ Constants.COMMAND_SCRIPT_EXTENSION;
-				Path path2 = Paths.get(file);
-				FileChannel fileChannel2 = FileChannel.open(path2, StandardOpenOption.READ);
-				FileLock lock2 = fileChannel2.lock(0, Long.MAX_VALUE, true);
-				ByteBuffer buffer2 = ByteBuffer.allocate(((int) fileChannel2.size()));
-				fileChannel2.read(buffer2);
-				buffer2.position(0);
-				StringBuilder sb2 = new StringBuilder();
-				while (buffer2.hasRemaining()) {	
-					sb2.append((char) buffer2.get());                
-				}
-				try (
-					BufferedReader br = new BufferedReader(
-					new StringReader(sb2.toString()))
-				) {
-					while ((line = br.readLine()) != null && remainingPost > 0
-							&& !("").equals(line.trim())) {
-						System.out.println("line: " + line);
-						obj2 = parser.parse(line);
-						jsonObject2 = (JSONObject) obj2;
-						if (jsonObject2.get(id) != null) {
-							messageList.add(jsonObject2.get(id).toString());
+		RandomAccessFile aFile = new RandomAccessFile(fileName, "rw");
+        try (FileChannel fileChannel = aFile.getChannel()) {
+			FileLock lock = fileChannel.lock();
+			ByteBuffer buffer = null;
+			String tmp = loadFile(fileChannel, buffer);
+			Object obj = parser.parse(new StringReader(tmp));
+			
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray array = (JSONArray) jsonObject.get(key);
+	
+			String line, reg;
+			JSONObject jsonObject2;
+			int remainingPost = queryCountShowPosts;
+			// Abro archivo por archivo y recupero los mensajes
+			if (array != null) {
+				ListIterator<String> iterator = array.listIterator(array.size());
+				while (iterator.hasPrevious() && remainingPost > 0) {
+					id = iterator.previous();
+					file = Constants.DB_DIR + "/" + id.substring(0, shardingFactor)
+							+ Constants.COMMAND_SCRIPT_EXTENSION;
+					Path path2 = Paths.get(file);
+					try(FileChannel fileChannel2 = FileChannel.open(path2, StandardOpenOption.READ)) {
+						FileLock lock2 = fileChannel2.lock(0, Long.MAX_VALUE, true);
+						ByteBuffer buffer2 = ByteBuffer.allocate(((int) fileChannel2.size()));
+						fileChannel2.read(buffer2);
+						buffer2.position(0);
+						StringBuilder sb2 = new StringBuilder();
+						while (buffer2.hasRemaining()) {	
+							sb2.append((char) buffer2.get());                
 						}
-						remainingPost--;
+						try (
+							BufferedReader br = new BufferedReader(
+							new StringReader(sb2.toString()))
+						) {
+							while ((line = br.readLine()) != null && remainingPost > 0
+									&& !("").equals(line.trim())) {
+								System.out.println("line: " + line);
+								obj2 = parser.parse(line);
+								jsonObject2 = (JSONObject) obj2;
+								if (jsonObject2.get(id) != null) {
+									messageList.add(jsonObject2.get(id).toString());
+								}
+								remainingPost--;
+							}
+						}
 					}
 				}
-				lock2.release();
-				fileChannel2.close();
 			}
-		}
         }catch(Exception e) {
         	// Do nothing
-        } finally {
-		lock.release();
-		fileChannel.close();
         }
 		// Retorno la lista con los mensajes encontrados
 		return messageList;
-	}
-
-	public void delete(Command command)
-			throws IOException, ParseException {
-		String file = Constants.DB_DIR + "/"
-				+ command.getMessage().substring(0, shardingFactor)
-				+ Constants.COMMAND_SCRIPT_EXTENSION;
-		String fileTmp = file + ".tmp";
-		JSONParser parser = new JSONParser();
-		Object obj2;
-		String line, key;
-		JSONObject jsonObject2;
-
-		// Creo un archivo temporal
-		PrintWriter pw = new PrintWriter(
-				new BufferedWriter(new FileWriter(fileTmp)));
-
-		logger.info("Eleiminando registro");
-
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			while ((line = br.readLine()) != null) {
-				obj2 = parser.parse(line);
-				jsonObject2 = (JSONObject) obj2;
-				key = (String) jsonObject2.keySet().iterator().next();
-				if (!(key.equals(command.getMessage()))) {
-					// Si no es la clave a borrar, guardo el registro en un
-					// archivo temporal
-					pw.println(jsonObject2);
-				}
-			}
-		}
-		pw.close();
-		// Borro el archvio original y renombro el tmp
-		File fileToDelete = new File(file);
-		File newFile = new File(fileTmp);
-		if (fileToDelete.delete()) {
-			logger.info("Archivo original borrado");
-			logger.info("Renombrado el archivo temporal al original");
-			if (newFile.renameTo(fileToDelete)) {
-				logger.info("Archivo renombrado con exito");
-			} else {
-				logger.error("No se ha podido renombrar el archivo");
-				throw new IOException();
-			}
-		} else {
-			logger.error(
-					"No se ha podido borrar el registro. Se aborta la operacion");
-			throw new IOException();
-		}
 	}
 
 	private List<String> sortHashMapByValues(Map<String, Long> map) {
@@ -516,5 +388,19 @@ public class Storage {
 		}
 		return tt;
 	}
-
+	
+	private String loadFile(FileChannel fileChannel, ByteBuffer buffer) throws IOException {
+		buffer = ByteBuffer.allocate(((int) fileChannel.size()));
+		fileChannel.read(buffer);
+		buffer.position(0);
+		StringBuilder sb = new StringBuilder();
+        while (buffer.hasRemaining()) {	
+            sb.append((char) buffer.get());                
+        }
+        String tmp = sb.toString();
+        if((tmp.split("}", -1).length - 1) > 1) {
+        	tmp = tmp.substring(0, tmp.indexOf("}")+1);
+        }
+        return tmp;
+	}
 }

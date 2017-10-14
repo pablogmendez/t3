@@ -104,13 +104,6 @@ public class StorageController {
 				logger.debug(response.getMessage());
 				response.setResponse_status(RESPONSE_STATUS.OK);
 				break;
-			case DELETE:
-				logger.info(
-						"Comando recibido: DELETE. Insertando en la cola de borrado.");
-				storage.delete(command);
-				response.setMessage("Borrado exitoso");
-				response.setResponse_status(RESPONSE_STATUS.OK);
-				break;
 			default:
 				logger.info("Comando recibido invalido. Comando descartado.");
 			}

@@ -25,22 +25,18 @@ public class CommandController {
 	}
 
 	public void sendMessage(Command command) {
-		PrintWriter pw;
-
 		try {
 			if (command.getMessage().length() <= maxlengthMsg) {
 				command.setUuid(UUID.randomUUID());
 				timestamp = new Timestamp(System.currentTimeMillis());
 				command.setTimestamp(Constants.SDF.format(timestamp));
 				dispatcherQueue.push(command);
-				try {
-					pw = new PrintWriter(new BufferedWriter(
-							new FileWriter(commandFile, true)));
+				try (PrintWriter pw = new PrintWriter(new BufferedWriter(
+						new FileWriter(commandFile, true)))) {
 					pw.printf(
 							"Evento enviado - UUID: {%s} - Timestamp: {%s} - Comando: {%s} - Mensaje: {%s}%n-----------------------------------------------------%n",
 							command.getUuid(), command.getTimestamp(),
 							command.getCommand(), command.getMessage());
-					pw.close();
 					System.out.printf(
 							"Comando enviado - UUID: {%s} - Comando: {%s} - Usuario: {%s} - Mensaje: {%s} - Timestamp: {%s}",
 							command.getUuid().toString(),
